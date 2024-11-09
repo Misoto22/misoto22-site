@@ -5,12 +5,12 @@ export default function About() {
         <h2 className="text-3xl font-light mb-12 tracking-wide">About</h2>
         <div className="space-y-8 text-gray-600 leading-relaxed">
           <p className="text-lg">
-            Hi, I'm Henry, a Computer Science student and photographer based in Perth, Western Australia.
+            Hi, I&apos;m Henry, a Computer Science student and photographer based in Perth, Western Australia.
           </p>
           
           <div className="space-y-6">
             <p>
-              Originally from Shanghai, China, I've had the privilege of experiencing life in different parts of Australia. 
+              Originally from Shanghai, China, I&apos;ve had the privilege of experiencing life in different parts of Australia. 
               Before settling in Perth, I spent four enriching years in Sydney, which significantly influenced my 
               perspective as a photographer.
             </p>
@@ -22,8 +22,8 @@ export default function About() {
             </p>
   
             <p>
-              When I'm not coding or studying, you'll find me exploring new locations with my camera, 
-              whether it's discovering hidden urban corners or venturing into the natural landscapes 
+              When I&apos;m not coding or studying, you&apos;ll find me exploring new locations with my camera, 
+              whether it&apos;s discovering hidden urban corners or venturing into the natural landscapes 
               that make Western Australia unique.
             </p>
           </div>

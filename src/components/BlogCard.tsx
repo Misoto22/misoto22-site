@@ -1,3 +1,5 @@
+import Image from 'next/image'
+
 interface BlogPost {
     id: number;
     title: string;
@@ -12,9 +14,11 @@ interface BlogPost {
   
   const BlogCard = ({ post }: BlogCardProps) => (
     <article className="bg-white">
-      <img
+      <Image
         src={post.image}
         alt={post.title}
+        width={800}
+        height={400}
         className="w-full h-64 object-cover"
       />
       <div className="pt-6">

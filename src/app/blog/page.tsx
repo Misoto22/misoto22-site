@@ -6,7 +6,7 @@ export default function Blog() {
           <h2 className="text-4xl font-light tracking-wider text-gray-900 mb-6">Blog</h2>
           <p className="text-lg text-gray-600 mb-4">Coming Soon</p>
           <p className="text-sm text-gray-500">
-            I'm working on creating inspiring content.
+            I&apos;m working on creating inspiring content.
           </p>
         </div>
       </section>
