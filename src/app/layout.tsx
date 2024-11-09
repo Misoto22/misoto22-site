@@ -4,8 +4,8 @@ import type { Metadata } from 'next'
 import Navigation from '@/components/Navigation'
 
 export const metadata: Metadata = {
-  title: 'Your Name - Photography Portfolio',
-  description: 'Personal photography portfolio and blog',
+  title: 'HENRY CHEN - Personal Website',
+  description: 'Henry&apos;s Personal photography portfolio and blog',
 }
 
 export default function RootLayout({
