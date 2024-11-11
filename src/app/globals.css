@@ -5,12 +5,20 @@
 :root {
   --background: #ffffff;
   --foreground: #171717;
+  --card-background: #ffffff;
+  --nav-background: rgba(255, 255, 255, 0.9);
+  --border-color: #e5e7eb;
+  --secondary-text: #4b5563;
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+    --background: #111827;
+    --foreground: #f3f4f6;
+    --card-background: #1f2937;
+    --nav-background: rgba(17, 24, 39, 0.9);
+    --border-color: #374151;
+    --secondary-text: #d1d5db;
   }
 }
 

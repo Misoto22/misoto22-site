@@ -6,10 +6,15 @@ const config: Config = {
     './src/components/**/*.{js,ts,jsx,tsx,mdx}',
     './src/app/**/*.{js,ts,jsx,tsx,mdx}',
   ],
+  darkMode: 'media',
   theme: {
     extend: {
       lineClamp: {
         2: '2',
+      },
+      colors: {
+        background: 'var(--background)',
+        foreground: 'var(--foreground)',
       },
     },
   },

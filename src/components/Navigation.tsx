@@ -14,7 +14,7 @@ const Navigation = () => {
   }
 
   return (
-    <nav className="fixed w-full bg-white/90 backdrop-blur-sm z-50">
+    <nav className="fixed w-full bg-[var(--nav-background)] backdrop-blur-sm z-50">
       <div className="max-w-6xl mx-auto px-6 py-6">
         <div className="flex justify-between items-center">
           <Link href="/" className="text-2xl font-semibold tracking-wider" onClick={handleNavigation}>
@@ -57,7 +57,7 @@ const Navigation = () => {
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -10 }}
               transition={{ duration: 0.2 }}
-              className="md:hidden absolute top-full left-0 right-0 bg-white/90 backdrop-blur-sm"
+              className="md:hidden absolute top-full left-0 right-0 bg-[var(--nav-background)] backdrop-blur-sm"
             >
               <div className="max-w-6xl mx-auto px-6">
                 <motion.div 
@@ -79,7 +79,7 @@ const Navigation = () => {
                   <MenuItem href="/blog" text="Blog" isActive={pathname === '/blog'} onClick={handleNavigation} />
                 </motion.div>
                 <motion.div 
-                  className="flex space-x-4 pt-4 border-t border-gray-100 mt-4 pb-4"
+                  className="flex space-x-4 pt-4 border-t border-[var(--border-color)] mt-4 pb-4"
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
                   transition={{ delay: 0.2 }}
@@ -125,11 +125,19 @@ const NavLink = ({
 }) => (
   <Link
     href={href}
+    className={`relative py-1 ${
+      isActive 
+        ? 'text-[var(--foreground)]' 
+        : 'text-[var(--secondary-text)] hover:text-[var(--foreground)]'
+    } transition-colors`}
     onClick={onClick}
-    className={`tracking-wide text-sm uppercase transition-colors ${
-      isActive ? 'text-gray-900' : 'text-gray-600 hover:text-gray-900'
-    }`}
   >
+    {isActive && (
+      <motion.span
+        layoutId="underline"
+        className="absolute left-0 top-full h-px w-full bg-[var(--foreground)]"
+      />
+    )}
     {text}
   </Link>
 )

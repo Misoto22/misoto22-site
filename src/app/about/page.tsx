@@ -1,10 +1,9 @@
-// src/app/about/page.tsx
 export default function About() {
     return (
       <section className="pt-24 max-w-3xl mx-auto px-6">
-        <h2 className="text-3xl font-light mb-12 tracking-wide">About</h2>
-        <div className="space-y-8 text-gray-600 leading-relaxed">
-          <p className="text-lg">
+        <h2 className="text-3xl font-light mb-12 tracking-wide text-[var(--secondary-text)]">About</h2>
+        <div className="space-y-8 text-[var(--secondary-text)] leading-relaxed">
+          <p className="text-lg text-[var(--secondary-text)]">
             Hi, I&apos;m Henry, a Computer Science student and photographer based in Perth, Western Australia.
           </p>
           
@@ -40,15 +39,15 @@ export default function About() {
   
         <div className="mt-12 flex gap-6">
           <a 
-            href="mailto:your.email@example.com" 
-            className="text-gray-600 hover:text-gray-900 transition-colors"
+            href="mailto:cxw8848@hotmail.com" 
+            className="text-[var(--secondary-text)] hover:text-gray-900 transition-colors"
           >
             Get in touch
           </a>
           <span className="text-gray-300">|</span>
           <a 
             href="/cv.pdf" 
-            className="text-gray-600 hover:text-gray-900 transition-colors"
+            className="text-[var(--secondary-text)] hover:text-gray-900 transition-colors"
           >
             Resume
           </a>

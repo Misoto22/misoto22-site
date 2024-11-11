@@ -70,10 +70,10 @@ const GalleryItem = ({ image }: { image: GalleryImage }) => (
         className="object-cover transition-transform duration-500 group-hover:scale-105"
       />
     </div>
-    <div className="absolute inset-0 bg-black/30 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+    <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
       <div className="absolute bottom-0 left-0 p-6">
         <h3 className="text-white text-lg font-light tracking-wide">{image.title}</h3>
-        <p className="text-gray-200 text-sm">{image.location}, {image.year}</p>
+        <p className="text-gray-100 text-sm">{image.location}, {image.year}</p>
       </div>
     </div>
   </div>

@@ -22,13 +22,13 @@ interface BlogPost {
         className="w-full h-64 object-cover"
       />
       <div className="pt-6">
-        <time className="text-sm text-gray-500">{post.date}</time>
+        <time className="text-sm text-[var(--secondary-text)]">{post.date}</time>
         <h3 className="mt-2 text-xl font-light tracking-wide">
-          <a href="#" className="hover:text-gray-600">
+          <a href="#" className="hover:text-[var(--secondary-text)]">
             {post.title}
           </a>
         </h3>
-        <p className="mt-3 text-gray-600 line-clamp-2">
+        <p className="mt-3 text-[var(--secondary-text)] line-clamp-2">
           {post.excerpt}
         </p>
       </div>
