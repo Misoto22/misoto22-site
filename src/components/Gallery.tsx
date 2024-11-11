@@ -8,6 +8,7 @@ interface GalleryImage {
   location: string;
   year: string;
   className: string;
+  aspect: string;
 }
 
 const galleryImages: GalleryImage[] = [
@@ -17,7 +18,8 @@ const galleryImages: GalleryImage[] = [
     title: 'A.Summers.Tale',
     location: 'Sydney',
     year: '2022',
-    className: 'col-span-2 md:col-span-2' // Wide image for the landscape photo
+    className: 'col-span-2 md:col-span-2',
+    aspect: 'aspect-[16/9]'
   },
   {
     id: 2,
@@ -25,7 +27,8 @@ const galleryImages: GalleryImage[] = [
     title: 'Sydney Town Hall',
     location: 'Sydney',
     year: '2023',
-    className: 'col-span-1 row-span-1' // Regular square/vertical image
+    className: 'col-span-1 row-span-1',
+    aspect: 'aspect-[4/3]'
   },
   {
     id: 3,
@@ -33,7 +36,8 @@ const galleryImages: GalleryImage[] = [
     title: 'University of Sydney',
     location: 'Sydney',
     year: '2022',
-    className: 'col-span-1 row-span-1' // Regular square/vertical image
+    className: 'col-span-1 row-span-1',
+    aspect: 'aspect-[4/3]'
   },
   {
     id: 4,
@@ -41,14 +45,15 @@ const galleryImages: GalleryImage[] = [
     title: '南昌朝阳大桥',
     location: '南昌',
     year: '2023',
-    className: 'col-span-2 md:col-span-2' // Wide image for the landscape photo
+    className: 'col-span-2 md:col-span-2',
+    aspect: 'aspect-[16/9]'
   }
 ];
 
 const Gallery = () => {
   return (
     <section className="max-w-7xl mx-auto px-6 pt-24">
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 auto-rows-[300px]">
+      <div className="max-w-6xl mx-auto columns-1 md:columns-2 lg:columns-3 gap-4 [&>div]:mb-4">
         {galleryImages.map((image) => (
           <GalleryItem key={image.id} image={image} />
         ))}
@@ -58,14 +63,14 @@ const Gallery = () => {
 }
 
 const GalleryItem = ({ image }: { image: GalleryImage }) => (
-  <div className={`relative group overflow-hidden ${image.className}`}>
-    <div className="absolute inset-0">
+  <div className="relative group overflow-hidden break-inside-avoid">
+    <div className={`relative ${image.aspect} w-full`}>
       <Image
         src={image.src}
         alt={image.title}
         fill
         sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-        quality={95}  // Set high quality here
+        quality={95}
         priority={image.id <= 4}
         className="object-cover transition-transform duration-500 group-hover:scale-105"
       />
