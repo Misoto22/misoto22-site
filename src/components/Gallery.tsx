@@ -47,6 +47,24 @@ const galleryImages: GalleryImage[] = [
     year: '2023',
     className: 'col-span-2 md:col-span-2',
     aspect: 'aspect-[16/9]'
+  },
+  {
+    id: 5,
+    src: '/images/portfolio/Sydney Harbour Bridge.JPG',
+    title: 'Sydney Harbour Bridge',
+    location: 'Sydney',
+    year: '2020',
+    className: 'col-span-2 md:col-span-2',
+    aspect: 'aspect-[16/9]'
+  },
+  {
+    id: 6,
+    src: '/images/portfolio/Wollongong Beach.JPG',
+    title: 'Wollongong Beach',
+    location: 'Wollongong',
+    year: '2023',
+    className: 'col-span-1 row-span-1',
+    aspect: 'aspect-[3/2]'
   }
 ];
 
