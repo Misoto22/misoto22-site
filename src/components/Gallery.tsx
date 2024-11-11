@@ -65,6 +65,42 @@ const galleryImages: GalleryImage[] = [
     year: '2023',
     className: 'col-span-1 row-span-1',
     aspect: 'aspect-[3/2]'
+  },
+  {
+    id: 7,
+    src: '/images/portfolio/Chongqing.JPG',
+    title: 'Chongqing Raffles',
+    location: 'Chongqing',
+    year: '2023',
+    className: 'col-span-2 md:col-span-2',
+    aspect: 'aspect-[2/3]'
+  },
+  {
+    id: 8,
+    src: '/images/portfolio/Tourist Wheel Fremantle.JPG',
+    title: 'Tourist Wheel Fremantle',
+    location: 'Fremantle, WA',
+    year: '2023',
+    className: 'col-span-1 row-span-1',
+    aspect: 'aspect-[2/3]'
+  },
+  {
+    id: 9,
+    src: '/images/portfolio/Sydney George Street.JPG',
+    title: 'Sydney George Street',
+    location: 'Sydney',
+    year: '2021',
+    className: 'col-span-2 md:col-span-2',
+    aspect: 'aspect-[2/3]'
+  },
+  {
+    id: 10,
+    src: '/images/portfolio/Milky Way.JPG',
+    title: 'Milky Way',
+    location: 'Lake Ninan, WA',
+    year: '2024',
+    className: 'col-span-1 row-span-1',
+    aspect: 'aspect-[2/3]'
   }
 ];
 
