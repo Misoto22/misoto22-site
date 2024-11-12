@@ -1,5 +1,6 @@
 "use client"
 import Image from 'next/image'
+import { useState } from 'react'
 
 interface GalleryImage {
   id: number;
@@ -105,19 +106,72 @@ const galleryImages: GalleryImage[] = [
 ];
 
 const Gallery = () => {
+  const [selectedImage, setSelectedImage] = useState<GalleryImage | null>(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const handleImageClick = (image: GalleryImage) => {
+    setSelectedImage(image);
+    setIsModalOpen(true);
+  };
+
+  const handleCloseModal = () => {
+    setSelectedImage(null);
+    setIsModalOpen(false);
+  };
+
   return (
     <section className="max-w-7xl mx-auto px-6 pt-24">
       <div className="max-w-6xl mx-auto columns-1 md:columns-2 lg:columns-3 gap-4 [&>div]:mb-4">
         {galleryImages.map((image) => (
-          <GalleryItem key={image.id} image={image} />
+          <GalleryItem 
+            key={image.id} 
+            image={image} 
+            onClick={() => handleImageClick(image)}
+          />
         ))}
       </div>
+
+      {/* Image Modal */}
+      {isModalOpen && selectedImage && (
+        <div 
+          className="fixed inset-0 bg-black/90 z-50 flex items-center justify-center p-4"
+          onClick={handleCloseModal}
+        >
+          <button 
+            className="absolute top-4 right-4 text-white hover:text-gray-300"
+            onClick={handleCloseModal}
+          >
+            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+            </svg>
+          </button>
+          <div className="relative max-w-7xl max-h-[90vh] w-full h-full" onClick={e => e.stopPropagation()}>
+            <Image
+              src={selectedImage.src}
+              alt={selectedImage.title}
+              fill
+              quality={100}
+              className="object-contain"
+              sizes="100vw"
+            />
+          </div>
+        </div>
+      )}
     </section>
   )
 }
 
-const GalleryItem = ({ image }: { image: GalleryImage }) => (
-  <div className="relative group overflow-hidden break-inside-avoid">
+const GalleryItem = ({ 
+  image, 
+  onClick 
+}: { 
+  image: GalleryImage;
+  onClick: () => void;
+}) => (
+  <div 
+    className="relative group overflow-hidden break-inside-avoid cursor-pointer"
+    onClick={onClick}
+  >
     <div className={`relative ${image.aspect} w-full`}>
       <Image
         src={image.src}
