@@ -24,6 +24,15 @@ interface ExifData {
 
 const galleryImages: GalleryImage[] = [
   {
+    id: 0,
+    src: '/images/portfolio/HK Night.jpg',
+    title: 'Hong Kong Night',
+    location: 'Hong Kong',
+    year: '2024',
+    className: 'col-span-2 md:col-span-2',
+    aspect: 'aspect-[3/2]'
+  },
+  {
     id: 1,
     src: '/images/portfolio/A.Summers.Tale.jpg',
     title: 'A.Summers.Tale',
