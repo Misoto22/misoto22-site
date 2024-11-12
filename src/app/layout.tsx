@@ -2,6 +2,7 @@
 import './globals.css'
 import type { Metadata } from 'next'
 import Navigation from '@/components/Navigation'
+import Footer from '@/components/Footer'
 
 export const metadata: Metadata = {
   title: 'HENRY CHEN - Personal Website',
@@ -17,7 +18,8 @@ export default function RootLayout({
     <html lang="en">
       <body>
         <Navigation />
-        {children}
+        <main>{children}</main>
+        <Footer />
       </body>
     </html>
   )
