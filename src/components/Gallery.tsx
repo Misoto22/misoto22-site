@@ -1,6 +1,7 @@
 "use client"
 import Image from 'next/image'
 import { useState } from 'react'
+import exifr from 'exifr';
 
 interface GalleryImage {
   id: number;
@@ -10,6 +11,15 @@ interface GalleryImage {
   year: string;
   className: string;
   aspect: string;
+}
+
+interface ExifData {
+  Make?: string;
+  Model?: string;
+  LensModel?: string;
+  FNumber?: number;
+  ExposureTime?: number;
+  ISO?: number;
 }
 
 const galleryImages: GalleryImage[] = [
@@ -108,15 +118,35 @@ const galleryImages: GalleryImage[] = [
 const Gallery = () => {
   const [selectedImage, setSelectedImage] = useState<GalleryImage | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [exifData, setExifData] = useState<ExifData | null>(null);
 
-  const handleImageClick = (image: GalleryImage) => {
+  const handleImageClick = async (image: GalleryImage) => {
     setSelectedImage(image);
     setIsModalOpen(true);
+    
+    try {
+      const fullUrl = `${window.location.origin}${image.src}`;
+      const data = await exifr.parse(fullUrl);
+      setExifData(data);
+    } catch (error) {
+      console.log('无法读取图片 EXIF 数据:', error);
+      setExifData(null);
+    }
   };
 
   const handleCloseModal = () => {
     setSelectedImage(null);
     setIsModalOpen(false);
+  };
+
+  // 添加一个辅助函数来转换快门速度
+  const formatShutterSpeed = (speed: number): string => {
+    if (speed >= 1) {
+      return `${speed}s`;
+    }
+    // 将小数转换为分数
+    const denominator = Math.round(1 / speed);
+    return `1/${denominator}`;
   };
 
   return (
@@ -154,6 +184,29 @@ const Gallery = () => {
               className="object-contain"
               sizes="100vw"
             />
+          </div>
+          <div className="absolute bottom-0 left-0 right-0 bg-black/60 text-white p-4">
+            <h3 className="text-xl mb-2">{selectedImage.title}</h3>
+            <p className="text-sm text-gray-300 mb-1">{selectedImage.location}, {selectedImage.year}</p>
+            {exifData && (
+              <div className="flex flex-wrap gap-4 text-sm text-gray-300">
+                {exifData.Make && exifData.Model && (
+                  <span>📷 {exifData.Make} {exifData.Model}</span>
+                )}
+                {exifData.LensModel && (
+                  <span>🔭 {exifData.LensModel}</span>
+                )}
+                {exifData.FNumber && (
+                  <span>⭕ f/{exifData.FNumber}</span>
+                )}
+                {exifData.ExposureTime && (
+                  <span>⚡ {formatShutterSpeed(exifData.ExposureTime)}</span>
+                )}
+                {exifData.ISO && (
+                  <span>📊 ISO {exifData.ISO}</span>
+                )}
+              </div>
+            )}
           </div>
         </div>
       )}
