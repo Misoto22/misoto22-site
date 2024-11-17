@@ -23,7 +23,8 @@ const Navigation = () => {
           
           {/* Desktop Navigation */}
           <div className="hidden md:flex space-x-8">
-            <NavLink href="/" text="Work" isActive={pathname === '/'} onClick={handleNavigation} />
+            <NavLink href="/" text="Photography" isActive={pathname === '/'} onClick={handleNavigation} />
+            <NavLink href="/projects" text="Projects" isActive={pathname === '/projects'} onClick={handleNavigation} />
             <NavLink href="/about" text="About" isActive={pathname === '/about'} onClick={handleNavigation} />
             <NavLink href="/contact" text="Contact" isActive={pathname === '/contact'} onClick={handleNavigation} />
             <NavLink href="/blog" text="Blog" isActive={pathname === '/blog'} onClick={handleNavigation} />
@@ -73,7 +74,8 @@ const Navigation = () => {
                     }
                   }}
                 >
-                  <MenuItem href="/" text="Work" isActive={pathname === '/'} onClick={handleNavigation} />
+                  <MenuItem href="/" text="Photography" isActive={pathname === '/'} onClick={handleNavigation} />
+                  <MenuItem href="/projects" text="Projects" isActive={pathname === '/projects'} onClick={handleNavigation} />
                   <MenuItem href="/about" text="About" isActive={pathname === '/about'} onClick={handleNavigation} />
                   <MenuItem href="/contact" text="Contact" isActive={pathname === '/contact'} onClick={handleNavigation} />
                   <MenuItem href="/blog" text="Blog" isActive={pathname === '/blog'} onClick={handleNavigation} />
