@@ -1,6 +1,6 @@
 "use client"
 import Image from 'next/image'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import exifr from 'exifr';
 
 interface GalleryImage {
@@ -62,8 +62,8 @@ const galleryImages: GalleryImage[] = [
   {
     id: 4,
     src: '/images/portfolio/Nanchang.jpg',
-    title: '南昌朝阳大桥',
-    location: '南昌',
+    title: 'Nanchang Chaoyang Bridge',
+    location: 'Nanchang',
     year: '2023',
     className: 'col-span-2 md:col-span-2',
     aspect: 'aspect-[16/9]'
@@ -138,7 +138,7 @@ const Gallery = () => {
       const data = await exifr.parse(fullUrl);
       setExifData(data);
     } catch (error) {
-      console.log('无法读取图片 EXIF 数据:', error);
+      console.log('Failed to read image EXIF data:', error);
       setExifData(null);
     }
   };
@@ -148,15 +148,48 @@ const Gallery = () => {
     setIsModalOpen(false);
   };
 
-  // 添加一个辅助函数来转换快门速度
+  const handlePrevImage = () => {
+    if (!selectedImage) return;
+    const currentIndex = galleryImages.findIndex(img => img.id === selectedImage.id);
+    const prevIndex = currentIndex <= 0 ? galleryImages.length - 1 : currentIndex - 1;
+    const prevImage = galleryImages[prevIndex];
+    handleImageClick(prevImage);
+  };
+
+  const handleNextImage = () => {
+    if (!selectedImage) return;
+    const currentIndex = galleryImages.findIndex(img => img.id === selectedImage.id);
+    const nextIndex = currentIndex >= galleryImages.length - 1 ? 0 : currentIndex + 1;
+    const nextImage = galleryImages[nextIndex];
+    handleImageClick(nextImage);
+  };
+
+  // Helper function to convert shutter speed
   const formatShutterSpeed = (speed: number): string => {
     if (speed >= 1) {
       return `${speed}s`;
     }
-    // 将小数转换为分数
+    // Convert decimal to fraction
     const denominator = Math.round(1 / speed);
     return `1/${denominator}`;
   };
+
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (!isModalOpen) return;
+      
+      if (e.key === 'ArrowLeft') {
+        handlePrevImage();
+      } else if (e.key === 'ArrowRight') {
+        handleNextImage();
+      } else if (e.key === 'Escape') {
+        handleCloseModal();
+      }
+    };
+
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [isModalOpen]);
 
   return (
     <section className="max-w-7xl mx-auto px-6 pt-24">
@@ -217,6 +250,31 @@ const Gallery = () => {
               </div>
             )}
           </div>
+          {/* Left Arrow Button */}
+          <button 
+            className="absolute left-4 top-1/2 -translate-y-1/2 text-white hover:text-gray-300 p-2"
+            onClick={(e) => {
+              e.stopPropagation();
+              handlePrevImage();
+            }}
+          >
+            <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+            </svg>
+          </button>
+
+          {/* Right Arrow Button */}
+          <button 
+            className="absolute right-4 top-1/2 -translate-y-1/2 text-white hover:text-gray-300 p-2"
+            onClick={(e) => {
+              e.stopPropagation();
+              handleNextImage();
+            }}
+          >
+            <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+            </svg>
+          </button>
         </div>
       )}
     </section>
