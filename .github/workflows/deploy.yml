@@ -31,7 +31,8 @@ jobs:
           cd /home/${{ secrets.LIGHTSAIL_USER }}/my-portfolio
           git pull origin main
           npm install
+          npm audit fix
           npm run build
           pm2 delete my-portfolio || true
-          pm2 start npm --name "my-portfolio" -- start
+          pm2 start npm --name "my-portfolio" -- start --update-env
         EOF
