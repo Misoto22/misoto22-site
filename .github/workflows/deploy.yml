@@ -27,10 +27,10 @@ jobs:
 
     - name: Deploy to Lightsail
       run: |
-        ssh ${{ secrets.LIGHTSAIL_USER }}@${{ secrets.LIGHTSAIL_HOST }} << 'EOF'
+        ssh ${{ secrets.LIGHTSAIL_USER }}@${{ secrets.LIGHTSAIL_HOST }} <<EOF
           cd /home/${{ secrets.LIGHTSAIL_USER }}/my-portfolio
           git pull origin main
           npm install
           npm run build
           pm2 restart my-portfolio || pm2 start npm --name "my-portfolio" -- start
-EOF
+        EOF
