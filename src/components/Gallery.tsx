@@ -5,12 +5,12 @@ import exifr from 'exifr';
 
 interface GalleryImage {
   id: number;
-  src: string;
   title: string;
   location: string;
   year: string;
-  className: string;
+  r2Key: string;
   aspect: string;
+  className: string;
 }
 
 interface ExifData {
@@ -22,124 +22,146 @@ interface ExifData {
   ISO?: number;
 }
 
-const galleryImages: GalleryImage[] = [
-  {
-    id: 0,
-    src: '/images/portfolio/HK Night.jpg',
-    title: 'Hong Kong Night',
-    location: 'Hong Kong',
-    year: '2024',
-    className: 'col-span-2 md:col-span-2',
-    aspect: 'aspect-[3/2]'
-  },
-  {
-    id: 1,
-    src: '/images/portfolio/A.Summers.Tale.jpg',
-    title: 'A.Summers.Tale',
-    location: 'Sydney',
-    year: '2022',
-    className: 'col-span-2 md:col-span-2',
-    aspect: 'aspect-[16/9]'
-  },
-  {
-    id: 2,
-    src: '/images/portfolio/TownHall.JPG',
-    title: 'Sydney Town Hall',
-    location: 'Sydney',
-    year: '2023',
-    className: 'col-span-1 row-span-1',
-    aspect: 'aspect-[4/3]'
-  },
-  {
-    id: 3,
-    src: '/images/portfolio/USYD.JPG',
-    title: 'University of Sydney',
-    location: 'Sydney',
-    year: '2022',
-    className: 'col-span-1 row-span-1',
-    aspect: 'aspect-[4/3]'
-  },
-  {
-    id: 4,
-    src: '/images/portfolio/Nanchang.jpg',
-    title: 'Nanchang Chaoyang Bridge',
-    location: 'Nanchang',
-    year: '2023',
-    className: 'col-span-2 md:col-span-2',
-    aspect: 'aspect-[16/9]'
-  },
-  {
-    id: 5,
-    src: '/images/portfolio/Sydney Harbour Bridge.JPG',
-    title: 'Sydney Harbour Bridge',
-    location: 'Sydney',
-    year: '2020',
-    className: 'col-span-2 md:col-span-2',
-    aspect: 'aspect-[16/9]'
-  },
-  {
-    id: 6,
-    src: '/images/portfolio/Wollongong Beach.JPG',
-    title: 'Wollongong Beach',
-    location: 'Wollongong',
-    year: '2023',
-    className: 'col-span-1 row-span-1',
-    aspect: 'aspect-[3/2]'
-  },
-  {
-    id: 7,
-    src: '/images/portfolio/Chongqing.JPG',
-    title: 'Chongqing Raffles',
-    location: 'Chongqing',
-    year: '2023',
-    className: 'col-span-2 md:col-span-2',
-    aspect: 'aspect-[2/3]'
-  },
-  {
-    id: 8,
-    src: '/images/portfolio/Tourist Wheel Fremantle.JPG',
-    title: 'Tourist Wheel Fremantle',
-    location: 'Fremantle, WA',
-    year: '2023',
-    className: 'col-span-1 row-span-1',
-    aspect: 'aspect-[2/3]'
-  },
-  {
-    id: 9,
-    src: '/images/portfolio/Sydney George Street.JPG',
-    title: 'Sydney George Street',
-    location: 'Sydney',
-    year: '2021',
-    className: 'col-span-2 md:col-span-2',
-    aspect: 'aspect-[2/3]'
-  },
-  {
-    id: 10,
-    src: '/images/portfolio/Milky Way.JPG',
-    title: 'Milky Way',
-    location: 'Lake Ninan, WA',
-    year: '2024',
-    className: 'col-span-1 row-span-1',
-    aspect: 'aspect-[2/3]'
-  }
-];
-
 const Gallery = () => {
+  const [images, setImages] = useState<GalleryImage[]>([]);
+  const [imageUrls, setImageUrls] = useState<Record<string, string>>({});
   const [selectedImage, setSelectedImage] = useState<GalleryImage | null>(null);
+  const [selectedImageUrl, setSelectedImageUrl] = useState<string>('');
+  const [selectedIndex, setSelectedIndex] = useState<number>(0);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [exifData, setExifData] = useState<ExifData | null>(null);
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+  const [loadedImages, setLoadedImages] = useState<Set<string>>(new Set());
 
-  const handleImageClick = async (image: GalleryImage) => {
+  useEffect(() => {
+    const fetchImages = async () => {
+      try {
+        setIsLoading(true);
+        setError(null);
+        const response = await fetch('/api/images');
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        const data = await response.json();
+        console.log('Fetched images:', data);
+        
+        if (!Array.isArray(data)) {
+          console.error('Received non-array data:', data);
+          throw new Error('Invalid data format received from API');
+        }
+        
+        setImages(data);
+      } catch (error) {
+        console.error('Error fetching images:', error);
+        setError(error instanceof Error ? error.message : 'Failed to fetch images');
+        setImages([]);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    fetchImages();
+  }, []);
+
+  useEffect(() => {
+    const fetchImageUrls = async () => {
+      if (!Array.isArray(images) || images.length === 0) return;
+
+      const urls: Record<string, string> = {};
+      const batchSize = 3; // 每次加载3张图片
+      
+      for (let i = 0; i < images.length; i += batchSize) {
+        const batch = images.slice(i, i + batchSize);
+        await Promise.all(
+          batch.map(async (image) => {
+            try {
+              const response = await fetch(`/api/images/url?key=${encodeURIComponent(image.r2Key)}`);
+              if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+              }
+              const data = await response.json();
+              console.log(`Got URL for ${image.title}:`, data.url);
+              urls[image.r2Key] = data.url;
+            } catch (error) {
+              console.error(`Error fetching URL for ${image.title}:`, error);
+            }
+          })
+        );
+        setImageUrls(prev => ({ ...prev, ...urls }));
+      }
+    };
+
+    fetchImageUrls();
+  }, [images]);
+
+  const handleImageLoad = (r2Key: string) => {
+    setLoadedImages(prev => new Set([...prev, r2Key]));
+  };
+
+  const handleImageClick = async (image: GalleryImage, index: number) => {
     setSelectedImage(image);
+    setSelectedIndex(index);
     setIsModalOpen(true);
-    
+
     try {
-      const fullUrl = `${window.location.origin}${image.src}`;
-      const data = await exifr.parse(fullUrl);
-      setExifData(data);
+      const response = await fetch(`/api/images/url?key=${encodeURIComponent(image.r2Key)}`);
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+      const data = await response.json();
+      setSelectedImageUrl(data.url);
+      
+      // Try to get EXIF data
+      try {
+        const exifData = await exifr.parse(data.url);
+        setExifData(exifData);
+      } catch (error) {
+        console.log('Failed to read image EXIF data:', error);
+        setExifData(null);
+      }
     } catch (error) {
-      console.log('Failed to read image EXIF data:', error);
-      setExifData(null);
+      console.error('Error fetching selected image URL:', error);
+    }
+  };
+
+  const handlePrevImage = async () => {
+    if (selectedIndex > 0) {
+      const prevIndex = selectedIndex - 1;
+      const prevImage = images[prevIndex];
+      setSelectedImage(prevImage);
+      setSelectedIndex(prevIndex);
+
+      try {
+        const response = await fetch(`/api/images/url?key=${encodeURIComponent(prevImage.r2Key)}`);
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        const data = await response.json();
+        setSelectedImageUrl(data.url);
+      } catch (error) {
+        console.error('Error fetching previous image URL:', error);
+      }
+    }
+  };
+
+  const handleNextImage = async () => {
+    if (selectedIndex < images.length - 1) {
+      const nextIndex = selectedIndex + 1;
+      const nextImage = images[nextIndex];
+      setSelectedImage(nextImage);
+      setSelectedIndex(nextIndex);
+
+      try {
+        const response = await fetch(`/api/images/url?key=${encodeURIComponent(nextImage.r2Key)}`);
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        const data = await response.json();
+        setSelectedImageUrl(data.url);
+      } catch (error) {
+        console.error('Error fetching next image URL:', error);
+      }
     }
   };
 
@@ -148,28 +170,11 @@ const Gallery = () => {
     setIsModalOpen(false);
   };
 
-  const handlePrevImage = () => {
-    if (!selectedImage) return;
-    const currentIndex = galleryImages.findIndex(img => img.id === selectedImage.id);
-    const prevIndex = currentIndex <= 0 ? galleryImages.length - 1 : currentIndex - 1;
-    const prevImage = galleryImages[prevIndex];
-    handleImageClick(prevImage);
-  };
-
-  const handleNextImage = () => {
-    if (!selectedImage) return;
-    const currentIndex = galleryImages.findIndex(img => img.id === selectedImage.id);
-    const nextIndex = currentIndex >= galleryImages.length - 1 ? 0 : currentIndex + 1;
-    const nextImage = galleryImages[nextIndex];
-    handleImageClick(nextImage);
-  };
-
   // Helper function to convert shutter speed
   const formatShutterSpeed = (speed: number): string => {
     if (speed >= 1) {
       return `${speed}s`;
     }
-    // Convert decimal to fraction
     const denominator = Math.round(1 / speed);
     return `1/${denominator}`;
   };
@@ -191,20 +196,82 @@ const Gallery = () => {
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, [isModalOpen]);
 
+  if (isLoading) {
+    return (
+      <div className="flex items-center justify-center min-h-screen">
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-gray-900 mx-auto"></div>
+          <p className="mt-4 text-gray-600">Loading images...</p>
+        </div>
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="flex items-center justify-center min-h-screen">
+        <div className="text-center text-red-600">
+          <p>Error: {error}</p>
+        </div>
+      </div>
+    );
+  }
+
+  if (!Array.isArray(images) || images.length === 0) {
+    return (
+      <div className="flex items-center justify-center min-h-screen">
+        <div className="text-center text-gray-600">
+          <p>No images found</p>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <section className="max-w-7xl mx-auto px-6 pt-24">
-      <div className="max-w-6xl mx-auto columns-1 md:columns-2 lg:columns-3 gap-4 [&>div]:mb-4">
-        {galleryImages.map((image) => (
-          <GalleryItem 
-            key={image.id} 
-            image={image} 
-            onClick={() => handleImageClick(image)}
-          />
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+        {images.map((image, index) => (
+          <div
+            key={image.id}
+            className={`relative group overflow-hidden cursor-pointer ${image.className}`}
+            onClick={() => handleImageClick(image, index)}
+          >
+            <div className={`relative ${image.aspect} w-full h-[300px] bg-gray-100`}>
+              {imageUrls[image.r2Key] && (
+                <>
+                  {!loadedImages.has(image.r2Key) && (
+                    <div className="absolute inset-0 flex items-center justify-center">
+                      <div className="animate-pulse bg-gray-200 w-full h-full"></div>
+                    </div>
+                  )}
+                  <Image
+                    src={imageUrls[image.r2Key]}
+                    alt={image.title}
+                    fill
+                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                    quality={75}
+                    priority={index < 4}
+                    loading={index < 4 ? "eager" : "lazy"}
+                    className={`object-cover transition-opacity duration-300 ${
+                      loadedImages.has(image.r2Key) ? 'opacity-100' : 'opacity-0'
+                    }`}
+                    onLoad={() => handleImageLoad(image.r2Key)}
+                  />
+                </>
+              )}
+            </div>
+            <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+              <div className="absolute bottom-0 left-0 p-6">
+                <h3 className="text-white text-lg font-light tracking-wide">{image.title}</h3>
+                <p className="text-gray-100 text-sm">{image.location}, {image.year}</p>
+              </div>
+            </div>
+          </div>
         ))}
       </div>
 
       {/* Image Modal */}
-      {isModalOpen && selectedImage && (
+      {isModalOpen && selectedImage && selectedImageUrl && (
         <div 
           className="fixed inset-0 bg-black/90 z-50 flex items-center justify-center p-4"
           onClick={handleCloseModal}
@@ -217,12 +284,13 @@ const Gallery = () => {
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
             </svg>
           </button>
-          <div className="relative max-w-7xl max-h-[90vh] w-full h-full" onClick={e => e.stopPropagation()}>
+          <div className="relative max-w-7xl max-h-[90vh] w-full h-[90vh]" onClick={e => e.stopPropagation()}>
             <Image
-              src={selectedImage.src}
+              src={selectedImageUrl}
               alt={selectedImage.title}
               fill
-              quality={100}
+              quality={90}
+              priority
               className="object-contain"
               sizes="100vw"
             />
@@ -250,7 +318,7 @@ const Gallery = () => {
               </div>
             )}
           </div>
-          {/* Left Arrow Button */}
+          {/* Navigation Buttons */}
           <button 
             className="absolute left-4 top-1/2 -translate-y-1/2 text-white hover:text-gray-300 p-2"
             onClick={(e) => {
@@ -263,7 +331,6 @@ const Gallery = () => {
             </svg>
           </button>
 
-          {/* Right Arrow Button */}
           <button 
             className="absolute right-4 top-1/2 -translate-y-1/2 text-white hover:text-gray-300 p-2"
             onClick={(e) => {
@@ -280,36 +347,5 @@ const Gallery = () => {
     </section>
   )
 }
-
-const GalleryItem = ({ 
-  image, 
-  onClick 
-}: { 
-  image: GalleryImage;
-  onClick: () => void;
-}) => (
-  <div 
-    className="relative group overflow-hidden break-inside-avoid cursor-pointer"
-    onClick={onClick}
-  >
-    <div className={`relative ${image.aspect} w-full`}>
-      <Image
-        src={image.src}
-        alt={image.title}
-        fill
-        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-        quality={95}
-        priority={image.id <= 4}
-        className="object-cover transition-transform duration-500 group-hover:scale-105"
-      />
-    </div>
-    <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-      <div className="absolute bottom-0 left-0 p-6">
-        <h3 className="text-white text-lg font-light tracking-wide">{image.title}</h3>
-        <p className="text-gray-100 text-sm">{image.location}, {image.year}</p>
-      </div>
-    </div>
-  </div>
-)
 
 export default Gallery
