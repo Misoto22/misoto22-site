@@ -5,57 +5,6 @@ import { usePathname } from 'next/navigation'
 import { useState } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
 
-type ToolItem = {
-  name: string;
-  href: string;
-}
-
-const tools: ToolItem[] = [
-  {
-    name: 'Stirling PDF',
-    href: 'https://stirling-pdf-tu767.ondigitalocean.app/'
-  }
-]
-
-const ToolsDropdown = () => {
-  const [isOpen, setIsOpen] = useState(false)
-
-  return (
-    <div className="relative">
-      <button
-        onClick={() => setIsOpen(!isOpen)}
-        className="relative py-1 text-[var(--secondary-text)] hover:text-[var(--foreground)] transition-colors flex items-center gap-1"
-      >
-        Tools
-        <svg
-          className={`w-4 h-4 transition-transform ${isOpen ? 'rotate-180' : ''}`}
-          fill="none"
-          stroke="currentColor"
-          viewBox="0 0 24 24"
-        >
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-        </svg>
-      </button>
-
-      {isOpen && (
-        <div className="absolute top-full left-0 mt-2 w-48 bg-[var(--card-background)] rounded-md shadow-lg py-1 z-50">
-          {tools.map((tool) => (
-            <a
-              key={tool.name}
-              href={tool.href}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="block px-4 py-2 text-sm text-[var(--secondary-text)] hover:text-[var(--foreground)] hover:bg-[var(--background)] transition-colors"
-            >
-              {tool.name}
-            </a>
-          ))}
-        </div>
-      )}
-    </div>
-  )
-}
-
 const Navigation = () => {
   const pathname = usePathname()
   const [isMenuOpen, setIsMenuOpen] = useState(false)
@@ -76,10 +25,8 @@ const Navigation = () => {
           <div className="hidden md:flex space-x-8">
             <NavLink href="/" text="Photography" isActive={pathname === '/'} onClick={handleNavigation} />
             <NavLink href="/projects" text="Projects" isActive={pathname === '/projects'} onClick={handleNavigation} />
-            <ToolsDropdown />
             <NavLink href="/about" text="About" isActive={pathname === '/about'} onClick={handleNavigation} />
             <NavLink href="/contact" text="Contact" isActive={pathname === '/contact'} onClick={handleNavigation} />
-            <NavLink href="/blog" text="Blog" isActive={pathname === '/blog'} onClick={handleNavigation} />
           </div>
 
           {/* Social Icons - Desktop */}
@@ -130,8 +77,6 @@ const Navigation = () => {
                   <MenuItem href="/projects" text="Projects" isActive={pathname === '/projects'} onClick={handleNavigation} />
                   <MenuItem href="/about" text="About" isActive={pathname === '/about'} onClick={handleNavigation} />
                   <MenuItem href="/contact" text="Contact" isActive={pathname === '/contact'} onClick={handleNavigation} />
-                  <MenuItem href="/blog" text="Blog" isActive={pathname === '/blog'} onClick={handleNavigation} />
-                  <MenuItem href="/tools" text="Tools" isActive={pathname === '/tools'} onClick={handleNavigation} />
                 </motion.div>
                 <motion.div 
                   className="flex space-x-4 pt-4 border-t border-[var(--border-color)] mt-4 pb-4"
