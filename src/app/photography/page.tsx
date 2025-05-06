@@ -160,7 +160,7 @@ const Gallery = () => {
                   src={image.r2Key}
                   alt={image.title}
                   width={800}
-                  height={600}
+                  height={800 / (parseFloat(image.aspect) || 1.5)}
                   className={`rounded-lg transition-opacity duration-300 ${
                     loadedImages.has(image.r2Key) ? 'opacity-100' : 'opacity-0'
                   }`}
@@ -181,57 +181,62 @@ const Gallery = () => {
       {/* Modal */}
       {isModalOpen && selectedImage && (
         <div className="fixed inset-0 bg-black bg-opacity-90 z-50 flex items-center justify-center">
-          <AnimatedSection className="relative max-w-7xl mx-auto p-4">
+          <AnimatedSection className="relative max-w-7xl mx-auto p-0">
             <button
               onClick={handleCloseModal}
-              className="absolute top-4 right-4 text-white hover:text-gray-300"
+              className="absolute top-4 right-4 z-50 text-white hover:text-red-400 transition-colors duration-200"
+              style={{ fontSize: 0 }}
+              aria-label="Close"
             >
-              <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+              <svg className="w-9 h-9" fill="none" stroke="currentColor" strokeWidth={2.5} viewBox="0 0 24 24">
+                <circle cx="12" cy="12" r="11" stroke="rgba(255,255,255,0.15)" strokeWidth="2" fill="none" />
+                <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
               </svg>
             </button>
-            
-            <div className="relative">
-              <Image
-                src={selectedImage.r2Key}
-                alt={selectedImage.title}
-                width={1200}
-                height={800}
-                className="rounded-lg"
-              />
-              
-              <div className="absolute bottom-0 left-0 right-0 bg-black bg-opacity-50 text-white p-4 rounded-b-lg">
-                <h2 className="text-2xl font-semibold">{selectedImage.title}</h2>
-                <p className="text-lg">{selectedImage.location}, {selectedImage.year}</p>
-                {selectedImage.exif && (
-                  <div className="mt-2 text-sm">
-                    <p>{selectedImage.exif.Make} {selectedImage.exif.Model}</p>
-                    <p>Lens: {selectedImage.exif.LensModel}</p>
-                    <p>ƒ/{selectedImage.exif.FNumber} • {formatShutterSpeed(selectedImage.exif.ExposureTime || 0)} • ISO {selectedImage.exif.ISO}</p>
-                  </div>
-                )}
-              </div>
-            </div>
-
-            <div className="flex justify-between mt-4">
+            <div className="relative flex items-center justify-center min-h-[90vh]">
               <button
                 onClick={handlePrevImage}
                 disabled={selectedIndex === 0}
-                className="text-white hover:text-gray-300 disabled:opacity-50"
+                className="fixed left-2 top-1/2 -translate-y-1/2 z-40 text-white hover:text-blue-400 transition-colors duration-200 p-0 bg-transparent border-none outline-none"
+                aria-label="Previous"
+                style={{ fontSize: 0 }}
               >
-                <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+                <svg className="w-14 h-14 drop-shadow-lg" fill="none" stroke="currentColor" strokeWidth={2.5} viewBox="0 0 48 48">
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M30 36L18 24l12-12" />
                 </svg>
               </button>
               <button
                 onClick={handleNextImage}
                 disabled={selectedIndex === images.length - 1}
-                className="text-white hover:text-gray-300 disabled:opacity-50"
+                className="fixed right-2 top-1/2 -translate-y-1/2 z-40 text-white hover:text-blue-400 transition-colors duration-200 p-0 bg-transparent border-none outline-none"
+                aria-label="Next"
+                style={{ fontSize: 0 }}
               >
-                <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                <svg className="w-14 h-14 drop-shadow-lg" fill="none" stroke="currentColor" strokeWidth={2.5} viewBox="0 0 48 48">
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M18 12l12 12-12 12" />
                 </svg>
               </button>
+              <Image
+                src={selectedImage.r2Key}
+                alt={selectedImage.title}
+                width={1200}
+                height={1200 / (parseFloat(selectedImage.aspect) || 1.5)}
+                className="rounded-lg object-contain max-h-[90vh] w-auto mx-auto shadow-xl"
+                style={{ maxWidth: '100%' }}
+              />
+              <div className="absolute left-1/2 -translate-x-1/2 bottom-4 w-[92%] md:w-2/3 bg-black/40 text-white px-4 py-2 rounded-xl backdrop-blur-sm shadow-lg flex flex-col items-center pointer-events-auto">
+                <h2 className="text-base md:text-lg font-semibold mb-1 text-center">{selectedImage.title}</h2>
+                <p className="text-xs md:text-sm mb-1 text-center">{selectedImage.location}, {selectedImage.year}</p>
+                {selectedImage.exif && (
+                  <div className="mt-1 text-[10px] md:text-xs opacity-80 text-center">
+                    <p>{selectedImage.exif.Make} {selectedImage.exif.Model}</p>
+                    <p>Lens: {selectedImage.exif.LensModel}</p>
+                    <p>
+                      ƒ/{selectedImage.exif.FNumber} • {formatShutterSpeed(selectedImage.exif.ExposureTime || 0)} • ISO {selectedImage.exif.ISO}
+                    </p>
+                  </div>
+                )}
+              </div>
             </div>
           </AnimatedSection>
         </div>

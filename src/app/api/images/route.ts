@@ -35,23 +35,32 @@ export async function GET() {
     const photos = await Promise.all(photoPromises);
     
     // 转换 Unsplash 数据格式为我们的 GalleryImage 格式
-    const images = photos.map((photo: any, index: number) => ({
-      id: index + 1,
-      title: photo.description || photo.alt_description || 'Untitled',
-      location: photo.location?.title || 'Unknown Location',
-      year: new Date(photo.created_at).getFullYear().toString(),
-      r2Key: photo.urls.regular,
-      aspect: photo.width / photo.height > 1 ? 'landscape' : 'portrait',
-      className: photo.width / photo.height > 1 ? 'aspect-[4/3]' : 'aspect-[3/4]',
-      exif: {
-        Make: photo.exif?.make,
-        Model: photo.exif?.model,
-        LensModel: photo.exif?.lens_model,
-        FNumber: photo.exif?.aperture,
-        ExposureTime: photo.exif?.exposure_time,
-        ISO: photo.exif?.iso,
-      }
-    }));
+    const images = photos
+      .filter((photo: any) => photo && photo.urls && photo.urls.regular) // 过滤掉无效的照片数据
+      .map((photo: any, index: number) => ({
+        id: index + 1,
+        title: photo.description || photo.alt_description || 'Untitled',
+        location: photo.location?.title || 'Unknown Location',
+        year: new Date(photo.created_at).getFullYear().toString(),
+        r2Key: photo.urls.regular,
+        aspect: photo.width / photo.height > 1 ? 'landscape' : 'portrait',
+        className: photo.width / photo.height > 1 ? 'aspect-[4/3]' : 'aspect-[3/4]',
+        exif: {
+          Make: photo.exif?.make,
+          Model: photo.exif?.model,
+          LensModel: photo.exif?.lens_model,
+          FNumber: photo.exif?.aperture,
+          ExposureTime: photo.exif?.exposure_time,
+          ISO: photo.exif?.iso,
+        }
+      }));
+
+    if (images.length === 0) {
+      return NextResponse.json(
+        { error: 'No valid images found' },
+        { status: 404 }
+      );
+    }
 
     return NextResponse.json(images);
   } catch (error) {
