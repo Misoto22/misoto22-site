@@ -194,7 +194,7 @@ const Gallery = () => {
 
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [isModalOpen]);
+  }, [isModalOpen, handlePrevImage, handleNextImage, handleCloseModal]);
 
   if (isLoading) {
     return (
