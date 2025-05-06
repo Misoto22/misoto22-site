@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import { Instagram, Linkedin } from 'lucide-react'
+import { Github, Linkedin, Instagram } from 'lucide-react'
 
 const Footer = () => {
   return (
@@ -15,20 +15,31 @@ const Footer = () => {
             </p>
             <div className="flex space-x-4 pt-4">
               <a 
-                href="https://instagram.com" 
+                href="https://github.com/Misoto22" 
                 target="_blank" 
                 rel="noopener noreferrer"
                 className="text-[var(--secondary-text)] hover:text-[var(--foreground)] transition-colors"
+                aria-label="GitHub"
               >
-                <Instagram size={20} />
+                <Github size={22} strokeWidth={1.2} className="hover:scale-110 transition-transform" />
               </a>
               <a 
-                href="https://linkedin.com" 
+                href="https://linkedin.com/in/henry-misoto22" 
                 target="_blank" 
                 rel="noopener noreferrer"
                 className="text-[var(--secondary-text)] hover:text-[var(--foreground)] transition-colors"
+                aria-label="LinkedIn"
               >
-                <Linkedin size={20} />
+                <Linkedin size={22} strokeWidth={1.2} className="hover:scale-110 transition-transform" />
+              </a>
+              <a 
+                href="https://instagram.com/hry.photography" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="text-[var(--secondary-text)] hover:text-[var(--foreground)] transition-colors"
+                aria-label="Instagram"
+              >
+                <Instagram size={22} strokeWidth={1.2} className="hover:scale-110 transition-transform" />
               </a>
             </div>
           </div>

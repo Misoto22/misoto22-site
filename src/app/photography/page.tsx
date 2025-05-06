@@ -103,7 +103,7 @@ const Gallery = () => {
     setSelectedImage(image);
     setSelectedIndex(index);
     setIsModalOpen(true);
-
+    
     try {
       const response = await fetch(`/api/images/url?key=${encodeURIComponent(image.r2Key)}`);
       if (!response.ok) {
@@ -116,9 +116,9 @@ const Gallery = () => {
       try {
         const exifData = await exifr.parse(data.url);
         setExifData(exifData);
-      } catch (error) {
-        console.log('Failed to read image EXIF data:', error);
-        setExifData(null);
+    } catch (error) {
+      console.log('Failed to read image EXIF data:', error);
+      setExifData(null);
       }
     } catch (error) {
       console.error('Error fetching selected image URL:', error);
@@ -232,7 +232,7 @@ const Gallery = () => {
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
         {images.map((image, index) => (
           <div
-            key={image.id}
+            key={image.id} 
             className={`relative group overflow-hidden cursor-pointer ${image.className}`}
             onClick={() => handleImageClick(image, index)}
           >
