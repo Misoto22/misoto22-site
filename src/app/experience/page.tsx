@@ -1,4 +1,7 @@
-import React from 'react';
+'use client'
+
+import React from 'react'
+import AnimatedSection from '@/components/AnimatedSection'
 
 interface Experience {
   title: string;
@@ -41,57 +44,61 @@ const experiences: Experience[] = [
 
 export default function ExperiencePage() {
   return (
-    <div className="container mx-auto px-4 py-8 mt-16 max-w-3xl">
-      <h1 className="text-4xl font-medium tracking-wide mb-12 text-center text-gray-800">
-        Professional Experience
-      </h1>
-      <div className="space-y-16">
-        {experiences.map((exp, index) => (
-          <div key={index} className="bg-white rounded-xl shadow-lg p-8 hover:shadow-xl transition-shadow duration-300">
-            <div className="flex flex-col md:flex-row md:justify-between md:items-start gap-4 mb-6">
-              <div className="space-y-2">
-                <h2 className="text-2xl font-medium tracking-wide text-gray-800">{exp.title}</h2>
-                <h3 className="text-xl text-gray-600">
-                  {exp.companyLink ? (
-                    <a 
-                      href={exp.companyLink}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="hover:text-blue-600 transition-colors duration-200 inline-flex items-center font-normal"
+    <section className="pt-24 min-h-screen bg-[var(--background)]">
+      <AnimatedSection className="container mx-auto px-4 max-w-3xl">
+        <h1 className="text-4xl font-medium tracking-wide mb-12 text-center text-[var(--foreground)]">
+          Professional Experience
+        </h1>
+        <div className="space-y-16">
+          {experiences.map((exp, index) => (
+            <AnimatedSection key={index} delay={index * 0.1}>
+              <div className="bg-white/90 dark:bg-black/40 rounded-xl p-8 hover:shadow-lg transition-all duration-300">
+                <div className="flex flex-col md:flex-row md:justify-between md:items-start gap-4 mb-6">
+                  <div className="space-y-2">
+                    <h2 className="text-2xl font-medium tracking-wide text-[var(--foreground)]">{exp.title}</h2>
+                    <h3 className="text-xl text-[var(--secondary-text)]">
+                      {exp.companyLink ? (
+                        <a 
+                          href={exp.companyLink}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="hover:text-gray-900 transition-colors duration-200 inline-flex items-center font-normal"
+                        >
+                          {exp.company}
+                          <svg className="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                          </svg>
+                        </a>
+                      ) : (
+                        exp.company
+                      )}
+                    </h3>
+                  </div>
+                  <div className="text-right space-y-1">
+                    <p className="text-[var(--secondary-text)] font-medium">{exp.location}</p>
+                    <p className="text-[var(--secondary-text)] font-medium">{exp.period}</p>
+                  </div>
+                </div>
+                <ul className="list-disc list-inside mb-6 space-y-3 text-[var(--secondary-text)]">
+                  {exp.description.map((item, i) => (
+                    <li key={i} className="leading-relaxed">{item}</li>
+                  ))}
+                </ul>
+                <div className="flex flex-wrap gap-2">
+                  {exp.technologies.map((tech, i) => (
+                    <span
+                      key={i}
+                      className="bg-gray-100 text-gray-700 px-3 py-1 rounded-full text-sm font-medium hover:bg-gray-200 transition-colors duration-200"
                     >
-                      {exp.company}
-                      <svg className="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
-                      </svg>
-                    </a>
-                  ) : (
-                    exp.company
-                  )}
-                </h3>
+                      {tech}
+                    </span>
+                  ))}
+                </div>
               </div>
-              <div className="text-right space-y-1">
-                <p className="text-gray-600 font-medium">{exp.location}</p>
-                <p className="text-gray-500 font-medium">{exp.period}</p>
-              </div>
-            </div>
-            <ul className="list-disc list-inside mb-6 space-y-3 text-gray-700">
-              {exp.description.map((item, i) => (
-                <li key={i} className="leading-relaxed">{item}</li>
-              ))}
-            </ul>
-            <div className="flex flex-wrap gap-2">
-              {exp.technologies.map((tech, i) => (
-                <span
-                  key={i}
-                  className="bg-blue-50 text-blue-700 px-3 py-1 rounded-full text-sm font-medium hover:bg-blue-100 transition-colors duration-200"
-                >
-                  {tech}
-                </span>
-              ))}
-            </div>
-          </div>
-        ))}
-      </div>
-    </div>
+            </AnimatedSection>
+          ))}
+        </div>
+      </AnimatedSection>
+    </section>
   );
 } 

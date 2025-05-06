@@ -2,6 +2,7 @@
 import Image from 'next/image'
 import { useState, useEffect } from 'react'
 import exifr from 'exifr';
+import AnimatedSection from '@/components/AnimatedSection'
 
 interface GalleryImage {
   id: number;
@@ -198,23 +199,18 @@ const Gallery = () => {
 
   if (isLoading) {
     return (
-      <div className="flex items-center justify-center min-h-screen">
-        <div className="text-center">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-gray-900 mx-auto"></div>
-          <p className="mt-4 text-gray-600">Loading images...</p>
-        </div>
-      </div>
-    );
+      <AnimatedSection className="flex justify-center items-center min-h-screen">
+        <div className="text-lg text-gray-700">Loading...</div>
+      </AnimatedSection>
+    )
   }
 
   if (error) {
     return (
-      <div className="flex items-center justify-center min-h-screen">
-        <div className="text-center text-red-600">
-          <p>Error: {error}</p>
-        </div>
-      </div>
-    );
+      <AnimatedSection className="flex justify-center items-center min-h-screen">
+        <div className="text-lg text-red-600">Error: {error}</div>
+      </AnimatedSection>
+    )
   }
 
   if (!Array.isArray(images) || images.length === 0) {
@@ -228,120 +224,100 @@ const Gallery = () => {
   }
 
   return (
-    <section className="max-w-7xl mx-auto px-6 pt-24">
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-        {images.map((image, index) => (
-          <div
-            key={image.id} 
-            className={`relative group overflow-hidden cursor-pointer ${image.className}`}
-            onClick={() => handleImageClick(image, index)}
-          >
-            <div className={`relative ${image.aspect} w-full h-[300px] bg-gray-100`}>
-              {imageUrls[image.r2Key] && (
-                <>
-                  {!loadedImages.has(image.r2Key) && (
-                    <div className="absolute inset-0 flex items-center justify-center">
-                      <div className="animate-pulse bg-gray-200 w-full h-full"></div>
-                    </div>
-                  )}
+    <section className="pt-24 min-h-screen bg-[var(--background)] px-4">
+      <AnimatedSection className="max-w-7xl mx-auto">
+        <h1 className="text-4xl md:text-5xl font-bold text-center mb-12 text-[var(--foreground)]">
+          Photography
+        </h1>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {images.map((image, index) => (
+            <AnimatedSection key={image.id} delay={index * 0.1}>
+              <div 
+                className={`relative cursor-pointer group ${image.className}`}
+                onClick={() => handleImageClick(image, index)}
+              >
+                {imageUrls[image.r2Key] && (
                   <Image
                     src={imageUrls[image.r2Key]}
                     alt={image.title}
-                    fill
-                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                    quality={75}
-                    priority={index < 4}
-                    loading={index < 4 ? "eager" : "lazy"}
-                    className={`object-cover transition-opacity duration-300 ${
+                    width={800}
+                    height={600}
+                    className={`rounded-lg transition-opacity duration-300 ${
                       loadedImages.has(image.r2Key) ? 'opacity-100' : 'opacity-0'
                     }`}
                     onLoad={() => handleImageLoad(image.r2Key)}
                   />
-                </>
+                )}
+                <div className="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-30 transition-all duration-300 rounded-lg">
+                  <div className="absolute bottom-0 left-0 right-0 p-4 text-white opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                    <h3 className="text-lg font-semibold">{image.title}</h3>
+                    <p className="text-sm">{image.location}, {image.year}</p>
+                  </div>
+                </div>
+              </div>
+            </AnimatedSection>
+          ))}
+        </div>
+      </AnimatedSection>
+
+      {/* Modal */}
+      {isModalOpen && selectedImage && (
+        <div className="fixed inset-0 bg-black bg-opacity-90 z-50 flex items-center justify-center">
+          <AnimatedSection className="relative max-w-7xl mx-auto p-4">
+            <button
+              onClick={handleCloseModal}
+              className="absolute top-4 right-4 text-white hover:text-gray-300"
+            >
+              <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+              </svg>
+            </button>
+            
+            <div className="relative">
+              {selectedImageUrl && (
+                <Image
+                  src={selectedImageUrl}
+                  alt={selectedImage.title}
+                  width={1200}
+                  height={800}
+                  className="rounded-lg"
+                />
               )}
-            </div>
-            <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-              <div className="absolute bottom-0 left-0 p-6">
-                <h3 className="text-white text-lg font-light tracking-wide">{image.title}</h3>
-                <p className="text-gray-100 text-sm">{image.location}, {image.year}</p>
-              </div>
-            </div>
-          </div>
-        ))}
-      </div>
-
-      {/* Image Modal */}
-      {isModalOpen && selectedImage && selectedImageUrl && (
-        <div 
-          className="fixed inset-0 bg-black/90 z-50 flex items-center justify-center p-4"
-          onClick={handleCloseModal}
-        >
-          <button 
-            className="absolute top-4 right-4 text-white hover:text-gray-300"
-            onClick={handleCloseModal}
-          >
-            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-            </svg>
-          </button>
-          <div className="relative max-w-7xl max-h-[90vh] w-full h-[90vh]" onClick={e => e.stopPropagation()}>
-            <Image
-              src={selectedImageUrl}
-              alt={selectedImage.title}
-              fill
-              quality={90}
-              priority
-              className="object-contain"
-              sizes="100vw"
-            />
-          </div>
-          <div className="absolute bottom-0 left-0 right-0 bg-black/60 text-white p-4">
-            <h3 className="text-xl mb-2">{selectedImage.title}</h3>
-            <p className="text-sm text-gray-300 mb-1">{selectedImage.location}, {selectedImage.year}</p>
-            {exifData && (
-              <div className="flex flex-wrap gap-4 text-sm text-gray-300">
-                {exifData.Make && exifData.Model && (
-                  <span>📷 {exifData.Make} {exifData.Model}</span>
-                )}
-                {exifData.LensModel && (
-                  <span>🔭 {exifData.LensModel}</span>
-                )}
-                {exifData.FNumber && (
-                  <span>⭕ f/{exifData.FNumber}</span>
-                )}
-                {exifData.ExposureTime && (
-                  <span>⚡ {formatShutterSpeed(exifData.ExposureTime)}</span>
-                )}
-                {exifData.ISO && (
-                  <span>📊 ISO {exifData.ISO}</span>
+              
+              <div className="absolute bottom-0 left-0 right-0 bg-black bg-opacity-50 text-white p-4 rounded-b-lg">
+                <h2 className="text-2xl font-semibold">{selectedImage.title}</h2>
+                <p className="text-lg">{selectedImage.location}, {selectedImage.year}</p>
+                {exifData && (
+                  <div className="mt-2 text-sm">
+                    <p>{exifData.Make} {exifData.Model}</p>
+                    <p>Lens: {exifData.LensModel}</p>
+                    <p>ƒ/{exifData.FNumber} • {formatShutterSpeed(exifData.ExposureTime || 0)} • ISO {exifData.ISO}</p>
+                  </div>
                 )}
               </div>
-            )}
-          </div>
-          {/* Navigation Buttons */}
-          <button 
-            className="absolute left-4 top-1/2 -translate-y-1/2 text-white hover:text-gray-300 p-2"
-            onClick={(e) => {
-              e.stopPropagation();
-              handlePrevImage();
-            }}
-          >
-            <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
-            </svg>
-          </button>
+            </div>
 
-          <button 
-            className="absolute right-4 top-1/2 -translate-y-1/2 text-white hover:text-gray-300 p-2"
-            onClick={(e) => {
-              e.stopPropagation();
-              handleNextImage();
-            }}
-          >
-            <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-            </svg>
-          </button>
+            <div className="flex justify-between mt-4">
+              <button
+                onClick={handlePrevImage}
+                disabled={selectedIndex === 0}
+                className="text-white hover:text-gray-300 disabled:opacity-50"
+              >
+                <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+                </svg>
+              </button>
+              <button
+                onClick={handleNextImage}
+                disabled={selectedIndex === images.length - 1}
+                className="text-white hover:text-gray-300 disabled:opacity-50"
+              >
+                <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                </svg>
+              </button>
+            </div>
+          </AnimatedSection>
         </div>
       )}
     </section>
