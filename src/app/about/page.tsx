@@ -72,7 +72,7 @@ export default function About() {
             </a>
             <span className="text-[var(--border-color)]">|</span>
             <a 
-              href="/cv.pdf" 
+              href="/resume.pdf" 
               className="text-[var(--secondary-text)] hover:text-[var(--foreground)] transition-colors duration-300 inline-flex items-center"
             >
               Resume

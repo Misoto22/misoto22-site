@@ -1,7 +1,6 @@
 "use client"
 import Image from 'next/image'
 import { useState, useEffect } from 'react'
-import exifr from 'exifr';
 import AnimatedSection from '@/components/AnimatedSection'
 
 interface GalleryImage {
@@ -12,25 +11,21 @@ interface GalleryImage {
   r2Key: string;
   aspect: string;
   className: string;
-}
-
-interface ExifData {
-  Make?: string;
-  Model?: string;
-  LensModel?: string;
-  FNumber?: number;
-  ExposureTime?: number;
-  ISO?: number;
+  exif: {
+    Make?: string;
+    Model?: string;
+    LensModel?: string;
+    FNumber?: number;
+    ExposureTime?: number;
+    ISO?: number;
+  };
 }
 
 const Gallery = () => {
   const [images, setImages] = useState<GalleryImage[]>([]);
-  const [imageUrls, setImageUrls] = useState<Record<string, string>>({});
   const [selectedImage, setSelectedImage] = useState<GalleryImage | null>(null);
-  const [selectedImageUrl, setSelectedImageUrl] = useState<string>('');
   const [selectedIndex, setSelectedIndex] = useState<number>(0);
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [exifData, setExifData] = useState<ExifData | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [loadedImages, setLoadedImages] = useState<Set<string>>(new Set());
@@ -65,104 +60,29 @@ const Gallery = () => {
     fetchImages();
   }, []);
 
-  useEffect(() => {
-    const fetchImageUrls = async () => {
-      if (!Array.isArray(images) || images.length === 0) return;
-
-      const urls: Record<string, string> = {};
-      const batchSize = 3; // 每次加载3张图片
-      
-      for (let i = 0; i < images.length; i += batchSize) {
-        const batch = images.slice(i, i + batchSize);
-        await Promise.all(
-          batch.map(async (image) => {
-            try {
-              const response = await fetch(`/api/images/url?key=${encodeURIComponent(image.r2Key)}`);
-              if (!response.ok) {
-                throw new Error(`HTTP error! status: ${response.status}`);
-              }
-              const data = await response.json();
-              console.log(`Got URL for ${image.title}:`, data.url);
-              urls[image.r2Key] = data.url;
-            } catch (error) {
-              console.error(`Error fetching URL for ${image.title}:`, error);
-            }
-          })
-        );
-        setImageUrls(prev => ({ ...prev, ...urls }));
-      }
-    };
-
-    fetchImageUrls();
-  }, [images]);
-
   const handleImageLoad = (r2Key: string) => {
     setLoadedImages(prev => new Set([...prev, r2Key]));
   };
 
-  const handleImageClick = async (image: GalleryImage, index: number) => {
+  const handleImageClick = (image: GalleryImage, index: number) => {
     setSelectedImage(image);
     setSelectedIndex(index);
     setIsModalOpen(true);
-    
-    try {
-      const response = await fetch(`/api/images/url?key=${encodeURIComponent(image.r2Key)}`);
-      if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
-      }
-      const data = await response.json();
-      setSelectedImageUrl(data.url);
-      
-      // Try to get EXIF data
-      try {
-        const exifData = await exifr.parse(data.url);
-        setExifData(exifData);
-    } catch (error) {
-      console.log('Failed to read image EXIF data:', error);
-      setExifData(null);
-      }
-    } catch (error) {
-      console.error('Error fetching selected image URL:', error);
-    }
   };
 
-  const handlePrevImage = async () => {
+  const handlePrevImage = () => {
     if (selectedIndex > 0) {
       const prevIndex = selectedIndex - 1;
-      const prevImage = images[prevIndex];
-      setSelectedImage(prevImage);
+      setSelectedImage(images[prevIndex]);
       setSelectedIndex(prevIndex);
-
-      try {
-        const response = await fetch(`/api/images/url?key=${encodeURIComponent(prevImage.r2Key)}`);
-        if (!response.ok) {
-          throw new Error(`HTTP error! status: ${response.status}`);
-        }
-        const data = await response.json();
-        setSelectedImageUrl(data.url);
-      } catch (error) {
-        console.error('Error fetching previous image URL:', error);
-      }
     }
   };
 
-  const handleNextImage = async () => {
+  const handleNextImage = () => {
     if (selectedIndex < images.length - 1) {
       const nextIndex = selectedIndex + 1;
-      const nextImage = images[nextIndex];
-      setSelectedImage(nextImage);
+      setSelectedImage(images[nextIndex]);
       setSelectedIndex(nextIndex);
-
-      try {
-        const response = await fetch(`/api/images/url?key=${encodeURIComponent(nextImage.r2Key)}`);
-        if (!response.ok) {
-          throw new Error(`HTTP error! status: ${response.status}`);
-        }
-        const data = await response.json();
-        setSelectedImageUrl(data.url);
-      } catch (error) {
-        console.error('Error fetching next image URL:', error);
-      }
     }
   };
 
@@ -195,7 +115,7 @@ const Gallery = () => {
 
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [isModalOpen, handlePrevImage, handleNextImage, handleCloseModal]);
+  }, [isModalOpen, selectedIndex, images]);
 
   if (isLoading) {
     return (
@@ -236,18 +156,16 @@ const Gallery = () => {
                 className={`relative cursor-pointer group ${image.className}`}
                 onClick={() => handleImageClick(image, index)}
               >
-                {imageUrls[image.r2Key] && (
-                  <Image
-                    src={imageUrls[image.r2Key]}
-                    alt={image.title}
-                    width={800}
-                    height={600}
-                    className={`rounded-lg transition-opacity duration-300 ${
-                      loadedImages.has(image.r2Key) ? 'opacity-100' : 'opacity-0'
-                    }`}
-                    onLoad={() => handleImageLoad(image.r2Key)}
-                  />
-                )}
+                <Image
+                  src={image.r2Key}
+                  alt={image.title}
+                  width={800}
+                  height={600}
+                  className={`rounded-lg transition-opacity duration-300 ${
+                    loadedImages.has(image.r2Key) ? 'opacity-100' : 'opacity-0'
+                  }`}
+                  onLoad={() => handleImageLoad(image.r2Key)}
+                />
                 <div className="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-30 transition-all duration-300 rounded-lg">
                   <div className="absolute bottom-0 left-0 right-0 p-4 text-white opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                     <h3 className="text-lg font-semibold">{image.title}</h3>
@@ -274,24 +192,22 @@ const Gallery = () => {
             </button>
             
             <div className="relative">
-              {selectedImageUrl && (
-                <Image
-                  src={selectedImageUrl}
-                  alt={selectedImage.title}
-                  width={1200}
-                  height={800}
-                  className="rounded-lg"
-                />
-              )}
+              <Image
+                src={selectedImage.r2Key}
+                alt={selectedImage.title}
+                width={1200}
+                height={800}
+                className="rounded-lg"
+              />
               
               <div className="absolute bottom-0 left-0 right-0 bg-black bg-opacity-50 text-white p-4 rounded-b-lg">
                 <h2 className="text-2xl font-semibold">{selectedImage.title}</h2>
                 <p className="text-lg">{selectedImage.location}, {selectedImage.year}</p>
-                {exifData && (
+                {selectedImage.exif && (
                   <div className="mt-2 text-sm">
-                    <p>{exifData.Make} {exifData.Model}</p>
-                    <p>Lens: {exifData.LensModel}</p>
-                    <p>ƒ/{exifData.FNumber} • {formatShutterSpeed(exifData.ExposureTime || 0)} • ISO {exifData.ISO}</p>
+                    <p>{selectedImage.exif.Make} {selectedImage.exif.Model}</p>
+                    <p>Lens: {selectedImage.exif.LensModel}</p>
+                    <p>ƒ/{selectedImage.exif.FNumber} • {formatShutterSpeed(selectedImage.exif.ExposureTime || 0)} • ISO {selectedImage.exif.ISO}</p>
                   </div>
                 )}
               </div>

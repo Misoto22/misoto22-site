@@ -18,7 +18,6 @@ const educationData = [
     major: "Computer Science",
     school: "The University of Sydney",
     duration: "02/2020 - 12/2022",
-    extra: "GPA 3.7",
     icon: <School className="w-6 h-6 text-gray-700" />,
     logo: "/usyd-logo.png",
   },
@@ -26,6 +25,7 @@ const educationData = [
     title: "Summer School Program",
     school: "Shanghai Jiao Tong University",
     duration: "06/2022 - 07/2022",
+    extra: "GPA 3.7",
     icon: <Award className="w-6 h-6 text-gray-700" />,
     logo: "/sjtu-logo.png",
   },
@@ -42,7 +42,7 @@ export default function Education() {
           {educationData.map((edu, index) => (
             <AnimatedSection key={index} delay={index * 0.1}>
               <div
-                className="bg-white/90 dark:bg-black/40 rounded-2xl p-6 flex flex-col md:flex-row md:items-center md:gap-0 md:justify-between transition-all duration-300 hover:shadow-lg"
+                className="bg-white/90 dark:bg-black/40 rounded-lg p-6 flex flex-col md:flex-row md:items-center md:gap-0 md:justify-between transition-all duration-300 hover:shadow-lg"
               >
                 {edu.logo && (
                   <div className="w-28 h-28 md:w-32 md:h-32 relative flex-shrink-0 mx-auto md:mx-0 md:mr-8 flex items-center justify-center">
