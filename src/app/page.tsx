@@ -26,7 +26,7 @@ export default function Home() {
             Henry Chen
           </h1>
           {/* Subtitle */}
-          <p className="text-lg md:text-2xl text-[#333] mt-6 max-w-2xl text-center leading-relaxed">
+          <p className="text-lg md:text-2xl text-[var(--muted-foreground)] mt-6 max-w-2xl text-center leading-relaxed">
             A Computer Science student and photographer capturing the beauty of Western Australia through code and lens.
           </p>
           {/* CTA Button */}
@@ -209,15 +209,15 @@ export default function Home() {
             <h2 className="text-3xl md:text-4xl font-semibold mb-8 text-[var(--foreground)] text-center">
               What do I do?
             </h2>
-            <div className="space-y-6 text-[#333]">
+            <div className="space-y-6 text-[var(--muted-foreground)]">
               <p className="leading-relaxed text-lg">
-                <b className="text-gray-700">Academic Journey:</b> Currently pursuing my degree in Computer Science, I bring a technical mindset to everything I do. My academic focus lies in software development and artificial intelligence, where I combine theoretical knowledge with practical applications.
+                <b className="text-gray-700 dark:text-white">Academic Journey:</b> Currently pursuing my degree in Computer Science, I bring a technical mindset to everything I do. My academic focus lies in software development and artificial intelligence, where I combine theoretical knowledge with practical applications.
               </p>
               <p className="leading-relaxed text-lg">
                 Having spent four years in Sydney before moving to Perth, I&apos;ve developed a unique perspective that bridges different Australian cultures and academic environments. This experience has enriched my understanding of both technology and human interaction.
               </p>
               <p className="leading-relaxed text-lg">
-                <b className="text-gray-700">Photography Passion:</b> My photography journey is driven by three main themes: the raw beauty of nature, the dynamic energy of urban landscapes, and the subtle moments of human connection. Through my lens, I aim to capture the interplay between these elements, documenting both the grand vistas of Western Australia and the intimate details of city life.
+                <b className="text-gray-700 dark:text-white">Photography Passion:</b> My photography journey is driven by three main themes: the raw beauty of nature, the dynamic energy of urban landscapes, and the subtle moments of human connection. Through my lens, I aim to capture the interplay between these elements, documenting both the grand vistas of Western Australia and the intimate details of city life.
               </p>
               <div className="pt-4">
                 <motion.a 

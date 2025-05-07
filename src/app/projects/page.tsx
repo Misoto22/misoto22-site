@@ -9,14 +9,14 @@ const projects = [
     description: "A modern, responsive personal website built with Next.js, TypeScript, and Tailwind CSS. Features dark mode, smooth animations, and a photography gallery.",
     link: "https://github.com/Misoto22/my-website",
     technologies: ["Next.js", "TypeScript", "Tailwind CSS", "Framer Motion"],
-    image: "https://images.unsplash.com/photo-1547658719-da2b51169166?w=800&auto=format&fit=crop&q=60"
+    image: "/images/projects/personal-website.jpeg"
   },
   {
-    title: "Data Analysis Tool",
-    description: "A Python-based data analysis tool for processing and visualizing large datasets. Includes automated reporting and data export capabilities.",
-    link: "https://github.com/yourusername/data-analysis-tool",
-    technologies: ["Python", "Pandas", "Matplotlib", "Jupyter"],
-    image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800&auto=format&fit=crop&q=60"
+    title: "Australia EOI Points Calculator",
+    description: "A modern web application for calculating points for Australian Expression of Interest (EOI) for skilled migration visas. Features real-time calculation, bilingual support, responsive design, and dark/light mode.",
+    link: "https://github.com/Misoto22/eoi-points-calculator",
+    technologies: ["Next.js", "TypeScript", "Tailwind CSS", "i18next", "Framer Motion"],
+    image: "/images/projects/eoi-calculator.jpeg"
   }
 ]
 
@@ -61,12 +61,13 @@ export default function Projects() {
                   </div>
                   
                   {/* Right side - Image */}
-                  <div className="relative h-[300px] rounded-lg overflow-hidden">
+                  <div className="relative aspect-video rounded-lg overflow-hidden">
                     <Image
                       src={project.image}
                       alt={project.title}
                       fill
                       className="object-cover"
+                      sizes="(max-width: 768px) 100vw, 50vw"
                     />
                   </div>
                 </div>
