@@ -5,6 +5,7 @@ import type { Metadata } from 'next'
 import Navigation from '@/components/Navigation'
 import Footer from '@/components/Footer'
 import ScrollToTopButton from '@/components/ScrollToTopButton'
+import { ThemeProvider } from '@/context/ThemeContext'
 
 const montserrat = Montserrat({ subsets: ['latin'], variable: '--font-montserrat' })
 
@@ -21,10 +22,12 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${montserrat.className} ${montserrat.variable}`}>
-        <Navigation />
-        <main>{children}</main>
-        <Footer />
-        <ScrollToTopButton />
+        <ThemeProvider>
+          <Navigation />
+          <main>{children}</main>
+          <Footer />
+          <ScrollToTopButton />
+        </ThemeProvider>
       </body>
     </html>
   )

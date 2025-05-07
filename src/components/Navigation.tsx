@@ -4,11 +4,14 @@ import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { useState } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
+import { useTheme } from '@/context/ThemeContext'
+import { Sun, Moon } from 'lucide-react'
 
 const Navigation = () => {
   const pathname = usePathname()
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null)
+  const { theme, toggleTheme } = useTheme()
 
   const handleNavigation = () => {
     setIsMenuOpen(false)
@@ -58,19 +61,38 @@ const Navigation = () => {
             </div>
           ))}
         </div>
-        {/* 移动端菜单按钮绝对定位右上角 */}
-        <button 
-          onClick={() => setIsMenuOpen(!isMenuOpen)}
-          className="md:hidden absolute right-6 top-6"
-        >
-          <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            {isMenuOpen ? (
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-            ) : (
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
-            )}
-          </svg>
-        </button>
+        {/* 主题切换按钮和移动端菜单按钮 */}
+        <div className="absolute right-6 top-6 flex items-center space-x-4">
+          <button
+            onClick={toggleTheme}
+            className="p-2 rounded-lg hover:bg-[var(--border-color)] transition-colors focus:outline-none focus:ring-2 focus:ring-[var(--foreground)] focus:ring-opacity-50"
+            aria-label="Toggle theme"
+          >
+            <motion.div
+              initial={false}
+              animate={{ rotate: theme === 'dark' ? 180 : 0 }}
+              transition={{ duration: 0.3 }}
+            >
+              {theme === 'light' ? (
+                <Moon className="w-5 h-5 text-[var(--foreground)]" />
+              ) : (
+                <Sun className="w-5 h-5 text-[var(--foreground)]" />
+              )}
+            </motion.div>
+          </button>
+          <button 
+            onClick={() => setIsMenuOpen(!isMenuOpen)}
+            className="md:hidden"
+          >
+            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              {isMenuOpen ? (
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+              ) : (
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+              )}
+            </svg>
+          </button>
+        </div>
       </div>
 
       {/* Mobile Menu with Animation */}

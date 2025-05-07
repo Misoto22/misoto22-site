@@ -8,6 +8,7 @@ const projects = [
     title: "Personal Website",
     description: "A modern, responsive personal website built with Next.js, TypeScript, and Tailwind CSS. Features dark mode, smooth animations, and a photography gallery.",
     link: "https://github.com/Misoto22/my-website",
+    deploy: "https://www.misoto22.com/",
     technologies: ["Next.js", "TypeScript", "Tailwind CSS", "Framer Motion"],
     image: "/images/projects/personal-website.jpeg"
   },
@@ -15,6 +16,7 @@ const projects = [
     title: "Australia EOI Points Calculator",
     description: "A modern web application for calculating points for Australian Expression of Interest (EOI) for skilled migration visas. Features real-time calculation, bilingual support, responsive design, and dark/light mode.",
     link: "https://github.com/Misoto22/eoi-points-calculator",
+    deploy: "https://eoi-points-calculator.vercel.app/",
     technologies: ["Next.js", "TypeScript", "Tailwind CSS", "i18next", "Framer Motion"],
     image: "/images/projects/eoi-calculator.jpeg"
   }
@@ -53,7 +55,7 @@ export default function Projects() {
                       rel="noopener noreferrer"
                       className="text-sm text-[var(--secondary-text)] hover:text-[var(--foreground)] transition-colors inline-flex items-center"
                     >
-                      View Project
+                      View GitHub Repo
                       <svg className="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
                       </svg>
@@ -61,7 +63,12 @@ export default function Projects() {
                   </div>
                   
                   {/* Right side - Image */}
-                  <div className="relative aspect-video rounded-lg overflow-hidden">
+                  <a 
+                    href={project.deploy} 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    className="relative aspect-video rounded-lg overflow-hidden hover:opacity-90 transition-opacity duration-200"
+                  >
                     <Image
                       src={project.image}
                       alt={project.title}
@@ -69,7 +76,7 @@ export default function Projects() {
                       className="object-cover"
                       sizes="(max-width: 768px) 100vw, 50vw"
                     />
-                  </div>
+                  </a>
                 </div>
               </div>
             </AnimatedSection>

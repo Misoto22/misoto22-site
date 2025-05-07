@@ -11,7 +11,7 @@ const educationData = [
     duration: "02/2023 - 12/2024",
     extra: "UWA Global Excellence Scholarship",
     icon: <GraduationCap className="w-6 h-6 text-gray-700" />,
-    logo: "/uwa-logo.png",
+    logo: "/icons/uni/uwa-logo.png",
   },
   {
     title: "Bachelor of Computing",
@@ -19,7 +19,7 @@ const educationData = [
     school: "The University of Sydney",
     duration: "02/2020 - 12/2022",
     icon: <School className="w-6 h-6 text-gray-700" />,
-    logo: "/usyd-logo.png",
+    logo: "/icons/uni/usyd-logo.png",
   },
   {
     title: "Summer School Program",
@@ -27,7 +27,7 @@ const educationData = [
     duration: "06/2022 - 07/2022",
     extra: "GPA 3.7",
     icon: <Award className="w-6 h-6 text-gray-700" />,
-    logo: "/sjtu-logo.png",
+    logo: "/icons/uni/sjtu-logo.png",
   },
 ]
 
