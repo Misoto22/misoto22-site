@@ -58,7 +58,7 @@ export default function Home() {
             </div>
             {/* Social Icons */}
             <div className="w-full flex flex-col items-center gap-y-8 mt-6 mb-10 md:flex-row md:justify-center md:gap-10">
-              {/* 第一行：移动端前2个，桌面端隐藏 */}
+              {/* First row: first 2 items on mobile, hidden on desktop */}
               <div className="flex justify-center gap-12 w-full md:hidden">
                 {/* GitHub */}
                 <a href="https://github.com/Misoto22" target="_blank" rel="noopener noreferrer" aria-label="GitHub" className="hover:scale-110 transition-transform">
@@ -73,7 +73,7 @@ export default function Home() {
                   </span>
                 </a>
               </div>
-              {/* 第二行：移动端后3个，桌面端隐藏 */}
+              {/* Second row: last 3 items on mobile, hidden on desktop */}
               <div className="flex justify-center gap-12 w-full md:hidden">
                 {/* Email */}
                 <a href="mailto:cxw8848@hotmail.com" target="_blank" rel="noopener noreferrer" aria-label="Email" className="hover:scale-110 transition-transform">
@@ -94,7 +94,7 @@ export default function Home() {
                   </span>
                 </a>
               </div>
-              {/* 桌面端一行5个，移动端隐藏 */}
+              {/* Desktop: 5 items per row, hidden on mobile */}
               <div className="hidden md:flex justify-center gap-10 w-full">
                 {/* GitHub */}
                 <a href="https://github.com/Misoto22" target="_blank" rel="noopener noreferrer" aria-label="GitHub" className="hover:scale-110 transition-transform">

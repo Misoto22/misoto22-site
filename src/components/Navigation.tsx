@@ -20,8 +20,8 @@ const Navigation = () => {
   const navItems = [
     { href: '/', text: 'Home' },
     { href: '/education', text: 'Education' },
-    { href: '/experience', text: 'Experience' },
     { href: '/projects', text: 'Projects' },
+    { href: '/experience', text: 'Experience' },
     { href: '/photography', text: 'Photography' },
     { href: '/contact', text: 'Contact' }
   ]
@@ -29,11 +29,11 @@ const Navigation = () => {
   return (
     <nav className="fixed top-0 w-full bg-[var(--nav-background)] backdrop-blur-sm z-50">
       <div className="max-w-6xl mx-auto px-6 py-6 relative">
-        {/* LOGO 靠左 */}
+        {/* Logo aligned to the left */}
         <Link href="/" className="text-2xl font-semibold tracking-wider z-10 relative" onClick={handleNavigation}>
           HENRY CHEN
         </Link>
-        {/* 菜单项绝对居中 */}
+        {/* Menu items absolutely centered */}
         <div className="hidden md:flex space-x-6 text-base absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2">
           {navItems.map((item, index) => (
             <div key={item.href} className="relative">
@@ -61,7 +61,7 @@ const Navigation = () => {
             </div>
           ))}
         </div>
-        {/* 主题切换按钮和移动端菜单按钮 */}
+        {/* Theme toggle button and mobile menu button */}
         <div className="absolute right-6 top-6 flex items-center space-x-4">
           <button
             onClick={toggleTheme}

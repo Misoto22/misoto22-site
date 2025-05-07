@@ -1,26 +1,26 @@
 import { NextResponse } from 'next/server';
 
-// 这里需要替换成你的 Unsplash API key
+// My Unsplash API key
 const UNSPLASH_ACCESS_KEY = process.env.UNSPLASH_ACCESS_KEY;
 
-// 你想要展示的特定照片的 ID 列表
+// List of photo IDs from Unsplash
 const PHOTO_IDS = [
-  'C9ZwRUAPaIQ', // 银河
-  'XxVQlk2QILE', // 南昌天桥
-  'O3Kbs823FQk', // 悉尼公交车
-  'U3KJgS4xwJ0', // 海边公路
-  'jkqYv6tFAXY', // 纽卡斯尔日落
-  'RpKKalTH0-c', // 卧龙岗海滩
-  '6asZ7mSkNQ4', // 悉尼大学
-  'b-dBvZY8fFk', // 悉尼港
-  '8cMKZ-5LLEc', // 悉尼歌剧院
+  'C9ZwRUAPaIQ', // Milky Way
+  'XxVQlk2QILE', // Nanchang Overpass
+  'O3Kbs823FQk', // Sydney Bus
+  'U3KJgS4xwJ0', // Coastal Road
+  'jkqYv6tFAXY', // Newcastle Sunset
+  'RpKKalTH0-c', // Wollongong Beach
+  '6asZ7mSkNQ4', // University of Sydney
+  'b-dBvZY8fFk', // Sydney Harbour
+  '8cMKZ-5LLEc', // Sydney Opera House
 ];
 
 export async function GET() {
   try {
-    // 并行获取所有照片
+    // Fetch all photos in parallel
     const photoPromises = PHOTO_IDS.map(id => {
-      // 处理不同格式的 ID
+      // Handle different ID formats
       const photoId = id.startsWith('photo-') ? id : `photo-${id}`;
       return fetch(`https://api.unsplash.com/photos/${photoId}`, {
         headers: {
@@ -31,9 +31,9 @@ export async function GET() {
 
     const photos = await Promise.all(photoPromises);
     
-    // 转换 Unsplash 数据格式为我们的 GalleryImage 格式
+    // Convert Unsplash data format to our GalleryImage format
     const images = photos
-      .filter((photo: any) => photo && photo.urls && photo.urls.regular) // 过滤掉无效的照片数据
+      .filter((photo: any) => photo && photo.urls && photo.urls.regular) // Filter out invalid photo data
       .map((photo: any, index: number) => ({
         id: index + 1,
         title: photo.description || photo.alt_description || 'Untitled',
