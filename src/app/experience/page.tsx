@@ -52,7 +52,7 @@ export default function ExperiencePage() {
         <div className="space-y-16">
           {experiences.map((exp, index) => (
             <AnimatedSection key={index} delay={index * 0.1}>
-              <div className="bg-white/90 dark:bg-black/40 rounded-xl p-8 hover:shadow-lg transition-all duration-300">
+              <div className="bg-transparent dark:bg-transparent rounded-xl p-8 hover:shadow-lg transition-all duration-300">
                 <div className="flex flex-col md:flex-row md:justify-between md:items-start gap-4 mb-6">
                   <div className="space-y-2">
                     <h2 className="text-2xl font-medium tracking-wide text-[var(--foreground)]">{exp.title}</h2>
@@ -88,7 +88,7 @@ export default function ExperiencePage() {
                   {exp.technologies.map((tech, i) => (
                     <span
                       key={i}
-                      className="bg-gray-100 text-gray-700 px-3 py-1 rounded-full text-sm font-medium hover:bg-gray-200 transition-colors duration-200"
+                      className="bg-[color:var(--tag-bg,#e5e7eb)] text-[color:var(--tag-text,#22223b)] px-3 py-1 rounded-full text-sm font-medium hover:bg-[color:var(--tag-hover-bg,#d1d5db)] transition-colors duration-200"
                     >
                       {tech}
                     </span>

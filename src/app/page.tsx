@@ -6,7 +6,7 @@ import AnimatedSection from '@/components/AnimatedSection'
 
 export default function Home() {
   return (
-    <section className="pt-24 min-h-screen bg-gradient-to-b from-[var(--background)] to-[var(--background-secondary)] flex flex-col items-center px-4">
+    <section className="pt-24 min-h-screen bg-[var(--background)] flex flex-col items-center px-4">
       <div className="w-full flex flex-col items-center">
         {/* Hero Section */}
         <AnimatedSection className="relative flex flex-col items-center mb-16 w-full">
@@ -135,13 +135,13 @@ export default function Home() {
             </div>
             <div className="mb-8">
               <h3 className="text-xl font-bold mb-4 text-center">DevOps & Cloud</h3>
-              <div className="grid grid-cols-2 md:grid-cols-6 gap-6 justify-items-center">
+              <div className="grid grid-cols-3 md:grid-cols-6 gap-6 justify-items-center">
                 <div className="flex flex-col items-center">
                   <Image src="/icons/docker.svg" alt="Docker" width={40} height={40} />
                   <span className="mt-2 text-sm">Docker</span>
                 </div>
-                <div className="flex flex-col items-center">
-                  <Image src="/icons/githubactions.svg" alt="GitHub Actions" width={40} height={40} />
+                <div className="w-16 flex flex-col items-center justify-center">
+                  <Image src="/icons/githubactions.svg" alt="GitHub Actions" width={40} height={40} className="ml-3" />
                   <span className="mt-2 text-sm">GitHub Actions</span>
                 </div>
                 <div className="flex flex-col items-center">

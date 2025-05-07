@@ -7,7 +7,7 @@ const projects = [
   {
     title: "Personal Website",
     description: "A modern, responsive personal website built with Next.js, TypeScript, and Tailwind CSS. Features dark mode, smooth animations, and a photography gallery.",
-    link: "https://github.com/yourusername/my-website",
+    link: "https://github.com/Misoto22/my-website",
     technologies: ["Next.js", "TypeScript", "Tailwind CSS", "Framer Motion"],
     image: "https://images.unsplash.com/photo-1547658719-da2b51169166?w=800&auto=format&fit=crop&q=60"
   },
@@ -31,7 +31,7 @@ export default function Projects() {
         <div className="space-y-16">
           {projects.map((project, index) => (
             <AnimatedSection key={index} delay={index * 0.1}>
-              <div className="bg-white/90 dark:bg-black/40 rounded-lg overflow-hidden hover:shadow-lg transition-all duration-300">
+              <div className="bg-transparent dark:bg-transparent rounded-lg overflow-hidden hover:shadow-lg transition-all duration-300">
                 <div className="grid md:grid-cols-2 gap-8 p-6">
                   {/* Left side - Content */}
                   <div className="flex flex-col justify-center">
@@ -41,7 +41,7 @@ export default function Projects() {
                       {project.technologies.map((tech, i) => (
                         <span
                           key={i}
-                          className="bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 px-3 py-1 rounded-full text-sm font-medium"
+                          className="bg-[color:var(--tag-bg,#e5e7eb)] text-[color:var(--tag-text,#22223b)] px-3 py-1 rounded-full text-sm font-medium hover:bg-[color:var(--tag-hover-bg,#d1d5db)] transition-colors duration-200"
                         >
                           {tech}
                         </span>
