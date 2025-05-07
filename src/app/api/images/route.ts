@@ -6,17 +6,14 @@ const UNSPLASH_ACCESS_KEY = process.env.UNSPLASH_ACCESS_KEY;
 // 你想要展示的特定照片的 ID 列表
 const PHOTO_IDS = [
   'C9ZwRUAPaIQ', // 银河
-  'photo-1470071459604-3b5ec3a7fe05', // 日落
-  'photo-1441974231531-c6227db76b6e', // 森林
-  'photo-1472214103451-9374bd1c798e', // 山景
-  'photo-1472396961693-142e6e269027', // 海滩
-  'photo-1447752875215-b2761acb3c5d', // 森林
-  'photo-1470252649378-9c29740c9fa8', // 日出
-  'photo-1469474968028-56623f02e42e', // 湖泊
-  'photo-1447752875215-b2761acb3c5d', // 森林
-  'photo-1472396961693-142e6e269027', // 海滩
-  'photo-1472214103451-c6227db76b6e', // 山景
-  'photo-1470071459604-3b5ec3a7fe05', // 日落
+  'XxVQlk2QILE', // 南昌天桥
+  'O3Kbs823FQk', // 悉尼公交车
+  'U3KJgS4xwJ0', // 海边公路
+  'jkqYv6tFAXY', // 纽卡斯尔日落
+  'RpKKalTH0-c', // 卧龙岗海滩
+  '6asZ7mSkNQ4', // 悉尼大学
+  'b-dBvZY8fFk', // 悉尼港
+  '8cMKZ-5LLEc', // 悉尼歌剧院
 ];
 
 export async function GET() {

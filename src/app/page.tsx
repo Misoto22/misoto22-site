@@ -22,7 +22,7 @@ export default function Home() {
             />
           </div>
           {/* Main Title */}
-          <h1 className="text-5xl md:text-7xl font-bold tracking-wide text-[var(--foreground)] mt-[-32px] bg-[var(--background)] px-6 py-3 rounded-lg z-10">
+          <h1 className="text-5xl md:text-7xl font-bold tracking-wide text-[var(--foreground)] mt-4 bg-[var(--background)] px-6 py-3 rounded-lg z-10">
             Henry Chen
           </h1>
           {/* Subtitle */}
@@ -39,6 +39,169 @@ export default function Home() {
             Download My Resume
           </motion.a>
         </AnimatedSection>
+
+        {/* My Skills Section */}
+        <div id="skills" className="w-full max-w-2xl my-16 scroll-mt-24">
+          <AnimatedSection delay={0.1} className="w-full">
+            <h2 className="text-3xl md:text-4xl font-semibold mb-8 text-[var(--foreground)] text-center">
+              My Skills
+            </h2>
+            <div className="mb-8">
+              <h3 className="text-xl font-bold mb-4 text-center">Web Development</h3>
+              <div className="grid grid-cols-3 md:grid-cols-6 gap-6 justify-items-center">
+                <div className="flex flex-col items-center">
+                  <Image src="/icons/react.svg" alt="React" width={40} height={40} />
+                  <span className="mt-2 text-sm">React</span>
+                </div>
+                <div className="flex flex-col items-center">
+                  <Image src="/icons/nextjs.svg" alt="Next.js" width={40} height={40} />
+                  <span className="mt-2 text-sm">Next.js</span>
+                </div>
+                <div className="flex flex-col items-center">
+                  <Image src="/icons/typescript.svg" alt="TypeScript" width={40} height={40} />
+                  <span className="mt-2 text-sm">TypeScript</span>
+                </div>
+                <div className="flex flex-col items-center">
+                  <Image src="/icons/javascript.svg" alt="JavaScript" width={40} height={40} />
+                  <span className="mt-2 text-sm">JavaScript</span>
+                </div>
+                <div className="flex flex-col items-center">
+                  <Image src="/icons/html5.svg" alt="HTML5" width={40} height={40} />
+                  <span className="mt-2 text-sm">HTML5</span>
+                </div>
+                <div className="flex flex-col items-center">
+                  <Image src="/icons/tailwind.svg" alt="Tailwind CSS" width={40} height={40} />
+                  <span className="mt-2 text-sm">Tailwind CSS</span>
+                </div>
+              </div>
+            </div>
+            <div className="mb-8">
+              <h3 className="text-xl font-bold mb-4 text-center">Backend Development</h3>
+              <div className="grid grid-cols-3 md:grid-cols-6 gap-6 justify-items-center">
+                <div className="flex flex-col items-center">
+                  <Image src="/icons/python.svg" alt="Python" width={40} height={40} />
+                  <span className="mt-2 text-sm">Python</span>
+                </div>
+                <div className="flex flex-col items-center">
+                  <Image src="/icons/java.svg" alt="Java" width={40} height={40} />
+                  <span className="mt-2 text-sm">Java</span>
+                </div>
+                <div className="flex flex-col items-center">
+                  <Image src="/icons/c.svg" alt="C" width={40} height={40} />
+                  <span className="mt-2 text-sm">C</span>
+                </div>
+                <div className="flex flex-col items-center">
+                  <Image src="/icons/nodejs.svg" alt="Node.js" width={40} height={40} />
+                  <span className="mt-2 text-sm">Node.js</span>
+                </div>
+                <div className="flex flex-col items-center">
+                  <Image src="/icons/flask.svg" alt="Flask" width={40} height={40} />
+                  <span className="mt-2 text-sm">Flask</span>
+                </div>
+                <div className="flex flex-col items-center">
+                  <Image src="/icons/git.svg" alt="Git" width={40} height={40} />
+                  <span className="mt-2 text-sm">Git</span>
+                </div>
+              </div>
+            </div>
+            <div className="mb-8">
+              <h3 className="text-xl font-bold mb-4 text-center">Data Analysis</h3>
+              <div className="grid grid-cols-3 md:grid-cols-6 gap-6 justify-items-center">
+                <div className="flex flex-col items-center">
+                  <Image src="/icons/r.svg" alt="R" width={40} height={40} />
+                  <span className="mt-2 text-sm">R</span>
+                </div>
+                <div className="flex flex-col items-center">
+                  <Image src="/icons/python.svg" alt="Python" width={40} height={40} />
+                  <span className="mt-2 text-sm">Python</span>
+                </div>
+                <div className="flex flex-col items-center">
+                  <Image src="/icons/pandas.svg" alt="Pandas" width={40} height={40} />
+                  <span className="mt-2 text-sm">Pandas</span>
+                </div>
+                <div className="flex flex-col items-center">
+                  <Image src="/icons/excel.svg" alt="Excel" width={40} height={40} />
+                  <span className="mt-2 text-sm">Excel</span>
+                </div>
+                <div className="flex flex-col items-center">
+                  <Image src="/icons/postgresql.svg" alt="PostgreSQL" width={40} height={40} />
+                  <span className="mt-2 text-sm">PostgreSQL</span>
+                </div>
+                <div className="flex flex-col items-center">
+                  <Image src="/icons/jupyter.svg" alt="Jupyter" width={40} height={40} />
+                  <span className="mt-2 text-sm">Jupyter</span>
+                </div>
+              </div>
+            </div>
+            <div className="mb-8">
+              <h3 className="text-xl font-bold mb-4 text-center">DevOps & Cloud</h3>
+              <div className="grid grid-cols-2 md:grid-cols-6 gap-6 justify-items-center">
+                <div className="flex flex-col items-center">
+                  <Image src="/icons/docker.svg" alt="Docker" width={40} height={40} />
+                  <span className="mt-2 text-sm">Docker</span>
+                </div>
+                <div className="flex flex-col items-center">
+                  <Image src="/icons/githubactions.svg" alt="GitHub Actions" width={40} height={40} />
+                  <span className="mt-2 text-sm">GitHub Actions</span>
+                </div>
+                <div className="flex flex-col items-center">
+                  <Image src="/icons/aws.svg" alt="AWS" width={40} height={40} />
+                  <span className="mt-2 text-sm">AWS</span>
+                </div>
+                <div className="flex flex-col items-center">
+                  <Image src="/icons/firebase.svg" alt="Firebase" width={40} height={40} />
+                  <span className="mt-2 text-sm">Firebase</span>
+                </div>
+                <div className="flex flex-col items-center">
+                  <Image src="/icons/bash.svg" alt="Bash" width={40} height={40} />
+                  <span className="mt-2 text-sm">Bash</span>
+                </div>
+                <div className="flex flex-col items-center">
+                  <Image src="/icons/vercel.svg" alt="Vercel" width={40} height={40} />
+                  <span className="mt-2 text-sm">Vercel</span>
+                </div>
+              </div>
+            </div>
+            <div className="mb-8">
+              <h3 className="text-xl font-bold mb-4 text-center">Creative Tools</h3>
+              <div className="grid grid-cols-3 md:grid-cols-6 gap-6 justify-items-center">
+                <div className="flex flex-col items-center">
+                  <Image src="/icons/lightroom.svg" alt="Lightroom" width={40} height={40} />
+                  <span className="mt-2 text-sm">Lightroom</span>
+                </div>
+                <div className="flex flex-col items-center">
+                  <Image src="/icons/photoshop.svg" alt="Photoshop" width={40} height={40} />
+                  <span className="mt-2 text-sm">Photoshop</span>
+                </div>
+                <div className="flex flex-col items-center">
+                  <Image src="/icons/figma.svg" alt="Figma" width={40} height={40} />
+                  <span className="mt-2 text-sm">Figma</span>
+                </div>
+                <div className="flex flex-col items-center">
+                  <Image src="/icons/captureone.svg" alt="Capture One" width={40} height={40} />
+                  <span className="mt-2 text-sm">Capture One</span>
+                </div>
+                <div className="flex flex-col items-center">
+                  <Image src="/icons/finalcutpro.svg" alt="Final Cut Pro" width={40} height={40} />
+                  <span className="mt-2 text-sm">Final Cut Pro</span>
+                </div>
+              </div>
+            </div>
+            <div className="mb-8">
+              <h3 className="text-xl font-bold mb-4 text-center">Documentation</h3>
+              <div className="grid grid-cols-3 md:grid-cols-6 gap-6 justify-items-center">
+                <div className="flex flex-col items-center">
+                  <Image src="/icons/markdown.svg" alt="Markdown" width={40} height={40} />
+                  <span className="mt-2 text-sm">Markdown</span>
+                </div>
+                <div className="flex flex-col items-center">
+                  <Image src="/icons/latex.svg" alt="LaTeX" width={40} height={40} />
+                  <span className="mt-2 text-sm">LaTeX</span>
+                </div>
+              </div>
+            </div>
+          </AnimatedSection>
+        </div>
 
         {/* What do I do? Section */}
         <AnimatedSection delay={0.2} className="w-full max-w-2xl space-y-16">

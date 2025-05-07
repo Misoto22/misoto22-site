@@ -58,13 +58,13 @@ export default function Education() {
                   <h2 className="text-xl md:text-2xl font-semibold tracking-wide text-[var(--foreground)] text-center md:text-left leading-tight">
                     {edu.title}
                   </h2>
-                  {edu.major && (
-                    <p className="text-sm md:text-base text-[var(--secondary-text)] mt-1 text-center md:text-left font-medium">{edu.major}</p>
-                  )}
                   <div className="flex items-center gap-2 mt-2 text-[var(--secondary-text)] text-center md:text-left">
                     {edu.icon}
                     <span className="font-medium">{edu.school}</span>
                   </div>
+                  {edu.major && (
+                    <p className="text-sm md:text-base text-[var(--secondary-text)] mt-1 text-center md:text-left font-medium">{edu.major}</p>
+                  )}
                   {edu.extra && (
                     <div className="text-xs md:text-sm text-[var(--secondary-text)] mt-2 text-center md:text-left">
                       {edu.extra}

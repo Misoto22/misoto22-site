@@ -27,3 +27,17 @@ body {
   background: var(--background);
   /* font-family: Arial, Helvetica, sans-serif; */
 }
+
+/* Masonry layout styles for react-masonry-css */
+.my-masonry-grid {
+  display: flex;
+  margin-left: -24px; /* gutter size offset */
+  width: auto;
+}
+.my-masonry-grid_column {
+  padding-left: 24px; /* gutter size */
+  background-clip: padding-box;
+}
+.my-masonry-grid_column > div {
+  margin-bottom: 24px;
+}

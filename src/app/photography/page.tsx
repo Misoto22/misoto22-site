@@ -2,6 +2,7 @@
 import Image from 'next/image'
 import { useState, useEffect } from 'react'
 import AnimatedSection from '@/components/AnimatedSection'
+import Masonry from 'react-masonry-css'
 
 interface GalleryImage {
   id: number;
@@ -117,6 +118,13 @@ const Gallery = () => {
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, [isModalOpen, selectedIndex, images]);
 
+  // Masonry breakpoints
+  const breakpointColumnsObj = {
+    default: 3,
+    1100: 2,
+    700: 1
+  };
+
   if (isLoading) {
     return (
       <AnimatedSection className="flex justify-center items-center min-h-screen">
@@ -146,14 +154,18 @@ const Gallery = () => {
   return (
     <section className="pt-24 min-h-screen bg-[var(--background)] px-4">
       <AnimatedSection className="max-w-7xl mx-auto">
-        <h1 className="text-4xl md:text-5xl font-bold text-center mb-12 text-[var(--foreground)]">
+        <h1 className="text-4xl font-semibold tracking-wide text-center mb-12 text-[var(--foreground)]">
           Photography
         </h1>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <Masonry
+          breakpointCols={breakpointColumnsObj}
+          className="my-masonry-grid"
+          columnClassName="my-masonry-grid_column"
+        >
           {images.map((image, index) => (
             <AnimatedSection key={image.id} delay={index * 0.1}>
               <div 
-                className={`relative cursor-pointer group ${image.className}`}
+                className={`relative cursor-pointer group mb-6 ${image.className}`}
                 onClick={() => handleImageClick(image, index)}
               >
                 <Image
@@ -161,13 +173,13 @@ const Gallery = () => {
                   alt={image.title}
                   width={800}
                   height={800 / (parseFloat(image.aspect) || 1.5)}
-                  className={`rounded-lg transition-opacity duration-300 ${
+                  className={`rounded-md transition-opacity duration-300 ${
                     loadedImages.has(image.r2Key) ? 'opacity-100' : 'opacity-0'
                   }`}
                   onLoad={() => handleImageLoad(image.r2Key)}
                 />
-                <div className="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-30 transition-all duration-300 rounded-lg">
-                  <div className="absolute bottom-0 left-0 right-0 p-4 text-white opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                <div className="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-30 transition-all duration-300 rounded-md pointer-events-none">
+                  <div className="absolute bottom-0 left-0 right-0 p-4 text-white opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-black/50 rounded-b-md pointer-events-auto">
                     <h3 className="text-lg font-semibold">{image.title}</h3>
                     <p className="text-sm">{image.location}, {image.year}</p>
                   </div>
@@ -175,7 +187,7 @@ const Gallery = () => {
               </div>
             </AnimatedSection>
           ))}
-        </div>
+        </Masonry>
       </AnimatedSection>
 
       {/* Modal */}
