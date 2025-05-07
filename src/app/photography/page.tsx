@@ -1,6 +1,6 @@
 "use client"
 import Image from 'next/image'
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useCallback } from 'react'
 import AnimatedSection from '@/components/AnimatedSection'
 import Masonry from 'react-masonry-css'
 
@@ -71,21 +71,21 @@ const Gallery = () => {
     setIsModalOpen(true);
   };
 
-  const handlePrevImage = () => {
+  const handlePrevImage = useCallback(() => {
     if (selectedIndex > 0) {
       const prevIndex = selectedIndex - 1;
       setSelectedImage(images[prevIndex]);
       setSelectedIndex(prevIndex);
     }
-  };
+  }, [selectedIndex, images]);
 
-  const handleNextImage = () => {
+  const handleNextImage = useCallback(() => {
     if (selectedIndex < images.length - 1) {
       const nextIndex = selectedIndex + 1;
       setSelectedImage(images[nextIndex]);
       setSelectedIndex(nextIndex);
     }
-  };
+  }, [selectedIndex, images]);
 
   const handleCloseModal = () => {
     setSelectedImage(null);

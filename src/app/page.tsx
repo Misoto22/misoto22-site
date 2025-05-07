@@ -22,7 +22,7 @@ export default function Home() {
           <AnimatedSection className="relative flex flex-col items-center mb-16 w-full">
             {/* Greeting */}
             <h2 className="text-2xl md:text-3xl font-semibold text-[var(--foreground)] mb-2 text-center">
-              Hi, I'm Henry Chen! <span className="inline-block">👋</span>
+              Hi, I&apos;m Henry Chen! <span className="inline-block">👋</span>
             </h2>
             {/* Illustration */}
             <div className="flex justify-center w-full mb-2">
