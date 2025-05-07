@@ -1,6 +1,8 @@
 # Henry Chen's Portfolio
 
 A modern, responsive personal portfolio website built with Next.js and TypeScript. Showcasing my projects, skills, and experiences in an elegant and interactive way.
+![personal-website copy](https://github.com/user-attachments/assets/d4da9841-ebdd-4ed3-abaf-41abdd3f8bbf)
+
 
 ## 🌟 Features
 
