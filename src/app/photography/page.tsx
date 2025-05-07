@@ -116,7 +116,7 @@ const Gallery = () => {
 
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [isModalOpen, selectedIndex, images]);
+  }, [isModalOpen, selectedIndex, images, handleNextImage, handlePrevImage]);
 
   // Masonry breakpoints
   const breakpointColumnsObj = {

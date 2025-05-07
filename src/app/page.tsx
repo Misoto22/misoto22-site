@@ -50,7 +50,7 @@ export default function Home() {
                 Welcome to my personal page!
               </p>
               <p className="text-base md:text-lg text-[var(--muted-foreground)] mb-1 leading-relaxed text-center max-w-2xl">
-                I'm a <span className="font-medium">fullstack developer & DevOps engineer</span> who loves building things that make my life easier.
+                I&apos;m a <span className="font-medium">fullstack developer & DevOps engineer</span> who loves building things that make my life easier.
               </p>
               <p className="text-base md:text-lg text-[var(--muted-foreground)] leading-relaxed text-center max-w-2xl">
                 I am also passionate about photography, capturing the beauty in everyday life.
