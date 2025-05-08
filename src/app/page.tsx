@@ -6,6 +6,8 @@ import AnimatedSection from '@/components/AnimatedSection'
 import { FaGithub, FaLinkedin, FaInstagram } from 'react-icons/fa';
 import { MdEmail } from 'react-icons/md';
 import { SiUnsplash } from 'react-icons/si';
+import { SpeedInsights } from "@vercel/speed-insights/next"
+import { Analytics } from "@vercel/analytics/react"
 
 export default function Home() {
   return (

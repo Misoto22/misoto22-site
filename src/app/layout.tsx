@@ -7,6 +7,7 @@ import Footer from '@/components/Footer'
 import ScrollToTopButton from '@/components/ScrollToTopButton'
 import { ThemeProvider } from '@/context/ThemeContext'
 import { SpeedInsights } from "@vercel/speed-insights/next"
+import { Analytics } from "@vercel/analytics/react"
 
 const montserrat = Montserrat({ subsets: ['latin'], variable: '--font-montserrat' })
 
