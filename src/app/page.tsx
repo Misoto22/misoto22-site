@@ -17,7 +17,7 @@ export default function Home() {
         transition={{ duration: 0.7, ease: 'easeOut' }}
         className="min-h-screen flex flex-col justify-center items-center bg-[var(--background)] px-4 pt-24 md:pt-32"
       >
-        <div className="w-full max-w-6xl">
+        <div className="w-full max-w-6xl mx-auto px-6">
           {/* Hero Section */}
           <AnimatedSection className="relative flex flex-col items-center mb-16 w-full">
             {/* Greeting */}
@@ -78,7 +78,7 @@ export default function Home() {
         transition={{ duration: 0.7, ease: 'easeOut' }}
         className="min-h-screen flex flex-col justify-center items-center bg-[var(--background)] px-4 relative"
       >
-        <div className="w-full max-w-6xl scroll-mt-24">
+        <div className="w-full max-w-6xl mx-auto px-6 scroll-mt-24">
           <AnimatedSection delay={0.1} className="w-full">
             <h2 className="text-3xl md:text-4xl font-heading mb-12 text-[var(--foreground)] text-center">
               My Skills
@@ -269,9 +269,9 @@ export default function Home() {
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, amount: 0.3 }}
         transition={{ duration: 0.7, ease: 'easeOut' }}
-        className="w-full flex justify-center px-4 relative"
+        className="w-full max-w-6xl mx-auto px-6 relative"
       >
-        <AnimatedSection delay={0.2} className="w-full max-w-6xl space-y-16">
+        <AnimatedSection delay={0.2} className="w-full space-y-16">
           <div className="bg-[var(--card-background)] rounded-2xl p-8 shadow-lg border border-[var(--border-color)]">
             <h2 className="text-3xl md:text-4xl font-heading mb-8 text-[var(--foreground)] text-center">
               What do I do?
