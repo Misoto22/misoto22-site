@@ -1,16 +1,37 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import emailjs from '@emailjs/browser'
 import AnimatedSection from '@/components/AnimatedSection'
 import { FaGithub, FaLinkedin, FaInstagram, FaClock, FaMapMarkerAlt } from 'react-icons/fa';
 import { MdEmail, MdPhone } from 'react-icons/md';
 import { SiUnsplash } from 'react-icons/si';
 
-// Initialize EmailJS
-emailjs.init(process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY || '');
-
 export default function Contact() {
+  useEffect(() => {
+    // Check if environment variables are properly loaded
+    const publicKey = process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY;
+    const serviceId = process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID;
+    const templateId = process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID;
+
+    if (!publicKey || !serviceId || !templateId) {
+      console.error('EmailJS configuration is missing:', {
+        publicKey: !!publicKey,
+        serviceId: !!serviceId,
+        templateId: !!templateId
+      });
+      return;
+    }
+
+    // Initialize EmailJS
+    emailjs.init({
+      publicKey,
+      limitRate: {
+        throttle: 1000
+      }
+    });
+  }, []);
+
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -29,31 +50,53 @@ export default function Contact() {
     e.preventDefault();
     setStatus({ submitting: true, submitted: false, error: false, message: '' });
 
-    try {
-      await emailjs.send(
-        process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID || '',
-        process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID || '',
-        {
-          from_name: formData.name,
-          from_email: formData.email,
-          subject: formData.subject,
-          message: formData.message,
-        }
-      );
-
-      setStatus({
-        submitting: false,
-        submitted: true,
-        error: false,
-        message: 'Message sent successfully!'
-      });
-      setFormData({ name: '', email: '', subject: '', message: '' });
-    } catch (error) {
+    // 验证表单数据
+    if (!formData.name || !formData.email || !formData.subject || !formData.message) {
       setStatus({
         submitting: false,
         submitted: false,
         error: true,
-        message: 'Failed to send message. Please try again.'
+        message: 'Please fill in all fields'
+      });
+      return;
+    }
+
+    try {
+      const templateParams = {
+        to_name: 'Henry', // Recipient's name
+        from_name: formData.name,
+        from_email: formData.email,
+        subject: formData.subject,
+        message: formData.message,
+        reply_to: formData.email,
+      };
+
+      // Remove detailed logging in production
+      const result = await emailjs.send(
+        process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID || '',
+        process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID || '',
+        templateParams
+      );
+
+      if (result.status === 200) {
+        setStatus({
+          submitting: false,
+          submitted: true,
+          error: false,
+          message: 'Message sent successfully!'
+        });
+        setFormData({ name: '', email: '', subject: '', message: '' });
+      } else {
+        throw new Error('Failed to send message');
+      }
+    } catch (error: any) {
+      // Log error for monitoring but don't expose details to user
+      console.error('Contact form submission failed');
+      setStatus({
+        submitting: false,
+        submitted: false,
+        error: true,
+        message: 'Unable to send message at this time. Please try again later.'
       });
     }
   };
