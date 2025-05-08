@@ -1,86 +1,116 @@
 'use client'
 
-import { GraduationCap, School, Award } from 'lucide-react'
-import Image from 'next/image'
+import React from 'react'
 import AnimatedSection from '@/components/AnimatedSection'
 
-const educationData = [
-  {
-    title: "Master of IT",
-    school: "The University of Western Australia",
-    duration: "02/2023 - 12/2024",
-    extra: "UWA Global Excellence Scholarship",
-    icon: <GraduationCap className="w-6 h-6 text-gray-700" />,
-    logo: "/icons/uni/uwa-logo.png",
-  },
-  {
-    title: "Bachelor of Computing",
-    major: "Computer Science",
-    school: "The University of Sydney",
-    duration: "02/2020 - 12/2022",
-    icon: <School className="w-6 h-6 text-gray-700" />,
-    logo: "/icons/uni/usyd-logo.png",
-  },
-  {
-    title: "Summer School Program",
-    school: "Shanghai Jiao Tong University",
-    duration: "06/2022 - 07/2022",
-    extra: "GPA 3.7",
-    icon: <Award className="w-6 h-6 text-gray-700" />,
-    logo: "/icons/uni/sjtu-logo.png",
-  },
-]
+interface Education {
+  degree: string;
+  school: string;
+  schoolLink?: string;
+  location: string;
+  period: string;
+  description: string[];
+  courses: string[];
+}
 
-export default function Education() {
+const education: Education[] = [
+  {
+    degree: "Master of Information Technology",
+    school: "The University of Western Australia",
+    schoolLink: "https://www.uwa.edu.au/",
+    location: "Perth, WA",
+    period: "2023 - 2024",
+    description: [
+      "Specializing in Software Engineering and Data Science"
+    ],
+    courses: [
+      "IT Capstone Project", "Python Programming", "IoT", "High Performance Computing",
+      "Cloud Computing", "AI Systems", "Cybersecurity", "Data Analysis"
+    ]
+  },
+  {
+    degree: "Bachelor of Computing",
+    school: "The University of Sydney",
+    schoolLink: "https://www.sydney.edu.au/",
+    location: "Sydney, NSW",
+    period: "2020 - 2023",
+    description: [
+      "Major in Computer Science"
+    ],
+    courses: [
+      "Data Science", "Data Structures & Algorithms", "Systems Programming",
+      "AI", "Algorithm Design", "Software Development", "Database Management"
+    ]
+  }
+];
+
+export default function EducationPage() {
   return (
     <section className="pt-24 min-h-screen bg-[var(--background)]">
-      <AnimatedSection className="max-w-4xl mx-auto px-6">
-        <h1 className="text-4xl font-semibold tracking-wide mb-12 text-center text-[var(--foreground)]">
-          Education
-        </h1>
+      <div className="max-w-6xl mx-auto px-6">
+        <AnimatedSection>
+          <h1 className="text-4xl md:text-5xl font-heading mb-4 tracking-wide text-[var(--foreground)] text-center">
+            Education
+          </h1>
+          <p className="text-[var(--secondary-text)] mb-12 text-center text-lg max-w-2xl mx-auto">
+            My academic journey and the knowledge I've gained along the way.
+          </p>
+        </AnimatedSection>
+
         <div className="space-y-8">
-          {educationData.map((edu, index) => (
+          {education.map((edu, index) => (
             <AnimatedSection key={index} delay={index * 0.1}>
-              <div
-                className="bg-transparent dark:bg-transparent rounded-lg p-6 flex flex-col md:flex-row md:items-center md:gap-0 md:justify-between transition-all duration-300 hover:shadow-lg"
-              >
-                {edu.logo && (
-                  <div className="w-28 h-28 md:w-32 md:h-32 relative flex-shrink-0 mx-auto md:mx-0 md:mr-8 flex items-center justify-center">
-                    <Image
-                      src={edu.logo}
-                      alt={`${edu.school} logo`}
-                      fill
-                      className="object-contain"
-                    />
+              <div className="bg-[var(--card-background)] rounded-2xl p-8 shadow-lg border border-[var(--border-color)] hover:shadow-xl transition-all duration-300">
+                <div className="flex flex-col md:flex-row md:justify-between md:items-start gap-4 mb-6">
+                  <div className="space-y-2">
+                    <h2 className="text-2xl font-heading text-[var(--foreground)]">{edu.degree}</h2>
+                    <h3 className="text-xl text-[var(--secondary-text)]">
+                      {edu.schoolLink ? (
+                        <a 
+                          href={edu.schoolLink}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="hover:text-[var(--foreground)] transition-colors duration-200 inline-flex items-center font-normal"
+                        >
+                          {edu.school}
+                          <svg className="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                          </svg>
+                        </a>
+                      ) : (
+                        edu.school
+                      )}
+                    </h3>
                   </div>
-                )}
-                <div className="flex flex-col items-center md:items-start flex-grow w-full md:w-auto md:max-w-xl">
-                  <h2 className="text-xl md:text-2xl font-semibold tracking-wide text-[var(--foreground)] text-center md:text-left leading-tight">
-                    {edu.title}
-                  </h2>
-                  <div className="flex items-center gap-2 mt-2 text-[var(--secondary-text)] text-center md:text-left">
-                    {edu.icon}
-                    <span className="font-medium">{edu.school}</span>
+                  <div className="text-right space-y-1">
+                    <p className="text-[var(--foreground)] font-medium">{edu.period}</p>
+                    <p className="text-[var(--secondary-text)]">{edu.location}</p>
                   </div>
-                  {edu.major && (
-                    <p className="text-sm md:text-base text-[var(--secondary-text)] mt-1 text-center md:text-left font-medium">{edu.major}</p>
-                  )}
-                  {edu.extra && (
-                    <div className="text-xs md:text-sm text-[var(--secondary-text)] mt-2 text-center md:text-left">
-                      {edu.extra}
-                    </div>
-                  )}
                 </div>
-                <div className="mt-4 md:mt-0 md:ml-8 flex-shrink-0 w-full md:w-40 text-center md:text-right">
-                  <span className="text-xs md:text-sm text-[var(--secondary-text)] font-mono tracking-widest whitespace-nowrap block">
-                    {edu.duration}
-                  </span>
+
+                <div className="space-y-4 mb-6">
+                  {edu.description.map((desc, i) => (
+                    <p key={i} className="text-[var(--secondary-text)] leading-relaxed">
+                      {desc}
+                    </p>
+                  ))}
+                </div>
+
+                <div className="flex flex-wrap gap-2">
+                  {edu.courses.map((course, i) => (
+                    <span
+                      key={i}
+                      className="bg-[var(--card-background)] text-[var(--foreground)] px-3 py-1 rounded-full text-sm font-medium border border-[var(--border-color)] hover:bg-[var(--background)] transition-colors duration-200"
+                    >
+                      {course}
+                    </span>
+                  ))}
                 </div>
               </div>
             </AnimatedSection>
           ))}
         </div>
-      </AnimatedSection>
+      </div>
     </section>
   )
 } 

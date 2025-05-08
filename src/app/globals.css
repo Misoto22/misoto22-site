@@ -1,29 +1,30 @@
+@import url('https://fonts.googleapis.com/css2?family=Lexend+Deca:wght@300;400;500;600;700&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 :root {
-  --background: #FAF7F2;
-  --foreground: #171717;
-  --card-background: #FAF7F2;
-  --nav-background: rgba(250, 247, 242, 0.95);
-  --border-color: #e5e7eb;
-  --secondary-text: #4b5563;
+  --background: #FFFFFF;
+  --foreground: #2D3436;
+  --card-background: #F8F9FA;
+  --nav-background: rgba(255, 255, 255, 0.95);
+  --border-color: #E9ECEF;
+  --secondary-text: #6C757D;
 }
 
 .dark {
-  --background: #111827;
-  --foreground: #f3f4f6;
-  --card-background: #1f2937;
-  --nav-background: rgba(17, 24, 39, 0.9);
-  --border-color: #374151;
-  --secondary-text: #d1d5db;
+  --background: #1A1A1A;
+  --foreground: #F8F9FA;
+  --card-background: #2D2D2D;
+  --nav-background: rgba(26, 26, 26, 0.9);
+  --border-color: #404040;
+  --secondary-text: #ADB5BD;
 }
 
 body {
   color: var(--foreground);
   background: var(--background);
-  /* font-family: Arial, Helvetica, sans-serif; */
   height: 100%;
   overflow-y: auto;
 }

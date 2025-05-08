@@ -17,11 +17,11 @@ export default function Home() {
         transition={{ duration: 0.7, ease: 'easeOut' }}
         className="min-h-screen flex flex-col justify-center items-center bg-[var(--background)] px-4 pt-24 md:pt-32"
       >
-        <div className="w-full flex flex-col items-center">
+        <div className="w-full max-w-6xl">
           {/* Hero Section */}
           <AnimatedSection className="relative flex flex-col items-center mb-16 w-full">
             {/* Greeting */}
-            <h2 className="text-2xl md:text-3xl font-semibold text-[var(--foreground)] mb-2 text-center">
+            <h2 className="text-2xl md:text-3xl font-heading text-[var(--foreground)] mb-2 text-center">
               Hi, I&apos;m Henry Chen! <span className="inline-block">👋</span>
             </h2>
             {/* Illustration */}
@@ -31,103 +31,40 @@ export default function Home() {
                 alt="Henry's Avatar"
                 width={120}
                 height={120}
-                className="rounded-full w-28 h-28 md:w-36 md:h-36 border-4 border-gray-200 shadow-lg bg-white"
+                className="rounded-full w-28 h-28 md:w-36 md:h-36 border-4 border-[var(--border-color)] shadow-lg bg-[var(--card-background)]"
                 priority
               />
             </div>
             {/* Identity Tags */}
             <div className="flex flex-col items-center gap-2 mt-2 mb-2">
-              <span className="text-3xl md:text-5xl font-medium text-[var(--foreground)] flex items-center gap-2">
+              <span className="text-3xl md:text-5xl font-heading text-[var(--foreground)] flex items-center gap-2">
                 Developer <span>👨‍💻</span>
               </span>
-              <span className="text-3xl md:text-5xl font-medium text-[var(--foreground)] flex items-center gap-2">
+              <span className="text-3xl md:text-5xl font-heading text-[var(--foreground)] flex items-center gap-2">
                 Photographer <span>📸</span>
               </span>
             </div>
             {/* Short Description */}
             <div className="mt-8 mb-8 flex flex-col items-center">
-              <p className="text-lg md:text-xl font-semibold text-[var(--foreground)] mb-2">
+              <p className="text-lg md:text-xl font-heading text-[var(--foreground)] mb-2">
                 Welcome to my personal page!
               </p>
-              <p className="text-base md:text-lg text-[var(--muted-foreground)] mb-1 leading-relaxed text-center max-w-2xl">
+              <p className="text-base md:text-lg text-[var(--foreground)] mb-1 leading-relaxed text-center max-w-2xl">
                 I&apos;m a <span className="font-medium">fullstack developer & DevOps engineer</span> who loves building things that make my life easier.
               </p>
-              <p className="text-base md:text-lg text-[var(--muted-foreground)] leading-relaxed text-center max-w-2xl">
+              <p className="text-base md:text-lg text-[var(--foreground)] leading-relaxed text-center max-w-2xl">
                 I am also passionate about photography, capturing the beauty in everyday life.
               </p>
             </div>
-            {/* Social Icons */}
-            <div className="w-full flex flex-col items-center gap-y-8 mt-6 mb-10 md:flex-row md:justify-center md:gap-10">
-              {/* First row: first 2 items on mobile, hidden on desktop */}
-              <div className="flex justify-center gap-12 w-full md:hidden">
-                {/* GitHub */}
-                <a href="https://github.com/Misoto22" target="_blank" rel="noopener noreferrer" aria-label="GitHub" className="hover:scale-110 transition-transform">
-                  <span className="bg-gray-900 rounded-full flex items-center justify-center w-12 h-12">
-                    <FaGithub size={28} color="#fff" />
-                  </span>
-                </a>
-                {/* LinkedIn */}
-                <a href="https://linkedin.com/in/henry-misoto22" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" className="hover:scale-110 transition-transform">
-                  <span className="bg-[#0077B5] rounded-full flex items-center justify-center w-12 h-12">
-                    <FaLinkedin size={28} color="#fff" />
-                  </span>
-                </a>
-              </div>
-              {/* Second row: last 3 items on mobile, hidden on desktop */}
-              <div className="flex justify-center gap-12 w-full md:hidden">
-                {/* Email */}
-                <a href="mailto:cxw8848@hotmail.com" target="_blank" rel="noopener noreferrer" aria-label="Email" className="hover:scale-110 transition-transform">
-                  <span className="bg-yellow-400 rounded-full flex items-center justify-center w-12 h-12">
-                    <MdEmail size={28} color="#fff" />
-                  </span>
-                </a>
-                {/* Instagram */}
-                <a href="https://instagram.com/hry.photography" target="_blank" rel="noopener noreferrer" aria-label="Instagram" className="hover:scale-110 transition-transform">
-                  <span className="bg-pink-500 rounded-full flex items-center justify-center w-12 h-12">
-                    <FaInstagram size={28} color="#fff" />
-                  </span>
-                </a>
-                {/* Unsplash */}
-                <a href="https://unsplash.com/@misoto22" target="_blank" rel="noopener noreferrer" aria-label="Unsplash" className="hover:scale-110 transition-transform">
-                  <span className="bg-black rounded-full flex items-center justify-center w-12 h-12">
-                    <SiUnsplash size={24} color="#fff" />
-                  </span>
-                </a>
-              </div>
-              {/* Desktop: 5 items per row, hidden on mobile */}
-              <div className="hidden md:flex justify-center gap-10 w-full">
-                {/* GitHub */}
-                <a href="https://github.com/Misoto22" target="_blank" rel="noopener noreferrer" aria-label="GitHub" className="hover:scale-110 transition-transform">
-                  <span className="bg-gray-900 rounded-full flex items-center justify-center w-12 h-12">
-                    <FaGithub size={28} color="#fff" />
-                  </span>
-                </a>
-                {/* LinkedIn */}
-                <a href="https://linkedin.com/in/henry-misoto22" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" className="hover:scale-110 transition-transform">
-                  <span className="bg-[#0077B5] rounded-full flex items-center justify-center w-12 h-12">
-                    <FaLinkedin size={28} color="#fff" />
-                  </span>
-                </a>
-                {/* Email */}
-                <a href="mailto:cxw8848@hotmail.com" target="_blank" rel="noopener noreferrer" aria-label="Email" className="hover:scale-110 transition-transform">
-                  <span className="bg-yellow-400 rounded-full flex items-center justify-center w-12 h-12">
-                    <MdEmail size={28} color="#fff" />
-                  </span>
-                </a>
-                {/* Instagram */}
-                <a href="https://instagram.com/hry.photography" target="_blank" rel="noopener noreferrer" aria-label="Instagram" className="hover:scale-110 transition-transform">
-                  <span className="bg-pink-500 rounded-full flex items-center justify-center w-12 h-12">
-                    <FaInstagram size={28} color="#fff" />
-                  </span>
-                </a>
-                {/* Unsplash */}
-                <a href="https://unsplash.com/@misoto22" target="_blank" rel="noopener noreferrer" aria-label="Unsplash" className="hover:scale-110 transition-transform">
-                  <span className="bg-black rounded-full flex items-center justify-center w-12 h-12">
-                    <SiUnsplash size={24} color="#fff" />
-                  </span>
-                </a>
-              </div>
-            </div>
+            {/* CTA Button */}
+            <motion.a
+              href="/files/resume.pdf"
+              className="mt-8 px-8 py-3 bg-[var(--foreground)] text-[var(--background)] rounded-full font-medium hover:opacity-90 transition-colors duration-300 shadow-md"
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+            >
+              Download My Resume
+            </motion.a>
           </AnimatedSection>
         </div>
       </motion.section>
@@ -139,164 +76,186 @@ export default function Home() {
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, amount: 0.3 }}
         transition={{ duration: 0.7, ease: 'easeOut' }}
-        className="min-h-screen flex flex-col justify-center items-center bg-[var(--background)] px-4"
+        className="min-h-screen flex flex-col justify-center items-center bg-[var(--background)] px-4 relative"
       >
-        <div className="w-full max-w-2xl scroll-mt-24">
+        <div className="w-full max-w-6xl scroll-mt-24">
           <AnimatedSection delay={0.1} className="w-full">
-            <h2 className="text-3xl md:text-4xl font-semibold mb-8 text-[var(--foreground)] text-center">
+            <h2 className="text-3xl md:text-4xl font-heading mb-12 text-[var(--foreground)] text-center">
               My Skills
             </h2>
-            <div className="mb-8">
-              <h3 className="text-xl font-bold mb-4 text-center">Web Development</h3>
-              <div className="grid grid-cols-3 md:grid-cols-6 gap-6 justify-items-center">
-                <div className="flex flex-col items-center">
-                  <Image src="/icons/skills/react.svg" alt="React" width={40} height={40} />
-                  <span className="mt-2 text-sm">React</span>
-                </div>
-                <div className="flex flex-col items-center">
-                  <Image src="/icons/skills/nextjs.svg" alt="Next.js" width={40} height={40} />
-                  <span className="mt-2 text-sm">Next.js</span>
-                </div>
-                <div className="flex flex-col items-center">
-                  <Image src="/icons/skills/typescript.svg" alt="TypeScript" width={40} height={40} />
-                  <span className="mt-2 text-sm">TypeScript</span>
-                </div>
-                <div className="flex flex-col items-center">
-                  <Image src="/icons/skills/javascript.svg" alt="JavaScript" width={40} height={40} />
-                  <span className="mt-2 text-sm">JavaScript</span>
-                </div>
-                <div className="flex flex-col items-center">
-                  <Image src="/icons/skills/html5.svg" alt="HTML5" width={40} height={40} />
-                  <span className="mt-2 text-sm">HTML5</span>
-                </div>
-                <div className="flex flex-col items-center">
-                  <Image src="/icons/skills/tailwind.svg" alt="Tailwind CSS" width={40} height={40} />
-                  <span className="mt-2 text-sm">Tailwind CSS</span>
-                </div>
-              </div>
-            </div>
-            <div className="mb-8">
-              <h3 className="text-xl font-bold mb-4 text-center">Backend Development</h3>
-              <div className="grid grid-cols-3 md:grid-cols-6 gap-6 justify-items-center">
-                <div className="flex flex-col items-center">
-                  <Image src="/icons/skills/python.svg" alt="Python" width={40} height={40} />
-                  <span className="mt-2 text-sm">Python</span>
-                </div>
-                <div className="flex flex-col items-center">
-                  <Image src="/icons/skills/java.svg" alt="Java" width={40} height={40} />
-                  <span className="mt-2 text-sm">Java</span>
-                </div>
-                <div className="flex flex-col items-center">
-                  <Image src="/icons/skills/c.svg" alt="C" width={40} height={40} />
-                  <span className="mt-2 text-sm">C</span>
-                </div>
-                <div className="flex flex-col items-center">
-                  <Image src="/icons/skills/nodejs.svg" alt="Node.js" width={40} height={40} />
-                  <span className="mt-2 text-sm">Node.js</span>
-                </div>
-                <div className="flex flex-col items-center">
-                  <Image src="/icons/skills/flask.svg" alt="Flask" width={40} height={40} />
-                  <span className="mt-2 text-sm">Flask</span>
-                </div>
-                <div className="flex flex-col items-center">
-                  <Image src="/icons/skills/git.svg" alt="Git" width={40} height={40} />
-                  <span className="mt-2 text-sm">Git</span>
+            
+            {/* Fullstack Development */}
+            <div className="mb-12">
+              <div className="bg-[var(--card-background)] rounded-2xl p-8 shadow-lg border border-[var(--border-color)] hover:shadow-xl transition-all duration-300">
+                <h3 className="text-2xl font-heading mb-6 text-[var(--foreground)] flex items-center gap-2">
+                  <span>Fullstack Development</span>
+                  <span className="text-sm font-normal text-[var(--secondary-text)]">(Core)</span>
+                </h3>
+                <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+                  <motion.div 
+                    className="flex flex-col items-center group"
+                    whileHover={{ scale: 1.05 }}
+                    transition={{ type: "spring", stiffness: 300 }}
+                  >
+                    <Image src="/icons/skills/react.svg" alt="React" width={48} height={48} className="mb-2 group-hover:brightness-110 transition-all duration-300" />
+                    <span className="mt-2 text-sm font-medium text-[var(--foreground)] group-hover:text-[var(--foreground)] transition-colors duration-300">React</span>
+                  </motion.div>
+                  <motion.div 
+                    className="flex flex-col items-center group"
+                    whileHover={{ scale: 1.05 }}
+                    transition={{ type: "spring", stiffness: 300 }}
+                  >
+                    <Image src="/icons/skills/nextjs.svg" alt="Next.js" width={48} height={48} className="mb-2 group-hover:brightness-110 transition-all duration-300" />
+                    <span className="mt-2 text-sm font-medium text-[var(--foreground)] group-hover:text-[var(--foreground)] transition-colors duration-300">Next.js</span>
+                  </motion.div>
+                  <motion.div 
+                    className="flex flex-col items-center group"
+                    whileHover={{ scale: 1.05 }}
+                    transition={{ type: "spring", stiffness: 300 }}
+                  >
+                    <Image src="/icons/skills/typescript.svg" alt="TypeScript" width={48} height={48} className="mb-2 group-hover:brightness-110 transition-all duration-300" />
+                    <span className="mt-2 text-sm font-medium text-[var(--foreground)] group-hover:text-[var(--foreground)] transition-colors duration-300">TypeScript</span>
+                  </motion.div>
+                  <motion.div 
+                    className="flex flex-col items-center group"
+                    whileHover={{ scale: 1.05 }}
+                    transition={{ type: "spring", stiffness: 300 }}
+                  >
+                    <Image src="/icons/skills/nodejs.svg" alt="Node.js" width={48} height={48} className="mb-2 group-hover:brightness-110 transition-all duration-300" />
+                    <span className="mt-2 text-sm font-medium text-[var(--foreground)] group-hover:text-[var(--foreground)] transition-colors duration-300">Node.js</span>
+                  </motion.div>
                 </div>
               </div>
             </div>
-            <div className="mb-8">
-              <h3 className="text-xl font-bold mb-4 text-center">Data Analysis</h3>
-              <div className="grid grid-cols-3 md:grid-cols-6 gap-6 justify-items-center">
-                <div className="flex flex-col items-center">
-                  <Image src="/icons/skills/r.svg" alt="R" width={40} height={40} />
-                  <span className="mt-2 text-sm">R</span>
-                </div>
-                <div className="flex flex-col items-center">
-                  <Image src="/icons/skills/python.svg" alt="Python" width={40} height={40} />
-                  <span className="mt-2 text-sm">Python</span>
-                </div>
-                <div className="flex flex-col items-center">
-                  <Image src="/icons/skills/pandas.svg" alt="Pandas" width={40} height={40} />
-                  <span className="mt-2 text-sm">Pandas</span>
-                </div>
-                <div className="flex flex-col items-center">
-                  <Image src="/icons/skills/excel.svg" alt="Excel" width={40} height={40} />
-                  <span className="mt-2 text-sm">Excel</span>
-                </div>
-                <div className="flex flex-col items-center">
-                  <Image src="/icons/skills/postgresql.svg" alt="PostgreSQL" width={40} height={40} />
-                  <span className="mt-2 text-sm">PostgreSQL</span>
-                </div>
-                <div className="flex flex-col items-center">
-                  <Image src="/icons/skills/jupyter.svg" alt="Jupyter" width={40} height={40} />
-                  <span className="mt-2 text-sm">Jupyter</span>
-                </div>
-              </div>
-            </div>
-            <div className="mb-8">
-              <h3 className="text-xl font-bold mb-4 text-center">DevOps & Cloud</h3>
-              <div className="grid grid-cols-3 md:grid-cols-6 gap-6 justify-items-center">
-                <div className="flex flex-col items-center">
-                  <Image src="/icons/skills/docker.svg" alt="Docker" width={40} height={40} />
-                  <span className="mt-2 text-sm">Docker</span>
-                </div>
-                <div className="w-16 flex flex-col items-center justify-center">
-                  <Image src="/icons/skills/githubactions.svg" alt="GitHub Actions" width={40} height={40} className="ml-3" />
-                  <span className="mt-2 text-sm">GitHub Actions</span>
-                </div>
-                <div className="flex flex-col items-center">
-                  <Image src="/icons/skills/aws.svg" alt="AWS" width={40} height={40} />
-                  <span className="mt-2 text-sm">AWS</span>
-                </div>
-                <div className="flex flex-col items-center">
-                  <Image src="/icons/skills/firebase.svg" alt="Firebase" width={40} height={40} />
-                  <span className="mt-2 text-sm">Firebase</span>
-                </div>
-                <div className="flex flex-col items-center">
-                  <Image src="/icons/skills/bash.svg" alt="Bash" width={40} height={40} />
-                  <span className="mt-2 text-sm">Bash</span>
-                </div>
-                <div className="flex flex-col items-center">
-                  <Image src="/icons/skills/vercel.svg" alt="Vercel" width={40} height={40} />
-                  <span className="mt-2 text-sm">Vercel</span>
+
+            {/* DevOps & Cloud */}
+            <div className="mb-12">
+              <div className="bg-[var(--card-background)] rounded-2xl p-8 shadow-lg border border-[var(--border-color)] hover:shadow-xl transition-all duration-300">
+                <h3 className="text-2xl font-heading mb-6 text-[var(--foreground)] flex items-center gap-2">
+                  <span>DevOps & Cloud</span>
+                  <span className="text-sm font-normal text-[var(--secondary-text)]">(Infrastructure)</span>
+                </h3>
+                <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+                  <motion.div 
+                    className="flex flex-col items-center group"
+                    whileHover={{ scale: 1.05 }}
+                    transition={{ type: "spring", stiffness: 300 }}
+                  >
+                    <Image src="/icons/skills/docker.svg" alt="Docker" width={48} height={48} className="mb-2 group-hover:brightness-110 transition-all duration-300" />
+                    <span className="mt-2 text-sm font-medium text-[var(--foreground)] group-hover:text-[var(--foreground)] transition-colors duration-300">Docker</span>
+                  </motion.div>
+                  <motion.div 
+                    className="flex flex-col items-center group"
+                    whileHover={{ scale: 1.05 }}
+                    transition={{ type: "spring", stiffness: 300 }}
+                  >
+                    <Image src="/icons/skills/aws.svg" alt="AWS" width={48} height={48} className="mb-2 group-hover:brightness-110 transition-all duration-300" />
+                    <span className="mt-2 text-sm font-medium text-[var(--foreground)] group-hover:text-[var(--foreground)] transition-colors duration-300">AWS</span>
+                  </motion.div>
+                  <motion.div 
+                    className="flex flex-col items-center group"
+                    whileHover={{ scale: 1.05 }}
+                    transition={{ type: "spring", stiffness: 300 }}
+                  >
+                    <Image src="/icons/skills/githubactions.svg" alt="GitHub Actions" width={48} height={48} className="mb-2 group-hover:brightness-110 transition-all duration-300" />
+                    <span className="mt-2 text-sm font-medium text-[var(--foreground)] group-hover:text-[var(--foreground)] transition-colors duration-300">GitHub Actions</span>
+                  </motion.div>
+                  <motion.div 
+                    className="flex flex-col items-center group"
+                    whileHover={{ scale: 1.05 }}
+                    transition={{ type: "spring", stiffness: 300 }}
+                  >
+                    <Image src="/icons/skills/vercel.svg" alt="Vercel" width={48} height={48} className="mb-2 group-hover:brightness-110 transition-all duration-300" />
+                    <span className="mt-2 text-sm font-medium text-[var(--foreground)] group-hover:text-[var(--foreground)] transition-colors duration-300">Vercel</span>
+                  </motion.div>
                 </div>
               </div>
             </div>
-            <div className="mb-8">
-              <h3 className="text-xl font-bold mb-4 text-center">Creative Tools</h3>
-              <div className="grid grid-cols-3 md:grid-cols-6 gap-6 justify-items-center">
-                <div className="flex flex-col items-center">
-                  <Image src="/icons/skills/lightroom.svg" alt="Lightroom" width={40} height={40} />
-                  <span className="mt-2 text-sm">Lightroom</span>
-                </div>
-                <div className="flex flex-col items-center">
-                  <Image src="/icons/skills/photoshop.svg" alt="Photoshop" width={40} height={40} />
-                  <span className="mt-2 text-sm">Photoshop</span>
-                </div>
-                <div className="flex flex-col items-center">
-                  <Image src="/icons/skills/figma.svg" alt="Figma" width={40} height={40} />
-                  <span className="mt-2 text-sm">Figma</span>
-                </div>
-                <div className="flex flex-col items-center">
-                  <Image src="/icons/skills/captureone.svg" alt="Capture One" width={40} height={40} />
-                  <span className="mt-2 text-sm">Capture One</span>
-                </div>
-                <div className="flex flex-col items-center">
-                  <Image src="/icons/skills/finalcutpro.svg" alt="Final Cut Pro" width={40} height={40} />
-                  <span className="mt-2 text-sm">Final Cut Pro</span>
+
+            {/* Data & ML */}
+            <div className="mb-12">
+              <div className="bg-[var(--card-background)] rounded-2xl p-8 shadow-lg border border-[var(--border-color)] hover:shadow-xl transition-all duration-300">
+                <h3 className="text-2xl font-heading mb-6 text-[var(--foreground)] flex items-center gap-2">
+                  <span>Data & ML</span>
+                  <span className="text-sm font-normal text-[var(--secondary-text)]">(Research)</span>
+                </h3>
+                <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+                  <motion.div 
+                    className="flex flex-col items-center group"
+                    whileHover={{ scale: 1.05 }}
+                    transition={{ type: "spring", stiffness: 300 }}
+                  >
+                    <Image src="/icons/skills/python.svg" alt="Python" width={48} height={48} className="mb-2 group-hover:brightness-110 transition-all duration-300" />
+                    <span className="mt-2 text-sm font-medium text-[var(--foreground)] group-hover:text-[var(--foreground)] transition-colors duration-300">Python</span>
+                  </motion.div>
+                  <motion.div 
+                    className="flex flex-col items-center group"
+                    whileHover={{ scale: 1.05 }}
+                    transition={{ type: "spring", stiffness: 300 }}
+                  >
+                    <Image src="/icons/skills/pandas.svg" alt="Pandas" width={48} height={48} className="mb-2 group-hover:brightness-110 transition-all duration-300" />
+                    <span className="mt-2 text-sm font-medium text-[var(--foreground)] group-hover:text-[var(--foreground)] transition-colors duration-300">Pandas</span>
+                  </motion.div>
+                  <motion.div 
+                    className="flex flex-col items-center group"
+                    whileHover={{ scale: 1.05 }}
+                    transition={{ type: "spring", stiffness: 300 }}
+                  >
+                    <Image src="/icons/skills/postgresql.svg" alt="PostgreSQL" width={48} height={48} className="mb-2 group-hover:brightness-110 transition-all duration-300" />
+                    <span className="mt-2 text-sm font-medium text-[var(--foreground)] group-hover:text-[var(--foreground)] transition-colors duration-300">PostgreSQL</span>
+                  </motion.div>
+                  <motion.div 
+                    className="flex flex-col items-center group"
+                    whileHover={{ scale: 1.05 }}
+                    transition={{ type: "spring", stiffness: 300 }}
+                  >
+                    <Image src="/icons/skills/jupyter.svg" alt="Jupyter" width={48} height={48} className="mb-2 group-hover:brightness-110 transition-all duration-300" />
+                    <span className="mt-2 text-sm font-medium text-[var(--foreground)] group-hover:text-[var(--foreground)] transition-colors duration-300">Jupyter</span>
+                  </motion.div>
                 </div>
               </div>
             </div>
-            <div className="mb-8">
-              <h3 className="text-xl font-bold mb-4 text-center">Documentation</h3>
-              <div className="grid grid-cols-3 md:grid-cols-6 gap-6 justify-items-center">
-                <div className="flex flex-col items-center">
-                  <Image src="/icons/skills/markdown.svg" alt="Markdown" width={40} height={40} />
-                  <span className="mt-2 text-sm">Markdown</span>
-                </div>
-                <div className="flex flex-col items-center">
-                  <Image src="/icons/skills/latex.svg" alt="LaTeX" width={40} height={40} />
-                  <span className="mt-2 text-sm">LaTeX</span>
+
+            {/* Creative Tools */}
+            <div className="mb-12">
+              <div className="bg-[var(--card-background)] rounded-2xl p-8 shadow-lg border border-[var(--border-color)] hover:shadow-xl transition-all duration-300 opacity-80">
+                <h3 className="text-2xl font-heading mb-6 text-[var(--foreground)] flex items-center gap-2">
+                  <span>Creative Tools</span>
+                  <span className="text-sm font-normal text-[var(--secondary-text)]">(Hobby)</span>
+                </h3>
+                <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+                  <motion.div 
+                    className="flex flex-col items-center group"
+                    whileHover={{ scale: 1.05 }}
+                    transition={{ type: "spring", stiffness: 300 }}
+                  >
+                    <Image src="/icons/skills/lightroom.svg" alt="Lightroom" width={48} height={48} className="mb-2 group-hover:brightness-110 transition-all duration-300" />
+                    <span className="mt-2 text-sm font-medium text-[var(--foreground)] group-hover:text-[var(--foreground)] transition-colors duration-300">Lightroom</span>
+                  </motion.div>
+                  <motion.div 
+                    className="flex flex-col items-center group"
+                    whileHover={{ scale: 1.05 }}
+                    transition={{ type: "spring", stiffness: 300 }}
+                  >
+                    <Image src="/icons/skills/photoshop.svg" alt="Photoshop" width={48} height={48} className="mb-2 group-hover:brightness-110 transition-all duration-300" />
+                    <span className="mt-2 text-sm font-medium text-[var(--foreground)] group-hover:text-[var(--foreground)] transition-colors duration-300">Photoshop</span>
+                  </motion.div>
+                  <motion.div 
+                    className="flex flex-col items-center group"
+                    whileHover={{ scale: 1.05 }}
+                    transition={{ type: "spring", stiffness: 300 }}
+                  >
+                    <Image src="/icons/skills/figma.svg" alt="Figma" width={48} height={48} className="mb-2 group-hover:brightness-110 transition-all duration-300" />
+                    <span className="mt-2 text-sm font-medium text-[var(--foreground)] group-hover:text-[var(--foreground)] transition-colors duration-300">Figma</span>
+                  </motion.div>
+                  <motion.div 
+                    className="flex flex-col items-center group"
+                    whileHover={{ scale: 1.05 }}
+                    transition={{ type: "spring", stiffness: 300 }}
+                  >
+                    <Image src="/icons/skills/captureone.svg" alt="Capture One" width={48} height={48} className="mb-2 group-hover:brightness-110 transition-all duration-300" />
+                    <span className="mt-2 text-sm font-medium text-[var(--foreground)] group-hover:text-[var(--foreground)] transition-colors duration-300">Capture One</span>
+                  </motion.div>
                 </div>
               </div>
             </div>
@@ -310,27 +269,27 @@ export default function Home() {
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, amount: 0.3 }}
         transition={{ duration: 0.7, ease: 'easeOut' }}
-        className="w-full max-w-2xl mx-auto space-y-16 px-4 md:px-0"
+        className="w-full flex justify-center px-4 relative"
       >
-        <AnimatedSection delay={0.2} className="w-full max-w-2xl mx-auto space-y-16 px-4 md:px-0">
-          <div>
-            <h2 className="text-3xl md:text-4xl font-semibold mb-8 text-[var(--foreground)] text-center">
+        <AnimatedSection delay={0.2} className="w-full max-w-6xl space-y-16">
+          <div className="bg-[var(--card-background)] rounded-2xl p-8 shadow-lg border border-[var(--border-color)]">
+            <h2 className="text-3xl md:text-4xl font-heading mb-8 text-[var(--foreground)] text-center">
               What do I do?
             </h2>
-            <div className="space-y-6 text-[var(--muted-foreground)]">
+            <div className="space-y-6 text-[var(--foreground)]">
               <p className="leading-relaxed text-lg">
-                <b className="text-gray-700 dark:text-white">Academic Journey:</b> Currently pursuing my degree in Computer Science, I bring a technical mindset to everything I do. My academic focus lies in software development and artificial intelligence, where I combine theoretical knowledge with practical applications.
+                <b>Professional Background:</b> As a Computer Science graduate, I combine technical expertise with practical problem-solving skills. My focus lies in full-stack development and DevOps engineering, where I leverage modern technologies to build efficient and scalable solutions.
               </p>
               <p className="leading-relaxed text-lg">
-                Having spent four years in Sydney before moving to Perth, I&apos;ve developed a unique perspective that bridges different Australian cultures and academic environments. This experience has enriched my understanding of both technology and human interaction.
+                Having spent four years in Sydney before moving to Perth, I&apos;ve developed a unique perspective that bridges different Australian cultures and professional environments. This experience has enriched my understanding of both technology and human interaction.
               </p>
               <p className="leading-relaxed text-lg">
-                <b className="text-gray-700 dark:text-white">Photography Passion:</b> My photography journey is driven by three main themes: the raw beauty of nature, the dynamic energy of urban landscapes, and the subtle moments of human connection. Through my lens, I aim to capture the interplay between these elements, documenting both the grand vistas of Western Australia and the intimate details of city life.
+                <b>Photography Passion:</b> My photography journey is driven by three main themes: the raw beauty of nature, the dynamic energy of urban landscapes, and the subtle moments of human connection. Through my lens, I aim to capture the interplay between these elements, documenting both the grand vistas of Western Australia and the intimate details of city life.
               </p>
               <div className="pt-4">
                 <motion.a 
                   href="/photography" 
-                  className="inline-flex items-center text-gray-700 hover:text-gray-900 transition-colors duration-300 text-lg font-medium"
+                  className="inline-flex items-center text-[var(--foreground)] hover:opacity-80 transition-colors duration-300 text-lg font-medium"
                   whileHover={{ x: 5 }}
                 >
                   View My Photography

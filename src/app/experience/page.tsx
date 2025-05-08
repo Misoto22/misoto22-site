@@ -45,24 +45,30 @@ const experiences: Experience[] = [
 export default function ExperiencePage() {
   return (
     <section className="pt-24 min-h-screen bg-[var(--background)]">
-      <AnimatedSection className="container mx-auto px-4 max-w-3xl">
-        <h1 className="text-4xl font-medium tracking-wide mb-12 text-center text-[var(--foreground)]">
-          Professional Experience
-        </h1>
-        <div className="space-y-16">
+      <div className="max-w-6xl mx-auto px-6">
+        <AnimatedSection>
+          <h1 className="text-4xl md:text-5xl font-heading mb-4 tracking-wide text-[var(--foreground)] text-center">
+            Professional Experience
+          </h1>
+          <p className="text-[var(--secondary-text)] mb-12 text-center text-lg max-w-2xl mx-auto">
+            My journey through various roles and responsibilities, each contributing to my growth as a professional.
+          </p>
+        </AnimatedSection>
+
+        <div className="space-y-8">
           {experiences.map((exp, index) => (
             <AnimatedSection key={index} delay={index * 0.1}>
-              <div className="bg-transparent dark:bg-transparent rounded-xl p-8 hover:shadow-lg transition-all duration-300">
+              <div className="bg-[var(--card-background)] rounded-2xl p-8 shadow-lg border border-[var(--border-color)] hover:shadow-xl transition-all duration-300">
                 <div className="flex flex-col md:flex-row md:justify-between md:items-start gap-4 mb-6">
                   <div className="space-y-2">
-                    <h2 className="text-2xl font-medium tracking-wide text-[var(--foreground)]">{exp.title}</h2>
+                    <h2 className="text-2xl font-heading text-[var(--foreground)]">{exp.title}</h2>
                     <h3 className="text-xl text-[var(--secondary-text)]">
                       {exp.companyLink ? (
                         <a 
                           href={exp.companyLink}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="hover:text-gray-900 transition-colors duration-200 inline-flex items-center font-normal"
+                          className="hover:text-[var(--foreground)] transition-colors duration-200 inline-flex items-center font-normal"
                         >
                           {exp.company}
                           <svg className="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -75,20 +81,24 @@ export default function ExperiencePage() {
                     </h3>
                   </div>
                   <div className="text-right space-y-1">
-                    <p className="text-[var(--secondary-text)] font-medium">{exp.location}</p>
-                    <p className="text-[var(--secondary-text)] font-medium">{exp.period}</p>
+                    <p className="text-[var(--foreground)] font-medium">{exp.period}</p>
+                    <p className="text-[var(--secondary-text)]">{exp.location}</p>
                   </div>
                 </div>
-                <ul className="list-disc list-inside mb-6 space-y-3 text-[var(--secondary-text)]">
-                  {exp.description.map((item, i) => (
-                    <li key={i} className="leading-relaxed">{item}</li>
+
+                <div className="space-y-4 mb-6">
+                  {exp.description.map((desc, i) => (
+                    <p key={i} className="text-[var(--secondary-text)] leading-relaxed">
+                      {desc}
+                    </p>
                   ))}
-                </ul>
+                </div>
+
                 <div className="flex flex-wrap gap-2">
                   {exp.technologies.map((tech, i) => (
                     <span
                       key={i}
-                      className="bg-[color:var(--tag-bg,#e5e7eb)] text-[color:var(--tag-text,#22223b)] px-3 py-1 rounded-full text-sm font-medium hover:bg-[color:var(--tag-hover-bg,#d1d5db)] transition-colors duration-200"
+                      className="bg-[var(--card-background)] text-[var(--foreground)] px-3 py-1 rounded-full text-sm font-medium border border-[var(--border-color)] hover:bg-[var(--background)] transition-colors duration-200"
                     >
                       {tech}
                     </span>
@@ -98,7 +108,7 @@ export default function ExperiencePage() {
             </AnimatedSection>
           ))}
         </div>
-      </AnimatedSection>
+      </div>
     </section>
-  );
+  )
 } 

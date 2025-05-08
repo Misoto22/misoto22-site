@@ -18,6 +18,7 @@ const config: Config = {
       },
       fontFamily: {
         sans: ['var(--font-montserrat)', 'Montserrat', 'ui-sans-serif', 'system-ui', 'sans-serif'],
+        heading: ['Lexend Deca', 'sans-serif'],
       },
     },
   },
