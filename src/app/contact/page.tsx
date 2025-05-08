@@ -1,10 +1,14 @@
 'use client'
 
 import { useState } from 'react'
+import emailjs from '@emailjs/browser'
 import AnimatedSection from '@/components/AnimatedSection'
 import { FaGithub, FaLinkedin, FaInstagram, FaClock, FaMapMarkerAlt } from 'react-icons/fa';
 import { MdEmail, MdPhone } from 'react-icons/md';
 import { SiUnsplash } from 'react-icons/si';
+
+// Initialize EmailJS
+emailjs.init(process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY || '');
 
 export default function Contact() {
   const [formData, setFormData] = useState({
@@ -14,10 +18,44 @@ export default function Contact() {
     message: ''
   });
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const [status, setStatus] = useState({
+    submitting: false,
+    submitted: false,
+    error: false,
+    message: ''
+  });
+
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    // Handle form submission
-    console.log(formData);
+    setStatus({ submitting: true, submitted: false, error: false, message: '' });
+
+    try {
+      await emailjs.send(
+        process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID || '',
+        process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID || '',
+        {
+          from_name: formData.name,
+          from_email: formData.email,
+          subject: formData.subject,
+          message: formData.message,
+        }
+      );
+
+      setStatus({
+        submitting: false,
+        submitted: true,
+        error: false,
+        message: 'Message sent successfully!'
+      });
+      setFormData({ name: '', email: '', subject: '', message: '' });
+    } catch (error) {
+      setStatus({
+        submitting: false,
+        submitted: false,
+        error: true,
+        message: 'Failed to send message. Please try again.'
+      });
+    }
   };
 
   return (
@@ -104,6 +142,16 @@ export default function Contact() {
             <div className="bg-[var(--card-background)] rounded-2xl p-8 shadow-lg border border-[var(--border-color)]">
               <h2 className="text-2xl font-heading mb-6 text-[var(--foreground)]">Send me a message</h2>
               <form onSubmit={handleSubmit} className="space-y-6">
+                {status.submitted && (
+                  <div className="p-4 bg-green-100 text-green-700 rounded-lg">
+                    {status.message}
+                  </div>
+                )}
+                {status.error && (
+                  <div className="p-4 bg-red-100 text-red-700 rounded-lg">
+                    {status.message}
+                  </div>
+                )}
                 <div>
                   <label htmlFor="name" className="block text-sm font-medium text-[var(--foreground)] mb-2">
                     Name
@@ -158,9 +206,10 @@ export default function Contact() {
                 </div>
                 <button
                   type="submit"
-                  className="w-full bg-[var(--foreground)] text-[var(--background)] py-3 rounded-lg font-medium hover:opacity-90 transition-colors"
+                  disabled={status.submitting}
+                  className="w-full bg-[var(--foreground)] text-[var(--background)] py-3 rounded-lg font-medium hover:opacity-90 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
                 >
-                  Send Message
+                  {status.submitting ? 'Sending...' : 'Send Message'}
                 </button>
               </form>
             </div>
