@@ -29,7 +29,7 @@ const Footer = () => {
               </p>
               <p className="text-sm text-[var(--secondary-text)]">Perth, Western Australia</p>
             </div>
-            <div className="flex justify-end space-x-6 pt-4">
+            <div className="flex justify-start md:justify-end space-x-6 pt-4">
               <a 
                 href="https://github.com/Misoto22" 
                 target="_blank" 

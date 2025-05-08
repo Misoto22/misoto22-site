@@ -127,7 +127,7 @@ export default function ExperiencePage() {
                         {exp.technologies.map((tech, i) => (
                           <span
                             key={i}
-                            className="bg-[var(--background)] text-[var(--foreground)] px-3 py-1 rounded-full text-sm font-medium border border-[var(--border-color)] hover:bg-[var(--accent)] hover:text-white transition-colors duration-200"
+                            className="bg-[var(--card-background)] text-[var(--foreground)] px-3 py-1 rounded-full text-sm font-medium border border-[var(--border-color)] hover:bg-[var(--background)] transition-colors duration-200"
                           >
                             {tech}
                           </span>
