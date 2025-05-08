@@ -53,7 +53,7 @@ export default function EducationPage() {
             Education
           </h1>
           <p className="text-[var(--secondary-text)] mb-12 text-center text-lg max-w-2xl mx-auto">
-            My academic journey and the knowledge I've gained along the way.
+            My academic journey and the knowledge I&apos;ve gained along the way.
           </p>
         </AnimatedSection>
 

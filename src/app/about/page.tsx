@@ -47,17 +47,17 @@ export default function AboutPage() {
               <h2 className="text-2xl font-heading text-[var(--foreground)] mb-4">Background</h2>
               <div className="space-y-4 text-[var(--secondary-text)]">
                 <p>
-                  I'm a recent graduate with a Master's degree in Information Technology from The University of Western Australia,
+                  I&apos;m a recent graduate with a Master&apos;s degree in Information Technology from The University of Western Australia,
                   specializing in Software Engineering and Data Science. My journey in technology began with a strong foundation
                   in mathematics, which has helped me develop analytical thinking and problem-solving skills.
                 </p>
                 <p>
-                  Currently, I'm seeking opportunities in DevOps and Full-stack web development roles, where I can apply my
-                  technical skills and continue to grow as a developer. I'm particularly interested in cloud technologies
+                  Currently, I&apos;m seeking opportunities in DevOps and Full-stack web development roles, where I can apply my
+                  technical skills and continue to grow as a developer. I&apos;m particularly interested in cloud technologies
                   and building scalable applications.
                 </p>
                 <p>
-                  When I'm not coding, you can find me exploring photography, hiking, or experimenting with new technologies
+                  When I&apos;m not coding, you can find me exploring photography, hiking, or experimenting with new technologies
                   in my personal projects.
                 </p>
               </div>

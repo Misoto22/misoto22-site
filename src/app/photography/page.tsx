@@ -117,11 +117,11 @@ export default function PhotographyPage() {
                 focusing on capturing the beauty of nature and the essence of urban life.
               </p>
               <p>
-                My work has been featured in several local exhibitions and publications. I'm always looking for
+                My work has been featured in several local exhibitions and publications. I&apos;m always looking for
                 new opportunities to collaborate and share my vision with others.
               </p>
               <p>
-                If you're interested in purchasing prints or collaborating on a project, please don't hesitate to
+                If you&apos;re interested in purchasing prints or collaborating on a project, please don&apos;t hesitate to
                 reach out through the contact page.
               </p>
             </div>
