@@ -29,6 +29,8 @@ export default function RootLayout({
           <main>{children}</main>
           <Footer />
           <ScrollToTopButton />
+          <SpeedInsights />
+          <Analytics />
         </ThemeProvider>
       </body>
     </html>
