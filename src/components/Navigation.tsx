@@ -27,7 +27,7 @@ const Navigation = () => {
   ]
 
   return (
-    <nav className="fixed top-0 w-full bg-[var(--nav-background)] backdrop-blur-sm z-50">
+    <nav className="fixed top-0 w-full bg-[var(--nav-background)] backdrop-blur-sm z-50 shadow-[0_2px_8px_rgba(0,0,0,0.08)] border-b border-[var(--border-color)]">
       <div className="max-w-6xl mx-auto px-6 py-6 relative">
         {/* Logo aligned to the left */}
         <Link href="/" className="text-2xl font-semibold tracking-wider z-10 relative" onClick={handleNavigation}>
