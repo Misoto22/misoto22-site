@@ -288,14 +288,15 @@ export default function Home() {
               </p>
               <div className="pt-4">
                 <motion.a 
-                  href="/photography" 
+                  href="https://unsplash.com/@misoto22" 
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="inline-flex items-center text-[var(--foreground)] hover:opacity-80 transition-colors duration-300 text-lg font-medium"
                   whileHover={{ x: 5 }}
+                  title="Open in new tab"
                 >
-                  View My Photography
-                  <svg className="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
-                  </svg>
+                  View My Photography on Unsplash
+                  <span className="ml-2">↗</span>
                 </motion.a>
               </div>
             </div>

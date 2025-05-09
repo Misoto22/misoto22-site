@@ -22,7 +22,6 @@ const Navigation = () => {
     { href: '/education', text: 'Education' },
     { href: '/projects', text: 'Projects' },
     { href: '/experience', text: 'Experience' },
-    { href: '/photography', text: 'Photography' },
     { href: '/contact', text: 'Contact' }
   ]
 
