@@ -8,6 +8,14 @@ const config: Config = {
   ],
   darkMode: 'class',
   theme: {
+    screens: {
+      'sm': '640px',
+      'md': '768px',
+      'nav': '900px', // Custom breakpoint for navigation
+      'lg': '1024px',
+      'xl': '1280px',
+      '2xl': '1536px',
+    },
     extend: {
       lineClamp: {
         2: '2',

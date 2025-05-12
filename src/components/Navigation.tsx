@@ -32,14 +32,14 @@ const Navigation = () => {
         <Link href="/" className="text-2xl font-semibold tracking-wider z-10 relative" onClick={handleNavigation}>
           HENRY CHEN
         </Link>
-        {/* Menu items absolutely centered */}
-        <div className="hidden md:flex space-x-6 text-base absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2">
+        {/* Menu items absolutely centered with responsive adjustments */}
+        <div className="hidden md:flex space-x-3 nav:space-x-5 lg:space-x-6 text-base absolute md:left-[60%] nav:left-[55%] lg:left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2">
           {navItems.map((item, index) => (
             <div key={item.href} className="relative">
-              <NavLink 
-                href={item.href} 
-                text={item.text} 
-                isActive={pathname === item.href} 
+              <NavLink
+                href={item.href}
+                text={item.text}
+                isActive={pathname === item.href}
                 onClick={handleNavigation}
                 onMouseEnter={() => setHoveredIndex(index)}
                 onMouseLeave={() => setHoveredIndex(null)}
@@ -79,7 +79,7 @@ const Navigation = () => {
               )}
             </motion.div>
           </button>
-          <button 
+          <button
             onClick={() => setIsMenuOpen(!isMenuOpen)}
             className="md:hidden"
           >
@@ -97,7 +97,7 @@ const Navigation = () => {
       {/* Mobile Menu with Animation */}
       <AnimatePresence>
         {isMenuOpen && (
-          <motion.div 
+          <motion.div
             initial={{ opacity: 0, y: -10 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -10 }}
@@ -105,7 +105,7 @@ const Navigation = () => {
             className="md:hidden absolute top-full left-0 right-0 bg-[var(--nav-background)] backdrop-blur-sm"
           >
             <div className="max-w-6xl mx-auto px-6">
-              <motion.div 
+              <motion.div
                 className="flex flex-col space-y-4 py-4"
                 initial="closed"
                 animate="open"
@@ -119,11 +119,11 @@ const Navigation = () => {
                 }}
               >
                 {navItems.map((item) => (
-                  <MenuItem 
+                  <MenuItem
                     key={item.href}
-                    href={item.href} 
-                    text={item.text} 
-                    isActive={pathname === item.href} 
+                    href={item.href}
+                    text={item.text}
+                    isActive={pathname === item.href}
                     onClick={handleNavigation}
                   />
                 ))}
@@ -136,16 +136,16 @@ const Navigation = () => {
   )
 }
 
-const NavLink = ({ 
-  href, 
-  text, 
-  isActive, 
+const NavLink = ({
+  href,
+  text,
+  isActive,
   onClick,
   onMouseEnter,
   onMouseLeave
-}: { 
-  href: string; 
-  text: string; 
+}: {
+  href: string;
+  text: string;
   isActive: boolean;
   onClick?: () => void;
   onMouseEnter?: () => void;
@@ -155,8 +155,8 @@ const NavLink = ({
     <Link
       href={href}
       className={`relative py-1 ${
-        isActive 
-          ? 'text-[var(--foreground)]' 
+        isActive
+          ? 'text-[var(--foreground)]'
           : 'text-[var(--secondary-text)] hover:text-[var(--foreground)]'
       } transition-colors`}
       onClick={onClick}
@@ -168,14 +168,14 @@ const NavLink = ({
   );
 }
 
-const MenuItem = ({ 
-  href, 
-  text, 
+const MenuItem = ({
+  href,
+  text,
   isActive,
-  onClick 
-}: { 
-  href: string; 
-  text: string; 
+  onClick
+}: {
+  href: string;
+  text: string;
   isActive: boolean;
   onClick?: () => void;
 }) => (
