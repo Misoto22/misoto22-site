@@ -6,6 +6,7 @@ import AnimatedSection from '@/components/common/AnimatedSection'
 import { FaGithub, FaLinkedin, FaInstagram } from 'react-icons/fa';
 import { MdEmail } from 'react-icons/md';
 import { SiUnsplash } from 'react-icons/si';
+import Card from '@/components/ui/Card'
 
 export default function Home() {
   return (
@@ -86,7 +87,7 @@ export default function Home() {
             
             {/* Fullstack Development */}
             <div className="mb-12">
-              <div className="bg-[var(--card-background)] rounded-2xl p-8 shadow-lg border border-[var(--border-color)] hover:shadow-xl transition-all duration-300">
+              <Card delay={0.1}>
                 <h3 className="text-2xl font-heading mb-6 text-[var(--foreground)] flex items-center gap-2">
                   <span>Fullstack Development</span>
                   <span className="text-sm font-normal text-[var(--secondary-text)]">(Core)</span>
@@ -125,12 +126,12 @@ export default function Home() {
                     <span className="mt-2 text-sm font-medium text-[var(--foreground)] group-hover:text-[var(--foreground)] transition-colors duration-300">Node.js</span>
                   </motion.div>
                 </div>
-              </div>
+              </Card>
             </div>
 
             {/* DevOps & Cloud */}
             <div className="mb-12">
-              <div className="bg-[var(--card-background)] rounded-2xl p-8 shadow-lg border border-[var(--border-color)] hover:shadow-xl transition-all duration-300">
+              <Card delay={0.2}>
                 <h3 className="text-2xl font-heading mb-6 text-[var(--foreground)] flex items-center gap-2">
                   <span>DevOps & Cloud</span>
                   <span className="text-sm font-normal text-[var(--secondary-text)]">(Infrastructure)</span>
@@ -169,12 +170,12 @@ export default function Home() {
                     <span className="mt-2 text-sm font-medium text-[var(--foreground)] group-hover:text-[var(--foreground)] transition-colors duration-300">Vercel</span>
                   </motion.div>
                 </div>
-              </div>
+              </Card>
             </div>
 
             {/* Data & ML */}
             <div className="mb-12">
-              <div className="bg-[var(--card-background)] rounded-2xl p-8 shadow-lg border border-[var(--border-color)] hover:shadow-xl transition-all duration-300">
+              <Card delay={0.3}>
                 <h3 className="text-2xl font-heading mb-6 text-[var(--foreground)] flex items-center gap-2">
                   <span>Data & ML</span>
                   <span className="text-sm font-normal text-[var(--secondary-text)]">(Research)</span>
@@ -213,12 +214,12 @@ export default function Home() {
                     <span className="mt-2 text-sm font-medium text-[var(--foreground)] group-hover:text-[var(--foreground)] transition-colors duration-300">Jupyter</span>
                   </motion.div>
                 </div>
-              </div>
+              </Card>
             </div>
 
             {/* Creative Tools */}
             <div className="mb-12">
-              <div className="bg-[var(--card-background)] rounded-2xl p-8 shadow-lg border border-[var(--border-color)] hover:shadow-xl transition-all duration-300 opacity-80">
+              <Card delay={0.4} className="opacity-80">
                 <h3 className="text-2xl font-heading mb-6 text-[var(--foreground)] flex items-center gap-2">
                   <span>Creative Tools</span>
                   <span className="text-sm font-normal text-[var(--secondary-text)]">(Hobby)</span>
@@ -257,7 +258,7 @@ export default function Home() {
                     <span className="mt-2 text-sm font-medium text-[var(--foreground)] group-hover:text-[var(--foreground)] transition-colors duration-300">Capture One</span>
                   </motion.div>
                 </div>
-              </div>
+              </Card>
             </div>
           </AnimatedSection>
         </div>
@@ -271,37 +272,35 @@ export default function Home() {
         transition={{ duration: 0.7, ease: 'easeOut' }}
         className="w-full max-w-6xl mx-auto px-6 relative"
       >
-        <AnimatedSection delay={0.2} className="w-full space-y-16">
-          <div className="bg-[var(--card-background)] rounded-2xl p-8 shadow-lg border border-[var(--border-color)]">
-            <h2 className="text-3xl md:text-4xl font-heading mb-8 text-[var(--foreground)] text-center">
-              What do I do?
-            </h2>
-            <div className="space-y-6 text-[var(--foreground)]">
-              <p className="leading-relaxed text-lg">
-                <b>Professional Background:</b> As a Computer Science graduate, I combine technical expertise with practical problem-solving skills. My focus lies in full-stack development and DevOps engineering, where I leverage modern technologies to build efficient and scalable solutions.
-              </p>
-              <p className="leading-relaxed text-lg">
-                Having spent four years in Sydney before moving to Perth, I&apos;ve developed a unique perspective that bridges different Australian cultures and professional environments. This experience has enriched my understanding of both technology and human interaction.
-              </p>
-              <p className="leading-relaxed text-lg">
-                <b>Photography Passion:</b> My photography journey is driven by three main themes: the raw beauty of nature, the dynamic energy of urban landscapes, and the subtle moments of human connection. Through my lens, I aim to capture the interplay between these elements, documenting both the grand vistas of Western Australia and the intimate details of city life.
-              </p>
-              <div className="pt-4">
-                <motion.a 
-                  href="https://unsplash.com/@misoto22" 
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center text-[var(--foreground)] hover:opacity-80 transition-colors duration-300 text-lg font-medium"
-                  whileHover={{ x: 5 }}
-                  title="Open in new tab"
-                >
-                  View My Photography on Unsplash
-                  <span className="ml-2">↗</span>
-                </motion.a>
-              </div>
+        <Card width="full" delay={0.5} className="space-y-16">
+          <h2 className="text-3xl md:text-4xl font-heading mb-8 text-[var(--foreground)] text-center">
+            What do I do?
+          </h2>
+          <div className="space-y-6 text-[var(--foreground)]">
+            <p className="leading-relaxed text-lg">
+              <b>Professional Background:</b> As a Computer Science graduate, I combine technical expertise with practical problem-solving skills. My focus lies in full-stack development and DevOps engineering, where I leverage modern technologies to build efficient and scalable solutions.
+            </p>
+            <p className="leading-relaxed text-lg">
+              Having spent four years in Sydney before moving to Perth, I&apos;ve developed a unique perspective that bridges different Australian cultures and professional environments. This experience has enriched my understanding of both technology and human interaction.
+            </p>
+            <p className="leading-relaxed text-lg">
+              <b>Photography Passion:</b> My photography journey is driven by three main themes: the raw beauty of nature, the dynamic energy of urban landscapes, and the subtle moments of human connection. Through my lens, I aim to capture the interplay between these elements, documenting both the grand vistas of Western Australia and the intimate details of city life.
+            </p>
+            <div className="pt-4">
+              <motion.a 
+                href="https://unsplash.com/@misoto22" 
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center text-[var(--foreground)] hover:opacity-80 transition-colors duration-300 text-lg font-medium"
+                whileHover={{ x: 5 }}
+                title="Open in new tab"
+              >
+                View My Photography on Unsplash
+                <span className="ml-2">↗</span>
+              </motion.a>
             </div>
           </div>
-        </AnimatedSection>
+        </Card>
       </motion.div>
     </>
   )
