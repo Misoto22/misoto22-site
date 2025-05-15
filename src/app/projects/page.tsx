@@ -1,6 +1,6 @@
 'use client'
 
-import AnimatedSection from '@/components/common/AnimatedSection'
+import PageHeader from '@/components/layout/PageHeader'
 import ProjectCard from '@/components/sections/ProjectCard'
 
 interface Project {
@@ -54,14 +54,10 @@ export default function Projects() {
   return (
     <section className="pt-24 min-h-screen bg-[var(--background)]">
       <div className="max-w-6xl mx-auto px-6">
-        <AnimatedSection>
-          <h1 className="text-4xl md:text-5xl font-heading mb-4 tracking-wide text-[var(--foreground)] text-center">
-            Projects
-          </h1>
-          <p className="text-[var(--secondary-text)] mb-12 text-center text-lg max-w-2xl mx-auto">
-            Here are some of my recent projects. Each one represents a unique challenge and learning opportunity.
-          </p>
-        </AnimatedSection>
+        <PageHeader 
+          title="Projects"
+          description="Here are some of my recent projects. Each one represents a unique challenge and learning opportunity."
+        />
         
         <div className="space-y-16">
           {projects.map((project, index) => (

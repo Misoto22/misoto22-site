@@ -1,7 +1,7 @@
 'use client'
 
 import React from 'react'
-import AnimatedSection from '@/components/common/AnimatedSection'
+import PageHeader from '@/components/layout/PageHeader'
 import EducationCard from '@/components/sections/EducationCard'
 
 interface Education {
@@ -52,17 +52,11 @@ export default function EducationPage() {
   return (
     <section className="pt-24 min-h-screen bg-[var(--background)]">
       <div className="max-w-6xl mx-auto px-6">
-        <AnimatedSection>
-          <div className="text-center mb-16">
-            <h1 className="text-4xl md:text-5xl font-heading mb-4 tracking-wide text-[var(--foreground)]">
-              Education
-            </h1>
-            <div className="w-24 h-1 bg-[var(--accent)] mx-auto mb-4"></div>
-            <p className="text-[var(--secondary-text)] text-lg max-w-2xl mx-auto">
-              My academic journey and the knowledge I&apos;ve gained along the way.
-            </p>
-          </div>
-        </AnimatedSection>
+        <PageHeader 
+          title="Education"
+          description="My academic journey and the knowledge I've gained along the way."
+          showDivider={true}
+        />
 
         <div className="space-y-12">
           {education.map((edu, index) => (

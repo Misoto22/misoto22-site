@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react'
 import emailjs from '@emailjs/browser'
-import AnimatedSection from '@/components/common/AnimatedSection'
+import PageHeader from '@/components/layout/PageHeader'
 import { FaGithub, FaLinkedin, FaInstagram, FaClock, FaMapMarkerAlt } from 'react-icons/fa';
 import { MdEmail, MdPhone } from 'react-icons/md';
 import { SiUnsplash } from 'react-icons/si';
@@ -105,14 +105,10 @@ export default function Contact() {
   return (
     <section className="pt-24 min-h-screen bg-[var(--background)]">
       <div className="max-w-6xl mx-auto px-6">
-        <AnimatedSection>
-          <h1 className="text-4xl md:text-5xl font-heading mb-4 tracking-wide text-[var(--foreground)] text-center">
-            Let&apos;s Connect
-          </h1>
-          <p className="text-[var(--secondary-text)] mb-12 text-center text-lg max-w-2xl mx-auto">
-            I&apos;m actively seeking opportunities in DevOps and Full-stack web development. If you&apos;re interested in discussing potential roles or collaborations, I&apos;d love to hear from you. Also, feel free to connect if you share a passion for photography!
-          </p>
-        </AnimatedSection>
+        <PageHeader 
+          title="Let's Connect"
+          description="I'm actively seeking opportunities in DevOps and Full-stack web development. If you're interested in discussing potential roles or collaborations, I'd love to hear from you. Also, feel free to connect if you share a passion for photography!"
+        />
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-12 mb-16 max-w-6xl mx-auto">
           {/* Contact Information */}
