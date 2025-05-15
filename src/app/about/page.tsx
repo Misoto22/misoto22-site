@@ -2,7 +2,7 @@
 
 import React from 'react'
 import Image from 'next/image'
-import AnimatedSection from '@/components/AnimatedSection'
+import AnimatedSection from '@/components/common/AnimatedSection'
 
 interface Skill {
   category: string;

@@ -2,9 +2,9 @@
 import './globals.css'
 import { Montserrat } from 'next/font/google'
 import type { Metadata } from 'next'
-import Navigation from '@/components/Navigation'
-import Footer from '@/components/Footer'
-import ScrollToTopButton from '@/components/ScrollToTopButton'
+import Navigation from '@/components/layout/Navigation'
+import Footer from '@/components/layout/Footer'
+import ScrollToTopButton from '@/components/common/ScrollToTopButton'
 import { ThemeProvider } from '@/context/ThemeContext'
 import { SpeedInsights } from "@vercel/speed-insights/next"
 import { Analytics } from "@vercel/analytics/react"

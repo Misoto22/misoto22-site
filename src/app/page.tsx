@@ -2,7 +2,7 @@
 
 import Image from 'next/image'
 import { motion } from 'framer-motion'
-import AnimatedSection from '@/components/AnimatedSection'
+import AnimatedSection from '@/components/common/AnimatedSection'
 import { FaGithub, FaLinkedin, FaInstagram } from 'react-icons/fa';
 import { MdEmail } from 'react-icons/md';
 import { SiUnsplash } from 'react-icons/si';

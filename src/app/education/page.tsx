@@ -1,7 +1,7 @@
 'use client'
 
 import React from 'react'
-import AnimatedSection from '@/components/AnimatedSection'
+import AnimatedSection from '@/components/common/AnimatedSection'
 import Image from 'next/image'
 
 interface Education {

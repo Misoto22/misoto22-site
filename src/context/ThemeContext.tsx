@@ -34,7 +34,7 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
     document.documentElement.classList.toggle('dark', newTheme === 'dark')
   }
 
-  // 防止水合不匹配
+  // Prevent hydration error
   if (!mounted) {
     return null
   }

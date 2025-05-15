@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react'
 import emailjs from '@emailjs/browser'
-import AnimatedSection from '@/components/AnimatedSection'
+import AnimatedSection from '@/components/common/AnimatedSection'
 import { FaGithub, FaLinkedin, FaInstagram, FaClock, FaMapMarkerAlt } from 'react-icons/fa';
 import { MdEmail, MdPhone } from 'react-icons/md';
 import { SiUnsplash } from 'react-icons/si';
@@ -50,7 +50,7 @@ export default function Contact() {
     e.preventDefault();
     setStatus({ submitting: true, submitted: false, error: false, message: '' });
 
-    // 验证表单数据
+    // Verify form data
     if (!formData.name || !formData.email || !formData.subject || !formData.message) {
       setStatus({
         submitting: false,

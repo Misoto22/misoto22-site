@@ -1,6 +1,6 @@
 'use client'
 
-import AnimatedSection from '@/components/AnimatedSection'
+import AnimatedSection from '@/components/common/AnimatedSection'
 import Image from 'next/image'
 
 const projects = [
