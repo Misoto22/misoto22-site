@@ -33,7 +33,6 @@
 | **Styling** | Tailwind CSS |
 | **Animation** | Framer Motion |
 | **Icons** | Lucide React & React Icons |
-| **UI Components** | Radix UI |
 
 </div>
 
