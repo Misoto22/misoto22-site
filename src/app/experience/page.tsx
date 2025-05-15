@@ -4,6 +4,7 @@ import React from 'react'
 import AnimatedSection from '@/components/common/AnimatedSection'
 import Image from 'next/image'
 import Card from '@/components/ui/Card'
+import Badge from '@/components/ui/Badge'
 
 interface Experience {
   title: string;
@@ -129,12 +130,9 @@ export default function ExperiencePage() {
                     <h4 className="text-[var(--foreground)] font-medium mb-3">Key Technologies & Skills:</h4>
                     <div className="flex flex-wrap gap-2">
                       {exp.technologies.map((tech, i) => (
-                        <span
-                          key={i}
-                          className="bg-[var(--card-background)] text-[var(--foreground)] px-3 py-1 rounded-full text-sm font-medium border border-[var(--border-color)] hover:bg-[var(--background)] transition-colors duration-200"
-                        >
+                        <Badge key={i}>
                           {tech}
-                        </span>
+                        </Badge>
                       ))}
                     </div>
                   </div>

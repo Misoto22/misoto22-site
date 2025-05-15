@@ -3,6 +3,7 @@
 import AnimatedSection from '@/components/common/AnimatedSection'
 import Image from 'next/image'
 import Card from '@/components/ui/Card'
+import Badge from '@/components/ui/Badge'
 
 const projects = [
   {
@@ -71,12 +72,9 @@ export default function Projects() {
                   <p className="text-[var(--secondary-text)] mb-6">{project.description}</p>
                   <div className="flex flex-wrap gap-2 mb-6">
                     {project.technologies.map((tech, i) => (
-                      <span
-                        key={i}
-                        className="bg-[var(--card-background)] text-[var(--foreground)] px-3 py-1 rounded-full text-sm font-medium border border-[var(--border-color)] hover:bg-[var(--background)] transition-colors duration-200"
-                      >
+                      <Badge key={i}>
                         {tech}
-                      </span>
+                      </Badge>
                     ))}
                   </div>
                   <div className="flex gap-4">
