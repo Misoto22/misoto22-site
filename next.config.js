@@ -17,6 +17,12 @@ const nextConfig = {
         port: '',
         pathname: '/**',
       },
+      {
+        protocol: 'https',
+        hostname: 'images.misoto22.com',
+        port: '',
+        pathname: '/**',
+      },
     ],
   },
 }
