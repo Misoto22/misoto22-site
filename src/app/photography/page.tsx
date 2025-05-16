@@ -1,209 +1,45 @@
 'use client';
 
-import { useState, useEffect, useCallback, useMemo } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import Image from 'next/image';
 import Masonry from 'react-masonry-css';
 import ImageModal from '@/components/photography/ImageModal';
 import PageHeader from '@/components/layout/PageHeader';
 
-// Use the provided photo metadata array
-const photos = [
-  {
-    "id": "00001",
-    "src": "https://images.misoto22.com/00001.webp",
-    "width": 4000,
-    "height": 6000,
-    "alt": "00001"
-  },
-  {
-    "id": "00002",
-    "src": "https://images.misoto22.com/00002.webp",
-    "width": 7008,
-    "height": 4672,
-    "alt": "00002"
-  },
-  {
-    "id": "00003",
-    "src": "https://images.misoto22.com/00003.webp",
-    "width": 6222,
-    "height": 4148,
-    "alt": "00003"
-  },
-  {
-    "id": "00004",
-    "src": "https://images.misoto22.com/00004.webp",
-    "width": 4664,
-    "height": 6996,
-    "alt": "00004"
-  },
-  {
-    "id": "00005",
-    "src": "https://images.misoto22.com/00005.webp",
-    "width": 3864,
-    "height": 5796,
-    "alt": "00005"
-  },
-  {
-    "id": "00006",
-    "src": "https://images.misoto22.com/00006.webp",
-    "width": 3865,
-    "height": 5797,
-    "alt": "00006"
-  },
-  {
-    "id": "00007",
-    "src": "https://images.misoto22.com/00007.webp",
-    "width": 5545,
-    "height": 3119,
-    "alt": "00007"
-  },
-  {
-    "id": "00008",
-    "src": "https://images.misoto22.com/00008.webp",
-    "width": 3967,
-    "height": 5951,
-    "alt": "00008"
-  },
-  {
-    "id": "00009",
-    "src": "https://images.misoto22.com/00009.webp",
-    "width": 4057,
-    "height": 5934,
-    "alt": "00009"
-  },
-  {
-    "id": "00010",
-    "src": "https://images.misoto22.com/00010.webp",
-    "width": 6240,
-    "height": 4160,
-    "alt": "00010"
-  },
-  {
-    "id": "00011",
-    "src": "https://images.misoto22.com/00011.webp",
-    "width": 4568,
-    "height": 3045,
-    "alt": "00011"
-  },
-  {
-    "id": "00012",
-    "src": "https://images.misoto22.com/00012.webp",
-    "width": 4160,
-    "height": 6240,
-    "alt": "00012"
-  },
-  {
-    "id": "00013",
-    "src": "https://images.misoto22.com/00013.webp",
-    "width": 6000,
-    "height": 4000,
-    "alt": "00013"
-  },
-  {
-    "id": "00014",
-    "src": "https://images.misoto22.com/00014.webp",
-    "width": 3068,
-    "height": 4602,
-    "alt": "00014"
-  },
-  {
-    "id": "00015",
-    "src": "https://images.misoto22.com/00015.webp",
-    "width": 6000,
-    "height": 4000,
-    "alt": "00015"
-  },
-  {
-    "id": "00016",
-    "src": "https://images.misoto22.com/00016.webp",
-    "width": 2560,
-    "height": 1707,
-    "alt": "00016"
-  },
-  {
-    "id": "00017",
-    "src": "https://images.misoto22.com/00017.webp",
-    "width": 2560,
-    "height": 1707,
-    "alt": "00017"
-  },
-  {
-    "id": "00018",
-    "src": "https://images.misoto22.com/00018.webp",
-    "width": 1707,
-    "height": 2560,
-    "alt": "00018"
-  },
-  {
-    "id": "00019",
-    "src": "https://images.misoto22.com/00019.webp",
-    "width": 2560,
-    "height": 1707,
-    "alt": "00019"
-  },
-  {
-    "id": "00020",
-    "src": "https://images.misoto22.com/00020.webp",
-    "width": 2560,
-    "height": 1440,
-    "alt": "00020"
-  },
-  {
-    "id": "00021",
-    "src": "https://images.misoto22.com/00021.webp",
-    "width": 2560,
-    "height": 1707,
-    "alt": "00021"
-  },
-  {
-    "id": "00022",
-    "src": "https://images.misoto22.com/00022.webp",
-    "width": 1440,
-    "height": 1800,
-    "alt": "00022"
-  },
-  {
-    "id": "00023",
-    "src": "https://images.misoto22.com/00023.webp",
-    "width": 3120,
-    "height": 1760,
-    "alt": "00023"
-  },
-  {
-    "id": "00024",
-    "src": "https://images.misoto22.com/00024.webp",
-    "width": 1707,
-    "height": 2560,
-    "alt": "00024"
-  },
-  {
-    "id": "00025",
-    "src": "https://images.misoto22.com/00025.webp",
-    "width": 1707,
-    "height": 2560,
-    "alt": "00025"
-  }
-];
+interface Photo {
+  id: string;
+  src: string;
+  width: number;
+  height: number;
+  alt: string;
+}
+
+interface PhotoResponse {
+  photos: Photo[];
+  total: number;
+  hasMore: boolean;
+}
 
 export default function PhotographyPage() {
   const [mounted, setMounted] = useState(false);
-  const [visiblePhotos, setVisiblePhotos] = useState<typeof photos>([]);
+  const [visiblePhotos, setVisiblePhotos] = useState<Photo[]>([]);
   const [loading, setLoading] = useState(true);
   const [page, setPage] = useState(1);
   const [modalOpen, setModalOpen] = useState(false);
-  const [selectedPhoto, setSelectedPhoto] = useState<typeof photos[0] | null>(null);
+  const [selectedPhoto, setSelectedPhoto] = useState<Photo | null>(null);
+  const [hasMore, setHasMore] = useState(true);
   const photosPerPage = 8;
 
   // Define breakpoints for the Masonry layout
   const breakpointColumnsObj = {
-    default: 3, // Reduce default column count to minimize gaps
+    default: 3,
     1200: 3,
     900: 2,
     600: 1
   };
 
   // Handle photo click to open modal
-  const handlePhotoClick = (photo: typeof photos[0]) => {
+  const handlePhotoClick = (photo: Photo) => {
     setSelectedPhoto(photo);
     setModalOpen(true);
   };
@@ -213,90 +49,48 @@ export default function PhotographyPage() {
     setModalOpen(false);
   };
 
-  // Optimize photo ordering to improve masonry layout
-  const optimizePhotoOrder = useCallback((photoArray: typeof photos) => {
-    // Sort by aspect ratio, alternating portrait and landscape photos
-    const sortedPhotos = [...photoArray].sort((a, b) => {
-      const ratioA = a.width / a.height;
-      const ratioB = b.width / b.height;
-      return ratioA - ratioB; // Sort from portrait to landscape
-    });
-
-    // Further optimization: group by columns to ensure similar heights
-    const columns = 3; // Default column count
-    const result: typeof photos = [];
-
-    // Create column arrays
-    const columnGroups: typeof photos[] = Array(columns).fill(null).map(() => []);
-
-    // Use "greedy" algorithm to distribute photos across columns for balanced heights
-    sortedPhotos.forEach((photo) => {
-      // Find the column with the smallest current height
-      const shortestColumnIndex = columnGroups
-        .map((column, i) => ({
-          index: i,
-          height: column.reduce((sum, p) => sum + (p.height / p.width), 0)
-        }))
-        .sort((a, b) => a.height - b.height)[0].index;
-
-      // Add the photo to this column
-      columnGroups[shortestColumnIndex].push(photo);
-    });
-
-    // Merge all columns into a single array
-    columnGroups.forEach(column => {
-      result.push(...column);
-    });
-
-    return result;
-  }, []);
-
-  // Pre-optimize photo order, execute only once
-  const optimizedInitialPhotos = useMemo(() => {
-    return optimizePhotoOrder(photos);
-  }, [optimizePhotoOrder, photos]);
-
-  // Load more photos when the user scrolls to the bottom
-  const loadMorePhotos = useCallback(() => {
-    if (page * photosPerPage >= photos.length) {
-      setLoading(false);
-      return;
-    }
-
-    const nextPage = page + 1;
-    const nextBatchEnd = nextPage * photosPerPage;
-
-    // Only get new photos, don't re-sort the entire array
-    const newBatchPhotos = optimizedInitialPhotos.slice(visiblePhotos.length, nextBatchEnd);
-
-    // Use functional update to avoid depending on previous state
-    setVisiblePhotos(prevPhotos => [...prevPhotos, ...newBatchPhotos]);
-    setPage(nextPage);
-
-    if (nextBatchEnd >= photos.length) {
+  // Load photos from API
+  const loadPhotos = useCallback(async (pageNum: number) => {
+    try {
+      setLoading(true);
+      const response = await fetch(`/api/photos?page=${pageNum}&limit=${photosPerPage}`);
+      if (!response.ok) {
+        throw new Error('Failed to fetch photos');
+      }
+      const data: PhotoResponse = await response.json();
+      
+      if (pageNum === 1) {
+        setVisiblePhotos(data.photos);
+      } else {
+        setVisiblePhotos(prev => [...prev, ...data.photos]);
+      }
+      setHasMore(data.hasMore);
+    } catch (error) {
+      console.error('Error loading photos:', error);
+    } finally {
       setLoading(false);
     }
-  }, [page, photosPerPage, photos.length, visiblePhotos.length, optimizedInitialPhotos]);
+  }, [photosPerPage]);
 
   // Effect for initial mounting
   useEffect(() => {
     setMounted(true);
-    // Initial load of photos with optimized order
-    setVisiblePhotos(optimizedInitialPhotos.slice(0, photosPerPage));
-  }, [optimizedInitialPhotos, photosPerPage]);
+    loadPhotos(1);
+  }, [loadPhotos]);
 
   // Effect for intersection observer
   useEffect(() => {
     if (!mounted) return;
 
-    // Set up intersection observer for infinite scroll
     const observer = new IntersectionObserver((entries) => {
-      if (entries[0].isIntersecting && loading) {
-        loadMorePhotos();
+      if (entries[0].isIntersecting && !loading && hasMore) {
+        setLoading(true);
+        const nextPage = page + 1;
+        setPage(nextPage);
+        loadPhotos(nextPage);
       }
     }, { threshold: 0.1 });
 
-    // Observe the loading element
     const loadingElement = document.getElementById('loading-indicator');
     if (loadingElement) {
       observer.observe(loadingElement);
@@ -307,7 +101,7 @@ export default function PhotographyPage() {
         observer.unobserve(loadingElement);
       }
     };
-  }, [mounted, loading, loadMorePhotos]);
+  }, [mounted, loading, hasMore, page, loadPhotos]);
 
   if (!mounted) {
     return null;
@@ -352,18 +146,15 @@ export default function PhotographyPage() {
                   objectFit: 'cover',
                   opacity: 0,
                   transition: 'opacity 0.5s ease-in-out',
-                  transform: 'translateZ(0)', // Enable hardware acceleration
-                  willChange: 'opacity' // Hint browser for optimization
+                  transform: 'translateZ(0)',
+                  willChange: 'opacity'
                 }}
                 onLoadingComplete={(image) => {
-                  // Use requestAnimationFrame to ensure style changes in the next frame
-                  // This helps reduce layout shifts
                   requestAnimationFrame(() => {
                     image.style.opacity = '1';
                   });
                 }}
               />
-              {/* View Full Size indicator */}
               <div className="absolute bottom-2 right-2 bg-black/70 text-white px-2.5 py-1 rounded text-xs opacity-0 group-hover:opacity-90 transition-opacity duration-200">
                 View Full Size
               </div>
@@ -372,13 +163,12 @@ export default function PhotographyPage() {
         ))}
       </Masonry>
 
-      {loading && visiblePhotos.length < photos.length && (
+      {hasMore && (
         <div id="loading-indicator" className="flex justify-center items-center min-h-[100px] text-lg text-gray-600 mt-8 p-4 rounded-lg bg-gray-100 shadow-sm animate-pulse [contain:content] [will-change:opacity] [transform:translateZ(0)] h-[100px] w-full relative">
-          Loading more photos...
+          {loading ? 'Loading more photos...' : 'Scroll to load more'}
         </div>
       )}
 
-      {/* Image Modal */}
       <ImageModal
         isOpen={modalOpen}
         onClose={handleCloseModal}
