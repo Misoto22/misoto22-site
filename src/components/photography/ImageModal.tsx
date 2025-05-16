@@ -2,6 +2,7 @@
 
 import React, { useEffect, useState } from 'react';
 import Image from 'next/image';
+import { IoClose } from 'react-icons/io5';
 
 interface ImageModalProps {
   isOpen: boolean;
@@ -82,6 +83,14 @@ const ImageModal: React.FC<ImageModalProps> = ({ isOpen, onClose, photo }) => {
         className="relative z-10"
         onClick={(e) => e.stopPropagation()}
       >
+        {/* Close button */}
+        <button
+          onClick={onClose}
+          className="absolute -top-12 right-0 text-white hover:text-gray-300 transition-colors duration-200 p-2"
+          aria-label="Close modal"
+        >
+          <IoClose size={32} />
+        </button>
         {!loaded && (
           <div className="absolute inset-0 flex items-center justify-center">
             <div className="w-10 h-10 border-4 border-gray-300 border-t-black rounded-full animate-spin" />

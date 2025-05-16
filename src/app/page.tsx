@@ -97,14 +97,11 @@ export default function Home() {
             </p>
             <div className="pt-4">
               <motion.a 
-                href="https://unsplash.com/@misoto22" 
-                target="_blank"
-                rel="noopener noreferrer"
+                href="/photography" 
                 className="inline-flex items-center text-[var(--foreground)] hover:opacity-80 transition-colors duration-300 text-lg font-medium"
                 whileHover={{ x: 5 }}
-                title="Open in new tab"
               >
-                View My Photography on Unsplash
+                View My Photography
                 <span className="ml-2">↗</span>
               </motion.a>
             </div>
