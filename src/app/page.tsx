@@ -29,7 +29,7 @@ export default function Home() {
             {/* Illustration */}
             <div className="flex justify-center w-full mb-2">
               <Image
-                src="/images/avatar/avatar.jpg"
+                src="/images/avatar/avatar.webp"
                 alt="Henry's Avatar"
                 width={120}
                 height={120}

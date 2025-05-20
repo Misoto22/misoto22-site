@@ -7,7 +7,7 @@ const projects = [
     link: "https://github.com/Misoto22/my-website",
     deploy: "https://www.misoto22.com/",
     technologies: ["Next.js", "TypeScript", "Tailwind CSS", "Framer Motion"],
-    image: "/images/projects/personal-website.jpeg",
+    image: "/images/projects/personal-website.webp",
     category: "Full-stack"
   },
   {
@@ -16,7 +16,7 @@ const projects = [
     link: "https://github.com/Misoto22/eoi-points-calculator",
     deploy: "https://eoi-points-calculator.vercel.app/",
     technologies: ["Next.js", "TypeScript", "Tailwind CSS", "i18next", "Framer Motion"],
-    image: "/images/projects/eoi-calculator.jpeg",
+    image: "/images/projects/eoi-calculator.webp",
     category: "Web Dev"
   },
   {
@@ -24,7 +24,7 @@ const projects = [
     description: "An IoT-based wearable device designed to assist visually impaired individuals. Built with Raspberry Pi and a YOLOv8 object detection model, it provides real-time audio feedback and emergency alerts.",
     link: "https://github.com/Dhrubub/Smart-Vision-Hat",
     technologies: ["Raspberry Pi", "Python", "Flask", "Firebase", "YOLOv8", "OpenCV"],
-    image: "/images/projects/smart-vision-hat.png",
+    image: "/images/projects/smart-vision-hat.webp",
     category: "IoT"
   },
   {
@@ -32,7 +32,7 @@ const projects = [
     description: "A high-performance computing project simulating fish school behavior using C, OpenMP, and MPI. Achieved massive speedups on the Setonix supercomputer through thread/process-level optimization.",
     link: "https://github.com/Misoto22/Parallel-Implementation",
     technologies: ["C", "OpenMP", "MPI", "Bash"],
-    image: "/images/projects/fish-school-hpc.png",
+    image: "/images/projects/fish-school-hpc.webp",
     category: "HPC"
   }  
 ];
