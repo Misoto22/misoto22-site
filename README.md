@@ -33,8 +33,55 @@
 | **Styling** | Tailwind CSS |
 | **Animation** | Framer Motion |
 | **Icons** | Lucide React & React Icons |
+| **Storage** | Cloudflare R2 |
+| **CDN** | Cloudflare Workers |
 
 </div>
+
+## 📁 Project Structure
+
+```
+src/
+├── app/                    # Next.js app directory
+│   ├── about/             # About page
+│   ├── api/               # API routes
+│   │   ├── education/     # Education data endpoints
+│   │   ├── experience/    # Experience data endpoints
+│   │   ├── photos/        # Photography data endpoints
+│   │   └── projects/      # Project data endpoints
+│   ├── contact/           # Contact page
+│   ├── education/         # Education page
+│   ├── experience/        # Experience page
+│   ├── photography/       # Photography page
+│   └── projects/          # Projects page
+├── components/            # React components
+│   ├── animations/        # Animation components
+│   ├── common/            # Common utilities (ScrollToTopButton)
+│   ├── layout/            # Layout components (Navigation, Footer)
+│   ├── photography/       # Photo-specific components
+│   ├── sections/          # Content cards (Project, Education)
+│   └── ui/                # UI primitives (Badge, Card)
+└── context/              # React context
+```
+
+## 🔌 API Endpoints
+
+For detailed API documentation, see [API Documentation](src/app/api/README.md).
+
+| Endpoint        | Method | Description           | Returns                                 |
+|:--------------- |:------ |:---------------------|:----------------------------------------|
+| `/api/photos`   | GET    | Paginated photo feed | `photos[]` (`id`, `src`, `width`, `height`, `alt`), `total`, `hasMore` |
+| `/api/projects` | GET    | List of projects     | `title`, `description`, `tech`, `links`, `image`, `category` |
+| `/api/education`| GET    | Educational background| `degree`, `school`, `location`, `period`, `description`, `logo` |
+| `/api/experience`| GET   | Work experience      | `position`, `company`, `location`, `period`, `description`, `tech`, `logo` |
+
+## 🖼️ Image Optimization
+
+- **Format**: WebP with high visual quality
+- **Storage**: Cloudflare R2 for cost-effective hosting
+- **Delivery**: Custom Cloudflare Worker with CDN support
+- **Loading**: Next.js Image component with lazy loading
+- **Caching**: Long-term caching headers for optimal performance
 
 ## 🚀 Getting Started
 

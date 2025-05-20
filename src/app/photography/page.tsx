@@ -149,9 +149,10 @@ export default function PhotographyPage() {
                   transform: 'translateZ(0)',
                   willChange: 'opacity'
                 }}
-                onLoadingComplete={(image) => {
+                onLoad={(event) => {
                   requestAnimationFrame(() => {
-                    image.style.opacity = '1';
+                    const img = event.currentTarget;
+                    img.style.opacity = '1';
                   });
                 }}
               />
