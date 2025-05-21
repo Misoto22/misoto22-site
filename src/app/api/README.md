@@ -1,19 +1,21 @@
 # API Documentation
 
-This document describes all API endpoints under `src/app/api`.
+This document describes all API endpoints under `src/app/api`. All data is stored in and retrieved from Firebase Firestore.
 
 ---
 
-## 1. GET `/api/photos`
+## 1. Photos API
+
+### GET `/api/photos`
 
 **Description:**
-Returns a paginated list of photos for the photography gallery.
+Returns a paginated list of photos from Firestore.
 
 **Query Parameters:**
 - `page` (number, optional): Page number (default: 1)
 - `limit` (number, optional): Number of photos per page (default: 8)
 
-**Response:**
+**Success Response:**
 ```json
 {
   "photos": [
@@ -23,64 +25,101 @@ Returns a paginated list of photos for the photography gallery.
       "width": 4000,
       "height": 6000,
       "alt": "00001"
-    },
-    // ... more photos
+    }
   ],
   "total": 25,
   "hasMore": true
 }
 ```
 
-**Fields:**
-- `photos[]`: Array of photo objects
-  - `id` (string): Unique photo ID
-  - `src` (string): Image URL
-  - `width` (number): Image width in pixels
-  - `height` (number): Image height in pixels
-  - `alt` (string): Alt text for the image
-- `total` (number): Total number of photos
-- `hasMore` (boolean): Whether there are more photos to load
+**Error Response:**
+```json
+{
+  "error": "Failed to fetch photos"
+}
+```
+
+**Status Codes:**
+- 200: Success
+- 500: Server Error
+
+### GET `/api/photos/:id`
+
+**Description:**
+Returns a single photo by ID.
+
+**Parameters:**
+- `id` (string): 5-digit photo ID
+
+**Success Response:**
+```json
+{
+  "id": "00001",
+  "src": "https://images.misoto22.com/00001.webp",
+  "width": 4000,
+  "height": 6000,
+  "alt": "00001"
+}
+```
+
+**Error Response:**
+```json
+{
+  "error": "Invalid photo ID format"
+}
+// or
+{
+  "error": "Photo not found"
+}
+```
+
+**Status Codes:**
+- 200: Success
+- 400: Invalid ID Format
+- 404: Photo Not Found
+- 500: Server Error
 
 ---
 
 ## 2. GET `/api/projects`
 
 **Description:**
-Returns a list of projects.
+Returns a list of projects from Firestore.
 
-**Response:**
+**Success Response:**
 ```json
 [
   {
     "title": "Personal Website",
-    "description": "A modern, responsive personal website built with Next.js, TypeScript, and Tailwind CSS. Features dark mode, smooth animations, and a photography gallery.",
+    "description": "A modern, responsive personal website built with Next.js, TypeScript, and Tailwind CSS.",
     "link": "https://github.com/Misoto22/my-website",
     "deploy": "https://www.misoto22.com/",
     "technologies": ["Next.js", "TypeScript", "Tailwind CSS", "Framer Motion"],
-    "image": "/images/projects/personal-website.jpeg",
+    "image": "/images/projects/personal-website.webp",
     "category": "Full-stack"
   }
-  // ... more projects
 ]
 ```
 
-**Fields:**
-- `title` (string): Project name
-- `description` (string): Project description
-- `link` (string): GitHub or source link
-- `deploy` (string, optional): Live demo link
-- `technologies` (string[]): Technologies used
-- `image` (string): Image path or URL
-- `category` (string): Project category
+**Error Response:**
+```json
+{
+  "error": "Failed to fetch projects"
+}
+```
+
+**Status Codes:**
+- 200: Success
+- 500: Server Error
 
 ---
 
 ## 3. GET `/api/education`
 
 **Description:**
-Returns a list of educational experiences.
+Returns a list of educational experiences from Firestore.
 
-**Response:**
+**Success Response:**
 ```json
 [
   {
@@ -90,31 +129,31 @@ Returns a list of educational experiences.
     "location": "Perth, WA",
     "period": "2023 - 2024",
     "description": ["Dedicated to Software Engineering"],
-    "courses": ["IoT", "High Performance Computing", "Geographic Info Systems", "Artificial Intelligence", "Cloud Computing", "Cybersecurity", "Data Analysis"],
+    "courses": ["IoT", "High Performance Computing", "Geographic Info Systems"],
     "logo": "/icons/uni/uwa.svg"
   }
-  // ... more education
 ]
 ```
 
-**Fields:**
-- `degree` (string): Degree name
-- `school` (string): School name
-- `schoolLink` (string): School website
-- `location` (string): Location
-- `period` (string): Study period
-- `description` (string[]): Description or highlights
-- `courses` (string[]): Main courses
-- `logo` (string): Logo path or URL
+**Error Response:**
+```json
+{
+  "error": "Failed to fetch education"
+}
+```
+
+**Status Codes:**
+- 200: Success
+- 500: Server Error
 
 ---
 
 ## 4. GET `/api/experience`
 
 **Description:**
-Returns a list of work experiences.
+Returns a list of work experiences from Firestore.
 
-**Response:**
+**Success Response:**
 ```json
 [
   {
@@ -124,23 +163,33 @@ Returns a list of work experiences.
     "location": "Perth, WA",
     "period": "Jul 2024 - Oct 2024",
     "description": [
-      "Conducted data extraction, transformation, and loading (ETL) processes, along with data cleaning and visualization, contributing to the foundation's 'HOPE Report: 100 Years and One Hundred Reports' initiative aimed at preventing family domestic violence.",
-      "Migrated the foundation's official website to a more secure and scalable platform, enhancing user experience and overall site performance.",
-      "Collaborated with leadership and cross-functional teams to develop IT and data management improvement strategies, ensuring alignment with organizational goals and best practices."
+      "Conducted data extraction, transformation, and loading (ETL) processes..."
     ],
-    "technologies": ["ETL", "Data Visualization", "Web Development", "IT Strategy", "Data Management"],
+    "technologies": ["ETL", "Data Visualization", "Web Development"],
     "logo": "/icons/company/path-of-hope.svg"
   }
-  // ... more experiences
 ]
 ```
 
-**Fields:**
-- `title` (string): Job title
-- `company` (string): Company name
-- `companyLink` (string): Company website or LinkedIn
-- `location` (string): Location
-- `period` (string): Work period
-- `description` (string[]): Description or highlights
-- `technologies` (string[]): Technologies or skills used
-- `logo` (string): Logo path or URL
+**Error Response:**
+```json
+{
+  "error": "Failed to fetch experience"
+}
+```
+
+**Status Codes:**
+- 200: Success
+- 500: Server Error
+
+---
+
+## Data Storage
+
+All data is stored in Firebase Firestore collections:
+- `photos`
+- `projects`
+- `education`
+- `experience`
+
+Each collection uses the same data structure as shown in the response examples above.

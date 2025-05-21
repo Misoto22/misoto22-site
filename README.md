@@ -9,6 +9,7 @@
 [![Next.js](https://img.shields.io/badge/Next.js-14-black?style=for-the-badge&logo=next.js)](https://nextjs.org/)
 [![TypeScript](https://img.shields.io/badge/TypeScript-5-blue?style=for-the-badge&logo=typescript)](https://www.typescriptlang.org/)
 [![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-3-38B2AC?style=for-the-badge&logo=tailwind-css)](https://tailwindcss.com/)
+[![Firebase](https://img.shields.io/badge/Firebase-039BE5?style=for-the-badge&logo=Firebase)](https://firebase.google.com/)
 
 </div>
 
@@ -33,8 +34,9 @@
 | **Styling** | Tailwind CSS |
 | **Animation** | Framer Motion |
 | **Icons** | Lucide React & React Icons |
-| **Storage** | Cloudflare R2 |
+| **Storage** | Cloudflare R2 & Firebase |
 | **CDN** | Cloudflare Workers |
+| **Database** | Firestore |
 
 </div>
 
@@ -61,6 +63,8 @@ src/
 │   ├── photography/       # Photo-specific components
 │   ├── sections/          # Content cards (Project, Education)
 │   └── ui/                # UI primitives (Badge, Card)
+├── lib/                  # Shared libraries
+│   └── firebase-admin.ts # Firebase Admin SDK setup
 └── context/              # React context
 ```
 
@@ -68,20 +72,28 @@ src/
 
 For detailed API documentation, see [API Documentation](src/app/api/README.md).
 
-| Endpoint        | Method | Description           | Returns                                 |
-|:--------------- |:------ |:---------------------|:----------------------------------------|
-| `/api/photos`   | GET    | Paginated photo feed | `photos[]` (`id`, `src`, `width`, `height`, `alt`), `total`, `hasMore` |
-| `/api/projects` | GET    | List of projects     | `title`, `description`, `tech`, `links`, `image`, `category` |
-| `/api/education`| GET    | Educational background| `degree`, `school`, `location`, `period`, `description`, `logo` |
-| `/api/experience`| GET   | Work experience      | `position`, `company`, `location`, `period`, `description`, `tech`, `logo` |
+| Endpoint | Method | Description | Status Codes |
+|:---------|:-------|:------------|:-------------|
+| `/api/photos` | GET | Paginated photo feed | 200, 500 |
+| `/api/photos/:id` | GET | Single photo by ID | 200, 400, 404, 500 |
+| `/api/projects` | GET | List of projects | 200, 500 |
+| `/api/education` | GET | Educational background | 200, 500 |
+| `/api/experience` | GET | Work experience | 200, 500 |
 
-## 🖼️ Image Optimization
+## 🖼️ Image & Data Storage
 
-- **Format**: WebP with high visual quality
-- **Storage**: Cloudflare R2 for cost-effective hosting
-- **Delivery**: Custom Cloudflare Worker with CDN support
-- **Loading**: Next.js Image component with lazy loading
-- **Caching**: Long-term caching headers for optimal performance
+- **Images**:
+  - Format: WebP with high visual quality
+  - Storage: Cloudflare R2
+  - Delivery: Custom Cloudflare Worker with CDN
+  - Loading: Next.js Image component with lazy loading
+  - Caching: Long-term caching headers
+
+- **Data**:
+  - Storage: Firebase Firestore
+  - Collections: photos, projects, education, experience
+  - Features: Real-time updates, automatic scaling
+  - Security: Firebase Admin SDK
 
 ## 🚀 Getting Started
 
@@ -89,6 +101,7 @@ For detailed API documentation, see [API Documentation](src/app/api/README.md).
 
 - Node.js 18.x or later
 - npm
+- Firebase project credentials
 
 ### Installation
 
@@ -103,12 +116,20 @@ For detailed API documentation, see [API Documentation](src/app/api/README.md).
    npm install
    ```
 
-3. **Run the development server:**
+3. **Set up environment variables:**
+   Create `.env.local` with your Firebase credentials:
+   ```
+   FIREBASE_PROJECT_ID=your-project-id
+   FIREBASE_CLIENT_EMAIL=your-client-email
+   FIREBASE_PRIVATE_KEY=your-private-key
+   ```
+
+4. **Run the development server:**
    ```bash
    npm run dev
    ```
 
-4. **Open** [http://localhost:3000](http://localhost:3000) in your browser
+5. **Open** [http://localhost:3000](http://localhost:3000) in your browser
 
 ## 📦 Available Scripts
 
