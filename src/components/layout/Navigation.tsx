@@ -6,6 +6,7 @@ import { useState } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
 import { useTheme } from '@/context/ThemeContext'
 import { Sun, Moon } from 'lucide-react'
+import { DISPLAY_NAME } from '@/lib/constants'
 
 const Navigation = () => {
   const pathname = usePathname()
@@ -30,7 +31,7 @@ const Navigation = () => {
       <div className="max-w-6xl mx-auto px-6 py-6 relative">
         {/* Logo aligned to the left */}
         <Link href="/" className="text-2xl font-semibold tracking-wider z-10 relative" onClick={handleNavigation}>
-          HENRY CHEN
+          {DISPLAY_NAME}
         </Link>
         {/* Menu items absolutely centered with responsive adjustments */}
         <div className="hidden md:flex space-x-3 nav:space-x-5 lg:space-x-6 text-base absolute md:left-[60%] nav:left-[55%] lg:left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2">

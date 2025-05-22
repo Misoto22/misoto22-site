@@ -3,11 +3,10 @@
 import Image from 'next/image'
 import { motion } from 'framer-motion'
 import AnimatedSection from '@/components/common/AnimatedSection'
-import { FaGithub, FaLinkedin, FaInstagram } from 'react-icons/fa';
-import { MdEmail } from 'react-icons/md';
-import { SiUnsplash } from 'react-icons/si';
+
 import Card from '@/components/ui/Card'
 import SkillsSection from '@/components/sections/SkillsSection'
+import { FULL_NAME, PROFESSION, SECONDARY_PASSION } from '@/lib/constants'
 
 export default function Home() {
   return (
@@ -24,7 +23,7 @@ export default function Home() {
           <AnimatedSection className="relative flex flex-col items-center mb-16 w-full">
             {/* Greeting */}
             <h2 className="text-2xl md:text-3xl font-heading text-[var(--foreground)] mb-2 text-center">
-              Hi, I&apos;m Henry Chen! <span className="inline-block">👋</span>
+              Hi, I&apos;m {FULL_NAME}! <span className="inline-block">👋</span>
             </h2>
             {/* Illustration */}
             <div className="flex justify-center w-full mb-2">
@@ -52,10 +51,10 @@ export default function Home() {
                 Welcome to my personal page!
               </p>
               <p className="text-base md:text-lg text-[var(--foreground)] mb-1 leading-relaxed text-center max-w-2xl">
-                I&apos;m a <span className="font-medium">fullstack developer & DevOps engineer</span> who loves building things that make my life easier.
+                I&apos;m a <span className="font-medium">{PROFESSION}</span> who loves building things that make my life easier.
               </p>
               <p className="text-base md:text-lg text-[var(--foreground)] leading-relaxed text-center max-w-2xl">
-                I am also passionate about photography, capturing the beauty in everyday life.
+                I am also passionate about {SECONDARY_PASSION}, capturing the beauty in everyday life.
               </p>
             </div>
             {/* CTA Button */}
@@ -96,8 +95,8 @@ export default function Home() {
               <b>Photography Passion:</b> My photography journey is driven by three main themes: the raw beauty of nature, the dynamic energy of urban landscapes, and the subtle moments of human connection. Through my lens, I aim to capture the interplay between these elements, documenting both the grand vistas of Western Australia and the intimate details of city life.
             </p>
             <div className="pt-4">
-              <motion.a 
-                href="/photography" 
+              <motion.a
+                href="/photography"
                 className="inline-flex items-center text-[var(--foreground)] hover:opacity-80 transition-colors duration-300 text-lg font-medium"
                 whileHover={{ x: 5 }}
               >

@@ -8,12 +8,13 @@ import ScrollToTopButton from '@/components/common/ScrollToTopButton'
 import { ThemeProvider } from '@/context/ThemeContext'
 import { SpeedInsights } from "@vercel/speed-insights/next"
 import { Analytics } from "@vercel/analytics/react"
+import { DISPLAY_NAME, SITE_TITLE, SITE_DESCRIPTION } from '@/lib/constants'
 
 const montserrat = Montserrat({ subsets: ['latin'], variable: '--font-montserrat' })
 
 export const metadata: Metadata = {
-  title: 'HENRY CHEN - Personal Website',
-  description: 'Henry&apos;s Personal photography portfolio and blog',
+  title: `${DISPLAY_NAME} - ${SITE_TITLE}`,
+  description: SITE_DESCRIPTION,
 }
 
 export default function RootLayout({
