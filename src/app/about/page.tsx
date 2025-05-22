@@ -2,7 +2,7 @@
 
 import React from 'react'
 import Image from 'next/image'
-import AnimatedSection from '@/components/common/AnimatedSection'
+import FadeInSlideUp from '@/components/animations/FadeInSlideUp'
 
 interface Skill {
   category: string;
@@ -32,17 +32,17 @@ export default function AboutPage() {
   return (
     <section className="pt-24 min-h-screen bg-[var(--background)]">
       <div className="max-w-6xl mx-auto px-6">
-        <AnimatedSection>
+        <FadeInSlideUp>
           <h1 className="text-4xl md:text-5xl font-heading mb-4 tracking-wide text-[var(--foreground)] text-center">
             About Me
           </h1>
           <p className="text-[var(--secondary-text)] mb-12 text-center text-lg max-w-2xl mx-auto">
             A passionate developer with a strong foundation in both software development and DevOps practices.
           </p>
-        </AnimatedSection>
+        </FadeInSlideUp>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-16">
-          <AnimatedSection>
+          <FadeInSlideUp>
             <div className="bg-[var(--card-background)] rounded-2xl p-8 shadow-lg border border-[var(--border-color)] hover:shadow-xl transition-all duration-300">
               <h2 className="text-2xl font-heading text-[var(--foreground)] mb-4">Background</h2>
               <div className="space-y-4 text-[var(--secondary-text)]">
@@ -62,9 +62,9 @@ export default function AboutPage() {
                 </p>
               </div>
             </div>
-          </AnimatedSection>
+          </FadeInSlideUp>
 
-          <AnimatedSection>
+          <FadeInSlideUp>
             <div className="bg-[var(--card-background)] rounded-2xl p-8 shadow-lg border border-[var(--border-color)] hover:shadow-xl transition-all duration-300">
               <h2 className="text-2xl font-heading text-[var(--foreground)] mb-4">Skills & Expertise</h2>
               <div className="space-y-6">
@@ -85,10 +85,10 @@ export default function AboutPage() {
                 ))}
               </div>
             </div>
-          </AnimatedSection>
+          </FadeInSlideUp>
         </div>
 
-        <AnimatedSection>
+        <FadeInSlideUp>
           <div className="bg-[var(--card-background)] rounded-2xl p-8 shadow-lg border border-[var(--border-color)]">
             <h2 className="text-2xl font-heading text-[var(--foreground)] mb-4">Interests & Hobbies</h2>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
@@ -112,7 +112,7 @@ export default function AboutPage() {
               </div>
             </div>
           </div>
-        </AnimatedSection>
+        </FadeInSlideUp>
       </div>
     </section>
   )

@@ -1,26 +1,26 @@
 'use client'
 
 import Link from 'next/link'
-import AnimatedSection from '@/components/common/AnimatedSection'
+import FadeInSlideUp from '@/components/animations/FadeInSlideUp'
 
 export default function NotFound() {
   return (
     <section className="pt-24 min-h-screen bg-[var(--background)] flex flex-col justify-center">
-      <AnimatedSection className="max-w-3xl mx-auto px-6 text-center">
+      <FadeInSlideUp className="max-w-3xl mx-auto px-6 text-center">
         <h1 className="text-6xl font-semibold mb-8 tracking-wide text-[var(--foreground)]">
           404
         </h1>
         
-        <AnimatedSection delay={0.1}>
+        <FadeInSlideUp delay={0.1}>
           <h2 className="text-2xl font-medium mb-6 text-[var(--foreground)]">
             Page Not Found
           </h2>
           <p className="text-[var(--secondary-text)] mb-12 text-lg">
             The page you&apos;re looking for doesn&apos;t exist or has been moved.
           </p>
-        </AnimatedSection>
+        </FadeInSlideUp>
 
-        <AnimatedSection delay={0.2}>
+        <FadeInSlideUp delay={0.2}>
           <Link 
             href="/"
             className="inline-flex items-center px-6 py-3 bg-[var(--foreground)] text-[var(--background)] rounded-lg hover:bg-opacity-90 transition-all duration-300"
@@ -40,8 +40,8 @@ export default function NotFound() {
               />
             </svg>
           </Link>
-        </AnimatedSection>
-      </AnimatedSection>
+        </FadeInSlideUp>
+      </FadeInSlideUp>
     </section>
   )
 } 

@@ -2,7 +2,7 @@
 
 import Image from 'next/image'
 import { motion } from 'framer-motion'
-import AnimatedSection from '@/components/common/AnimatedSection'
+import FadeInSlideUp from '@/components/animations/FadeInSlideUp'
 
 import Card from '@/components/ui/Card'
 import SkillsSection from '@/components/sections/SkillsSection'
@@ -20,7 +20,7 @@ export default function Home() {
       >
         <div className="w-full max-w-6xl mx-auto px-6">
           {/* Hero Section */}
-          <AnimatedSection className="relative flex flex-col items-center mb-16 w-full">
+          <FadeInSlideUp className="relative flex flex-col items-center mb-16 w-full">
             {/* Greeting */}
             <h2 className="text-2xl md:text-3xl font-heading text-[var(--foreground)] mb-2 text-center">
               Hi, I&apos;m {FULL_NAME}! <span className="inline-block">👋</span>
@@ -66,7 +66,7 @@ export default function Home() {
             >
               Download My Resume
             </motion.a>
-          </AnimatedSection>
+          </FadeInSlideUp>
         </div>
       </motion.section>
 

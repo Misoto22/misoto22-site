@@ -1,6 +1,6 @@
 import Image from 'next/image'
 import { motion } from 'framer-motion'
-import AnimatedSection from '@/components/common/AnimatedSection'
+import FadeInSlideUp from '@/components/animations/FadeInSlideUp'
 import Card from '@/components/ui/Card'
 
 // Skill Component
@@ -127,7 +127,7 @@ export default function SkillsSection() {
       className="min-h-screen flex flex-col justify-center items-center bg-[var(--background)] px-4 relative"
     >
       <div className="w-full max-w-6xl mx-auto px-6 scroll-mt-24">
-        <AnimatedSection delay={0.1} className="w-full">
+        <FadeInSlideUp delay={0.1} className="w-full">
           <h2 className="text-3xl md:text-4xl font-heading mb-12 text-[var(--foreground)] text-center">
             My Skills
           </h2>
@@ -160,7 +160,7 @@ export default function SkillsSection() {
             delay={0.4}
             className="opacity-80"
           />
-        </AnimatedSection>
+        </FadeInSlideUp>
       </div>
     </motion.section>
   )

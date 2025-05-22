@@ -1,5 +1,5 @@
 import React from 'react'
-import AnimatedSection from '@/components/common/AnimatedSection'
+import FadeInSlideUp from '@/components/animations/FadeInSlideUp'
 
 interface PageHeaderProps {
   title: string;
@@ -13,7 +13,7 @@ const PageHeader: React.FC<PageHeaderProps> = ({
   showDivider = false 
 }) => {
   return (
-    <AnimatedSection>
+    <FadeInSlideUp>
       <div className="text-center mb-16">
         <h1 className="text-4xl md:text-5xl font-heading mb-4 tracking-wide text-[var(--foreground)]">
           {title}
@@ -25,7 +25,7 @@ const PageHeader: React.FC<PageHeaderProps> = ({
           {description}
         </p>
       </div>
-    </AnimatedSection>
+    </FadeInSlideUp>
   )
 }
 

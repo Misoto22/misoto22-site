@@ -7,7 +7,7 @@
 import { motion } from 'framer-motion'
 import { ReactNode } from 'react'
 
-interface AnimatedSectionProps {
+interface FadeInSlideUpProps {
   // Content to be animated
   children: ReactNode
   // Animation delay in seconds
@@ -17,12 +17,12 @@ interface AnimatedSectionProps {
 }
 
 /**
- * AnimatedSection component that wraps content with a fade-in and slide-up animation
+ * FadeInSlideUp component that wraps content with a fade-in and slide-up animation
  * 
- * @param {AnimatedSectionProps} props - Component props
+ * @param {FadeInSlideUpProps} props - Component props
  * @returns {JSX.Element} Animated wrapper component
  */
-export default function AnimatedSection({ children, delay = 0, className = '' }: AnimatedSectionProps) {
+export default function FadeInSlideUp({ children, delay = 0, className = '' }: FadeInSlideUpProps) {
   return (
     <motion.div
       // Start: invisible, 20px below

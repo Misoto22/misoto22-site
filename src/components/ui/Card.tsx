@@ -1,5 +1,5 @@
 import { ReactNode } from 'react'
-import AnimatedSection from '@/components/common/AnimatedSection'
+import FadeInSlideUp from '@/components/animations/FadeInSlideUp'
 
 type WidthSize = 'full' | '1/2' | '1/3' | '2/3' | '3/4' | '1/4' | 'auto'
 
@@ -41,7 +41,7 @@ export default function Card({
   }
 
   return (
-    <AnimatedSection delay={delay}>
+    <FadeInSlideUp delay={delay}>
       <div className={`
         bg-[var(--card-background)] 
         rounded-2xl 
@@ -57,6 +57,6 @@ export default function Card({
       `}>
         {children}
       </div>
-    </AnimatedSection>
+    </FadeInSlideUp>
   )
 }
