@@ -84,7 +84,7 @@ Returns a single photo by ID.
 ## 2. GET `/api/projects`
 
 **Description:**
-Returns a list of projects from Firestore.
+Returns a list of projects from Firestore, ordered by the `order` field in ascending order.
 
 **Success Response:**
 ```json
@@ -96,7 +96,8 @@ Returns a list of projects from Firestore.
     "deploy": "https://www.misoto22.com/",
     "technologies": ["Next.js", "TypeScript", "Tailwind CSS", "Framer Motion"],
     "image": "/images/projects/personal-website.webp",
-    "category": "Full-stack"
+    "category": "Full-stack",
+    "order": 1
   }
 ]
 ```
@@ -117,7 +118,7 @@ Returns a list of projects from Firestore.
 ## 3. GET `/api/education`
 
 **Description:**
-Returns a list of educational experiences from Firestore.
+Returns a list of educational experiences from Firestore, ordered by the `order` field in ascending order.
 
 **Success Response:**
 ```json
@@ -130,7 +131,8 @@ Returns a list of educational experiences from Firestore.
     "period": "2023 - 2024",
     "description": ["Dedicated to Software Engineering"],
     "courses": ["IoT", "High Performance Computing", "Geographic Info Systems"],
-    "logo": "/icons/uni/uwa.svg"
+    "logo": "/icons/uni/uwa.svg",
+    "order": 1
   }
 ]
 ```
@@ -151,7 +153,7 @@ Returns a list of educational experiences from Firestore.
 ## 4. GET `/api/experience`
 
 **Description:**
-Returns a list of work experiences from Firestore.
+Returns a list of work experiences from Firestore, ordered by the `order` field in ascending order.
 
 **Success Response:**
 ```json
@@ -166,7 +168,8 @@ Returns a list of work experiences from Firestore.
       "Conducted data extraction, transformation, and loading (ETL) processes..."
     ],
     "technologies": ["ETL", "Data Visualization", "Web Development"],
-    "logo": "/icons/company/path-of-hope.svg"
+    "logo": "/icons/company/path-of-hope.svg",
+    "order": 1
   }
 ]
 ```
@@ -193,3 +196,11 @@ All data is stored in Firebase Firestore collections:
 - `experience`
 
 Each collection uses the same data structure as shown in the response examples above.
+
+## Sorting
+
+- **Photos**: Sorted by `id` field in ascending order
+- **Projects, Education, Experience**: Sorted by `order` field in ascending order
+  - Lower `order` values appear first
+  - The `order` field is optional and defaults to document creation order if not specified
+  - You can manually adjust `order` values in Firebase Console to change display order

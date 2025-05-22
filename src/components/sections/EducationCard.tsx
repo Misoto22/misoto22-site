@@ -12,6 +12,7 @@ interface Education {
   description: string[];
   courses: string[];
   logo: string;
+  order?: number;
 }
 
 interface EducationCardProps {
@@ -21,8 +22,8 @@ interface EducationCardProps {
 
 const EducationCard: React.FC<EducationCardProps> = ({ education: edu, index }) => {
   return (
-    <Card 
-      key={index} 
+    <Card
+      key={index}
       delay={index * 0.1}
       width="full"
     >
@@ -46,7 +47,7 @@ const EducationCard: React.FC<EducationCardProps> = ({ education: edu, index }) 
               <h2 className="text-2xl font-heading text-[var(--foreground)]">{edu.degree}</h2>
               <h3 className="text-xl text-[var(--secondary-text)]">
                 {edu.schoolLink ? (
-                  <a 
+                  <a
                     href={edu.schoolLink}
                     target="_blank"
                     rel="noopener noreferrer"

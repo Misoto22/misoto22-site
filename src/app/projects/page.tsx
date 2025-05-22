@@ -12,6 +12,7 @@ interface Project {
   technologies: string[];
   image: string;
   category: string;
+  order?: number;
 }
 
 export default function Projects() {
@@ -41,7 +42,7 @@ export default function Projects() {
     return (
       <section className="pt-24 min-h-screen bg-[var(--background)]">
         <div className="max-w-6xl mx-auto px-6">
-          <PageHeader 
+          <PageHeader
             title="Projects"
             description="Here are some of my recent projects. Each one represents a unique challenge and learning opportunity."
           />
@@ -56,11 +57,11 @@ export default function Projects() {
   return (
     <section className="pt-24 min-h-screen bg-[var(--background)]">
       <div className="max-w-6xl mx-auto px-6">
-        <PageHeader 
+        <PageHeader
           title="Projects"
           description="Here are some of my recent projects. Each one represents a unique challenge and learning opportunity."
         />
-        
+
         <div className="space-y-16">
           {projects.map((project, index) => (
             <ProjectCard key={index} project={project} index={index} />

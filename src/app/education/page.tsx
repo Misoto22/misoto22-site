@@ -13,6 +13,7 @@ interface Education {
   description: string[];
   courses: string[];
   logo: string;
+  order?: number;
 }
 
 export default function EducationPage() {
@@ -42,7 +43,7 @@ export default function EducationPage() {
     return (
       <section className="pt-24 min-h-screen bg-[var(--background)]">
         <div className="max-w-6xl mx-auto px-6">
-          <PageHeader 
+          <PageHeader
             title="Education"
             description="My academic journey and the knowledge I've gained along the way."
             showDivider={true}
@@ -58,7 +59,7 @@ export default function EducationPage() {
   return (
     <section className="pt-24 min-h-screen bg-[var(--background)]">
       <div className="max-w-6xl mx-auto px-6">
-        <PageHeader 
+        <PageHeader
           title="Education"
           description="My academic journey and the knowledge I've gained along the way."
           showDivider={true}
@@ -72,4 +73,4 @@ export default function EducationPage() {
       </div>
     </section>
   )
-} 
+}

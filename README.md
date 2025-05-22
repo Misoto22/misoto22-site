@@ -100,7 +100,7 @@ For detailed API documentation, see [API Documentation](src/app/api/README.md).
 ### Prerequisites
 
 - Node.js 18.x or later
-- npm
+- pnpm
 - Firebase project credentials
 
 ### Installation
@@ -113,7 +113,7 @@ For detailed API documentation, see [API Documentation](src/app/api/README.md).
 
 2. **Install dependencies:**
    ```bash
-   npm install
+   pnpm install
    ```
 
 3. **Set up environment variables:**
@@ -126,7 +126,7 @@ For detailed API documentation, see [API Documentation](src/app/api/README.md).
 
 4. **Run the development server:**
    ```bash
-   npm run dev
+   pnpm run dev
    ```
 
 5. **Open** [http://localhost:3000](http://localhost:3000) in your browser
@@ -135,10 +135,10 @@ For detailed API documentation, see [API Documentation](src/app/api/README.md).
 
 | Command | Description |
 |:--------|:------------|
-| `npm run dev` | Start development server |
-| `npm run build` | Build for production |
-| `npm run start` | Start production server |
-| `npm run lint` | Run ESLint |
+| `pnpm run dev` | Start development server |
+| `pnpm run build` | Build for production |
+| `pnpm run start` | Start production server |
+| `pnpm run lint` | Run ESLint |
 
 ## 🌐 Deployment
 

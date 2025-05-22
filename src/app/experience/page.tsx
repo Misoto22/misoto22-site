@@ -13,6 +13,7 @@ interface Experience {
   description: string[];
   technologies: string[];
   logo: string;
+  order?: number;
 }
 
 export default function ExperiencePage() {
@@ -42,7 +43,7 @@ export default function ExperiencePage() {
     return (
       <section className="pt-24 min-h-screen bg-[var(--background)]">
         <div className="max-w-6xl mx-auto px-6">
-          <PageHeader 
+          <PageHeader
             title="Professional Experience"
             description="My journey through various roles and responsibilities, each contributing to my growth as a professional."
             showDivider={true}
@@ -58,7 +59,7 @@ export default function ExperiencePage() {
   return (
     <section className="pt-24 min-h-screen bg-[var(--background)]">
       <div className="max-w-6xl mx-auto px-6">
-        <PageHeader 
+        <PageHeader
           title="Professional Experience"
           description="My journey through various roles and responsibilities, each contributing to my growth as a professional."
           showDivider={true}
@@ -72,4 +73,4 @@ export default function ExperiencePage() {
       </div>
     </section>
   )
-} 
+}

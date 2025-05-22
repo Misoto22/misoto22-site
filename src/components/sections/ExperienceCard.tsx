@@ -12,6 +12,7 @@ interface Experience {
   description: string[];
   technologies: string[];
   logo: string;
+  order?: number;
 }
 
 interface ExperienceCardProps {
@@ -21,8 +22,8 @@ interface ExperienceCardProps {
 
 const ExperienceCard: React.FC<ExperienceCardProps> = ({ experience: exp, index }) => {
   return (
-    <Card 
-      key={index} 
+    <Card
+      key={index}
       delay={index * 0.1}
       width="full"
     >
@@ -46,7 +47,7 @@ const ExperienceCard: React.FC<ExperienceCardProps> = ({ experience: exp, index 
               <h2 className="text-2xl font-heading text-[var(--foreground)]">{exp.title}</h2>
               <h3 className="text-xl text-[var(--secondary-text)]">
                 {exp.companyLink ? (
-                  <a 
+                  <a
                     href={exp.companyLink}
                     target="_blank"
                     rel="noopener noreferrer"

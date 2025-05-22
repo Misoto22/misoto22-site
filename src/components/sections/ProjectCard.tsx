@@ -11,6 +11,7 @@ interface Project {
   technologies: string[];
   image: string;
   category: string;
+  order?: number;
 }
 
 interface ProjectCardProps {
@@ -20,8 +21,8 @@ interface ProjectCardProps {
 
 const ProjectCard: React.FC<ProjectCardProps> = ({ project, index }) => {
   return (
-    <Card 
-      key={index} 
+    <Card
+      key={index}
       delay={index * 0.1}
       width="full"
     >
