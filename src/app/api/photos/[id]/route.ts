@@ -1,20 +1,19 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { db } from '@/lib/firebase-admin';
+import type { NextApiRequestContext } from 'next';
 
 export async function GET(
   _request: NextRequest,
-  { params }: { params: { id: string } }
+  context: NextApiRequestContext
 ): Promise<NextResponse> {
-  const { id } = params;
+  const { id } = context.params;
 
-  // 400 Bad Request: Invalid id format (must be 5 digits)
   if (!id || !/^\d{5}$/.test(id)) {
     return NextResponse.json({ error: 'Invalid photo ID format' }, { status: 400 });
   }
 
   try {
     const doc = await db.collection('photos').doc(id).get();
-    
+
     if (!doc.exists) {
       return NextResponse.json({ error: 'Photo not found' }, { status: 404 });
     }
@@ -24,4 +23,4 @@ export async function GET(
     console.error('Error fetching photo:', error);
     return NextResponse.json({ error: 'Failed to fetch photo' }, { status: 500 });
   }
-} 
+}
