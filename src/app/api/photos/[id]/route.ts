@@ -1,9 +1,16 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { db } from '@/lib/firebase-admin';
+import type { NextRequestHandler } from 'next/server';
+
+type Context = {
+  params: {
+    id: string;
+  };
+};
 
 export async function GET(
   _request: NextRequest,
-  context: { params: { id: string } }
+  context: Context
 ): Promise<NextResponse> {
   const { id } = context.params;
 
