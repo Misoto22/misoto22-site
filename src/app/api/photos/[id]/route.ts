@@ -1,15 +1,9 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { db } from '@/lib/firebase-admin';
 
-type Props = {
-  params: {
-    id: string;
-  };
-};
-
 export async function GET(
   request: NextRequest,
-  { params }: Props
+  { params }: { params: { id: string } }
 ) {
   const { id } = params;
 
