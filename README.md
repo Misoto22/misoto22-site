@@ -6,7 +6,8 @@
 
 *A modern, responsive personal portfolio website built with Next.js and TypeScript. Showcasing my projects, skills, and experiences in an elegant and interactive way.*
 
-[![Next.js](https://img.shields.io/badge/Next.js-14-black?style=for-the-badge&logo=next.js)](https://nextjs.org/)
+[![Next.js](https://img.shields.io/badge/Next.js-15-black?style=for-the-badge&logo=next.js)](https://nextjs.org/)
+[![React](https://img.shields.io/badge/React-19-blue?style=for-the-badge&logo=react)](https://react.dev/)
 [![TypeScript](https://img.shields.io/badge/TypeScript-5-blue?style=for-the-badge&logo=typescript)](https://www.typescriptlang.org/)
 [![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-3-38B2AC?style=for-the-badge&logo=tailwind-css)](https://tailwindcss.com/)
 [![Firebase](https://img.shields.io/badge/Firebase-039BE5?style=for-the-badge&logo=Firebase)](https://firebase.google.com/)
@@ -19,7 +20,7 @@
 
 | 🎨 Design | 📱 Responsive | 🌙 Theme | 🖼️ Gallery | 🚀 Performance | 📊 Interactive |
 |:---------:|:------------:|:--------:|:----------:|:--------------:|:--------------:|
-| Modern UI | Mobile First | Dark/Light | Project Showcase | Fast Loading | Framer Motion |
+| Modern UI | Mobile First | Dark/Light | Project Showcase | Turbopack | Framer Motion |
 
 </div>
 
@@ -29,14 +30,16 @@
 
 | Category | Technologies |
 |:--------:|:------------|
-| **Framework** | Next.js 14 |
-| **Language** | TypeScript |
+| **Framework** | Next.js 15 with Turbopack |
+| **Language** | TypeScript 5 |
+| **UI Library** | React 19 |
 | **Styling** | Tailwind CSS |
-| **Animation** | Framer Motion |
-| **Icons** | Lucide React & React Icons |
+| **Animation** | Framer Motion 12 |
+| **Icons** | Lucide React 0.511 & React Icons |
 | **Storage** | Cloudflare R2 & Firebase |
 | **CDN** | Cloudflare Workers |
 | **Database** | Firestore |
+| **Linting** | ESLint 9 |
 
 </div>
 
@@ -100,7 +103,7 @@ For detailed API documentation, see [API Documentation](src/app/api/README.md).
 ### Prerequisites
 
 - Node.js 18.x or later
-- pnpm
+- pnpm 8.x or later
 - Firebase project credentials
 
 ### Installation
@@ -135,14 +138,24 @@ For detailed API documentation, see [API Documentation](src/app/api/README.md).
 
 | Command | Description |
 |:--------|:------------|
-| `pnpm run dev` | Start development server |
+| `pnpm run dev` | Start development server with Turbopack |
 | `pnpm run build` | Build for production |
 | `pnpm run start` | Start production server |
 | `pnpm run lint` | Run ESLint |
+| `pnpm run format` | Format code with Prettier |
 
 ## 🌐 Deployment
 
-The application is deployed on Vercel at [misoto22.com](https://misoto22.com/).
+The application is deployed on Vercel with the following configuration:
+
+- **Production Domain**: [misoto22.com](https://misoto22.com/)
+- **Framework Preset**: Next.js
+- **Build Command**: `pnpm run build`
+- **Install Command**: `pnpm install`
+- **Environment Variables**: All Firebase credentials are configured in Vercel
+- **Deployment Triggers**: 
+  - Auto-deploy on main branch updates
+  - Preview deployments for pull requests
 
 ---
 

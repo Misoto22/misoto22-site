@@ -2,11 +2,11 @@
 
 This document describes all API endpoints under `src/app/api`. All data is stored in and retrieved from Firebase Firestore.
 
----
+## 📚 API Endpoints
 
-## 1. Photos API
+### 1. Photos API
 
-### GET `/api/photos`
+#### GET `/api/photos`
 
 **Description:**
 Returns a paginated list of photos from Firestore.
@@ -43,7 +43,7 @@ Returns a paginated list of photos from Firestore.
 - 200: Success
 - 500: Server Error
 
-### GET `/api/photos/:id`
+#### GET `/api/photos/:id`
 
 **Description:**
 Returns a single photo by ID.
@@ -79,9 +79,7 @@ Returns a single photo by ID.
 - 404: Photo Not Found
 - 500: Server Error
 
----
-
-## 2. GET `/api/projects`
+### 2. GET `/api/projects`
 
 **Description:**
 Returns a list of projects from Firestore, ordered by the `order` field in ascending order.
@@ -113,9 +111,7 @@ Returns a list of projects from Firestore, ordered by the `order` field in ascen
 - 200: Success
 - 500: Server Error
 
----
-
-## 3. GET `/api/education`
+### 3. GET `/api/education`
 
 **Description:**
 Returns a list of educational experiences from Firestore, ordered by the `order` field in ascending order.
@@ -148,9 +144,7 @@ Returns a list of educational experiences from Firestore, ordered by the `order`
 - 200: Success
 - 500: Server Error
 
----
-
-## 4. GET `/api/experience`
+### 4. GET `/api/experience`
 
 **Description:**
 Returns a list of work experiences from Firestore, ordered by the `order` field in ascending order.
@@ -185,22 +179,70 @@ Returns a list of work experiences from Firestore, ordered by the `order` field 
 - 200: Success
 - 500: Server Error
 
----
-
-## Data Storage
+## 🗄️ Data Storage
 
 All data is stored in Firebase Firestore collections:
-- `photos`
-- `projects`
-- `education`
-- `experience`
+- `photos`: Photography portfolio items
+- `projects`: Development project showcases
+- `education`: Academic background and courses
+- `experience`: Work history and internships
 
-Each collection uses the same data structure as shown in the response examples above.
+### Collection Structure
 
-## Sorting
+Each collection follows a specific schema for consistency:
 
-- **Photos**: Sorted by `id` field in ascending order
-- **Projects, Education, Experience**: Sorted by `order` field in ascending order
-  - Lower `order` values appear first
-  - The `order` field is optional and defaults to document creation order if not specified
-  - You can manually adjust `order` values in Firebase Console to change display order
+```typescript
+interface BaseDocument {
+  id: string;
+  createdAt: Timestamp;
+  updatedAt: Timestamp;
+  order?: number;
+}
+
+interface Photo extends BaseDocument {
+  src: string;
+  width: number;
+  height: number;
+  alt: string;
+}
+
+// ... other interfaces ...
+```
+
+## 🔄 Sorting and Filtering
+
+- **Photos**: 
+  - Default sort: `id` (ascending)
+  - Pagination: 8 items per page
+  - Filter by dimensions available
+
+- **Projects, Education, Experience**: 
+  - Default sort: `order` field (ascending)
+  - The `order` field is optional
+  - Falls back to creation date if `order` is not specified
+
+## 🚀 Performance
+
+- All endpoints are implemented as Edge Functions
+- Responses are cached at the edge for 1 minute
+- Long-term caching for static assets
+- Automatic CDN distribution
+
+## 📝 Error Handling
+
+All endpoints follow a consistent error response format:
+
+```typescript
+interface ErrorResponse {
+  error: string;
+  code?: string;
+  details?: unknown;
+}
+```
+
+Common HTTP status codes:
+- 200: Success
+- 400: Bad Request
+- 404: Not Found
+- 429: Too Many Requests
+- 500: Server Error
