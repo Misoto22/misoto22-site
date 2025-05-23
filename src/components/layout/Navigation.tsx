@@ -4,15 +4,15 @@ import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { useState } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
-import { useTheme } from '@/context/ThemeContext'
-import { Sun, Moon } from 'lucide-react'
+import ThemeSelector from '@/components/ui/ThemeSelector'
 import { DISPLAY_NAME } from '@/lib/constants'
+import { useTheme } from '@/context/ThemeContext'
+import { Sun, Moon, Monitor } from 'lucide-react'
 
 const Navigation = () => {
   const pathname = usePathname()
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null)
-  const { theme, toggleTheme } = useTheme()
 
   const handleNavigation = () => {
     setIsMenuOpen(false)
@@ -61,25 +61,9 @@ const Navigation = () => {
             </div>
           ))}
         </div>
-        {/* Theme toggle button and mobile menu button */}
+        {/* Theme selector and mobile menu button */}
         <div className="absolute right-6 top-6 flex items-center space-x-4">
-          <button
-            onClick={toggleTheme}
-            className="p-2 rounded-lg hover:bg-[var(--border-color)] transition-colors focus:outline-none focus:ring-2 focus:ring-[var(--foreground)] focus:ring-opacity-50"
-            aria-label="Toggle theme"
-          >
-            <motion.div
-              initial={false}
-              animate={{ rotate: theme === 'dark' ? 180 : 0 }}
-              transition={{ duration: 0.3 }}
-            >
-              {theme === 'light' ? (
-                <Moon className="w-5 h-5 text-[var(--foreground)]" />
-              ) : (
-                <Sun className="w-5 h-5 text-[var(--foreground)]" />
-              )}
-            </motion.div>
-          </button>
+          <ThemeSelector />
           <button
             onClick={() => setIsMenuOpen(!isMenuOpen)}
             className="md:hidden"
@@ -129,6 +113,15 @@ const Navigation = () => {
                     onClick={handleNavigation}
                   />
                 ))}
+                <motion.div
+                  variants={{
+                    open: { opacity: 1, y: 0 },
+                    closed: { opacity: 0, y: -10 }
+                  }}
+                  className="pt-4 border-t border-[var(--border-color)]"
+                >
+                  <MobileThemeSelector />
+                </motion.div>
               </motion.div>
             </div>
           </motion.div>
@@ -190,5 +183,57 @@ const MenuItem = ({
     <NavLink href={href} text={text} isActive={isActive} onClick={onClick} />
   </motion.div>
 )
+
+const MobileThemeSelector = () => {
+  const { theme, resolvedTheme, setTheme } = useTheme()
+  
+  const themeOptions = [
+    { value: 'light', label: 'Light', icon: Sun },
+    { value: 'dark', label: 'Dark', icon: Moon },
+    { value: 'system', label: 'System', icon: Monitor }
+  ] as const
+
+  return (
+    <div className="space-y-2">
+      <p className="text-sm text-[var(--secondary-text)] px-1">Theme</p>
+      <div className="flex space-x-2">
+        {themeOptions.map((option) => {
+          const Icon = option.icon
+          const isSelected = theme === option.value
+          
+          return (
+            <motion.button
+              key={option.value}
+              onClick={() => setTheme(option.value)}
+              whileTap={{ scale: 0.95 }}
+              className={`flex-1 px-3 py-2 rounded-lg flex items-center justify-center space-x-2 transition-all duration-200 ${
+                isSelected 
+                  ? 'bg-[var(--foreground)] text-[var(--background)]' 
+                  : 'bg-[var(--border-color)] hover:bg-opacity-80'
+              }`}
+              aria-label={`Set theme to ${option.label}`}
+            >
+              <motion.div
+                initial={false}
+                animate={isSelected ? { scale: 1.1 } : { scale: 1 }}
+                transition={{ duration: 0.2 }}
+              >
+                <Icon className="w-4 h-4" />
+              </motion.div>
+              <span className="text-sm">
+                {option.label}
+                {option.value === 'system' && theme === 'system' && (
+                  <span className="text-xs opacity-60 ml-1">
+                    ({resolvedTheme})
+                  </span>
+                )}
+              </span>
+            </motion.button>
+          )
+        })}
+      </div>
+    </div>
+  )
+}
 
 export default Navigation
