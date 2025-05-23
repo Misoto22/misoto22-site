@@ -1,9 +1,9 @@
 import { NextRequest, NextResponse } from 'next/server';
-import type { NextApiRequestContext } from 'next';
+import { db } from '@/lib/firebase-admin';
 
 export async function GET(
   _request: NextRequest,
-  context: NextApiRequestContext
+  context: { params: { id: string } }
 ): Promise<NextResponse> {
   const { id } = context.params;
 
