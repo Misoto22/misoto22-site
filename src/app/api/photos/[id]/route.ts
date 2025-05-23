@@ -1,11 +1,17 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { db } from '@/lib/firebase-admin';
 
+type Context = {
+  params: {
+    id: string;
+  };
+};
+
 export async function GET(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  context: Context
 ) {
-  const { id } = params;
+  const { id } = context.params;
 
   // 400 Bad Request: Invalid id format (must be 5 digits)
   if (!id || !/^\d{5}$/.test(id)) {
