@@ -76,7 +76,7 @@ export default function ThemeSelector() {
             }}
             className="absolute right-0 mt-2 w-44 rounded-lg bg-[var(--nav-background)] border border-[var(--border-color)] shadow-lg overflow-hidden"
           >
-            <div className="py-1">
+            <div className="p-1">
               {themeOptions.map((option) => {
                 const Icon = option.icon
                 const isSelected = theme === option.value
@@ -90,15 +90,19 @@ export default function ThemeSelector() {
                     }}
                     whileHover={{ x: 2 }}
                     whileTap={{ scale: 0.98 }}
-                    className={`w-full px-4 py-2 flex items-center space-x-3 hover:bg-[var(--border-color)] transition-colors ${
-                      isSelected ? 'text-[var(--foreground)]' : 'text-[var(--secondary-text)]'
+                    className={`w-full px-3 py-1.5 flex items-center space-x-3 rounded-md transition-all duration-200 ${
+                      isSelected 
+                        ? 'bg-[var(--border-color)] bg-opacity-80 text-[var(--foreground)]' 
+                        : 'text-[var(--secondary-text)] hover:bg-[var(--border-color)] hover:bg-opacity-50'
                     }`}
                   >
                     <Icon className="w-4 h-4" />
                     <span className="text-sm flex items-center">
                       {option.label}
                       {option.value === 'system' && theme === 'system' && (
-                        <span className="text-xs text-[var(--secondary-text)] ml-1">
+                        <span className={`text-xs ml-1 ${
+                          isSelected ? 'text-[var(--foreground)] opacity-80' : 'text-[var(--secondary-text)]'
+                        }`}>
                           ({resolvedTheme})
                         </span>
                       )}

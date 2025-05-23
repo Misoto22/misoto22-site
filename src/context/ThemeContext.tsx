@@ -1,6 +1,6 @@
 "use client"
 
-import { createContext, useContext, useEffect, useState } from 'react'
+import { createContext, useContext, useEffect, useState, useCallback } from 'react'
 
 type Theme = 'light' | 'dark' | 'system'
 
@@ -18,15 +18,15 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
   const [mounted, setMounted] = useState(false)
 
   // Function to get system preference
-  const getSystemTheme = (): 'light' | 'dark' => {
+  const getSystemTheme = useCallback((): 'light' | 'dark' => {
     if (typeof window !== 'undefined') {
       return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'
     }
     return 'light'
-  }
+  }, [])
 
   // Function to update the resolved theme
-  const updateResolvedTheme = (currentTheme: Theme) => {
+  const updateResolvedTheme = useCallback((currentTheme: Theme) => {
     const resolved = currentTheme === 'system' ? getSystemTheme() : currentTheme
     setResolvedTheme(resolved)
     
@@ -36,14 +36,14 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
     } else {
       document.documentElement.classList.remove('dark')
     }
-  }
+  }, [getSystemTheme])
 
   // Set theme function
-  const setTheme = (newTheme: Theme) => {
+  const setTheme = useCallback((newTheme: Theme) => {
     setThemeState(newTheme)
     localStorage.setItem('theme', newTheme)
     updateResolvedTheme(newTheme)
-  }
+  }, [updateResolvedTheme])
 
   // Initial setup
   useEffect(() => {
@@ -58,7 +58,7 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
       setThemeState('system')
       updateResolvedTheme('system')
     }
-  }, [])
+  }, [updateResolvedTheme])
 
   // Listen for system theme changes
   useEffect(() => {
@@ -79,7 +79,7 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
       mediaQuery.addListener(handleChange)
       return () => mediaQuery.removeListener(handleChange)
     }
-  }, [theme])
+  }, [theme, updateResolvedTheme])
 
   // Prevent hydration error
   if (!mounted) {
