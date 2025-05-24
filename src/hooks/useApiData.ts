@@ -26,7 +26,7 @@ export function useApiData<T = any>({
   const [hasFetched, setHasFetched] = useState(false)
 
   const cachedEntry = cache[cacheKey]
-  const data = cachedEntry?.data || null
+  const data = (cachedEntry?.data || null) as T | null
   const loading = cachedEntry?.loading || false
 
   const fetchData = useCallback(async () => {
@@ -103,13 +103,21 @@ interface PhotosData {
   page: number
 }
 
-export function usePhotos(page: number = 1, limit: number = 8) {
+interface UsePhotosReturn {
+  data: PhotosData
+  loading: boolean
+  error: string | null
+  loadMore: () => Promise<void>
+  refetch: () => Promise<void>
+}
+
+export function usePhotos(page: number = 1, limit: number = 8): UsePhotosReturn {
   const { cache, setCache, isDataFresh } = useDataCache()
   const [error, setError] = useState<string | null>(null)
   const [hasFetched, setHasFetched] = useState(false)
 
   const cachedEntry = cache.photos
-  const data = cachedEntry?.data || { photos: [], hasMore: true, page: 0 }
+  const data: PhotosData = (cachedEntry?.data || { photos: [], hasMore: true, page: 0 }) as PhotosData
   const loading = cachedEntry?.loading || false
 
   const loadPhotos = useCallback(async (pageNum: number, append: boolean = false) => {
