@@ -1,8 +1,9 @@
 'use client'
 
-import React, { useState, useEffect } from 'react'
+import React from 'react'
 import PageHeader from '@/components/layout/PageHeader'
 import ProjectCard from '@/components/sections/ProjectCard'
+import { useProjects } from '@/hooks/useApiData'
 
 interface Project {
   title: string;
@@ -16,27 +17,7 @@ interface Project {
 }
 
 export default function Projects() {
-  const [projects, setProjects] = useState<Project[]>([]);
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    const fetchProjects = async () => {
-      try {
-        const response = await fetch('/api/projects');
-        if (!response.ok) {
-          throw new Error('Failed to fetch projects data');
-        }
-        const data = await response.json();
-        setProjects(data);
-      } catch (error) {
-        console.error('Error fetching projects data:', error);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchProjects();
-  }, []);
+  const { data: projects, loading, error } = useProjects();
 
   if (loading) {
     return (
@@ -63,10 +44,18 @@ export default function Projects() {
         />
 
         <div className="space-y-16">
-          {projects.map((project, index) => (
+          {projects && projects.map((project, index) => (
             <ProjectCard key={index} project={project} index={index} />
           ))}
         </div>
+
+        {error && (
+          <div className="flex justify-center items-center min-h-[200px]">
+            <div className="text-red-500 text-center">
+              <p>Error loading projects: {error}</p>
+            </div>
+          </div>
+        )}
       </div>
     </section>
   )

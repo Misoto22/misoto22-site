@@ -5,7 +5,7 @@ import { usePathname } from 'next/navigation'
 import { useState } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
 import ThemeSelector from '@/components/ui/ThemeSelector'
-import { DISPLAY_NAME } from '@/lib/constants'
+import { DISPLAY_NAME, NAV_PAGES } from '@/lib/constants'
 import { useTheme } from '@/context/ThemeContext'
 import { Sun, Moon, Monitor } from 'lucide-react'
 
@@ -18,13 +18,7 @@ const Navigation = () => {
     setIsMenuOpen(false)
   }
 
-  const navItems = [
-    { href: '/', text: 'Home' },
-    { href: '/education', text: 'Education' },
-    { href: '/projects', text: 'Projects' },
-    { href: '/experience', text: 'Experience' },
-    { href: '/contact', text: 'Contact' }
-  ]
+  const navItems = NAV_PAGES
 
   return (
     <nav className="fixed top-0 w-full bg-[var(--nav-background)] backdrop-blur-sm z-50 shadow-[0_2px_8px_rgba(0,0,0,0.08)] border-b border-[var(--border-color)]">
@@ -186,7 +180,7 @@ const MenuItem = ({
 
 const MobileThemeSelector = () => {
   const { theme, resolvedTheme, setTheme } = useTheme()
-  
+
   const themeOptions = [
     { value: 'light', label: 'Light', icon: Sun },
     { value: 'dark', label: 'Dark', icon: Moon },
@@ -200,15 +194,15 @@ const MobileThemeSelector = () => {
         {themeOptions.map((option) => {
           const Icon = option.icon
           const isSelected = theme === option.value
-          
+
           return (
             <motion.button
               key={option.value}
               onClick={() => setTheme(option.value)}
               whileTap={{ scale: 0.95 }}
               className={`flex-1 px-3 py-2 rounded-lg flex items-center justify-center space-x-2 transition-all duration-200 ${
-                isSelected 
-                  ? 'bg-[var(--foreground)] text-[var(--background)]' 
+                isSelected
+                  ? 'bg-[var(--foreground)] text-[var(--background)]'
                   : 'bg-[var(--border-color)] hover:bg-opacity-80'
               }`}
               aria-label={`Set theme to ${option.label}`}

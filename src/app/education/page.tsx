@@ -1,8 +1,9 @@
 'use client'
 
-import React, { useState, useEffect } from 'react'
+import React from 'react'
 import PageHeader from '@/components/layout/PageHeader'
 import EducationCard from '@/components/sections/EducationCard'
+import { useEducation } from '@/hooks/useApiData'
 
 interface Education {
   degree: string;
@@ -17,27 +18,7 @@ interface Education {
 }
 
 export default function EducationPage() {
-  const [education, setEducation] = useState<Education[]>([]);
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    const fetchEducation = async () => {
-      try {
-        const response = await fetch('/api/education');
-        if (!response.ok) {
-          throw new Error('Failed to fetch education data');
-        }
-        const data = await response.json();
-        setEducation(data);
-      } catch (error) {
-        console.error('Error fetching education data:', error);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchEducation();
-  }, []);
+  const { data: education, loading, error } = useEducation();
 
   if (loading) {
     return (
@@ -66,10 +47,18 @@ export default function EducationPage() {
         />
 
         <div className="space-y-12">
-          {education.map((edu, index) => (
+          {education && education.map((edu, index) => (
             <EducationCard key={index} education={edu} index={index} />
           ))}
         </div>
+
+        {error && (
+          <div className="flex justify-center items-center min-h-[200px]">
+            <div className="text-red-500 text-center">
+              <p>Error loading education: {error}</p>
+            </div>
+          </div>
+        )}
       </div>
     </section>
   )

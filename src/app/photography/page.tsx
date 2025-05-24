@@ -1,10 +1,11 @@
 'use client';
 
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect } from 'react';
 import Image from 'next/image';
 import Masonry from 'react-masonry-css';
 import ImageModal from '@/components/photography/ImageModal';
 import PageHeader from '@/components/layout/PageHeader';
+import { usePhotos } from '@/hooks/useApiData';
 
 interface Photo {
   id: string;
@@ -22,13 +23,12 @@ interface PhotoResponse {
 
 export default function PhotographyPage() {
   const [mounted, setMounted] = useState(false);
-  const [visiblePhotos, setVisiblePhotos] = useState<Photo[]>([]);
-  const [loading, setLoading] = useState(true);
-  const [page, setPage] = useState(1);
   const [modalOpen, setModalOpen] = useState(false);
   const [selectedPhoto, setSelectedPhoto] = useState<Photo | null>(null);
-  const [hasMore, setHasMore] = useState(true);
-  const photosPerPage = 8;
+
+  const { data, loading, error, loadMore } = usePhotos();
+  const visiblePhotos = data?.photos || [];
+  const hasMore = data?.hasMore || false;
 
   // Define breakpoints for the Masonry layout
   const breakpointColumnsObj = {
@@ -49,34 +49,10 @@ export default function PhotographyPage() {
     setModalOpen(false);
   };
 
-  // Load photos from API
-  const loadPhotos = useCallback(async (pageNum: number) => {
-    try {
-      setLoading(true);
-      const response = await fetch(`/api/photos?page=${pageNum}&limit=${photosPerPage}`);
-      if (!response.ok) {
-        throw new Error('Failed to fetch photos');
-      }
-      const data: PhotoResponse = await response.json();
-      
-      if (pageNum === 1) {
-        setVisiblePhotos(data.photos);
-      } else {
-        setVisiblePhotos(prev => [...prev, ...data.photos]);
-      }
-      setHasMore(data.hasMore);
-    } catch (error) {
-      console.error('Error loading photos:', error);
-    } finally {
-      setLoading(false);
-    }
-  }, [photosPerPage]);
-
   // Effect for initial mounting
   useEffect(() => {
     setMounted(true);
-    loadPhotos(1);
-  }, [loadPhotos]);
+  }, []);
 
   // Effect for intersection observer
   useEffect(() => {
@@ -84,10 +60,7 @@ export default function PhotographyPage() {
 
     const observer = new IntersectionObserver((entries) => {
       if (entries[0].isIntersecting && !loading && hasMore) {
-        setLoading(true);
-        const nextPage = page + 1;
-        setPage(nextPage);
-        loadPhotos(nextPage);
+        loadMore();
       }
     }, { threshold: 0.1 });
 
@@ -101,7 +74,7 @@ export default function PhotographyPage() {
         observer.unobserve(loadingElement);
       }
     };
-  }, [mounted, loading, hasMore, page, loadPhotos]);
+  }, [mounted, loading, hasMore, loadMore]);
 
   if (!mounted) {
     return null;
@@ -167,6 +140,14 @@ export default function PhotographyPage() {
       {hasMore && (
         <div id="loading-indicator" className="flex justify-center items-center min-h-[100px] text-lg text-gray-600 mt-8 p-4 rounded-lg bg-gray-100 shadow-sm animate-pulse [contain:content] [will-change:opacity] [transform:translateZ(0)] h-[100px] w-full relative">
           {loading ? 'Loading more photos...' : 'Scroll to load more'}
+        </div>
+      )}
+
+      {error && (
+        <div className="flex justify-center items-center min-h-[200px] mt-8">
+          <div className="text-red-500 text-center">
+            <p>Error loading photos: {error}</p>
+          </div>
         </div>
       )}
 

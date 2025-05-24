@@ -1,8 +1,9 @@
 'use client'
 
-import React, { useState, useEffect } from 'react'
+import React from 'react'
 import PageHeader from '@/components/layout/PageHeader'
 import ExperienceCard from '@/components/sections/ExperienceCard'
+import { useExperience } from '@/hooks/useApiData'
 
 interface Experience {
   title: string;
@@ -17,27 +18,7 @@ interface Experience {
 }
 
 export default function ExperiencePage() {
-  const [experiences, setExperiences] = useState<Experience[]>([]);
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    const fetchExperiences = async () => {
-      try {
-        const response = await fetch('/api/experience');
-        if (!response.ok) {
-          throw new Error('Failed to fetch experience data');
-        }
-        const data = await response.json();
-        setExperiences(data);
-      } catch (error) {
-        console.error('Error fetching experience data:', error);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchExperiences();
-  }, []);
+  const { data: experiences, loading, error } = useExperience();
 
   if (loading) {
     return (
@@ -66,10 +47,18 @@ export default function ExperiencePage() {
         />
 
         <div className="space-y-12">
-          {experiences.map((exp, index) => (
+          {experiences && experiences.map((exp, index) => (
             <ExperienceCard key={index} experience={exp} index={index} />
           ))}
         </div>
+
+        {error && (
+          <div className="flex justify-center items-center min-h-[200px]">
+            <div className="text-red-500 text-center">
+              <p>Error loading experience: {error}</p>
+            </div>
+          </div>
+        )}
       </div>
     </section>
   )

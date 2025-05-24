@@ -10,7 +10,78 @@ type ThemeContextType = {
   setTheme: (theme: Theme) => void
 }
 
+// Data cache types
+interface CacheEntry<T> {
+  data: T
+  timestamp: number
+  loading: boolean
+}
+
+interface DataCache {
+  projects: CacheEntry<any[]> | null
+  education: CacheEntry<any[]> | null
+  experience: CacheEntry<any[]> | null
+  photos: CacheEntry<{ photos: any[], hasMore: boolean, page: number }> | null
+}
+
+type DataCacheContextType = {
+  cache: DataCache
+  setCache: (key: keyof DataCache, data: any, loading?: boolean) => void
+  clearCache: (key?: keyof DataCache) => void
+  isDataFresh: (key: keyof DataCache, maxAge?: number) => boolean
+}
+
 const ThemeContext = createContext<ThemeContextType | undefined>(undefined)
+const DataCacheContext = createContext<DataCacheContextType | undefined>(undefined)
+
+// Data cache provider
+export function DataCacheProvider({ children }: { children: React.ReactNode }) {
+  const [cache, setCacheState] = useState<DataCache>({
+    projects: null,
+    education: null,
+    experience: null,
+    photos: null
+  })
+
+  const setCache = useCallback((key: keyof DataCache, data: any, loading: boolean = false) => {
+    setCacheState(prev => ({
+      ...prev,
+      [key]: {
+        data,
+        timestamp: Date.now(),
+        loading
+      }
+    }))
+  }, [])
+
+  const clearCache = useCallback((key?: keyof DataCache) => {
+    if (key) {
+      setCacheState(prev => ({
+        ...prev,
+        [key]: null
+      }))
+    } else {
+      setCacheState({
+        projects: null,
+        education: null,
+        experience: null,
+        photos: null
+      })
+    }
+  }, [])
+
+  const isDataFresh = useCallback((key: keyof DataCache, maxAge: number = 5 * 60 * 1000) => {
+    const entry = cache[key]
+    if (!entry) return false
+    return Date.now() - entry.timestamp < maxAge
+  }, [cache])
+
+  return (
+    <DataCacheContext.Provider value={{ cache, setCache, clearCache, isDataFresh }}>
+      {children}
+    </DataCacheContext.Provider>
+  )
+}
 
 export function ThemeProvider({ children }: { children: React.ReactNode }) {
   const [theme, setThemeState] = useState<Theme>('system')
@@ -29,7 +100,7 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
   const updateResolvedTheme = useCallback((currentTheme: Theme) => {
     const resolved = currentTheme === 'system' ? getSystemTheme() : currentTheme
     setResolvedTheme(resolved)
-    
+
     // Update document class
     if (resolved === 'dark') {
       document.documentElement.classList.add('dark')
@@ -49,7 +120,7 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
   useEffect(() => {
     setMounted(true)
     const savedTheme = localStorage.getItem('theme') as Theme
-    
+
     if (savedTheme && ['light', 'dark', 'system'].includes(savedTheme)) {
       setThemeState(savedTheme)
       updateResolvedTheme(savedTheme)
@@ -65,7 +136,7 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
     if (theme !== 'system') return
 
     const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)')
-    
+
     const handleChange = () => {
       updateResolvedTheme('system')
     }
@@ -99,4 +170,12 @@ export function useTheme() {
     throw new Error('useTheme must be used within a ThemeProvider')
   }
   return context
-} 
+}
+
+export function useDataCache() {
+  const context = useContext(DataCacheContext)
+  if (context === undefined) {
+    throw new Error('useDataCache must be used within a DataCacheProvider')
+  }
+  return context
+}
