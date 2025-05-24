@@ -1,18 +1,11 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { db } from '@/lib/firebase-admin';
-import type { NextRequestHandler } from 'next/server';
-
-type Context = {
-  params: {
-    id: string;
-  };
-};
 
 export async function GET(
   _request: NextRequest,
-  context: Context
+  { params }: { params: Promise<{ id: string }> }
 ): Promise<NextResponse> {
-  const { id } = context.params;
+  const { id } = await params;
 
   if (!id || !/^\d{5}$/.test(id)) {
     return NextResponse.json({ error: 'Invalid photo ID format' }, { status: 400 });
