@@ -15,12 +15,6 @@ interface Photo {
   alt: string;
 }
 
-interface PhotoResponse {
-  photos: Photo[];
-  total: number;
-  hasMore: boolean;
-}
-
 export default function PhotographyPage() {
   const [mounted, setMounted] = useState(false);
   const [modalOpen, setModalOpen] = useState(false);
@@ -81,23 +75,24 @@ export default function PhotographyPage() {
   }
 
   return (
-    <main className="p-8 max-w-6xl mx-auto min-h-[calc(100vh-200px)] mt-20 mb-30">
-      <PageHeader
-        title="Photography"
-        description="My photography portfolio, capturing the beauty of nature and the city."
-      />
+    <main className="pt-24 min-h-screen bg-[var(--background)]">
+      <div className="max-w-6xl mx-auto px-6">
+        <PageHeader
+          title="Photography"
+          description="My photography portfolio, capturing the beauty of nature and the city."
+        />
 
-      <Masonry
-        breakpointCols={breakpointColumnsObj}
-        className="flex w-full -ml-6 [contain:layout_style] [will-change:contents] [transform:translateZ(0)]"
-        columnClassName="pl-6 bg-clip-padding [contain:layout_style] [will-change:transform] [transform:translateZ(0)] h-full"
-      >
-        {visiblePhotos.map((photo) => (
-          <div
-            key={photo.id}
-            className="mb-6 block relative transition-transform duration-300 ease-in-out cursor-pointer animate-[fadeIn_0.5s_ease-in-out] [will-change:transform,opacity] [transform:translateZ(0)] [contain:layout_paint_style] min-h-[100px] hover:scale-105 hover:z-10 group"
-            onClick={() => handlePhotoClick(photo)}
-          >
+        <Masonry
+          breakpointCols={breakpointColumnsObj}
+          className="flex w-full sm:-ml-6 [contain:layout_style] [will-change:contents] [transform:translateZ(0)]"
+          columnClassName="sm:pl-6 bg-clip-padding [contain:layout_style] [will-change:transform] [transform:translateZ(0)] h-full"
+        >
+          {visiblePhotos.map((photo) => (
+            <div
+              key={photo.id}
+              className="mb-4 sm:mb-6 block relative transition-transform duration-300 ease-in-out cursor-pointer animate-[fadeIn_0.5s_ease-in-out] [will-change:transform,opacity] [transform:translateZ(0)] [contain:layout_paint_style] min-h-[100px] hover:scale-105 hover:z-10 group"
+              onClick={() => handlePhotoClick(photo)}
+            >
             <div
               className="relative w-full overflow-hidden rounded-lg bg-[var(--card-background,#f0f0f0)] bg-gradient-to-r from-transparent via-white/50 to-transparent bg-[length:200%_100%] animate-[shimmer_1.5s_infinite] min-h-[100px] [contain:layout_paint]"
               style={{ paddingBottom: `${(photo.height / photo.width) * 100}%` }}
@@ -134,28 +129,29 @@ export default function PhotographyPage() {
               </div>
             </div>
           </div>
-        ))}
-      </Masonry>
+          ))}
+        </Masonry>
 
-      {hasMore && (
-        <div id="loading-indicator" className="flex justify-center items-center min-h-[100px] text-lg text-gray-600 mt-8 p-4 rounded-lg bg-gray-100 shadow-sm animate-pulse [contain:content] [will-change:opacity] [transform:translateZ(0)] h-[100px] w-full relative">
-          {loading ? 'Loading more photos...' : 'Scroll to load more'}
-        </div>
-      )}
-
-      {error && (
-        <div className="flex justify-center items-center min-h-[200px] mt-8">
-          <div className="text-red-500 text-center">
-            <p>Error loading photos: {error}</p>
+        {hasMore && (
+          <div id="loading-indicator" className="flex justify-center items-center min-h-[100px] text-lg text-gray-600 mt-8 p-4 rounded-lg bg-gray-100 shadow-sm animate-pulse [contain:content] [will-change:opacity] [transform:translateZ(0)] h-[100px] w-full relative">
+            {loading ? 'Loading more photos...' : 'Scroll to load more'}
           </div>
-        </div>
-      )}
+        )}
 
-      <ImageModal
-        isOpen={modalOpen}
-        onClose={handleCloseModal}
-        photo={selectedPhoto}
-      />
+        {error && (
+          <div className="flex justify-center items-center min-h-[200px] mt-8">
+            <div className="text-red-500 text-center">
+              <p>Error loading photos: {error}</p>
+            </div>
+          </div>
+        )}
+
+        <ImageModal
+          isOpen={modalOpen}
+          onClose={handleCloseModal}
+          photo={selectedPhoto}
+        />
+      </div>
     </main>
   );
 }

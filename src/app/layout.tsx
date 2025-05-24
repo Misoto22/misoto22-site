@@ -5,7 +5,7 @@ import type { Metadata } from 'next'
 import Navigation from '@/components/layout/Navigation'
 import Footer from '@/components/layout/Footer'
 import ScrollToTopButton from '@/components/common/ScrollToTopButton'
-import SwipeNavigation from '@/components/layout/SwipeNavigation'
+import KeyboardNavigation from '@/components/layout/KeyboardNavigation'
 import { ThemeProvider, DataCacheProvider } from '@/context/ThemeContext'
 import { SpeedInsights } from "@vercel/speed-insights/next"
 import { Analytics } from "@vercel/analytics/react"
@@ -29,9 +29,9 @@ export default function RootLayout({
         <ThemeProvider>
           <DataCacheProvider>
             <Navigation />
-            <SwipeNavigation>
+            <KeyboardNavigation>
               <main>{children}</main>
-            </SwipeNavigation>
+            </KeyboardNavigation>
             <Footer />
             <ScrollToTopButton />
             <SpeedInsights />
