@@ -19,6 +19,7 @@ export default function PhotographyPage() {
   const [mounted, setMounted] = useState(false);
   const [modalOpen, setModalOpen] = useState(false);
   const [selectedPhoto, setSelectedPhoto] = useState<Photo | null>(null);
+  const [selectedPhotoIndex, setSelectedPhotoIndex] = useState<number>(0);
 
   const { data, loading, error, loadMore } = usePhotos();
   const visiblePhotos = data?.photos || [];
@@ -34,8 +35,28 @@ export default function PhotographyPage() {
 
   // Handle photo click to open modal
   const handlePhotoClick = (photo: Photo) => {
+    const index = visiblePhotos.findIndex(p => p.id === photo.id);
     setSelectedPhoto(photo);
+    setSelectedPhotoIndex(index);
     setModalOpen(true);
+  };
+
+  // Navigate to previous photo
+  const handlePreviousPhoto = () => {
+    if (selectedPhotoIndex > 0) {
+      const newIndex = selectedPhotoIndex - 1;
+      setSelectedPhotoIndex(newIndex);
+      setSelectedPhoto(visiblePhotos[newIndex]);
+    }
+  };
+
+  // Navigate to next photo
+  const handleNextPhoto = () => {
+    if (selectedPhotoIndex < visiblePhotos.length - 1) {
+      const newIndex = selectedPhotoIndex + 1;
+      setSelectedPhotoIndex(newIndex);
+      setSelectedPhoto(visiblePhotos[newIndex]);
+    }
   };
 
   // Close modal
@@ -84,17 +105,17 @@ export default function PhotographyPage() {
 
         <Masonry
           breakpointCols={breakpointColumnsObj}
-          className="flex w-full sm:-ml-6 [contain:layout_style] [will-change:contents] [transform:translateZ(0)]"
-          columnClassName="sm:pl-6 bg-clip-padding [contain:layout_style] [will-change:transform] [transform:translateZ(0)] h-full"
+          className="flex w-full sm:-ml-4 [contain:layout_style] [will-change:contents] [transform:translateZ(0)]"
+          columnClassName="sm:pl-4 bg-clip-padding [contain:layout_style] [will-change:transform] [transform:translateZ(0)] h-full"
         >
           {visiblePhotos.map((photo) => (
             <div
               key={photo.id}
-              className="mb-4 sm:mb-6 block relative transition-transform duration-300 ease-in-out cursor-pointer animate-[fadeIn_0.5s_ease-in-out] [will-change:transform,opacity] [transform:translateZ(0)] [contain:layout_paint_style] min-h-[100px] hover:scale-105 hover:z-10 group"
+              className="mb-3 sm:mb-4 block relative cursor-pointer animate-[fadeIn_0.5s_ease-in-out] [will-change:opacity] [transform:translateZ(0)] [contain:layout_paint_style] min-h-[100px] group"
               onClick={() => handlePhotoClick(photo)}
             >
             <div
-              className="relative w-full overflow-hidden rounded-lg bg-[var(--card-background,#f0f0f0)] bg-gradient-to-r from-transparent via-white/50 to-transparent bg-[length:200%_100%] animate-[shimmer_1.5s_infinite] min-h-[100px] [contain:layout_paint]"
+              className="relative w-full overflow-hidden bg-[var(--card-background,#f0f0f0)] bg-gradient-to-r from-transparent via-white/50 to-transparent bg-[length:200%_100%] animate-[shimmer_1.5s_infinite] min-h-[100px] [contain:layout_paint] hover:shadow-[0_8px_30px_rgb(0,0,0,0.12)] transition-shadow duration-300"
               style={{ paddingBottom: `${(photo.height / photo.width) * 100}%` }}
             >
               <Image
@@ -104,7 +125,7 @@ export default function PhotographyPage() {
                 loading="lazy"
                 placeholder="blur"
                 blurDataURL="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPjxyZWN0IHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiIGZpbGw9IiNlZWVlZWUiLz48L3N2Zz4="
-                className="w-full h-auto object-cover rounded-lg shadow-md block"
+                className="w-full h-auto object-cover block"
                 sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                 onError={(e) => {
                   const target = e.target as HTMLElement;
@@ -133,8 +154,26 @@ export default function PhotographyPage() {
         </Masonry>
 
         {hasMore && (
-          <div id="loading-indicator" className="flex justify-center items-center min-h-[100px] text-lg text-gray-600 mt-8 p-4 rounded-lg bg-gray-100 shadow-sm animate-pulse [contain:content] [will-change:opacity] [transform:translateZ(0)] h-[100px] w-full relative">
-            {loading ? 'Loading more photos...' : 'Scroll to load more'}
+          <div id="loading-indicator" className="flex flex-col justify-center items-center min-h-[100px] mt-8 mb-8 relative">
+            <div className="bg-[var(--card-background)] border border-[var(--border-color)] rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 p-6 w-full max-w-sm">
+              <div className="flex flex-col items-center space-y-3">
+                {loading ? (
+                  <>
+                    {/* Loading spinner */}
+                    <div className="w-6 h-6 border-2 border-[var(--border-color)] border-t-[var(--secondary-text)] rounded-full animate-spin"></div>
+                    <p className="text-[var(--secondary-text)] font-medium">Loading more photos...</p>
+                  </>
+                ) : (
+                  <>
+                    {/* Simple scroll indicator */}
+                    <div className="w-5 h-8 border-2 border-[var(--border-color)] rounded-full flex justify-center">
+                      <div className="w-0.5 h-2 bg-[var(--secondary-text)] rounded-full mt-1.5 animate-bounce"></div>
+                    </div>
+                    <p className="text-[var(--secondary-text)] font-medium">Scroll to load more</p>
+                  </>
+                )}
+              </div>
+            </div>
           </div>
         )}
 
@@ -150,6 +189,12 @@ export default function PhotographyPage() {
           isOpen={modalOpen}
           onClose={handleCloseModal}
           photo={selectedPhoto}
+          onPrevious={handlePreviousPhoto}
+          onNext={handleNextPhoto}
+          currentIndex={selectedPhotoIndex}
+          totalCount={visiblePhotos.length}
+          hasPrevious={selectedPhotoIndex > 0}
+          hasNext={selectedPhotoIndex < visiblePhotos.length - 1}
         />
       </div>
     </main>
