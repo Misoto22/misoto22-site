@@ -1,9 +1,7 @@
-'use client'
-
 import React from 'react'
 import PageHeader from '@/components/layout/PageHeader'
 import ProjectCard from '@/components/sections/ProjectCard'
-import { useProjects } from '@/hooks/useApiData'
+import { getProjects } from '@/lib/data'
 
 interface Project {
   title: string;
@@ -16,24 +14,11 @@ interface Project {
   order?: number;
 }
 
-export default function Projects() {
-  const { data: projects, loading, error } = useProjects();
+// Enable ISR with revalidation every 3600 seconds (1 hour)
+export const revalidate = 3600;
 
-  if (loading) {
-    return (
-      <section className="pt-24 min-h-screen bg-[var(--background)]">
-        <div className="max-w-6xl mx-auto px-6">
-          <PageHeader
-            title="Projects"
-            description="Here are some of my recent projects. Each one represents a unique challenge and learning opportunity."
-          />
-          <div className="flex justify-center items-center min-h-[200px]">
-            <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-gray-900 dark:border-white"></div>
-          </div>
-        </div>
-      </section>
-    );
-  }
+export default async function Projects() {
+  const projects = await getProjects();
 
   return (
     <section className="pt-24 min-h-screen bg-[var(--background)]">
@@ -44,18 +29,18 @@ export default function Projects() {
         />
 
         <div className="space-y-16">
-          {projects && projects.map((project, index) => (
-            <ProjectCard key={index} project={project} index={index} />
-          ))}
-        </div>
-
-        {error && (
-          <div className="flex justify-center items-center min-h-[200px]">
-            <div className="text-red-500 text-center">
-              <p>Error loading projects: {error}</p>
+          {projects && projects.length > 0 ? (
+            projects.map((project, index) => (
+              <ProjectCard key={index} project={project} index={index} />
+            ))
+          ) : (
+            <div className="flex justify-center items-center min-h-[200px]">
+              <div className="text-gray-500 text-center">
+                <p>No projects available at the moment.</p>
+              </div>
             </div>
-          </div>
-        )}
+          )}
+        </div>
       </div>
     </section>
   )

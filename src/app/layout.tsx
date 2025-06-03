@@ -6,7 +6,7 @@ import Navigation from '@/components/layout/Navigation'
 import Footer from '@/components/layout/Footer'
 import ScrollToTopButton from '@/components/common/ScrollToTopButton'
 import KeyboardNavigation from '@/components/layout/KeyboardNavigation'
-import { ThemeProvider, DataCacheProvider } from '@/context/ThemeContext'
+import { ThemeProvider } from '@/context/ThemeContext'
 import { SpeedInsights } from "@vercel/speed-insights/next"
 import { Analytics } from "@vercel/analytics/react"
 import { DISPLAY_NAME, SITE_TITLE, SITE_DESCRIPTION } from '@/lib/constants'
@@ -27,16 +27,14 @@ export default function RootLayout({
     <html lang="en">
       <body className={`${montserrat.className} ${montserrat.variable}`}>
         <ThemeProvider>
-          <DataCacheProvider>
-            <Navigation />
-            <KeyboardNavigation>
-              <main>{children}</main>
-            </KeyboardNavigation>
-            <Footer />
-            <ScrollToTopButton />
-            <SpeedInsights />
-            <Analytics />
-          </DataCacheProvider>
+          <Navigation />
+          <KeyboardNavigation>
+            <main>{children}</main>
+          </KeyboardNavigation>
+          <Footer />
+          <ScrollToTopButton />
+          <SpeedInsights />
+          <Analytics />
         </ThemeProvider>
       </body>
     </html>

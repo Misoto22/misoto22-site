@@ -1,9 +1,7 @@
-'use client'
-
 import React from 'react'
 import PageHeader from '@/components/layout/PageHeader'
 import ExperienceCard from '@/components/sections/ExperienceCard'
-import { useExperience } from '@/hooks/useApiData'
+import { getExperience } from '@/lib/data'
 
 interface Experience {
   title: string;
@@ -17,25 +15,11 @@ interface Experience {
   order?: number;
 }
 
-export default function ExperiencePage() {
-  const { data: experiences, loading, error } = useExperience();
+// Enable ISR with revalidation every 3600 seconds (1 hour)
+export const revalidate = 3600;
 
-  if (loading) {
-    return (
-      <section className="pt-24 min-h-screen bg-[var(--background)]">
-        <div className="max-w-6xl mx-auto px-6">
-          <PageHeader
-            title="Professional Experience"
-            description="My journey through various roles and responsibilities, each contributing to my growth as a professional."
-            showDivider={true}
-          />
-          <div className="flex justify-center items-center min-h-[200px]">
-            <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-gray-900 dark:border-white"></div>
-          </div>
-        </div>
-      </section>
-    );
-  }
+export default async function ExperiencePage() {
+  const experiences = await getExperience();
 
   return (
     <section className="pt-24 min-h-screen bg-[var(--background)]">
@@ -47,18 +31,18 @@ export default function ExperiencePage() {
         />
 
         <div className="space-y-12">
-          {experiences && experiences.map((exp, index) => (
-            <ExperienceCard key={index} experience={exp} index={index} />
-          ))}
-        </div>
-
-        {error && (
-          <div className="flex justify-center items-center min-h-[200px]">
-            <div className="text-red-500 text-center">
-              <p>Error loading experience: {error}</p>
+          {experiences && experiences.length > 0 ? (
+            experiences.map((exp, index) => (
+              <ExperienceCard key={index} experience={exp} index={index} />
+            ))
+          ) : (
+            <div className="flex justify-center items-center min-h-[200px]">
+              <div className="text-gray-500 text-center">
+                <p>No experience information available at the moment.</p>
+              </div>
             </div>
-          </div>
-        )}
+          )}
+        </div>
       </div>
     </section>
   )
