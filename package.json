@@ -18,7 +18,8 @@
     "build": "next build",
     "start": "PORT=3000 HOST=0.0.0.0 next start",
     "lint": "next lint",
-    "seed": "tsx scripts/seed-data.ts"
+    "seed": "tsx scripts/seed-data.ts",
+    "revalidate": "tsx scripts/test-revalidation.ts"
   },
   "dependencies": {
     "@emailjs/browser": "^4.4.1",
