@@ -35,7 +35,7 @@ const nextConfig = {
   experimental: {
     staleTimes: {
       dynamic: 30,
-      static: 180,
+      static: 3600, // Match our ISR revalidate time
     },
   },
 }
