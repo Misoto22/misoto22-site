@@ -2,6 +2,7 @@ import React from 'react'
 import PageHeader from '@/components/layout/PageHeader'
 import ProjectCard from '@/components/sections/ProjectCard'
 import { getProjects } from '@/lib/data'
+import { unstable_cache } from 'next/cache'
 
 interface Project {
   title: string;
@@ -17,8 +18,21 @@ interface Project {
 // Enable ISR with revalidation every 3600 seconds (1 hour)
 export const revalidate = 3600;
 
+// Force static generation
+export const dynamic = 'force-static';
+
+// Create a cached version of getProjects
+const getCachedProjects = unstable_cache(
+  getProjects,
+  ['projects'],
+  {
+    revalidate: 3600,
+    tags: ['projects']
+  }
+)
+
 export default async function Projects() {
-  const projects = await getProjects();
+  const projects = await getCachedProjects();
 
   return (
     <section className="pt-24 min-h-screen bg-[var(--background)]">
