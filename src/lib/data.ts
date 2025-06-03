@@ -1,5 +1,5 @@
 // Server-side data fetching functions using Supabase
-import { type Education, type Experience, type Project } from './supabase'
+import { supabase, type Education, type Experience, type Project } from './supabase'
 
 // Convert database field names to frontend interface
 function mapEducation(dbEducation: any): Education {
@@ -62,112 +62,100 @@ function mapPhoto(dbPhoto: any): FrontendPhoto {
   }
 }
 
-export async function getProjects(): Promise<Project[]> {
-  try {
-    // Use fetch with explicit cache settings to ensure ISR works properly
-    const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!
-    const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
+// Create a cached wrapper function for Supabase calls
+async function cachedSupabaseCall<T>(
+  operation: () => Promise<T>,
+  cacheKey: string,
+  revalidateTime: number = 3600
+): Promise<T> {
+  // Use unstable_cache to wrap the Supabase call
+  const { unstable_cache } = await import('next/cache')
 
-    const response = await fetch(
-      `${supabaseUrl}/rest/v1/projects?select=*&order=order.asc`,
-      {
-        headers: {
-          'apikey': supabaseAnonKey,
-          'Authorization': `Bearer ${supabaseAnonKey}`,
-          'Content-Type': 'application/json',
-        },
-        // Explicitly set cache to force-cache to respect ISR revalidation
-        cache: 'force-cache',
-        next: {
-          revalidate: 3600, // Match the page-level revalidate setting
-          tags: ['projects'] // Add tags for more granular revalidation control
-        }
-      }
-    )
-
-    if (!response.ok) {
-      console.error('Error fetching projects:', response.statusText)
-      return []
+  const cachedOperation = unstable_cache(
+    operation,
+    [cacheKey],
+    {
+      revalidate: revalidateTime,
+      tags: [cacheKey]
     }
+  )
 
-    const data = await response.json()
-    return data?.map(mapProject) || []
-  } catch (error) {
-    console.error('Unexpected error fetching projects:', error)
-    return []
-  }
+  return cachedOperation()
+}
+
+export async function getProjects(): Promise<Project[]> {
+  return cachedSupabaseCall(
+    async () => {
+      try {
+        const { data, error } = await supabase
+          .from('projects')
+          .select('*')
+          .order('order', { ascending: true })
+
+        if (error) {
+          console.error('Error fetching projects:', error)
+          return []
+        }
+
+        return data?.map(mapProject) || []
+      } catch (error) {
+        console.error('Unexpected error fetching projects:', error)
+        return []
+      }
+    },
+    'projects',
+    3600
+  )
 }
 
 export async function getEducation(): Promise<Education[]> {
-  try {
-    // Use fetch with explicit cache settings to ensure ISR works properly
-    const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!
-    const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
+  return cachedSupabaseCall(
+    async () => {
+      try {
+        const { data, error } = await supabase
+          .from('education')
+          .select('*')
+          .order('order', { ascending: true })
 
-    const response = await fetch(
-      `${supabaseUrl}/rest/v1/education?select=*&order=order.asc`,
-      {
-        headers: {
-          'apikey': supabaseAnonKey,
-          'Authorization': `Bearer ${supabaseAnonKey}`,
-          'Content-Type': 'application/json',
-        },
-        // Explicitly set cache to force-cache to respect ISR revalidation
-        cache: 'force-cache',
-        next: {
-          revalidate: 3600, // Match the page-level revalidate setting
-          tags: ['education'] // Add tags for more granular revalidation control
+        if (error) {
+          console.error('Error fetching education:', error)
+          return []
         }
+
+        return data?.map(mapEducation) || []
+      } catch (error) {
+        console.error('Unexpected error fetching education:', error)
+        return []
       }
-    )
-
-    if (!response.ok) {
-      console.error('Error fetching education:', response.statusText)
-      return []
-    }
-
-    const data = await response.json()
-    return data?.map(mapEducation) || []
-  } catch (error) {
-    console.error('Unexpected error fetching education:', error)
-    return []
-  }
+    },
+    'education',
+    3600
+  )
 }
 
 export async function getExperience(): Promise<Experience[]> {
-  try {
-    // Use fetch with explicit cache settings to ensure ISR works properly
-    const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!
-    const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
+  return cachedSupabaseCall(
+    async () => {
+      try {
+        const { data, error } = await supabase
+          .from('experience')
+          .select('*')
+          .order('order', { ascending: true })
 
-    const response = await fetch(
-      `${supabaseUrl}/rest/v1/experience?select=*&order=order.asc`,
-      {
-        headers: {
-          'apikey': supabaseAnonKey,
-          'Authorization': `Bearer ${supabaseAnonKey}`,
-          'Content-Type': 'application/json',
-        },
-        // Explicitly set cache to force-cache to respect ISR revalidation
-        cache: 'force-cache',
-        next: {
-          revalidate: 3600, // Match the page-level revalidate setting
-          tags: ['experience'] // Add tags for more granular revalidation control
+        if (error) {
+          console.error('Error fetching experience:', error)
+          return []
         }
+
+        return data?.map(mapExperience) || []
+      } catch (error) {
+        console.error('Unexpected error fetching experience:', error)
+        return []
       }
-    )
-
-    if (!response.ok) {
-      console.error('Error fetching experience:', response.statusText)
-      return []
-    }
-
-    const data = await response.json()
-    return data?.map(mapExperience) || []
-  } catch (error) {
-    console.error('Unexpected error fetching experience:', error)
-    return []
-  }
+    },
+    'experience',
+    3600
+  )
 }
 
 export async function getPhotos(page: number = 1, limit: number = 8): Promise<{
@@ -175,63 +163,42 @@ export async function getPhotos(page: number = 1, limit: number = 8): Promise<{
   hasMore: boolean;
   totalCount: number;
 }> {
-  try {
-    const offset = (page - 1) * limit
-    const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!
-    const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
+  return cachedSupabaseCall(
+    async () => {
+      try {
+        const offset = (page - 1) * limit
 
-    // Get total count
-    const countResponse = await fetch(
-      `${supabaseUrl}/rest/v1/photos?select=*&count=exact`,
-      {
-        method: 'HEAD',
-        headers: {
-          'apikey': supabaseAnonKey,
-          'Authorization': `Bearer ${supabaseAnonKey}`,
-          'Content-Type': 'application/json',
-        },
-        cache: 'force-cache',
-        next: {
-          revalidate: 1800, // Match the photography page revalidate setting
-          tags: ['photos-count']
+        // Get total count
+        const { count } = await supabase
+          .from('photos')
+          .select('*', { count: 'exact', head: true })
+
+        // Get paginated photos
+        const { data, error } = await supabase
+          .from('photos')
+          .select('*')
+          .order('order', { ascending: true })
+          .range(offset, offset + limit - 1)
+
+        if (error) {
+          console.error('Error fetching photos:', error)
+          return { photos: [], hasMore: false, totalCount: 0 }
         }
-      }
-    )
 
-    const totalCount = parseInt(countResponse.headers.get('content-range')?.split('/')[1] || '0')
+        const totalCount = count || 0
+        const hasMore = offset + limit < totalCount
 
-    // Get paginated photos
-    const dataResponse = await fetch(
-      `${supabaseUrl}/rest/v1/photos?select=*&order=order.asc&offset=${offset}&limit=${limit}`,
-      {
-        headers: {
-          'apikey': supabaseAnonKey,
-          'Authorization': `Bearer ${supabaseAnonKey}`,
-          'Content-Type': 'application/json',
-        },
-        cache: 'force-cache',
-        next: {
-          revalidate: 1800, // Match the photography page revalidate setting
-          tags: ['photos']
+        return {
+          photos: data?.map(mapPhoto) || [],
+          hasMore,
+          totalCount
         }
+      } catch (error) {
+        console.error('Unexpected error fetching photos:', error)
+        return { photos: [], hasMore: false, totalCount: 0 }
       }
-    )
-
-    if (!dataResponse.ok) {
-      console.error('Error fetching photos:', dataResponse.statusText)
-      return { photos: [], hasMore: false, totalCount: 0 }
-    }
-
-    const data = await dataResponse.json()
-    const hasMore = offset + limit < totalCount
-
-    return {
-      photos: data?.map(mapPhoto) || [],
-      hasMore,
-      totalCount
-    }
-  } catch (error) {
-    console.error('Unexpected error fetching photos:', error)
-    return { photos: [], hasMore: false, totalCount: 0 }
-  }
+    },
+    `photos-page-${page}-limit-${limit}`,
+    1800
+  )
 }
