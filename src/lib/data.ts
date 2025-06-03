@@ -1,5 +1,5 @@
 // Server-side data fetching functions using Supabase
-import { supabase, type Education, type Experience, type Project, type Photo } from './supabase'
+import { supabase, type Education, type Experience, type Project } from './supabase'
 
 // Convert database field names to frontend interface
 function mapEducation(dbEducation: any): Education {
@@ -40,6 +40,25 @@ function mapProject(dbProject: any): Project {
     image: dbProject.image_path, // Updated to match your database field name
     category: dbProject.category,
     order: dbProject.order
+  }
+}
+
+// Frontend Photo interface for components (different from Supabase Photo)
+interface FrontendPhoto {
+  id: string;
+  src: string;
+  width: number;
+  height: number;
+  alt: string;
+}
+
+function mapPhoto(dbPhoto: any): FrontendPhoto {
+  return {
+    id: String(dbPhoto.id || ''), // Convert number to string
+    src: dbPhoto.src,
+    width: dbPhoto.width,
+    height: dbPhoto.height,
+    alt: dbPhoto.alt
   }
 }
 
@@ -101,7 +120,7 @@ export async function getExperience(): Promise<Experience[]> {
 }
 
 export async function getPhotos(page: number = 1, limit: number = 8): Promise<{
-  photos: Photo[];
+  photos: FrontendPhoto[];
   hasMore: boolean;
   totalCount: number;
 }> {
@@ -129,7 +148,7 @@ export async function getPhotos(page: number = 1, limit: number = 8): Promise<{
     const hasMore = offset + limit < totalCount
 
     return {
-      photos: data || [],
+      photos: data?.map(mapPhoto) || [],
       hasMore,
       totalCount
     }

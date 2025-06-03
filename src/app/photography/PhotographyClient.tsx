@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import Image from 'next/image';
 import Masonry from 'react-masonry-css';
 import ImageModal from '@/components/photography/ImageModal';
@@ -76,7 +76,7 @@ export default function PhotographyClient({ initialData }: PhotographyClientProp
   };
 
   // Load more photos
-  const loadMore = async () => {
+  const loadMore = useCallback(async () => {
     if (loading || !hasMore) return;
 
     setLoading(true);
@@ -86,7 +86,7 @@ export default function PhotographyClient({ initialData }: PhotographyClientProp
       // TODO: Replace with actual API call when Supabase is implemented
       // For now, just simulate loading
       await new Promise(resolve => setTimeout(resolve, 1000));
-      
+
       // Mock: no more photos to load
       setHasMore(false);
     } catch (err) {
@@ -94,7 +94,7 @@ export default function PhotographyClient({ initialData }: PhotographyClientProp
     } finally {
       setLoading(false);
     }
-  };
+  }, [loading, hasMore]);
 
   // Effect for initial mounting
   useEffect(() => {
@@ -121,7 +121,7 @@ export default function PhotographyClient({ initialData }: PhotographyClientProp
         observer.unobserve(loadingElement);
       }
     };
-  }, [mounted, loading, hasMore]);
+  }, [mounted, loading, hasMore, loadMore]);
 
   if (!mounted) {
     return null;
@@ -219,9 +219,11 @@ export default function PhotographyClient({ initialData }: PhotographyClientProp
         isOpen={modalOpen}
         photo={selectedPhoto}
         onClose={handleCloseModal}
-        onPrev={handlePreviousPhoto}
+        onPrevious={handlePreviousPhoto}
         onNext={handleNextPhoto}
-        hasPrev={selectedPhotoIndex > 0}
+        currentIndex={selectedPhotoIndex}
+        totalCount={photos.length}
+        hasPrevious={selectedPhotoIndex > 0}
         hasNext={selectedPhotoIndex < photos.length - 1}
       />
     </main>
