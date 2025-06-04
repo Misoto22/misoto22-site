@@ -57,6 +57,9 @@ export interface Photo {
   height: number
   alt: string
   order?: number
+  basename?: string
+  type?: string
+  taken_at?: string
   created_at?: string
   updated_at?: string
 }

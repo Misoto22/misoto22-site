@@ -83,18 +83,24 @@ export default function PhotographyClient({ initialData }: PhotographyClientProp
     setError(null);
 
     try {
-      // TODO: Replace with actual API call when Supabase is implemented
-      // For now, just simulate loading
-      await new Promise(resolve => setTimeout(resolve, 1000));
+      const nextPage = currentPage + 1;
+      const response = await fetch(`/api/photos?page=${nextPage}&limit=8`);
 
-      // Mock: no more photos to load
-      setHasMore(false);
+      if (!response.ok) {
+        throw new Error('Failed to fetch photos');
+      }
+
+      const data = await response.json();
+
+      setPhotos(prevPhotos => [...prevPhotos, ...data.photos]);
+      setHasMore(data.hasMore);
+      setCurrentPage(nextPage);
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Failed to load more photos');
     } finally {
       setLoading(false);
     }
-  }, [loading, hasMore]);
+  }, [loading, hasMore, currentPage]);
 
   // Effect for initial mounting
   useEffect(() => {

@@ -127,16 +127,18 @@ export async function getPhotos(page: number = 1, limit: number = 8): Promise<{
   try {
     const offset = (page - 1) * limit
 
-    // Get total count
+    // Get total count for main photos only
     const { count } = await supabase
       .from('photos')
       .select('*', { count: 'exact', head: true })
+      .eq('type', 'main')
 
-    // Get paginated photos
+    // Get paginated photos, sorted by taken_at descending (newest first)
     const { data, error } = await supabase
       .from('photos')
       .select('*')
-      .order('order', { ascending: true })
+      .eq('type', 'main')
+      .order('taken_at', { ascending: false })
       .range(offset, offset + limit - 1)
 
     if (error) {
