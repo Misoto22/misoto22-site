@@ -9,8 +9,8 @@ interface Photo {
   alt: string;
 }
 
-// Enable ISR with revalidation every 1800 seconds (30 minutes)
-export const revalidate = 1800;
+// Enable ISR with revalidation every 3600 seconds (1 hour)
+export const revalidate = 3600;
 
 export default async function PhotographyPage() {
   // Get initial photos for SSR
