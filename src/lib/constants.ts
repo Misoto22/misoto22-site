@@ -25,10 +25,21 @@ export const SITE_CONFIG = {
 // Navigation Configuration
 export const NAV_PAGES = [
   { href: '/', text: 'Home' },
-  { href: '/education', text: 'Education' },
-  { href: '/projects', text: 'Projects' },
-  { href: '/experience', text: 'Experience' },
-  { href: '/photography', text: 'Photography' },
+  {
+    text: 'Portfolio',
+    children: [
+      { href: '/projects', text: 'Projects' },
+      { href: '/photography', text: 'Photography' },
+      { href: '/blog', text: 'Blog' }
+    ]
+  },
+  {
+    text: 'About',
+    children: [
+      { href: '/education', text: 'Education' },
+      { href: '/experience', text: 'Experience' }
+    ]
+  },
   { href: '/contact', text: 'Contact' }
 ] as const
 

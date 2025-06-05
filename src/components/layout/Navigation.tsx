@@ -7,7 +7,7 @@ import { AnimatePresence, motion } from 'framer-motion'
 import ThemeSelector from '@/components/ui/ThemeSelector'
 import { DISPLAY_NAME, NAV_PAGES } from '@/lib/constants'
 import { useTheme } from '@/context/ThemeContext'
-import { Sun, Moon, Monitor } from 'lucide-react'
+import { Sun, Moon, Monitor, ChevronDown } from 'lucide-react'
 
 const Navigation = () => {
   const pathname = usePathname()
@@ -30,26 +30,43 @@ const Navigation = () => {
         {/* Menu items absolutely centered with responsive adjustments */}
         <div className="hidden md:flex space-x-3 nav:space-x-5 lg:space-x-6 text-base absolute md:left-[60%] nav:left-[55%] lg:left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2">
           {navItems.map((item, index) => (
-            <div key={item.href} className="relative">
-              <NavLink
-                href={item.href}
-                text={item.text}
-                isActive={pathname === item.href}
-                onClick={handleNavigation}
-                onMouseEnter={() => setHoveredIndex(index)}
-                onMouseLeave={() => setHoveredIndex(null)}
-              />
-              {(pathname === item.href || hoveredIndex === index) && (
-                <motion.div
-                  layoutId="underline"
-                  className="absolute left-0 top-full h-px w-full bg-[var(--foreground)]"
-                  initial={false}
-                  transition={{
-                    type: "spring",
-                    stiffness: 200,
-                    damping: 20,
-                    mass: 0.5
-                  }}
+            <div
+              key={'href' in item ? item.href : item.text}
+              className="relative"
+              onMouseEnter={() => setHoveredIndex(index)}
+              onMouseLeave={() => setHoveredIndex(null)}
+            >
+              {'href' in item ? (
+                // Simple nav item
+                <>
+                  <NavLink
+                    href={item.href}
+                    text={item.text}
+                    isActive={pathname === item.href}
+                    onClick={handleNavigation}
+                  />
+                  {(pathname === item.href || hoveredIndex === index) && (
+                    <motion.div
+                      layoutId="underline"
+                      className="absolute left-0 top-full h-px w-full bg-[var(--foreground)]"
+                      initial={false}
+                      transition={{
+                        type: "spring",
+                        stiffness: 200,
+                        damping: 20,
+                        mass: 0.5
+                      }}
+                    />
+                  )}
+                </>
+              ) : (
+                // Dropdown nav item
+                <DropdownNavItem
+                  text={item.text}
+                  children={item.children}
+                  isActive={item.children.some(child => pathname === child.href)}
+                  isHovered={hoveredIndex === index}
+                  onClick={handleNavigation}
                 />
               )}
             </div>
@@ -99,13 +116,23 @@ const Navigation = () => {
                 }}
               >
                 {navItems.map((item) => (
-                  <MenuItem
-                    key={item.href}
-                    href={item.href}
-                    text={item.text}
-                    isActive={pathname === item.href}
-                    onClick={handleNavigation}
-                  />
+                  'href' in item ? (
+                    <MenuItem
+                      key={item.href}
+                      href={item.href}
+                      text={item.text}
+                      isActive={pathname === item.href}
+                      onClick={handleNavigation}
+                    />
+                  ) : (
+                    <MobileDropdownItem
+                      key={item.text}
+                      text={item.text}
+                      children={item.children}
+                      pathname={pathname}
+                      onClick={handleNavigation}
+                    />
+                  )
                 ))}
                 <motion.div
                   variants={{
@@ -143,7 +170,7 @@ const NavLink = ({
   return (
     <Link
       href={href}
-      className={`relative py-1 ${
+      className={`relative py-1 flex items-center ${
         isActive
           ? 'text-[var(--foreground)]'
           : 'text-[var(--secondary-text)] hover:text-[var(--foreground)]'
@@ -177,6 +204,143 @@ const MenuItem = ({
     <NavLink href={href} text={text} isActive={isActive} onClick={onClick} />
   </motion.div>
 )
+
+const DropdownNavItem = ({
+  text,
+  children,
+  isActive,
+  isHovered,
+  onClick
+}: {
+  text: string;
+  children: readonly { href: string; text: string }[];
+  isActive: boolean;
+  isHovered: boolean;
+  onClick?: () => void;
+}) => {
+  return (
+    <div className="relative">
+      <button
+        className={`relative py-1 flex items-center space-x-1 ${
+          isActive
+            ? 'text-[var(--foreground)]'
+            : 'text-[var(--secondary-text)] hover:text-[var(--foreground)]'
+        } transition-colors`}
+      >
+        <span className="relative">
+          {text}
+          {(isActive || isHovered) && (
+            <motion.div
+              layoutId="underline"
+              className="absolute left-0 top-full h-px w-full bg-[var(--foreground)]"
+              initial={false}
+              transition={{
+                type: "spring",
+                stiffness: 200,
+                damping: 20,
+                mass: 0.5
+              }}
+            />
+          )}
+        </span>
+        <ChevronDown className="w-3 h-3" />
+      </button>
+
+      <AnimatePresence>
+        {isHovered && (
+          <motion.div
+            initial={{ opacity: 0, y: -5 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -5 }}
+            transition={{ duration: 0.15 }}
+            className="absolute top-full left-0 mt-2 bg-[var(--nav-background)] backdrop-blur-sm border border-[var(--border-color)] rounded-lg shadow-lg py-2 min-w-[140px] z-50"
+          >
+            {children.map((child) => (
+              <Link
+                key={child.href}
+                href={child.href}
+                onClick={onClick}
+                className="block px-4 py-2 text-sm text-[var(--secondary-text)] hover:text-[var(--foreground)] hover:bg-[var(--border-color)] transition-colors"
+              >
+                {child.text}
+              </Link>
+            ))}
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </div>
+  )
+}
+
+const MobileDropdownItem = ({
+  text,
+  children,
+  pathname,
+  onClick
+}: {
+  text: string;
+  children: readonly { href: string; text: string }[];
+  pathname: string;
+  onClick?: () => void;
+}) => {
+  const [isOpen, setIsOpen] = useState(false)
+  const isActive = children.some(child => pathname === child.href)
+
+  return (
+    <motion.div
+      variants={{
+        open: { opacity: 1, y: 0 },
+        closed: { opacity: 0, y: -10 }
+      }}
+    >
+      <button
+        onClick={() => setIsOpen(!isOpen)}
+        className={`w-full flex items-center justify-between py-1 ${
+          isActive
+            ? 'text-[var(--foreground)]'
+            : 'text-[var(--secondary-text)] hover:text-[var(--foreground)]'
+        } transition-colors`}
+      >
+        <span>{text}</span>
+        <motion.div
+          animate={{ rotate: isOpen ? 180 : 0 }}
+          transition={{ duration: 0.2 }}
+        >
+          <ChevronDown className="w-3 h-3" />
+        </motion.div>
+      </button>
+
+      <AnimatePresence>
+        {isOpen && (
+          <motion.div
+            initial={{ opacity: 0, height: 0 }}
+            animate={{ opacity: 1, height: 'auto' }}
+            exit={{ opacity: 0, height: 0 }}
+            transition={{ duration: 0.2 }}
+            className="overflow-hidden"
+          >
+            <div className="pl-4 pt-2 space-y-2">
+              {children.map((child) => (
+                <Link
+                  key={child.href}
+                  href={child.href}
+                  onClick={onClick}
+                  className={`block py-1 text-sm ${
+                    pathname === child.href
+                      ? 'text-[var(--foreground)]'
+                      : 'text-[var(--secondary-text)] hover:text-[var(--foreground)]'
+                  } transition-colors`}
+                >
+                  {child.text}
+                </Link>
+              ))}
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </motion.div>
+  )
+}
 
 const MobileThemeSelector = () => {
   const { theme, resolvedTheme, setTheme } = useTheme()
