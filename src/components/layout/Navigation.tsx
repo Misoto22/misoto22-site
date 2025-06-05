@@ -63,7 +63,7 @@ const Navigation = () => {
                 // Dropdown nav item
                 <DropdownNavItem
                   text={item.text}
-                  children={item.children}
+                  items={item.children}
                   isActive={item.children.some(child => pathname === child.href)}
                   isHovered={hoveredIndex === index}
                   onClick={handleNavigation}
@@ -128,7 +128,7 @@ const Navigation = () => {
                     <MobileDropdownItem
                       key={item.text}
                       text={item.text}
-                      children={item.children}
+                      items={item.children}
                       pathname={pathname}
                       onClick={handleNavigation}
                     />
@@ -207,13 +207,13 @@ const MenuItem = ({
 
 const DropdownNavItem = ({
   text,
-  children,
+  items,
   isActive,
   isHovered,
   onClick
 }: {
   text: string;
-  children: readonly { href: string; text: string }[];
+  items: readonly { href: string; text: string }[];
   isActive: boolean;
   isHovered: boolean;
   onClick?: () => void;
@@ -255,7 +255,7 @@ const DropdownNavItem = ({
             transition={{ duration: 0.15 }}
             className="absolute top-full left-0 mt-2 bg-[var(--nav-background)] backdrop-blur-sm border border-[var(--border-color)] rounded-lg shadow-lg py-2 min-w-[140px] z-50"
           >
-            {children.map((child) => (
+            {items.map((child) => (
               <Link
                 key={child.href}
                 href={child.href}
@@ -274,17 +274,17 @@ const DropdownNavItem = ({
 
 const MobileDropdownItem = ({
   text,
-  children,
+  items,
   pathname,
   onClick
 }: {
   text: string;
-  children: readonly { href: string; text: string }[];
+  items: readonly { href: string; text: string }[];
   pathname: string;
   onClick?: () => void;
 }) => {
   const [isOpen, setIsOpen] = useState(false)
-  const isActive = children.some(child => pathname === child.href)
+  const isActive = items.some(child => pathname === child.href)
 
   return (
     <motion.div
@@ -320,7 +320,7 @@ const MobileDropdownItem = ({
             className="overflow-hidden"
           >
             <div className="pl-4 pt-2 space-y-2">
-              {children.map((child) => (
+              {items.map((child) => (
                 <Link
                   key={child.href}
                   href={child.href}
