@@ -89,6 +89,9 @@ src/
 
 ### 🗄️ Database Structure
 
+![Database Structure](https://github.com/user-attachments/assets/ab33f824-5d20-4a61-85a6-4a0eac9db7cb)
+
+
 The application uses Supabase PostgreSQL with the following main tables:
 
 **Core Tables:**
