@@ -5,27 +5,11 @@ import Card from '@/components/ui/Card'
 import Badge from '@/components/ui/Badge'
 import { BlogPost } from '@/lib/supabase'
 import { Calendar, Clock, User } from 'lucide-react'
+import { estimateReadingTime, formatDate } from '@/lib/utils'
 
 interface BlogCardProps {
   post: BlogPost
   index: number
-}
-
-// Function to estimate reading time
-function estimateReadingTime(content: string): number {
-  const wordsPerMinute = 200
-  const words = content.split(/\s+/).length
-  return Math.ceil(words / wordsPerMinute)
-}
-
-// Function to format date
-function formatDate(dateString: string): string {
-  const date = new Date(dateString)
-  return date.toLocaleDateString('en-US', {
-    year: 'numeric',
-    month: 'long',
-    day: 'numeric'
-  })
 }
 
 const BlogCard: React.FC<BlogCardProps> = ({ post, index }) => {

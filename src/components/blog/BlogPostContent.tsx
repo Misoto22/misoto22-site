@@ -6,26 +6,10 @@ import TableOfContents from './TableOfContents'
 import { BlogPost } from '@/lib/supabase'
 import { Calendar, Clock, User, ArrowLeft } from 'lucide-react'
 import Link from 'next/link'
+import { estimateReadingTime, formatDate } from '@/lib/utils'
 
 interface BlogPostContentProps {
   post: BlogPost
-}
-
-// Function to estimate reading time
-function estimateReadingTime(content: string): number {
-  const wordsPerMinute = 200
-  const words = content.split(/\s+/).length
-  return Math.ceil(words / wordsPerMinute)
-}
-
-// Function to format date
-function formatDate(dateString: string): string {
-  const date = new Date(dateString)
-  return date.toLocaleDateString('en-US', {
-    year: 'numeric',
-    month: 'long',
-    day: 'numeric'
-  })
 }
 
 const BlogPostContent: React.FC<BlogPostContentProps> = ({ post }) => {

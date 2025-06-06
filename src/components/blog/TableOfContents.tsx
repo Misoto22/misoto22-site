@@ -8,8 +8,6 @@ interface TocItem {
   id: string
   text: string
   level: number
-  originalIndex?: number
-  isPlaceholder?: boolean
 }
 
 interface TableOfContentsProps {
