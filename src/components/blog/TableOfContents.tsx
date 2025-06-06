@@ -1,8 +1,7 @@
 "use client"
 
 import React, { useState, useEffect } from 'react'
-import { motion, AnimatePresence } from 'framer-motion'
-import { List, X } from 'lucide-react'
+import { motion } from 'framer-motion'
 import GithubSlugger from 'github-slugger'
 
 interface TocItem {
@@ -20,7 +19,6 @@ interface TableOfContentsProps {
 const TableOfContents: React.FC<TableOfContentsProps> = ({ content }) => {
   const [tocItems, setTocItems] = useState<TocItem[]>([])
   const [activeId, setActiveId] = useState<string>('')
-  const [isVisible, setIsVisible] = useState(false)
   const [isMobile, setIsMobile] = useState(false)
   const [isHovered, setIsHovered] = useState(false)
   const [shouldHideToc, setShouldHideToc] = useState(false)
@@ -149,9 +147,6 @@ const TableOfContents: React.FC<TableOfContentsProps> = ({ content }) => {
         block: 'start'
       })
     }
-    if (isMobile) {
-      setIsVisible(false)
-    }
   }
 
   if (tocItems.length === 0 || shouldHideToc) return null
@@ -231,57 +226,9 @@ const TableOfContents: React.FC<TableOfContentsProps> = ({ content }) => {
     )
   }
 
-  // Mobile TOC (overlay)
+  // Mobile TOC (disabled - return null for mobile)
   if (isMobile) {
-    return (
-      <>
-        {/* Mobile TOC Toggle Button */}
-        {!shouldHideToc && (
-          <motion.button
-            initial={{ opacity: 0, scale: 0.8 }}
-            animate={{ opacity: 1, scale: 1 }}
-            onClick={() => setIsVisible(true)}
-            className="fixed bottom-6 right-6 z-40 p-3 bg-[var(--foreground)] text-[var(--background)] rounded-full shadow-lg hover:opacity-90 transition-opacity lg:hidden"
-          >
-            <List className="w-5 h-5" />
-          </motion.button>
-        )}
-
-        {/* Mobile TOC Overlay */}
-        <AnimatePresence>
-          {isVisible && (
-            <>
-              <motion.div
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                exit={{ opacity: 0 }}
-                onClick={() => setIsVisible(false)}
-                className="fixed inset-0 bg-black/50 z-50 lg:hidden"
-              />
-              <motion.div
-                initial={{ opacity: 0, x: '100%' }}
-                animate={{ opacity: 1, x: 0 }}
-                exit={{ opacity: 0, x: '100%' }}
-                transition={{ type: 'spring', damping: 25, stiffness: 200 }}
-                className="fixed top-0 right-0 h-full w-80 max-w-[80vw] bg-[var(--background)] border-l border-[var(--border-color)] z-50 lg:hidden"
-              >
-                <div className="p-6 h-full overflow-y-auto">
-                  <div className="flex items-center justify-end mb-6">
-                    <button
-                      onClick={() => setIsVisible(false)}
-                      className="p-2 hover:bg-[var(--border-color)] rounded-lg transition-colors"
-                    >
-                      <X className="w-5 h-5" />
-                    </button>
-                  </div>
-                  <TocContent />
-                </div>
-              </motion.div>
-            </>
-          )}
-        </AnimatePresence>
-      </>
-    )
+    return null
   }
 
   // Desktop TOC (fixed sidebar)
