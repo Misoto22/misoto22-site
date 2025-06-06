@@ -63,3 +63,44 @@ export interface Photo {
   created_at?: string
   updated_at?: string
 }
+
+// Blog-related interfaces
+export interface BlogPost {
+  id?: string
+  title: string
+  slug: string
+  content: string
+  summary?: string
+  coverImage?: string
+  publishedAt?: string
+  updatedAt?: string
+  isPublished: boolean
+  author?: BlogAuthor
+  category?: BlogCategory
+  subcategory?: BlogSubcategory
+  tags?: BlogTag[]
+}
+
+export interface BlogCategory {
+  id?: string
+  name: string
+}
+
+export interface BlogSubcategory {
+  id?: string
+  name: string
+  categoryId?: string
+  category?: BlogCategory
+}
+
+export interface BlogTag {
+  id?: string
+  name: string
+}
+
+export interface BlogAuthor {
+  id?: string
+  name: string
+  avatar?: string
+  bio?: string
+}
