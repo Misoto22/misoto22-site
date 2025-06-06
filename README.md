@@ -43,7 +43,18 @@
 
 </div>
 
-## 📁 Project Structure
+## 🏗️ Project Architecture
+
+This is a modern full-stack personal website built with Next.js 15 and TypeScript, featuring a clean architecture that separates concerns between presentation, business logic, and data management. The application follows Next.js App Router conventions with server-side rendering, API routes, and optimized performance through Turbopack.
+
+**Key Architectural Principles:**
+- **Component-Based**: Modular React components with clear separation of concerns
+- **Type-Safe**: Full TypeScript implementation for better developer experience
+- **Server-First**: Leveraging Next.js SSR and API routes for optimal performance
+- **Database-Driven**: Dynamic content management through Supabase PostgreSQL
+- **Responsive Design**: Mobile-first approach with Tailwind CSS
+
+### 📁 File Structure
 
 ```
 src/
@@ -76,6 +87,26 @@ src/
 └── context/              # React context
 ```
 
+### 🗄️ Database Structure
+
+The application uses Supabase PostgreSQL with the following main tables:
+
+**Core Tables:**
+- `users` - User authentication and profile information
+- `blog_posts` - Blog content with metadata (title, slug, content, published_at)
+- `blog_categories` - Blog categorization system
+- `tags` - Tagging system for blog posts and projects
+- `photos` - Photography portfolio with metadata and storage references
+- `projects` - Project showcase with descriptions, technologies, and links
+- `education` - Educational background and achievements
+- `experience` - Professional experience and work history
+
+**Key Features:**
+- **Row Level Security (RLS)**: Secure data access patterns
+- **Real-time Updates**: Live data synchronization
+- **Automatic Scaling**: Managed PostgreSQL with auto-scaling
+- **Storage Integration**: Seamless file storage for images and assets
+
 ## 🔌 API Endpoints
 
 For detailed API documentation, see [API Documentation](src/app/api/README.md).
@@ -88,21 +119,7 @@ For detailed API documentation, see [API Documentation](src/app/api/README.md).
 | `/api/blog/categories` | GET | Blog categories | 200, 500 |
 | `/api/revalidate` | POST | Cache revalidation | 200, 401, 500 |
 
-## 🖼️ Image & Data Storage
-
-- **Images**:
-  - Format: WebP with high visual quality
-  - Storage: Supabase Storage
-  - Loading: Next.js Image component with lazy loading
-  - Caching: Long-term caching headers
-
-- **Data**:
-  - Database: Supabase PostgreSQL
-  - Tables: photos, projects, education, experience, blog_posts, blog_categories, tags, users
-  - Features: Real-time updates, Row Level Security (RLS), automatic scaling
-  - Authentication: Supabase Auth with JWT tokens
-
-## 🚀 Getting Started
+## 🚀 Development
 
 ### Prerequisites
 
