@@ -22,6 +22,7 @@ const TableOfContents: React.FC<TableOfContentsProps> = ({ content }) => {
   const [isMobile, setIsMobile] = useState(false)
   const [isHovered, setIsHovered] = useState(false)
   const [shouldHideToc, setShouldHideToc] = useState(false)
+  const [hasOverlap, setHasOverlap] = useState(false)
 
 
   // Extract headings from markdown content
@@ -56,15 +57,48 @@ const TableOfContents: React.FC<TableOfContentsProps> = ({ content }) => {
     }
   }, [content])
 
-  // Check if mobile
+  // Check if mobile and screen size, and detect potential overlap
   useEffect(() => {
-    const checkMobile = () => {
-      setIsMobile(window.innerWidth < 1024)
+    const checkScreenSize = () => {
+      const width = window.innerWidth
+      setIsMobile(width < 1280)
+
+      // Dynamic overlap detection
+      if (width >= 1280) {
+        // Calculate if TOC would overlap with content
+        const contentMaxWidth = 896 // max-w-4xl = 56rem = 896px
+        const pageMaxWidth = 1152 // max-w-6xl = 72rem = 1152px
+        const pagePadding = 48 // px-6 = 24px on each side = 48px total
+        const tocWidth = 256 // w-64 = 16rem = 256px
+
+        // Calculate available space for TOC positioning
+        const availableWidth = width
+        const contentAreaWidth = Math.min(pageMaxWidth, availableWidth - pagePadding)
+        const contentWidth = Math.min(contentMaxWidth, contentAreaWidth)
+        const contentCenter = availableWidth / 2
+        const contentRightEdge = contentCenter + (contentWidth / 2)
+
+        // Calculate TOC position based on current breakpoint
+        let tocLeftPosition: number
+        if (width >= 1536) { // 2xl
+          tocLeftPosition = contentCenter + 512 // 32rem
+        } else { // xl
+          tocLeftPosition = contentCenter + 448 // 28rem
+        }
+
+        const tocRightEdge = tocLeftPosition + tocWidth
+
+        // Check if TOC would extend beyond viewport or overlap with content
+        const wouldOverlap = tocRightEdge > availableWidth || tocLeftPosition < contentRightEdge + 32 // 32px minimum gap
+        setHasOverlap(wouldOverlap)
+      } else {
+        setHasOverlap(false)
+      }
     }
-    
-    checkMobile()
-    window.addEventListener('resize', checkMobile)
-    return () => window.removeEventListener('resize', checkMobile)
+
+    checkScreenSize()
+    window.addEventListener('resize', checkScreenSize)
+    return () => window.removeEventListener('resize', checkScreenSize)
   }, [])
 
 
@@ -149,7 +183,7 @@ const TableOfContents: React.FC<TableOfContentsProps> = ({ content }) => {
     }
   }
 
-  if (tocItems.length === 0 || shouldHideToc) return null
+  if (tocItems.length === 0 || shouldHideToc || hasOverlap) return null
 
   const TocContent = () => {
     return (
@@ -226,14 +260,16 @@ const TableOfContents: React.FC<TableOfContentsProps> = ({ content }) => {
     )
   }
 
-  // Mobile TOC (disabled - return null for mobile)
-  if (isMobile) {
+  // Mobile TOC (disabled - return null for mobile or when overlap detected)
+  if (isMobile || hasOverlap) {
     return null
   }
 
-  // Desktop TOC (fixed sidebar)
+  // Desktop TOC (fixed sidebar with responsive positioning)
   return (
-    <div className="hidden lg:block fixed left-[calc(50%+32rem)] w-64 z-30 top-1/2 -translate-y-1/2">
+    <div className="hidden xl:block fixed z-30 top-1/2 -translate-y-1/2 w-64
+                    xl:left-[calc(50%+28rem)]
+                    2xl:left-[calc(50%+32rem)]">
       <motion.div
         initial={{ opacity: 0, x: 20 }}
         animate={{ opacity: shouldHideToc ? 0 : 1, x: shouldHideToc ? 20 : 0 }}
