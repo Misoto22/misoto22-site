@@ -111,7 +111,7 @@ const ImageModal: React.FC<ImageModalProps> = ({
         onClick={(e) => e.stopPropagation()}
       >
         {/* Image wrapper with relative positioning */}
-        <div className="relative w-full h-full max-w-[90vw] max-h-[85vh] md:max-w-[60vw] md:max-h-[70vh] flex items-center justify-center">
+        <div className="relative w-full h-full max-w-[95vw] max-h-[90vh] md:max-w-[85vw] md:max-h-[85vh] flex items-center justify-center">
           {/* Previous button - positioned outside image on desktop, overlay on mobile */}
           {hasPrevious && (
             <button
