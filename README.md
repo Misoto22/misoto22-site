@@ -2,7 +2,8 @@
 
 <div align="center">
 
-![personal-website copy](https://github.com/user-attachments/assets/d4da9841-ebdd-4ed3-abaf-41abdd3f8bbf)
+<img width="3840" height="2880" alt="753_2x_shots_so1" src="https://github.com/user-attachments/assets/3bbb7856-0998-4083-8dc0-ed9c01718a14" />
+
 
 *A modern, responsive personal portfolio website built with Next.js and TypeScript. Showcasing my projects, skills, experiences, and blog posts in an elegant and interactive way.*
 
