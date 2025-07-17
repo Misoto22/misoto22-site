@@ -43,12 +43,12 @@ export default function Card({
   return (
     <FadeInSlideUp delay={delay}>
       <div className={`
-        bg-[var(--card-background)] 
+        bg-(--card-background) 
         rounded-2xl 
         p-8 
         shadow-lg 
         border 
-        border-[var(--border-color)] 
+        border-(--border-color) 
         hover:shadow-xl 
         transition-all 
         duration-300

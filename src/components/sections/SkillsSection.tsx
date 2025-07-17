@@ -23,7 +23,7 @@ function Skill({ name, iconPath }: SkillProps) {
         height={48} 
         className="mb-2 group-hover:brightness-110 transition-all duration-300" 
       />
-      <span className="mt-2 text-sm font-medium text-[var(--foreground)] group-hover:text-[var(--foreground)] transition-colors duration-300">
+      <span className="mt-2 text-sm font-medium text-(--foreground) group-hover:text-(--foreground) transition-colors duration-300">
         {name}
       </span>
     </motion.div>
@@ -54,9 +54,9 @@ function SkillCategory({
   return (
     <div className="mb-12">
       <Card delay={delay} className={className}>
-        <h3 className="text-2xl font-heading mb-6 text-[var(--foreground)] flex items-center gap-2">
+        <h3 className="text-2xl font-heading mb-6 text-(--foreground) flex items-center gap-2">
           <span>{title}</span>
-          <span className="text-sm font-normal text-[var(--secondary-text)]">({subtitle})</span>
+          <span className="text-sm font-normal text-(--secondary-text)">({subtitle})</span>
         </h3>
         <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
           {skills.map((skill, index) => (
@@ -124,11 +124,11 @@ export default function SkillsSection() {
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, amount: 0.3 }}
       transition={{ duration: 0.7, ease: 'easeOut' }}
-      className="min-h-screen flex flex-col justify-center items-center bg-[var(--background)] px-4 relative"
+      className="min-h-screen flex flex-col justify-center items-center bg-(--background) px-4 relative"
     >
       <div className="w-full max-w-6xl mx-auto px-6 scroll-mt-24">
         <FadeInSlideUp delay={0.1} className="w-full">
-          <h2 className="text-3xl md:text-4xl font-heading mb-12 text-[var(--foreground)] text-center">
+          <h2 className="text-3xl md:text-4xl font-heading mb-12 text-(--foreground) text-center">
             My Skills
           </h2>
           

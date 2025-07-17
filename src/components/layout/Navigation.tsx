@@ -21,7 +21,7 @@ const Navigation = () => {
   const navItems = NAV_PAGES
 
   return (
-    <nav className="fixed top-0 w-full bg-[var(--nav-background)] backdrop-blur-sm z-50 shadow-[0_2px_8px_rgba(0,0,0,0.08)] border-b border-[var(--border-color)]">
+    <nav className="fixed top-0 w-full bg-(--nav-background) backdrop-blur-xs z-50 shadow-[0_2px_8px_rgba(0,0,0,0.08)] border-b border-(--border-color)">
       <div className="max-w-6xl mx-auto px-6 py-6 relative">
         {/* Logo aligned to the left */}
         <Link href="/" className="text-2xl font-semibold tracking-wider z-10 relative" onClick={handleNavigation}>
@@ -48,7 +48,7 @@ const Navigation = () => {
                   {(pathname === item.href || hoveredIndex === index) && (
                     <motion.div
                       layoutId="underline"
-                      className="absolute left-0 top-full h-px w-full bg-[var(--foreground)]"
+                      className="absolute left-0 top-full h-px w-full bg-(--foreground)"
                       initial={false}
                       transition={{
                         type: "spring",
@@ -99,7 +99,7 @@ const Navigation = () => {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -10 }}
             transition={{ duration: 0.2 }}
-            className="md:hidden absolute top-full left-0 right-0 bg-[var(--nav-background)] backdrop-blur-sm"
+            className="md:hidden absolute top-full left-0 right-0 bg-(--nav-background) backdrop-blur-xs"
           >
             <div className="max-w-6xl mx-auto px-6">
               <motion.div
@@ -139,7 +139,7 @@ const Navigation = () => {
                     open: { opacity: 1, y: 0 },
                     closed: { opacity: 0, y: -10 }
                   }}
-                  className="pt-4 border-t border-[var(--border-color)]"
+                  className="pt-4 border-t border-(--border-color)"
                 >
                   <MobileThemeSelector />
                 </motion.div>
@@ -172,8 +172,8 @@ const NavLink = ({
       href={href}
       className={`relative py-1 flex items-center ${
         isActive
-          ? 'text-[var(--foreground)]'
-          : 'text-[var(--secondary-text)] hover:text-[var(--foreground)]'
+          ? 'text-(--foreground)'
+          : 'text-(--secondary-text) hover:text-(--foreground)'
       } transition-colors`}
       onClick={onClick}
       onMouseEnter={onMouseEnter}
@@ -223,8 +223,8 @@ const DropdownNavItem = ({
       <button
         className={`relative py-1 flex items-center space-x-1 ${
           isActive
-            ? 'text-[var(--foreground)]'
-            : 'text-[var(--secondary-text)] hover:text-[var(--foreground)]'
+            ? 'text-(--foreground)'
+            : 'text-(--secondary-text) hover:text-(--foreground)'
         } transition-colors`}
       >
         <span className="relative">
@@ -232,7 +232,7 @@ const DropdownNavItem = ({
           {(isActive || isHovered) && (
             <motion.div
               layoutId="underline"
-              className="absolute left-0 top-full h-px w-full bg-[var(--foreground)]"
+              className="absolute left-0 top-full h-px w-full bg-(--foreground)"
               initial={false}
               transition={{
                 type: "spring",
@@ -253,14 +253,14 @@ const DropdownNavItem = ({
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -5 }}
             transition={{ duration: 0.15 }}
-            className="absolute top-full left-0 mt-2 bg-[var(--nav-background)] backdrop-blur-sm border border-[var(--border-color)] rounded-lg shadow-lg py-2 min-w-[140px] z-50"
+            className="absolute top-full left-0 mt-2 bg-(--nav-background) backdrop-blur-xs border border-(--border-color) rounded-lg shadow-lg py-2 min-w-[140px] z-50"
           >
             {items.map((child) => (
               <Link
                 key={child.href}
                 href={child.href}
                 onClick={onClick}
-                className="block px-4 py-2 text-sm text-[var(--secondary-text)] hover:text-[var(--foreground)] hover:bg-[var(--border-color)] transition-colors"
+                className="block px-4 py-2 text-sm text-(--secondary-text) hover:text-(--foreground) hover:bg-(--border-color) transition-colors"
               >
                 {child.text}
               </Link>
@@ -297,8 +297,8 @@ const MobileDropdownItem = ({
         onClick={() => setIsOpen(!isOpen)}
         className={`w-full flex items-center justify-between py-1 ${
           isActive
-            ? 'text-[var(--foreground)]'
-            : 'text-[var(--secondary-text)] hover:text-[var(--foreground)]'
+            ? 'text-(--foreground)'
+            : 'text-(--secondary-text) hover:text-(--foreground)'
         } transition-colors`}
       >
         <span>{text}</span>
@@ -327,8 +327,8 @@ const MobileDropdownItem = ({
                   onClick={onClick}
                   className={`block py-1 text-sm ${
                     pathname === child.href
-                      ? 'text-[var(--foreground)]'
-                      : 'text-[var(--secondary-text)] hover:text-[var(--foreground)]'
+                      ? 'text-(--foreground)'
+                      : 'text-(--secondary-text) hover:text-(--foreground)'
                   } transition-colors`}
                 >
                   {child.text}
@@ -353,7 +353,7 @@ const MobileThemeSelector = () => {
 
   return (
     <div className="space-y-2">
-      <p className="text-sm text-[var(--secondary-text)] px-1">Theme</p>
+      <p className="text-sm text-(--secondary-text) px-1">Theme</p>
       <div className="flex space-x-2">
         {themeOptions.map((option) => {
           const Icon = option.icon
@@ -366,8 +366,8 @@ const MobileThemeSelector = () => {
               whileTap={{ scale: 0.95 }}
               className={`flex-1 px-3 py-2 rounded-lg flex items-center justify-center space-x-2 transition-all duration-200 ${
                 isSelected
-                  ? 'bg-[var(--foreground)] text-[var(--background)]'
-                  : 'bg-[var(--border-color)] hover:bg-opacity-80'
+                  ? 'bg-(--foreground) text-(--background)'
+                  : 'bg-(--border-color) hover:bg-opacity-80'
               }`}
               aria-label={`Set theme to ${option.label}`}
             >

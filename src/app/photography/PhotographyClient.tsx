@@ -134,7 +134,7 @@ export default function PhotographyClient({ initialData }: PhotographyClientProp
   }
 
   return (
-    <main className="pt-24 min-h-screen bg-[var(--background)]">
+    <main className="pt-24 min-h-screen bg-(--background)">
       <div className="max-w-6xl mx-auto px-6">
         <PageHeader
           title="Photography"
@@ -144,17 +144,17 @@ export default function PhotographyClient({ initialData }: PhotographyClientProp
         {photos.length > 0 ? (
           <Masonry
             breakpointCols={breakpointColumnsObj}
-            className="flex w-full sm:-ml-4 [contain:layout_style] [will-change:contents] [transform:translateZ(0)]"
-            columnClassName="sm:pl-4 bg-clip-padding [contain:layout_style] [will-change:transform] [transform:translateZ(0)] h-full"
+            className="flex w-full sm:-ml-4 contain-[layout_style] will-change-contents [transform:translateZ(0)]"
+            columnClassName="sm:pl-4 bg-clip-padding contain-[layout_style] will-change-transform [transform:translateZ(0)] h-full"
           >
             {photos.map((photo) => (
               <div
                 key={photo.id}
-                className="mb-3 sm:mb-4 block relative cursor-pointer animate-[fadeIn_0.5s_ease-in-out] [will-change:opacity] [transform:translateZ(0)] [contain:layout_paint_style] min-h-[100px] group"
+                className="mb-3 sm:mb-4 block relative cursor-pointer animate-[fadeIn_0.5s_ease-in-out] will-change-[opacity] [transform:translateZ(0)] contain-[layout_paint_style] min-h-[100px] group"
                 onClick={() => handlePhotoClick(photo)}
               >
                 <div
-                  className="relative w-full overflow-hidden bg-[var(--card-background,#f0f0f0)] bg-gradient-to-r from-transparent via-white/50 to-transparent bg-[length:200%_100%] animate-[shimmer_1.5s_infinite] min-h-[100px] [contain:layout_paint] hover:shadow-[0_8px_30px_rgb(0,0,0,0.12)] transition-shadow duration-300"
+                  className="relative w-full overflow-hidden bg-(--card-background,#f0f0f0) bg-linear-to-r from-transparent via-white/50 to-transparent bg-size-[200%_100%] animate-[shimmer_1.5s_infinite] min-h-[100px] contain-[layout_paint] hover:shadow-[0_8px_30px_rgb(0,0,0,0.12)] transition-shadow duration-300"
                   style={{ paddingBottom: `${(photo.height / photo.width) * 100}%` }}
                 >
                   <Image
@@ -184,7 +184,7 @@ export default function PhotographyClient({ initialData }: PhotographyClientProp
                       });
                     }}
                   />
-                  <div className="absolute bottom-2 right-2 bg-black/70 text-white px-2.5 py-1 rounded text-xs opacity-0 group-hover:opacity-90 transition-opacity duration-200">
+                  <div className="absolute bottom-2 right-2 bg-black/70 text-white px-2.5 py-1 rounded-sm text-xs opacity-0 group-hover:opacity-90 transition-opacity duration-200">
                     View Full Size
                   </div>
                 </div>

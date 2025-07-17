@@ -26,7 +26,7 @@ const BlogCard: React.FC<BlogCardProps> = ({ post, index }) => {
         <div className="space-y-4 h-full flex flex-col">
           {/* Cover Image - Optimized for 16:9 aspect ratio */}
           {post.coverImage && (
-            <div className="relative w-full aspect-[16/9] rounded-xl overflow-hidden flex-shrink-0">
+            <div className="relative w-full aspect-video rounded-xl overflow-hidden shrink-0">
               <Image
                 src={post.coverImage}
                 alt={post.title}
@@ -44,31 +44,31 @@ const BlogCard: React.FC<BlogCardProps> = ({ post, index }) => {
             <div className="flex items-center justify-between text-sm flex-wrap gap-2">
               <div className="flex items-center space-x-3">
                 {post.category && (
-                  <span className="px-2 py-1 text-xs font-bold rounded bg-[var(--foreground)] text-[var(--background)] shadow-sm tracking-widest uppercase">
+                  <span className="px-2 py-1 text-xs font-bold rounded-sm bg-(--foreground) text-(--background) shadow-xs tracking-widest uppercase">
                     {post.category.name}
                   </span>
                 )}
                 {post.publishedAt && (
-                  <div className="flex items-center text-[var(--secondary-text)]">
+                  <div className="flex items-center text-(--secondary-text)">
                     <Calendar className="w-3 h-3 mr-1" />
                     <span className="text-xs">{formatDate(post.publishedAt)}</span>
                   </div>
                 )}
               </div>
-              <div className="flex items-center text-[var(--secondary-text)]">
+              <div className="flex items-center text-(--secondary-text)">
                 <Clock className="w-3 h-3 mr-1" />
                 <span className="text-xs">{readingTime} min read</span>
               </div>
             </div>
 
             {/* Title */}
-            <h2 className="text-xl font-heading text-[var(--foreground)] group-hover:text-[var(--foreground)] transition-colors duration-200 line-clamp-2">
+            <h2 className="text-xl font-heading text-(--foreground) group-hover:text-(--foreground) transition-colors duration-200 line-clamp-2">
               {post.title}
             </h2>
 
             {/* Summary */}
             {post.summary && (
-              <p className="text-[var(--secondary-text)] leading-relaxed line-clamp-3 text-sm flex-1">
+              <p className="text-(--secondary-text) leading-relaxed line-clamp-3 text-sm flex-1">
                 {post.summary}
               </p>
             )}
@@ -88,7 +88,7 @@ const BlogCard: React.FC<BlogCardProps> = ({ post, index }) => {
                       />
                     </div>
                   )}
-                  <div className="flex items-center text-[var(--secondary-text)]">
+                  <div className="flex items-center text-(--secondary-text)">
                     <User className="w-3 h-3 mr-1" />
                     <span className="text-xs">{post.author.name}</span>
                   </div>

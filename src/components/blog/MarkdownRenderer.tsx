@@ -106,7 +106,7 @@ const MarkdownRenderer: React.FC<MarkdownRendererProps> = ({ content, className 
           ),
           // Custom blockquote renderer
           blockquote: ({ children, ...props }) => (
-            <blockquote className="border-l-4 border-[var(--foreground)] pl-6 italic text-[var(--secondary-text)] my-6" {...props}>
+            <blockquote className="border-l-4 border-(--foreground) pl-6 italic text-(--secondary-text) my-6" {...props}>
               {children}
             </blockquote>
           ),

@@ -84,12 +84,12 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
   }
 
   return (
-    <section className="pt-24 min-h-screen bg-[var(--background)]">
+    <section className="pt-24 min-h-screen bg-(--background)">
       <div className="max-w-6xl mx-auto px-6">
         {/* Back to Blog Link */}
         <Link 
           href="/blog"
-          className="inline-flex items-center text-[var(--secondary-text)] hover:text-[var(--foreground)] transition-colors duration-200 mb-8"
+          className="inline-flex items-center text-(--secondary-text) hover:text-(--foreground) transition-colors duration-200 mb-8"
         >
           <ArrowLeft className="w-4 h-4 mr-2" />
           Back to Blog
@@ -110,7 +110,7 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
           </div>
         ) : (
           <div className="text-center py-12">
-            <p className="text-[var(--secondary-text)] text-lg">
+            <p className="text-(--secondary-text) text-lg">
               No posts found in the {categoryName} category yet.
             </p>
           </div>

@@ -40,7 +40,7 @@ const CategoryFilter: React.FC<CategoryFilterProps> = ({
         {[...Array(4)].map((_, i) => (
           <div
             key={i}
-            className="h-8 w-20 bg-[var(--border-color)] rounded-full animate-pulse"
+            className="h-8 w-20 bg-(--border-color) rounded-full animate-pulse"
           />
         ))}
       </div>
@@ -49,7 +49,7 @@ const CategoryFilter: React.FC<CategoryFilterProps> = ({
 
   return (
     <div className="space-y-4">
-      <h3 className="text-lg font-medium text-[var(--foreground)] text-center">Categories</h3>
+      <h3 className="text-lg font-medium text-(--foreground) text-center">Categories</h3>
       <div className="flex flex-wrap justify-center gap-3">
         <motion.button
           whileHover={{ scale: 1.05 }}
@@ -57,8 +57,8 @@ const CategoryFilter: React.FC<CategoryFilterProps> = ({
           onClick={() => onCategoryChange(undefined)}
           className={`px-6 py-3 rounded-full text-sm font-medium transition-all duration-200 ${
             !selectedCategory
-              ? 'bg-[var(--foreground)] text-[var(--background)] shadow-lg'
-              : 'bg-[var(--card-background)] text-[var(--foreground)] border border-[var(--border-color)] hover:bg-[var(--background)] hover:shadow-md'
+              ? 'bg-(--foreground) text-(--background) shadow-lg'
+              : 'bg-(--card-background) text-(--foreground) border border-(--border-color) hover:bg-(--background) hover:shadow-md'
           }`}
         >
           All Posts
@@ -72,8 +72,8 @@ const CategoryFilter: React.FC<CategoryFilterProps> = ({
             onClick={() => onCategoryChange(category.name)}
             className={`px-6 py-3 rounded-full text-sm font-medium transition-all duration-200 ${
               selectedCategory === category.name
-                ? 'bg-[var(--foreground)] text-[var(--background)] shadow-lg'
-                : 'bg-[var(--card-background)] text-[var(--foreground)] border border-[var(--border-color)] hover:bg-[var(--background)] hover:shadow-md'
+                ? 'bg-(--foreground) text-(--background) shadow-lg'
+                : 'bg-(--card-background) text-(--foreground) border border-(--border-color) hover:bg-(--background) hover:shadow-md'
             }`}
           >
             {category.name}

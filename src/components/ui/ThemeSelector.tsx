@@ -43,7 +43,7 @@ export default function ThemeSelector() {
     <div className="relative" ref={dropdownRef}>
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="p-2 rounded-lg hover:bg-[var(--border-color)] transition-colors focus:outline-none focus:ring-2 focus:ring-[var(--foreground)] focus:ring-opacity-50"
+        className="p-2 rounded-lg hover:bg-(--border-color) transition-colors focus:outline-hidden focus:ring-2 focus:ring-(--foreground) focus:ring-opacity-50"
         aria-label="Select theme"
         aria-expanded={isOpen}
         aria-haspopup="true"
@@ -59,7 +59,7 @@ export default function ThemeSelector() {
               ease: "easeInOut"
             }}
           >
-            <DisplayIcon className="w-5 h-5 text-[var(--foreground)]" />
+            <DisplayIcon className="w-5 h-5 text-(--foreground)" />
           </motion.div>
         </AnimatePresence>
       </button>
@@ -74,7 +74,7 @@ export default function ThemeSelector() {
               duration: 0.2,
               ease: "easeOut"
             }}
-            className="absolute right-0 mt-2 w-44 rounded-lg bg-[var(--nav-background)] border border-[var(--border-color)] shadow-lg overflow-hidden"
+            className="absolute right-0 mt-2 w-44 rounded-lg bg-(--nav-background) border border-(--border-color) shadow-lg overflow-hidden"
           >
             <div className="p-1">
               {themeOptions.map((option) => {
@@ -92,8 +92,8 @@ export default function ThemeSelector() {
                     whileTap={{ scale: 0.98 }}
                     className={`w-full px-3 py-1.5 flex items-center space-x-3 rounded-md transition-all duration-200 ${
                       isSelected 
-                        ? 'bg-[var(--border-color)] bg-opacity-80 text-[var(--foreground)]' 
-                        : 'text-[var(--secondary-text)] hover:bg-[var(--border-color)] hover:bg-opacity-50'
+                        ? 'bg-(--border-color) bg-opacity-80 text-(--foreground)' 
+                        : 'text-(--secondary-text) hover:bg-(--border-color) hover:bg-opacity-50'
                     }`}
                   >
                     <Icon className="w-4 h-4" />
@@ -101,7 +101,7 @@ export default function ThemeSelector() {
                       {option.label}
                       {option.value === 'system' && theme === 'system' && (
                         <span className={`text-xs ml-1 ${
-                          isSelected ? 'text-[var(--foreground)] opacity-80' : 'text-[var(--secondary-text)]'
+                          isSelected ? 'text-(--foreground) opacity-80' : 'text-(--secondary-text)'
                         }`}>
                           ({resolvedTheme})
                         </span>

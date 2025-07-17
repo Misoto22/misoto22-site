@@ -103,7 +103,7 @@ const ImageModal: React.FC<ImageModalProps> = ({
       onClick={onClose}
     >
       {/* Backdrop */}
-      <div className="absolute inset-0 bg-black bg-opacity-90 backdrop-blur-sm" />
+      <div className="absolute inset-0 bg-black bg-opacity-90 backdrop-blur-xs" />
 
       {/* Image container */}
       <div
@@ -116,7 +116,7 @@ const ImageModal: React.FC<ImageModalProps> = ({
           {hasPrevious && (
             <button
               onClick={onPrevious}
-              className="absolute left-0 top-1/2 -translate-y-1/2 text-white hover:text-gray-300 transition-all duration-200 p-2 md:p-3 bg-black/30 hover:bg-black/50 rounded-full backdrop-blur-sm z-20
+              className="absolute left-0 top-1/2 -translate-y-1/2 text-white hover:text-gray-300 transition-all duration-200 p-2 md:p-3 bg-black/30 hover:bg-black/50 rounded-full backdrop-blur-xs z-20
                          md:-left-24 md:bg-black/50 md:hover:bg-black/70
                          sm:left-2 sm:opacity-70 hover:opacity-100"
               aria-label="Previous image"
@@ -129,7 +129,7 @@ const ImageModal: React.FC<ImageModalProps> = ({
           {hasNext && (
             <button
               onClick={onNext}
-              className="absolute right-0 top-1/2 -translate-y-1/2 text-white hover:text-gray-300 transition-all duration-200 p-2 md:p-3 bg-black/30 hover:bg-black/50 rounded-full backdrop-blur-sm z-20
+              className="absolute right-0 top-1/2 -translate-y-1/2 text-white hover:text-gray-300 transition-all duration-200 p-2 md:p-3 bg-black/30 hover:bg-black/50 rounded-full backdrop-blur-xs z-20
                          md:-right-24 md:bg-black/50 md:hover:bg-black/70
                          sm:right-2 sm:opacity-70 hover:opacity-100"
               aria-label="Next image"
@@ -148,7 +148,7 @@ const ImageModal: React.FC<ImageModalProps> = ({
           </button>
 
           {/* Image counter - positioned relative to image */}
-          <div className="absolute -top-8 md:-top-20 left-0 text-white text-sm bg-black/30 px-3 py-1 rounded backdrop-blur-sm">
+          <div className="absolute -top-8 md:-top-20 left-0 text-white text-sm bg-black/30 px-3 py-1 rounded-sm backdrop-blur-xs">
             {currentIndex + 1} / {totalCount}
           </div>
 

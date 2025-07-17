@@ -96,16 +96,16 @@ const BlogClient: React.FC<BlogClientProps> = ({ initialData }) => {
     return (
       <div className="space-y-12">
         <div className="animate-pulse space-y-4">
-          <div className="h-8 bg-[var(--border-color)] rounded w-1/4"></div>
+          <div className="h-8 bg-(--border-color) rounded-sm w-1/4"></div>
           <div className="flex space-x-2">
             {[...Array(4)].map((_, i) => (
-              <div key={i} className="h-8 w-20 bg-[var(--border-color)] rounded-full" />
+              <div key={i} className="h-8 w-20 bg-(--border-color) rounded-full" />
             ))}
           </div>
         </div>
         <div className="grid gap-8">
           {[...Array(3)].map((_, i) => (
-            <div key={i} className="h-64 bg-[var(--border-color)] rounded-2xl animate-pulse" />
+            <div key={i} className="h-64 bg-(--border-color) rounded-2xl animate-pulse" />
           ))}
         </div>
       </div>
@@ -118,13 +118,13 @@ const BlogClient: React.FC<BlogClientProps> = ({ initialData }) => {
       <div className="space-y-6">
         {/* Search Bar */}
         <div className="relative max-w-lg mx-auto">
-          <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 text-[var(--secondary-text)] w-5 h-5" />
+          <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 text-(--secondary-text) w-5 h-5" />
           <input
             type="text"
             placeholder="Search posts..."
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            className="w-full pl-12 pr-4 py-4 bg-[var(--card-background)] border border-[var(--border-color)] rounded-2xl text-[var(--foreground)] placeholder-[var(--secondary-text)] focus:outline-none focus:ring-2 focus:ring-[var(--foreground)] focus:ring-opacity-50 transition-all duration-200 text-base"
+            className="w-full pl-12 pr-4 py-4 bg-(--card-background) border border-(--border-color) rounded-2xl text-(--foreground) placeholder-(--secondary-text) focus:outline-hidden focus:ring-2 focus:ring-(--foreground) focus:ring-opacity-50 transition-all duration-200 text-base"
           />
         </div>
 
@@ -154,7 +154,7 @@ const BlogClient: React.FC<BlogClientProps> = ({ initialData }) => {
                 whileTap={{ scale: 0.95 }}
                 onClick={loadMore}
                 disabled={loading}
-                className="px-8 py-3 bg-[var(--foreground)] text-[var(--background)] rounded-xl font-medium hover:opacity-90 transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed flex items-center space-x-2"
+                className="px-8 py-3 bg-(--foreground) text-(--background) rounded-xl font-medium hover:opacity-90 transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed flex items-center space-x-2"
               >
                 {loading ? (
                   <>
@@ -170,7 +170,7 @@ const BlogClient: React.FC<BlogClientProps> = ({ initialData }) => {
         </div>
       ) : (
         <div className="text-center py-12">
-          <p className="text-[var(--secondary-text)] text-lg">
+          <p className="text-(--secondary-text) text-lg">
             {searchQuery || selectedCategory 
               ? 'No posts found matching your criteria.' 
               : 'No blog posts available yet.'}

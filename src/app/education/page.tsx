@@ -22,7 +22,7 @@ export default async function EducationPage() {
   const education = await getEducation();
 
   return (
-    <section className="pt-24 min-h-screen bg-[var(--background)]">
+    <section className="pt-24 min-h-screen bg-(--background)">
       <div className="max-w-6xl mx-auto px-6">
         <PageHeader
           title="Education"

@@ -103,7 +103,7 @@ export default function Contact() {
   };
 
   return (
-    <section className="pt-24 min-h-screen bg-[var(--background)]">
+    <section className="pt-24 min-h-screen bg-(--background)">
       <div className="max-w-6xl mx-auto px-6">
         <PageHeader 
           title="Let's Connect"
@@ -116,35 +116,35 @@ export default function Contact() {
             delay={0.1}
             width="full"
           >
-            <h2 className="text-2xl font-heading mb-6 text-[var(--foreground)]">Contact Information</h2>
+            <h2 className="text-2xl font-heading mb-6 text-(--foreground)">Contact Information</h2>
             <div className="space-y-6">
               <div className="flex items-start space-x-4">
-                <MdEmail className="w-6 h-6 text-[var(--foreground)] mt-1" />
+                <MdEmail className="w-6 h-6 text-(--foreground) mt-1" />
                 <div>
-                  <h3 className="font-medium text-[var(--foreground)]">Email</h3>
-                  <a href="mailto:cxw8848@hotmail.com" className="text-[var(--secondary-text)] hover:text-[var(--foreground)] transition-colors">
+                  <h3 className="font-medium text-(--foreground)">Email</h3>
+                  <a href="mailto:cxw8848@hotmail.com" className="text-(--secondary-text) hover:text-(--foreground) transition-colors">
                     cxw8848@hotmail.com
                   </a>
                 </div>
               </div>
               <div className="flex items-start space-x-4">
-                <FaMapMarkerAlt className="w-6 h-6 text-[var(--foreground)] mt-1" />
+                <FaMapMarkerAlt className="w-6 h-6 text-(--foreground) mt-1" />
                 <div>
-                  <h3 className="font-medium text-[var(--foreground)]">Location</h3>
-                  <p className="text-[var(--secondary-text)]">Perth, Western Australia</p>
+                  <h3 className="font-medium text-(--foreground)">Location</h3>
+                  <p className="text-(--secondary-text)">Perth, Western Australia</p>
                 </div>
               </div>
               <div className="flex items-start space-x-4">
-                <FaClock className="w-6 h-6 text-[var(--foreground)] mt-1" />
+                <FaClock className="w-6 h-6 text-(--foreground) mt-1" />
                 <div>
-                  <h3 className="font-medium text-[var(--foreground)]">Availability</h3>
-                  <p className="text-[var(--secondary-text)]">Mon-Fri: 9:00 AM - 6:00 PM AWST</p>
+                  <h3 className="font-medium text-(--foreground)">Availability</h3>
+                  <p className="text-(--secondary-text)">Mon-Fri: 9:00 AM - 6:00 PM AWST</p>
                 </div>
               </div>
             </div>
             {/* Social Media Links */}
             <div className="mt-8">
-              <h3 className="font-medium text-[var(--foreground)] mb-4">Connect with me</h3>
+              <h3 className="font-medium text-(--foreground) mb-4">Connect with me</h3>
               <div className="flex space-x-4">
                 <a href="https://github.com/Misoto22" target="_blank" rel="noopener noreferrer" aria-label="GitHub" className="hover:scale-110 transition-transform">
                   <span className="bg-gray-900 rounded-full flex items-center justify-center w-10 h-10">
@@ -175,7 +175,7 @@ export default function Contact() {
             delay={0.2}
             width="full"
           >
-            <h2 className="text-2xl font-heading mb-6 text-[var(--foreground)]">Send me a message</h2>
+            <h2 className="text-2xl font-heading mb-6 text-(--foreground)">Send me a message</h2>
             <form onSubmit={handleSubmit} className="space-y-6">
               {status.submitted && (
                 <div className="p-4 bg-green-100 text-green-700 rounded-lg">
@@ -188,7 +188,7 @@ export default function Contact() {
                 </div>
               )}
               <div>
-                <label htmlFor="name" className="block text-sm font-medium text-[var(--foreground)] mb-2">
+                <label htmlFor="name" className="block text-sm font-medium text-(--foreground) mb-2">
                   Name
                 </label>
                 <input
@@ -196,12 +196,12 @@ export default function Contact() {
                   id="name"
                   value={formData.name}
                   onChange={(e) => setFormData({...formData, name: e.target.value})}
-                  className="w-full px-4 py-2 rounded-lg border border-[var(--border-color)] focus:outline-none focus:ring-2 focus:ring-[var(--foreground)] bg-[var(--background)] text-[var(--foreground)]"
+                  className="w-full px-4 py-2 rounded-lg border border-(--border-color) focus:outline-hidden focus:ring-2 focus:ring-(--foreground) bg-(--background) text-(--foreground)"
                   required
                 />
               </div>
               <div>
-                <label htmlFor="email" className="block text-sm font-medium text-[var(--foreground)] mb-2">
+                <label htmlFor="email" className="block text-sm font-medium text-(--foreground) mb-2">
                   Email
                 </label>
                 <input
@@ -209,12 +209,12 @@ export default function Contact() {
                   id="email"
                   value={formData.email}
                   onChange={(e) => setFormData({...formData, email: e.target.value})}
-                  className="w-full px-4 py-2 rounded-lg border border-[var(--border-color)] focus:outline-none focus:ring-2 focus:ring-[var(--foreground)] bg-[var(--background)] text-[var(--foreground)]"
+                  className="w-full px-4 py-2 rounded-lg border border-(--border-color) focus:outline-hidden focus:ring-2 focus:ring-(--foreground) bg-(--background) text-(--foreground)"
                   required
                 />
               </div>
               <div>
-                <label htmlFor="subject" className="block text-sm font-medium text-[var(--foreground)] mb-2">
+                <label htmlFor="subject" className="block text-sm font-medium text-(--foreground) mb-2">
                   Subject
                 </label>
                 <input
@@ -222,12 +222,12 @@ export default function Contact() {
                   id="subject"
                   value={formData.subject}
                   onChange={(e) => setFormData({...formData, subject: e.target.value})}
-                  className="w-full px-4 py-2 rounded-lg border border-[var(--border-color)] focus:outline-none focus:ring-2 focus:ring-[var(--foreground)] bg-[var(--background)] text-[var(--foreground)]"
+                  className="w-full px-4 py-2 rounded-lg border border-(--border-color) focus:outline-hidden focus:ring-2 focus:ring-(--foreground) bg-(--background) text-(--foreground)"
                   required
                 />
               </div>
               <div>
-                <label htmlFor="message" className="block text-sm font-medium text-[var(--foreground)] mb-2">
+                <label htmlFor="message" className="block text-sm font-medium text-(--foreground) mb-2">
                   Message
                 </label>
                 <textarea
@@ -235,14 +235,14 @@ export default function Contact() {
                   value={formData.message}
                   onChange={(e) => setFormData({...formData, message: e.target.value})}
                   rows={4}
-                  className="w-full px-4 py-2 rounded-lg border border-[var(--border-color)] focus:outline-none focus:ring-2 focus:ring-[var(--foreground)] bg-[var(--background)] text-[var(--foreground)]"
+                  className="w-full px-4 py-2 rounded-lg border border-(--border-color) focus:outline-hidden focus:ring-2 focus:ring-(--foreground) bg-(--background) text-(--foreground)"
                   required
                 />
               </div>
               <button
                 type="submit"
                 disabled={status.submitting}
-                className="w-full bg-[var(--foreground)] text-[var(--background)] py-3 rounded-lg font-medium hover:opacity-90 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                className="w-full bg-(--foreground) text-(--background) py-3 rounded-lg font-medium hover:opacity-90 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
               >
                 {status.submitting ? 'Sending...' : 'Send Message'}
               </button>
@@ -252,19 +252,19 @@ export default function Contact() {
 
         {/* Additional Information */}
         <Card delay={0.3} width="full" className="mb-16">
-          <h2 className="text-2xl font-heading mb-6 text-[var(--foreground)]">What to expect</h2>
+          <h2 className="text-2xl font-heading mb-6 text-(--foreground)">What to expect</h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             <div>
-              <h3 className="font-medium text-[var(--foreground)] mb-2">Response Time</h3>
-              <p className="text-[var(--secondary-text)]">I typically respond within 24-48 hours during business days.</p>
+              <h3 className="font-medium text-(--foreground) mb-2">Response Time</h3>
+              <p className="text-(--secondary-text)">I typically respond within 24-48 hours during business days.</p>
             </div>
             <div>
-              <h3 className="font-medium text-[var(--foreground)] mb-2">Job Opportunities</h3>
-              <p className="text-[var(--secondary-text)]">Open to discussing DevOps and Full-stack development roles.</p>
+              <h3 className="font-medium text-(--foreground) mb-2">Job Opportunities</h3>
+              <p className="text-(--secondary-text)">Open to discussing DevOps and Full-stack development roles.</p>
             </div>
             <div>
-              <h3 className="font-medium text-[var(--foreground)] mb-2">Photography</h3>
-              <p className="text-[var(--secondary-text)]">Always happy to connect with fellow photography enthusiasts!</p>
+              <h3 className="font-medium text-(--foreground) mb-2">Photography</h3>
+              <p className="text-(--secondary-text)">Always happy to connect with fellow photography enthusiasts!</p>
             </div>
           </div>
         </Card>

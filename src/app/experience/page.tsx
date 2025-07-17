@@ -22,7 +22,7 @@ export default async function ExperiencePage() {
   const experiences = await getExperience();
 
   return (
-    <section className="pt-24 min-h-screen bg-[var(--background)]">
+    <section className="pt-24 min-h-screen bg-(--background)">
       <div className="max-w-6xl mx-auto px-6">
         <PageHeader
           title="Professional Experience"

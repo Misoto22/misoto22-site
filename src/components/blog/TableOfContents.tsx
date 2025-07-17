@@ -238,10 +238,10 @@ const TableOfContents: React.FC<TableOfContentsProps> = ({ content }) => {
                 onClick={() => scrollToHeading(id)}
                 className={`
                   block w-full text-left text-sm transition-colors duration-200 py-2 px-3
-                  hover:text-[var(--foreground)]
+                  hover:text-(--foreground)
                   ${activeId === id
-                    ? 'text-[var(--foreground)] font-medium'
-                    : 'text-[var(--secondary-text)]'
+                    ? 'text-(--foreground) font-medium'
+                    : 'text-(--secondary-text)'
                   }
                 `}
                 style={{
