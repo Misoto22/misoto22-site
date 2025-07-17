@@ -4,13 +4,12 @@
 
 <img width="3840" height="2880" alt="753_2x_shots_so1" src="https://github.com/user-attachments/assets/3bbb7856-0998-4083-8dc0-ed9c01718a14" />
 
-
 *A modern, responsive personal portfolio website built with Next.js and TypeScript. Showcasing my projects, skills, experiences, and blog posts in an elegant and interactive way.*
 
 [![Next.js](https://img.shields.io/badge/Next.js-15-black?style=for-the-badge&logo=next.js)](https://nextjs.org/)
 [![React](https://img.shields.io/badge/React-19-blue?style=for-the-badge&logo=react)](https://react.dev/)
 [![TypeScript](https://img.shields.io/badge/TypeScript-5-blue?style=for-the-badge&logo=typescript)](https://www.typescriptlang.org/)
-[![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-3-38B2AC?style=for-the-badge&logo=tailwind-css)](https://tailwindcss.com/)
+[![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-4-38B2AC?style=for-the-badge&logo=tailwind-css)](https://tailwindcss.com/)
 [![Supabase](https://img.shields.io/badge/Supabase-3ECF8E?style=for-the-badge&logo=supabase)](https://supabase.com/)
 
 </div>
@@ -34,12 +33,11 @@
 | **Framework** | Next.js 15 with Turbopack |
 | **Language** | TypeScript 5 |
 | **UI Library** | React 19 |
-| **Styling** | Tailwind CSS |
+| **Styling** | Tailwind CSS 4 |
 | **Animation** | Framer Motion 12 |
-| **Icons** | Lucide React 0.511 & React Icons |
+| **Icons** | Lucide React 0.525 & React Icons |
 | **Database** | Supabase PostgreSQL |
 | **Storage** | Supabase Storage |
-| **Authentication** | Supabase Auth |
 | **Linting** | ESLint 9 |
 
 </div>
@@ -96,7 +94,7 @@ src/
 The application uses Supabase PostgreSQL with the following main tables:
 
 **Core Tables:**
-- `users` - User authentication and profile information
+- `users` - Blog author information and profile data
 - `blog_posts` - Blog content with metadata (title, slug, content, published_at)
 - `blog_categories` - Blog categorization system
 - `tags` - Tagging system for blog posts and projects
@@ -106,7 +104,6 @@ The application uses Supabase PostgreSQL with the following main tables:
 - `experience` - Professional experience and work history
 
 **Key Features:**
-- **Row Level Security (RLS)**: Secure data access patterns
 - **Real-time Updates**: Live data synchronization
 - **Automatic Scaling**: Managed PostgreSQL with auto-scaling
 - **Storage Integration**: Seamless file storage for images and assets
@@ -171,7 +168,6 @@ For detailed API documentation, see [API Documentation](src/app/api/README.md).
 | `pnpm run build` | Build for production |
 | `pnpm run start` | Start production server |
 | `pnpm run lint` | Run ESLint |
-| `pnpm run format` | Format code with Prettier |
 
 ## 🌐 Deployment
 
