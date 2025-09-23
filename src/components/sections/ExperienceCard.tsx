@@ -35,7 +35,9 @@ const ExperienceCard: React.FC<ExperienceCardProps> = ({ experience: exp, index 
               src={exp.logo}
               alt={`${exp.company} logo`}
               fill
+              sizes="(max-width: 768px) 128px, 128px"
               className="object-contain p-2"
+              priority={index === 0}
             />
           </div>
         </div>
