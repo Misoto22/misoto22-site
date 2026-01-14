@@ -35,6 +35,9 @@ yarn-error.log*
 # vercel
 .vercel
 
+# Node.js localStorage (Node v25+ compatibility fix)
+.node-localstorage/
+
 # typescript
 *.tsbuildinfo
 next-env.d.ts
