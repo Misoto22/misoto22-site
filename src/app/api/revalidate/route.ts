@@ -24,9 +24,9 @@ export async function POST(request: NextRequest) {
     }
 
     if (tag) {
-      // Revalidate specific tag
-      revalidateTag(tag)
-      return NextResponse.json({ 
+      // Revalidate specific tag with 'max' cache profile for SWR behavior
+      revalidateTag(tag, 'max')
+      return NextResponse.json({
         message: `Tag ${tag} revalidated successfully`,
         revalidated: true,
         now: Date.now()
