@@ -13,7 +13,7 @@
     ]
   },
   "scripts": {
-    "dev": "next dev",
+    "dev": "NODE_OPTIONS='--localstorage-file=./.node-localstorage/storage.db' next dev",
     "build": "next build",
     "start": "PORT=3000 HOST=0.0.0.0 next start",
     "lint": "next lint",
