@@ -10,7 +10,7 @@ const Footer = () => {
           <div className="space-y-4 md:w-1/2">
             <h3 className="text-lg font-medium text-(--foreground)">About Me</h3>
             <p className="text-(--secondary-text) leading-relaxed text-sm">
-              A Computer Science student and photographer based in Perth, capturing the beauty of urban landscapes
+              A Computer Science student and photographer based in Sydney, capturing the beauty of urban landscapes
               and natural wonders across Australia.
             </p>
           </div>

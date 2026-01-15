@@ -6,7 +6,7 @@ export const SITE_CONFIG = {
 
   // Contact Information
   EMAIL: 'cxw8848@hotmail.com',
-  LOCATION: 'Perth, Western Australia',
+  LOCATION: 'Sydney, New South Wales',
 
   // Social Links
   GITHUB_URL: 'https://github.com/Misoto22',

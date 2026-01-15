@@ -131,14 +131,14 @@ export default function Contact() {
                 <FaMapMarkerAlt className="w-6 h-6 text-(--foreground) mt-1" />
                 <div>
                   <h3 className="font-medium text-(--foreground)">Location</h3>
-                  <p className="text-(--secondary-text)">Perth, Western Australia</p>
+                  <p className="text-(--secondary-text)">Sydney, New South Wales</p>
                 </div>
               </div>
               <div className="flex items-start space-x-4">
                 <FaClock className="w-6 h-6 text-(--foreground) mt-1" />
                 <div>
                   <h3 className="font-medium text-(--foreground)">Availability</h3>
-                  <p className="text-(--secondary-text)">Mon-Fri: 9:00 AM - 6:00 PM AWST</p>
+                  <p className="text-(--secondary-text)">Mon-Fri: 9:00 AM - 6:00 PM AEST</p>
                 </div>
               </div>
             </div>
