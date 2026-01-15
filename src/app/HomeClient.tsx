@@ -89,10 +89,10 @@ export default function HomeClient() {
               <b>Professional Background:</b> As a Computer Science graduate, I combine technical expertise with practical problem-solving skills. My focus lies in full-stack development and DevOps engineering, where I leverage modern technologies to build efficient and scalable solutions.
             </p>
             <p className="leading-relaxed text-lg">
-              Having spent four years in Sydney before moving to Perth, I&apos;ve developed a unique perspective that bridges different Australian cultures and professional environments. This experience has enriched my understanding of both technology and human interaction.
+              Currently based in Sydney, I&apos;ve lived in different parts of Australia, which has given me a unique perspective that bridges diverse Australian cultures and professional environments. This experience has enriched my understanding of both technology and human interaction.
             </p>
             <p className="leading-relaxed text-lg">
-              <b>Photography Passion:</b> My photography journey is driven by three main themes: the raw beauty of nature, the dynamic energy of urban landscapes, and the subtle moments of human connection. Through my lens, I aim to capture the interplay between these elements, documenting both the grand vistas of Western Australia and the intimate details of city life.
+              <b>Photography Passion:</b> My photography journey is driven by three main themes: the raw beauty of nature, the dynamic energy of urban landscapes, and the subtle moments of human connection. Through my lens, I aim to capture the interplay between these elements, documenting both the grand vistas across Australia and the intimate details of city life.
             </p>
             <div className="pt-4">
               <motion.a
