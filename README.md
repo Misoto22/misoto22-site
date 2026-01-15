@@ -6,7 +6,7 @@
 
 *A modern, responsive personal portfolio website built with Next.js and TypeScript. Showcasing my projects, skills, experiences, and blog posts in an elegant and interactive way.*
 
-[![Next.js](https://img.shields.io/badge/Next.js-15-black?style=for-the-badge&logo=next.js)](https://nextjs.org/)
+[![Next.js](https://img.shields.io/badge/Next.js-16-black?style=for-the-badge&logo=next.js)](https://nextjs.org/)
 [![React](https://img.shields.io/badge/React-19-blue?style=for-the-badge&logo=react)](https://react.dev/)
 [![TypeScript](https://img.shields.io/badge/TypeScript-5-blue?style=for-the-badge&logo=typescript)](https://www.typescriptlang.org/)
 [![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-4-38B2AC?style=for-the-badge&logo=tailwind-css)](https://tailwindcss.com/)
@@ -30,7 +30,7 @@
 
 | Category | Technologies |
 |:--------:|:------------|
-| **Framework** | Next.js 15 with Turbopack |
+| **Framework** | Next.js 16 with Turbopack |
 | **Language** | TypeScript 5 |
 | **UI Library** | React 19 |
 | **Styling** | Tailwind CSS 4 |
@@ -44,7 +44,7 @@
 
 ## 🏗️ Project Architecture
 
-This is a modern full-stack personal website built with Next.js 15 and TypeScript, featuring a clean architecture that separates concerns between presentation, business logic, and data management. The application follows Next.js App Router conventions with server-side rendering, API routes, and optimized performance through Turbopack.
+This is a modern full-stack personal website built with Next.js 16 and TypeScript, featuring a clean architecture that separates concerns between presentation, business logic, and data management. The application follows Next.js App Router conventions with server-side rendering, API routes, and optimized performance through Turbopack.
 
 **Key Architectural Principles:**
 - **Component-Based**: Modular React components with clear separation of concerns
