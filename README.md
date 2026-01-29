@@ -110,15 +110,47 @@ The application uses Supabase PostgreSQL with the following main tables:
 
 ## 🔌 API Endpoints
 
-For detailed API documentation, see [API Documentation](src/app/api/README.md).
-
 | Endpoint | Method | Description | Status Codes |
 |:---------|:-------|:------------|:-------------|
 | `/api/photos` | GET | Paginated photo feed | 200, 400, 500 |
 | `/api/blog` | GET | Paginated blog posts | 200, 400, 500 |
 | `/api/blog/[slug]` | GET | Single blog post by slug | 200, 400, 404, 500 |
 | `/api/blog/categories` | GET | Blog categories | 200, 500 |
-| `/api/revalidate` | POST | Cache revalidation | 200, 401, 500 |
+| `/api/revalidate` | POST | On-demand ISR cache revalidation (requires `?secret=` query param) | 200, 401, 500 |
+
+### Revalidation API Usage
+
+The `/api/revalidate` endpoint supports on-demand ISR (Incremental Static Regeneration):
+
+**Authentication:** Pass secret via query parameter
+```bash
+POST /api/revalidate?secret=your_secret_token
+```
+
+**Optional Parameters:**
+- `path` - Revalidate specific path (e.g., `/blog`, `/projects`)
+- `tag` - Revalidate specific cache tag
+
+**Examples:**
+```bash
+# Revalidate a specific path
+curl -X POST "https://misoto22.com/api/revalidate?secret=xxx&path=/blog"
+
+# Revalidate by tag
+curl -X POST "https://misoto22.com/api/revalidate?secret=xxx&tag=photos"
+
+# Revalidate all main pages (no path/tag specified)
+curl -X POST "https://misoto22.com/api/revalidate?secret=xxx"
+```
+
+**Response:**
+```json
+{
+  "message": "Path /blog revalidated successfully",
+  "revalidated": true,
+  "now": 1706500000000
+}
+```
 
 ## 🚀 Development
 
@@ -144,13 +176,21 @@ For detailed API documentation, see [API Documentation](src/app/api/README.md).
 3. **Set up environment variables:**
    Create `.env.local` with your `Supabase` and `EmailJS` credentials:
    ```env
-   NEXT_PUBLIC_SUPABASE_URL=your-supabase-url
-   NEXT_PUBLIC_SUPABASE_ANON_KEY=your-supabase-anon-key
-   SUPABASE_SERVICE_ROLE_KEY=your-supabase-service-role-key
+   # Supabase Configuration
+   NEXT_PUBLIC_SUPABASE_URL=your_supabase_url_here
+   NEXT_PUBLIC_SUPABASE_ANON_KEY=your_supabase_anon_key_here
    
-   NEXT_PUBLIC_EMAILJS_PUBLIC_KEY=your-emailjs-public-key
-   NEXT_PUBLIC_EMAILJS_SERVICE_ID=your-emailjs-service-id
-   NEXT_PUBLIC_EMAILJS_TEMPLATE_ID=your-emailjs-template-id
+   # Email.js Configuration (for contact form)
+   NEXT_PUBLIC_EMAILJS_SERVICE_ID=your_emailjs_service_id
+   NEXT_PUBLIC_EMAILJS_TEMPLATE_ID=your_emailjs_template_id
+   NEXT_PUBLIC_EMAILJS_PUBLIC_KEY=your_emailjs_public_key
+   
+   # Revalidation Secret (for on-demand ISR)
+   REVALIDATION_SECRET=your_secret_token_here
+   
+   # Node.js Configuration (for Node v25+ compatibility)
+   # This fixes the localStorage issue in Node.js v25.x
+   NODE_OPTIONS=--localstorage-file=./.node-localstorage/storage.db
    ```
 
 4. **Run the development server:**
