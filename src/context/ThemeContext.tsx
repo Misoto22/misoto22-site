@@ -92,11 +92,6 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
     }
   }, [theme, updateResolvedTheme])
 
-  // Prevent hydration error
-  if (!mounted) {
-    return null
-  }
-
   return (
     <ThemeContext.Provider value={{ theme, resolvedTheme, setTheme, cycleTheme }}>
       {children}

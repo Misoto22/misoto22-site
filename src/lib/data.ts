@@ -250,16 +250,29 @@ export async function getBlogPosts(options: {
     }
 
     if (category) {
-      query = query.eq('blog_categories.name', category)
+      const { data: cat } = await supabase
+        .from('blog_categories')
+        .select('id')
+        .eq('name', category)
+        .single()
+      if (cat) {
+        query = query.eq('category_id', cat.id)
+      }
     }
 
     // Get total count
-    const countQuery = supabase
+    let countQuery = supabase
       .from('blog_posts')
       .select('*', { count: 'exact', head: true })
 
     if (published) {
-      countQuery.eq('is_published', true)
+      countQuery = countQuery.eq('is_published', true)
+    }
+
+    if (category) {
+      countQuery = countQuery.eq('category_id', (
+        await supabase.from('blog_categories').select('id').eq('name', category).single()
+      ).data?.id)
     }
 
     const { count } = await countQuery

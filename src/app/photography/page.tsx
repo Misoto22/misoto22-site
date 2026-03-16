@@ -1,15 +1,12 @@
 import { getPhotos } from '@/lib/data';
 import PhotographyClient from './PhotographyClient';
+import type { Metadata } from 'next'
 
-interface Photo {
-  id: string;
-  src: string;
-  width: number;
-  height: number;
-  alt: string;
+export const metadata: Metadata = {
+  title: 'Photography',
+  description: 'Capturing the beauty of urban landscapes and natural wonders across Australia.',
 }
 
-// Enable ISR with revalidation every 3600 seconds (1 hour)
 export const revalidate = 3600;
 
 export default async function PhotographyPage() {

@@ -31,7 +31,11 @@ const jetbrainsMono = JetBrains_Mono({
 })
 
 export const metadata: Metadata = {
-  title: `${DISPLAY_NAME} - ${SITE_TITLE}`,
+  metadataBase: new URL('https://misoto22.com'),
+  title: {
+    default: `${DISPLAY_NAME} - ${SITE_TITLE}`,
+    template: `%s - ${DISPLAY_NAME}`,
+  },
   description: SITE_DESCRIPTION,
   manifest: '/site.webmanifest',
   icons: {
@@ -42,6 +46,14 @@ export const metadata: Metadata = {
     ],
     apple: '/apple-touch-icon.png',
   },
+  openGraph: {
+    siteName: DISPLAY_NAME,
+    locale: 'en_AU',
+    type: 'website',
+  },
+  twitter: {
+    card: 'summary_large_image',
+  },
 }
 
 export default function RootLayout({
@@ -50,7 +62,21 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
+      <head>
+        <script dangerouslySetInnerHTML={{ __html: `
+          (function() {
+            try {
+              var theme = localStorage.getItem('theme') || 'system';
+              var resolved = theme;
+              if (theme === 'system') {
+                resolved = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+              }
+              if (resolved === 'dark') document.documentElement.classList.add('dark');
+            } catch(e) {}
+          })();
+        `}} />
+      </head>
       <body className={`${inter.className} ${inter.variable} ${dmSerifDisplay.variable} ${jetbrainsMono.variable}`}>
         <ThemeProvider>
           <Navigation />

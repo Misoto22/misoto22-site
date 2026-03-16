@@ -3,16 +3,11 @@ import PageHeader from '@/components/layout/PageHeader'
 import ProjectCard from '@/components/sections/ProjectCard'
 import { getProjects } from '@/lib/data'
 import { unstable_cache } from 'next/cache'
+import type { Metadata } from 'next'
 
-interface Project {
-  title: string;
-  description: string;
-  link: string;
-  deploy?: string;
-  technologies: string[];
-  image: string;
-  category: string;
-  order?: number;
+export const metadata: Metadata = {
+  title: 'Projects',
+  description: 'A selection of recent work, each representing a unique challenge.',
 }
 
 // Enable ISR with revalidation every 3600 seconds (1 hour)

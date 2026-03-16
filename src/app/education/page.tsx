@@ -2,6 +2,12 @@ import PageHeader from '@/components/layout/PageHeader'
 import EducationCard from '@/components/sections/EducationCard'
 import { Timeline, TimelineItem } from '@/components/sections/Timeline'
 import { getEducation } from '@/lib/data'
+import type { Metadata } from 'next'
+
+export const metadata: Metadata = {
+  title: 'Education',
+  description: 'Academic background and qualifications.',
+}
 
 export const revalidate = 3600
 

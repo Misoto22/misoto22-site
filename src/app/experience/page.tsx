@@ -2,6 +2,12 @@ import PageHeader from '@/components/layout/PageHeader'
 import ExperienceCard from '@/components/sections/ExperienceCard'
 import { Timeline, TimelineItem } from '@/components/sections/Timeline'
 import { getExperience } from '@/lib/data'
+import type { Metadata } from 'next'
+
+export const metadata: Metadata = {
+  title: 'Experience',
+  description: 'Professional experience and work history.',
+}
 
 export const revalidate = 3600
 
