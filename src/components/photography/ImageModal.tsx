@@ -1,25 +1,26 @@
-'use client';
+'use client'
 
-import React, { useEffect, useState } from 'react';
-import Image from 'next/image';
-import { IoClose, IoChevronBack, IoChevronForward } from 'react-icons/io5';
+import React, { useEffect, useState } from 'react'
+import Image from 'next/image'
+import { motion, AnimatePresence } from 'framer-motion'
+import { ANIMATION } from '@/lib/animation'
 
 interface ImageModalProps {
-  isOpen: boolean;
-  onClose: () => void;
+  isOpen: boolean
+  onClose: () => void
   photo: {
-    id: string;
-    src: string;
-    width: number;
-    height: number;
-    alt: string;
-  } | null;
-  onPrevious: () => void;
-  onNext: () => void;
-  currentIndex: number;
-  totalCount: number;
-  hasPrevious: boolean;
-  hasNext: boolean;
+    id: string
+    src: string
+    width: number
+    height: number
+    alt: string
+  } | null
+  onPrevious: () => void
+  onNext: () => void
+  currentIndex: number
+  totalCount: number
+  hasPrevious: boolean
+  hasNext: boolean
 }
 
 const ImageModal: React.FC<ImageModalProps> = ({
@@ -31,150 +32,143 @@ const ImageModal: React.FC<ImageModalProps> = ({
   currentIndex,
   totalCount,
   hasPrevious,
-  hasNext
+  hasNext,
 }) => {
-  const [loaded, setLoaded] = useState(false);
+  const [loaded, setLoaded] = useState(false)
 
-  // Reset loaded state when photo changes
   useEffect(() => {
-    setLoaded(false);
-  }, [photo]);
+    setLoaded(false)
+  }, [photo])
 
-  // Handle keyboard events
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
-      // Prevent global keyboard navigation when modal is open
       if (e.key === 'ArrowLeft' || e.key === 'ArrowRight') {
-        e.preventDefault();
-        e.stopPropagation();
+        e.preventDefault()
+        e.stopPropagation()
       }
-
-      if (e.key === 'Escape') {
-        onClose();
-      } else if (e.key === 'ArrowLeft' && hasPrevious) {
-        onPrevious();
-      } else if (e.key === 'ArrowRight' && hasNext) {
-        onNext();
-      }
-    };
-
-    if (isOpen) {
-      // Use capture phase to intercept events before global handlers
-      window.addEventListener('keydown', handleKeyDown, true);
+      if (e.key === 'Escape') onClose()
+      else if (e.key === 'ArrowLeft' && hasPrevious) onPrevious()
+      else if (e.key === 'ArrowRight' && hasNext) onNext()
     }
 
-    return () => {
-      window.removeEventListener('keydown', handleKeyDown, true);
-    };
-  }, [isOpen, onClose, onPrevious, onNext, hasPrevious, hasNext]);
+    if (isOpen) window.addEventListener('keydown', handleKeyDown, true)
+    return () => window.removeEventListener('keydown', handleKeyDown, true)
+  }, [isOpen, onClose, onPrevious, onNext, hasPrevious, hasNext])
 
-  // Hide scroll and scroll-to-top button when modal is open
   useEffect(() => {
-    const scrollToTopButton = document.querySelector('button[aria-label="Scroll to top"]');
-
+    const scrollToTopButton = document.querySelector('button[aria-label="Scroll to top"]')
     if (isOpen) {
-      document.body.style.overflow = 'hidden';
-      // Hide scroll to top button
-      if (scrollToTopButton) {
-        (scrollToTopButton as HTMLElement).style.display = 'none';
-      }
+      document.body.style.overflow = 'hidden'
+      if (scrollToTopButton) (scrollToTopButton as HTMLElement).style.display = 'none'
     } else {
-      document.body.style.overflow = '';
-      // Show scroll to top button
-      if (scrollToTopButton) {
-        (scrollToTopButton as HTMLElement).style.display = '';
-      }
+      document.body.style.overflow = ''
+      if (scrollToTopButton) (scrollToTopButton as HTMLElement).style.display = ''
     }
-
     return () => {
-      document.body.style.overflow = '';
-      // Restore scroll to top button
-      if (scrollToTopButton) {
-        (scrollToTopButton as HTMLElement).style.display = '';
-      }
-    };
-  }, [isOpen]);
-
-  if (!isOpen || !photo) return null;
+      document.body.style.overflow = ''
+      if (scrollToTopButton) (scrollToTopButton as HTMLElement).style.display = ''
+    }
+  }, [isOpen])
 
   return (
-    <div
-      className="fixed inset-0 z-50 flex items-center justify-center"
-      onClick={onClose}
-    >
-      {/* Backdrop */}
-      <div className="absolute inset-0 bg-black bg-opacity-90 backdrop-blur-xs" />
+    <AnimatePresence>
+      {isOpen && photo && (
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          transition={{ duration: ANIMATION.duration.normal }}
+          className="fixed inset-0 z-50 flex items-center justify-center"
+          onClick={onClose}
+        >
+          {/* Dark backdrop */}
+          <div className="absolute inset-0 bg-black/95" />
 
-      {/* Image container */}
-      <div
-        className="relative z-10 flex items-center justify-center w-full h-full px-4 py-4 md:px-24 md:py-20"
-        onClick={(e) => e.stopPropagation()}
-      >
-        {/* Image wrapper with relative positioning */}
-        <div className="relative w-full h-full max-w-[95vw] max-h-[90vh] md:max-w-[85vw] md:max-h-[85vh] flex items-center justify-center">
-          {/* Previous button - positioned outside image on desktop, overlay on mobile */}
-          {hasPrevious && (
-            <button
-              onClick={onPrevious}
-              className="absolute left-0 top-1/2 -translate-y-1/2 text-white hover:text-gray-300 transition-all duration-200 p-2 md:p-3 bg-black/30 hover:bg-black/50 rounded-full backdrop-blur-xs z-20
-                         md:-left-24 md:bg-black/50 md:hover:bg-black/70
-                         sm:left-2 sm:opacity-70 hover:opacity-100"
-              aria-label="Previous image"
-            >
-              <IoChevronBack size={20} className="md:w-6 md:h-6" />
-            </button>
-          )}
-
-          {/* Next button - positioned outside image on desktop, overlay on mobile */}
-          {hasNext && (
-            <button
-              onClick={onNext}
-              className="absolute right-0 top-1/2 -translate-y-1/2 text-white hover:text-gray-300 transition-all duration-200 p-2 md:p-3 bg-black/30 hover:bg-black/50 rounded-full backdrop-blur-xs z-20
-                         md:-right-24 md:bg-black/50 md:hover:bg-black/70
-                         sm:right-2 sm:opacity-70 hover:opacity-100"
-              aria-label="Next image"
-            >
-              <IoChevronForward size={20} className="md:w-6 md:h-6" />
-            </button>
-          )}
-
-          {/* Close button - positioned relative to image */}
-          <button
-            onClick={onClose}
-            className="absolute -top-8 md:-top-20 right-0 text-white hover:text-gray-300 transition-colors duration-200 p-2"
-            aria-label="Close modal"
+          <div
+            className="relative z-10 flex items-center justify-center w-full h-full px-4 py-4 md:px-16 md:py-12"
+            onClick={(e) => e.stopPropagation()}
           >
-            <IoClose size={28} className="md:w-8 md:h-8" />
-          </button>
+            <div className="relative w-full h-full max-w-[95vw] max-h-[90vh] md:max-w-[85vw] md:max-h-[85vh] flex items-center justify-center">
+              {/* Prev / Next as edge hotspots */}
+              {hasPrevious && (
+                <button
+                  onClick={onPrevious}
+                  className="absolute left-0 inset-y-0 w-16 md:w-24 z-20 flex items-center justify-start pl-2 md:pl-4 text-white/40 hover:text-white transition-colors duration-200"
+                  aria-label="Previous image"
+                >
+                  <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M15 19l-7-7 7-7" />
+                  </svg>
+                </button>
+              )}
 
-          {/* Image counter - positioned relative to image */}
-          <div className="absolute -top-8 md:-top-20 left-0 text-white text-sm bg-black/30 px-3 py-1 rounded-sm backdrop-blur-xs">
-            {currentIndex + 1} / {totalCount}
-          </div>
+              {hasNext && (
+                <button
+                  onClick={onNext}
+                  className="absolute right-0 inset-y-0 w-16 md:w-24 z-20 flex items-center justify-end pr-2 md:pr-4 text-white/40 hover:text-white transition-colors duration-200"
+                  aria-label="Next image"
+                >
+                  <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 5l7 7-7 7" />
+                  </svg>
+                </button>
+              )}
 
-          {/* Loading spinner */}
-          {!loaded && (
-            <div className="absolute inset-0 flex items-center justify-center">
-              <div className="w-10 h-10 border-4 border-gray-300 border-t-black rounded-full animate-spin" />
+              {/* Close button */}
+              <button
+                onClick={onClose}
+                className="absolute top-0 right-0 z-30 p-3 text-white/50 hover:text-white transition-colors duration-200"
+                aria-label="Close modal"
+              >
+                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M6 18L18 6M6 6l12 12" />
+                </svg>
+              </button>
+
+              {/* Counter */}
+              <div className="absolute bottom-0 left-1/2 -translate-x-1/2 z-30 text-white/50 font-mono text-xs tracking-widest">
+                {currentIndex + 1} / {totalCount}
+              </div>
+
+              {/* Loading */}
+              {!loaded && (
+                <div className="absolute inset-0 flex items-center justify-center">
+                  <div className="flex space-x-2">
+                    {[0, 1, 2].map((i) => (
+                      <div
+                        key={i}
+                        className="w-1.5 h-1.5 rounded-full bg-white/40 animate-[pulse_1.5s_infinite]"
+                        style={{ animationDelay: `${i * 0.2}s` }}
+                      />
+                    ))}
+                  </div>
+                </div>
+              )}
+
+              {/* Image */}
+              <motion.div
+                initial={{ scale: 0.95, opacity: 0 }}
+                animate={{ scale: 1, opacity: 1 }}
+                transition={{ duration: ANIMATION.duration.normal, ease: ANIMATION.ease.out }}
+              >
+                <Image
+                  src={photo.src}
+                  alt={photo.alt}
+                  width={photo.width}
+                  height={photo.height}
+                  className={`max-w-full max-h-[85vh] object-contain transition-opacity duration-300 ${
+                    loaded ? 'opacity-100' : 'opacity-0'
+                  }`}
+                  onLoad={() => setLoaded(true)}
+                  priority
+                />
+              </motion.div>
             </div>
-          )}
+          </div>
+        </motion.div>
+      )}
+    </AnimatePresence>
+  )
+}
 
-          {/* Main image */}
-          <Image
-            src={photo.src}
-            alt={photo.alt}
-            width={photo.width}
-            height={photo.height}
-            className={`max-w-full max-h-full object-contain transition-opacity duration-300 ${
-              loaded ? 'opacity-100' : 'opacity-0'
-            }`}
-            onLoad={() => setLoaded(true)}
-            priority
-          />
-        </div>
-      </div>
-    </div>
-  );
-};
-
-export default ImageModal;
+export default ImageModal

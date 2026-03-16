@@ -1,6 +1,6 @@
 // src/app/layout.tsx
 import './globals.css'
-import { Montserrat } from 'next/font/google'
+import { Inter, DM_Serif_Display, JetBrains_Mono } from 'next/font/google'
 import type { Metadata } from 'next'
 import Navigation from '@/components/layout/Navigation'
 import Footer from '@/components/layout/Footer'
@@ -11,7 +11,24 @@ import { SpeedInsights } from "@vercel/speed-insights/next"
 import { Analytics } from "@vercel/analytics/react"
 import { DISPLAY_NAME, SITE_TITLE, SITE_DESCRIPTION } from '@/lib/constants'
 
-const montserrat = Montserrat({ subsets: ['latin'], variable: '--font-montserrat' })
+const inter = Inter({
+  subsets: ['latin'],
+  variable: '--font-inter',
+  display: 'swap',
+})
+
+const dmSerifDisplay = DM_Serif_Display({
+  weight: '400',
+  subsets: ['latin'],
+  variable: '--font-dm-serif-display',
+  display: 'swap',
+})
+
+const jetbrainsMono = JetBrains_Mono({
+  subsets: ['latin'],
+  variable: '--font-jetbrains-mono',
+  display: 'swap',
+})
 
 export const metadata: Metadata = {
   title: `${DISPLAY_NAME} - ${SITE_TITLE}`,
@@ -34,7 +51,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={`${montserrat.className} ${montserrat.variable}`}>
+      <body className={`${inter.className} ${inter.variable} ${dmSerifDisplay.variable} ${jetbrainsMono.variable}`}>
         <ThemeProvider>
           <Navigation />
           <KeyboardNavigation>

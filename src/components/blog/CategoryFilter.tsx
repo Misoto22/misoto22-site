@@ -2,7 +2,6 @@
 
 import React, { useState, useEffect } from 'react'
 import { BlogCategory } from '@/lib/supabase'
-import { motion } from 'framer-motion'
 
 interface CategoryFilterProps {
   selectedCategory?: string
@@ -36,11 +35,11 @@ const CategoryFilter: React.FC<CategoryFilterProps> = ({
 
   if (loading) {
     return (
-      <div className="flex space-x-2">
+      <div className="flex gap-6">
         {[...Array(4)].map((_, i) => (
           <div
             key={i}
-            className="h-8 w-20 bg-(--border-color) rounded-full animate-pulse"
+            className="h-5 w-16 bg-(--border-color) rounded-sm animate-pulse"
           />
         ))}
       </div>
@@ -48,38 +47,31 @@ const CategoryFilter: React.FC<CategoryFilterProps> = ({
   }
 
   return (
-    <div className="space-y-4">
-      <h3 className="text-lg font-medium text-(--foreground) text-center">Categories</h3>
-      <div className="flex flex-wrap justify-center gap-3">
-        <motion.button
-          whileHover={{ scale: 1.05 }}
-          whileTap={{ scale: 0.95 }}
-          onClick={() => onCategoryChange(undefined)}
-          className={`px-6 py-3 rounded-full text-sm font-medium transition-all duration-200 ${
-            !selectedCategory
-              ? 'bg-(--foreground) text-(--background) shadow-lg'
-              : 'bg-(--card-background) text-(--foreground) border border-(--border-color) hover:bg-(--background) hover:shadow-md'
+    <div className="flex flex-wrap gap-6">
+      <button
+        onClick={() => onCategoryChange(undefined)}
+        className={`text-sm transition-colors duration-200 ${
+          !selectedCategory
+            ? 'text-(--foreground) underline underline-offset-4 decoration-(--accent)'
+            : 'text-(--secondary-text) hover:text-(--foreground)'
+        }`}
+      >
+        All
+      </button>
+
+      {categories.map((category) => (
+        <button
+          key={category.id}
+          onClick={() => onCategoryChange(category.name)}
+          className={`text-sm transition-colors duration-200 ${
+            selectedCategory === category.name
+              ? 'text-(--foreground) underline underline-offset-4 decoration-(--accent)'
+              : 'text-(--secondary-text) hover:text-(--foreground)'
           }`}
         >
-          All Posts
-        </motion.button>
-
-        {categories.map((category) => (
-          <motion.button
-            key={category.id}
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-            onClick={() => onCategoryChange(category.name)}
-            className={`px-6 py-3 rounded-full text-sm font-medium transition-all duration-200 ${
-              selectedCategory === category.name
-                ? 'bg-(--foreground) text-(--background) shadow-lg'
-                : 'bg-(--card-background) text-(--foreground) border border-(--border-color) hover:bg-(--background) hover:shadow-md'
-            }`}
-          >
-            {category.name}
-          </motion.button>
-        ))}
-      </div>
+          {category.name}
+        </button>
+      ))}
     </div>
   )
 }

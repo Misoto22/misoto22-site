@@ -1,0 +1,112 @@
+'use client'
+
+import Image from 'next/image'
+import Link from 'next/link'
+import { motion } from 'framer-motion'
+import { fadeInUp, ANIMATION, viewportConfig } from '@/lib/animation'
+import Tag from '@/components/ui/Tag'
+import SectionHeading from '@/components/layout/SectionHeading'
+import type { Project } from '@/lib/supabase'
+
+interface FeaturedWorkProps {
+  projects: Project[]
+}
+
+export default function FeaturedWork({ projects }: FeaturedWorkProps) {
+  if (projects.length === 0) return null
+
+  const featured = projects.slice(0, 3)
+  const [first, ...rest] = featured
+
+  return (
+    <section className="py-16 md:py-24 max-w-7xl mx-auto px-6">
+      <SectionHeading title="Selected Work" subtitle="Projects I've built recently" />
+
+      <div className="space-y-8">
+        {/* 首个项目 — 全宽 */}
+        {first && (
+          <FeaturedCard project={first} delay={0} large />
+        )}
+
+        {/* 剩余项目 — 双列 */}
+        {rest.length > 0 && (
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+            {rest.map((project, i) => (
+              <FeaturedCard key={project.title} project={project} delay={(i + 1) * 0.1} />
+            ))}
+          </div>
+        )}
+      </div>
+
+      <motion.div
+        variants={fadeInUp}
+        initial="hidden"
+        whileInView="visible"
+        viewport={viewportConfig}
+        transition={{ duration: ANIMATION.duration.slow, ease: ANIMATION.ease.out }}
+        className="mt-8"
+      >
+        <Link
+          href="/projects"
+          className="text-sm text-(--accent) hover:text-(--accent-hover) transition-colors duration-200 flex items-center gap-2"
+        >
+          View all projects <span aria-hidden="true">&rarr;</span>
+        </Link>
+      </motion.div>
+    </section>
+  )
+}
+
+function FeaturedCard({
+  project,
+  delay = 0,
+  large = false,
+}: {
+  project: Project
+  delay?: number
+  large?: boolean
+}) {
+  const href = project.deploy || project.link || '#'
+
+  return (
+    <motion.div
+      variants={fadeInUp}
+      initial="hidden"
+      whileInView="visible"
+      viewport={viewportConfig}
+      transition={{ duration: ANIMATION.duration.slow, delay, ease: ANIMATION.ease.out }}
+    >
+      <Link href={href} target="_blank" rel="noopener noreferrer" className="group block">
+        <div
+          className={`relative overflow-hidden rounded-xl border border-(--border-color) hover:border-(--accent) transition-colors duration-300 ${
+            large ? 'aspect-[21/9]' : 'aspect-video'
+          }`}
+        >
+          {project.image && (
+            <Image
+              src={project.image}
+              alt={project.title}
+              fill
+              className="object-cover group-hover:scale-[1.02] transition-transform duration-500"
+              sizes={large ? '(max-width: 1280px) 100vw, 1280px' : '(max-width: 768px) 100vw, 50vw'}
+            />
+          )}
+          <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent" />
+          <div className="absolute bottom-0 left-0 right-0 p-6 md:p-8">
+            <h3 className="font-heading text-xl md:text-2xl text-white mb-2">
+              {project.title}
+            </h3>
+            <p className="text-white/80 text-sm mb-3 line-clamp-2">{project.description}</p>
+            {project.technologies && (
+              <div className="flex flex-wrap gap-2">
+                {project.technologies.slice(0, 4).map((tech) => (
+                  <Tag key={tech} className="bg-white/10 text-white/90 border-0">{tech}</Tag>
+                ))}
+              </div>
+            )}
+          </div>
+        </div>
+      </Link>
+    </motion.div>
+  )
+}

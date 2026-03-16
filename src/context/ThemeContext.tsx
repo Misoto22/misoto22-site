@@ -8,6 +8,7 @@ type ThemeContextType = {
   theme: Theme
   resolvedTheme: 'light' | 'dark' // The actual theme being used
   setTheme: (theme: Theme) => void
+  cycleTheme: () => void
 }
 
 const ThemeContext = createContext<ThemeContextType | undefined>(undefined)
@@ -46,6 +47,14 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
     localStorage.setItem('theme', newTheme)
     updateResolvedTheme(newTheme)
   }, [updateResolvedTheme])
+
+  // Cycle through themes: light → dark → system → light
+  const cycleTheme = useCallback(() => {
+    const order: Theme[] = ['light', 'dark', 'system']
+    const currentIndex = order.indexOf(theme)
+    const nextTheme = order[(currentIndex + 1) % order.length]
+    setTheme(nextTheme)
+  }, [theme, setTheme])
 
   // Initial setup
   useEffect(() => {
@@ -89,7 +98,7 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
   }
 
   return (
-    <ThemeContext.Provider value={{ theme, resolvedTheme, setTheme }}>
+    <ThemeContext.Provider value={{ theme, resolvedTheme, setTheme, cycleTheme }}>
       {children}
     </ThemeContext.Provider>
   )

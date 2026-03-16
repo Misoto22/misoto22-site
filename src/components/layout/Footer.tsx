@@ -1,69 +1,80 @@
 import { FaGithub, FaLinkedin, FaInstagram } from 'react-icons/fa'
 import { FULL_NAME, EMAIL, LOCATION, GITHUB_URL, LINKEDIN_URL, INSTAGRAM_URL } from '@/lib/constants'
+import Link from 'next/link'
 
 const Footer = () => {
   return (
-    <footer className="mt-24 border-t border-(--border-color) bg-(--background)">
-      <div className="max-w-6xl mx-auto px-6 py-16">
-        <div className="flex flex-col md:flex-row md:justify-between md:items-start gap-12 mb-12">
-          {/* About */}
-          <div className="space-y-4 md:w-1/2">
-            <h3 className="text-lg font-medium text-(--foreground)">About Me</h3>
-            <p className="text-(--secondary-text) leading-relaxed text-sm">
-              A Computer Science student and photographer based in Sydney, capturing the beauty of urban landscapes
-              and natural wonders across Australia.
+    <footer className="border-t border-(--border-color) bg-(--background)">
+      <div className="max-w-7xl mx-auto px-6 py-16 md:py-20">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-12 md:gap-8 mb-16">
+          {/* Brand */}
+          <div className="space-y-4">
+            <Link href="/" className="font-heading text-xl text-(--foreground)">
+              {FULL_NAME}
+            </Link>
+            <p className="text-(--secondary-text) text-sm leading-relaxed max-w-xs">
+              Fullstack developer & photographer based in Sydney, building thoughtful software and capturing quiet moments.
             </p>
           </div>
 
-          {/* Contact & Social */}
-          <div className="space-y-4 md:w-1/2 md:text-right">
-            <h3 className="text-lg font-medium text-(--foreground)">Contact</h3>
-            <div className="space-y-2">
-              <p className="text-sm text-(--secondary-text)">
-                <a
-                  href={`mailto:${EMAIL}`}
-                  className="hover:text-(--foreground) transition-colors"
+          {/* Navigation */}
+          <div className="space-y-4">
+            <h3 className="text-xs font-mono uppercase tracking-widest text-(--secondary-text)">Navigate</h3>
+            <nav className="flex flex-col space-y-2">
+              {[
+                { href: '/projects', text: 'Work' },
+                { href: '/photography', text: 'Photography' },
+                { href: '/blog', text: 'Writing' },
+                { href: '/contact', text: 'Contact' },
+              ].map((link) => (
+                <Link
+                  key={link.href}
+                  href={link.href}
+                  className="text-sm text-(--foreground-muted) hover:text-(--foreground) transition-colors duration-200 w-fit"
                 >
-                  {EMAIL}
-                </a>
-              </p>
+                  {link.text}
+                </Link>
+              ))}
+            </nav>
+          </div>
+
+          {/* Contact */}
+          <div className="space-y-4">
+            <h3 className="text-xs font-mono uppercase tracking-widest text-(--secondary-text)">Connect</h3>
+            <div className="space-y-2">
+              <a
+                href={`mailto:${EMAIL}`}
+                className="block text-sm text-(--foreground-muted) hover:text-(--foreground) transition-colors duration-200"
+              >
+                {EMAIL}
+              </a>
               <p className="text-sm text-(--secondary-text)">{LOCATION}</p>
             </div>
-            <div className="flex justify-start md:justify-end space-x-6 pt-4">
-              <a
-                href={GITHUB_URL}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-(--secondary-text) hover:text-(--foreground) transition-colors"
-                aria-label="GitHub"
-              >
-                <FaGithub size={24} />
-              </a>
-              <a
-                href={LINKEDIN_URL}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-(--secondary-text) hover:text-(--foreground) transition-colors"
-                aria-label="LinkedIn"
-              >
-                <FaLinkedin size={24} />
-              </a>
-              <a
-                href={INSTAGRAM_URL}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-(--secondary-text) hover:text-(--foreground) transition-colors"
-                aria-label="Instagram"
-              >
-                <FaInstagram size={24} />
-              </a>
+            <div className="flex space-x-5 pt-2">
+              {[
+                { href: GITHUB_URL, icon: FaGithub, label: 'GitHub' },
+                { href: LINKEDIN_URL, icon: FaLinkedin, label: 'LinkedIn' },
+                { href: INSTAGRAM_URL, icon: FaInstagram, label: 'Instagram' },
+              ].map(({ href, icon: Icon, label }) => (
+                <a
+                  key={label}
+                  href={href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-(--secondary-text) hover:text-(--foreground) transition-colors duration-200"
+                  aria-label={label}
+                >
+                  <Icon size={20} />
+                </a>
+              ))}
             </div>
           </div>
         </div>
-        {/* Copyright */}
-        <div className="pt-8 border-t border-(--border-color)">
-          <p className="text-sm text-center text-(--secondary-text)">
-            © {new Date().getFullYear()} {FULL_NAME}. All rights reserved.
+
+        {/* Divider + copyright */}
+        <div className="pt-8 border-t border-(--border-subtle)">
+          <p className="text-xs font-mono text-(--secondary-text) tracking-wide">
+            © {new Date().getFullYear()} {FULL_NAME}
           </p>
         </div>
       </div>

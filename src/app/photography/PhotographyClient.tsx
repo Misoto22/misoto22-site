@@ -1,160 +1,162 @@
-'use client';
+'use client'
 
-import { useState, useEffect, useCallback } from 'react';
-import Image from 'next/image';
-import Masonry from 'react-masonry-css';
-import ImageModal from '@/components/photography/ImageModal';
-import PageHeader from '@/components/layout/PageHeader';
+import { useState, useEffect, useCallback } from 'react'
+import Image from 'next/image'
+import Masonry from 'react-masonry-css'
+import ImageModal from '@/components/photography/ImageModal'
+import { motion } from 'framer-motion'
+import { fadeInUp, ANIMATION, viewportConfig } from '@/lib/animation'
 
 interface Photo {
-  id: string;
-  src: string;
-  width: number;
-  height: number;
-  alt: string;
+  id: string
+  src: string
+  width: number
+  height: number
+  alt: string
 }
 
 interface PhotosData {
-  photos: Photo[];
-  hasMore: boolean;
-  totalCount: number;
+  photos: Photo[]
+  hasMore: boolean
+  totalCount: number
 }
 
 interface PhotographyClientProps {
-  initialData: PhotosData;
+  initialData: PhotosData
 }
 
 export default function PhotographyClient({ initialData }: PhotographyClientProps) {
-  const [mounted, setMounted] = useState(false);
-  const [modalOpen, setModalOpen] = useState(false);
-  const [selectedPhoto, setSelectedPhoto] = useState<Photo | null>(null);
-  const [selectedPhotoIndex, setSelectedPhotoIndex] = useState<number>(0);
-  const [photos, setPhotos] = useState<Photo[]>(initialData.photos);
-  const [hasMore, setHasMore] = useState(initialData.hasMore);
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState<string | null>(null);
-  const [currentPage, setCurrentPage] = useState(1);
+  const [mounted, setMounted] = useState(false)
+  const [modalOpen, setModalOpen] = useState(false)
+  const [selectedPhoto, setSelectedPhoto] = useState<Photo | null>(null)
+  const [selectedPhotoIndex, setSelectedPhotoIndex] = useState<number>(0)
+  const [photos, setPhotos] = useState<Photo[]>(initialData.photos)
+  const [hasMore, setHasMore] = useState(initialData.hasMore)
+  const [loading, setLoading] = useState(false)
+  const [error, setError] = useState<string | null>(null)
+  const [currentPage, setCurrentPage] = useState(1)
 
-  // Define breakpoints for the Masonry layout
   const breakpointColumnsObj = {
     default: 3,
     1200: 3,
-    900: 2,
-    600: 1
-  };
+    768: 2,
+    480: 1,
+  }
 
-  // Handle photo click to open modal
   const handlePhotoClick = (photo: Photo) => {
-    const index = photos.findIndex(p => p.id === photo.id);
-    setSelectedPhoto(photo);
-    setSelectedPhotoIndex(index);
-    setModalOpen(true);
-  };
+    const index = photos.findIndex((p) => p.id === photo.id)
+    setSelectedPhoto(photo)
+    setSelectedPhotoIndex(index)
+    setModalOpen(true)
+  }
 
-  // Navigate to previous photo
   const handlePreviousPhoto = () => {
     if (selectedPhotoIndex > 0) {
-      const newIndex = selectedPhotoIndex - 1;
-      setSelectedPhotoIndex(newIndex);
-      setSelectedPhoto(photos[newIndex]);
+      const newIndex = selectedPhotoIndex - 1
+      setSelectedPhotoIndex(newIndex)
+      setSelectedPhoto(photos[newIndex])
     }
-  };
+  }
 
-  // Navigate to next photo
   const handleNextPhoto = () => {
     if (selectedPhotoIndex < photos.length - 1) {
-      const newIndex = selectedPhotoIndex + 1;
-      setSelectedPhotoIndex(newIndex);
-      setSelectedPhoto(photos[newIndex]);
+      const newIndex = selectedPhotoIndex + 1
+      setSelectedPhotoIndex(newIndex)
+      setSelectedPhoto(photos[newIndex])
     }
-  };
+  }
 
-  // Close modal
   const handleCloseModal = () => {
-    setModalOpen(false);
-    setSelectedPhoto(null);
-  };
+    setModalOpen(false)
+    setSelectedPhoto(null)
+  }
 
-  // Load more photos
   const loadMore = useCallback(async () => {
-    if (loading || !hasMore) return;
+    if (loading || !hasMore) return
 
-    setLoading(true);
-    setError(null);
+    setLoading(true)
+    setError(null)
 
     try {
-      const nextPage = currentPage + 1;
-      const response = await fetch(`/api/photos?page=${nextPage}&limit=8`);
+      const nextPage = currentPage + 1
+      const response = await fetch(`/api/photos?page=${nextPage}&limit=8`)
 
-      if (!response.ok) {
-        throw new Error('Failed to fetch photos');
-      }
+      if (!response.ok) throw new Error('Failed to fetch photos')
 
-      const data = await response.json();
-
-      setPhotos(prevPhotos => [...prevPhotos, ...data.photos]);
-      setHasMore(data.hasMore);
-      setCurrentPage(nextPage);
+      const data = await response.json()
+      setPhotos((prev) => [...prev, ...data.photos])
+      setHasMore(data.hasMore)
+      setCurrentPage(nextPage)
     } catch (err) {
-      setError(err instanceof Error ? err.message : 'Failed to load more photos');
+      setError(err instanceof Error ? err.message : 'Failed to load more photos')
     } finally {
-      setLoading(false);
+      setLoading(false)
     }
-  }, [loading, hasMore, currentPage]);
+  }, [loading, hasMore, currentPage])
 
-  // Effect for initial mounting
   useEffect(() => {
-    setMounted(true);
-  }, []);
+    setMounted(true)
+  }, [])
 
-  // Effect for intersection observer
   useEffect(() => {
-    if (!mounted) return;
+    if (!mounted) return
 
-    const observer = new IntersectionObserver((entries) => {
-      if (entries[0].isIntersecting && !loading && hasMore) {
-        loadMore();
-      }
-    }, { threshold: 0.1 });
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (entries[0].isIntersecting && !loading && hasMore) {
+          loadMore()
+        }
+      },
+      { threshold: 0.1 }
+    )
 
-    const loadingElement = document.getElementById('loading-indicator');
-    if (loadingElement) {
-      observer.observe(loadingElement);
-    }
+    const loadingElement = document.getElementById('loading-indicator')
+    if (loadingElement) observer.observe(loadingElement)
 
     return () => {
-      if (loadingElement) {
-        observer.unobserve(loadingElement);
-      }
-    };
-  }, [mounted, loading, hasMore, loadMore]);
+      if (loadingElement) observer.unobserve(loadingElement)
+    }
+  }, [mounted, loading, hasMore, loadMore])
 
-  if (!mounted) {
-    return null;
-  }
+  if (!mounted) return null
 
   return (
     <main className="pt-24 min-h-screen bg-(--background)">
-      <div className="max-w-6xl mx-auto px-6">
-        <PageHeader
-          title="Photography"
-          description="My photography portfolio, capturing the beauty of nature and the city."
-        />
+      {/* Hero header — editorial style */}
+      <div className="max-w-7xl mx-auto px-6 mb-12 md:mb-16">
+        <motion.div
+          variants={fadeInUp}
+          initial="hidden"
+          whileInView="visible"
+          viewport={viewportConfig}
+          transition={{ duration: ANIMATION.duration.slow, ease: ANIMATION.ease.out }}
+        >
+          <h1 className="font-heading text-5xl md:text-6xl lg:text-7xl text-(--foreground) mb-4">
+            Photography
+          </h1>
+          <div className="w-12 h-px bg-(--accent) mb-4" />
+          <p className="text-(--secondary-text) text-lg max-w-xl">
+            Capturing the beauty of urban landscapes and natural wonders across Australia.
+          </p>
+        </motion.div>
+      </div>
 
+      {/* Full-bleed masonry grid */}
+      <div className="px-2 md:px-4">
         {photos.length > 0 ? (
           <Masonry
             breakpointCols={breakpointColumnsObj}
-            className="flex w-full sm:-ml-4 contain-[layout_style] will-change-contents [transform:translateZ(0)]"
-            columnClassName="sm:pl-4 bg-clip-padding contain-[layout_style] will-change-transform [transform:translateZ(0)] h-full"
+            className="flex w-full -ml-2 md:-ml-4"
+            columnClassName="pl-2 md:pl-4 bg-clip-padding"
           >
             {photos.map((photo) => (
               <div
                 key={photo.id}
-                className="mb-3 sm:mb-4 block relative cursor-pointer animate-[fadeIn_0.5s_ease-in-out] will-change-[opacity] [transform:translateZ(0)] contain-[layout_paint_style] min-h-[100px] group"
+                className="mb-2 md:mb-4 relative cursor-pointer group"
                 onClick={() => handlePhotoClick(photo)}
               >
                 <div
-                  className="relative w-full overflow-hidden bg-(--card-background,#f0f0f0) bg-linear-to-r from-transparent via-white/50 to-transparent bg-size-[200%_100%] animate-[shimmer_1.5s_infinite] min-h-[100px] contain-[layout_paint] hover:shadow-[0_8px_30px_rgb(0,0,0,0.12)] transition-shadow duration-300"
+                  className="relative w-full overflow-hidden rounded-sm bg-(--border-subtle)"
                   style={{ paddingBottom: `${(photo.height / photo.width) * 100}%` }}
                 >
                   <Image
@@ -164,28 +166,21 @@ export default function PhotographyClient({ initialData }: PhotographyClientProp
                     loading="lazy"
                     placeholder="blur"
                     blurDataURL="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPjxyZWN0IHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiIGZpbGw9IiNlZWVlZWUiLz48L3N2Zz4="
-                    className="w-full h-auto object-cover block"
-                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                    onError={(e) => {
-                      const target = e.target as HTMLElement;
-                      target.parentElement?.remove();
-                    }}
+                    className="object-cover transition-all duration-500 group-hover:brightness-105 group-hover:scale-[1.01]"
+                    sizes="(max-width: 480px) 100vw, (max-width: 768px) 50vw, 33vw"
                     style={{
-                      objectFit: 'cover',
                       opacity: 0,
-                      transition: 'opacity 0.5s ease-in-out',
-                      transform: 'translateZ(0)',
-                      willChange: 'opacity'
+                      transition: 'opacity 0.5s ease-in-out, filter 0.3s, transform 0.5s',
                     }}
                     onLoad={(event) => {
                       requestAnimationFrame(() => {
-                        const img = event.currentTarget;
-                        img.style.opacity = '1';
-                      });
+                        event.currentTarget.style.opacity = '1'
+                      })
                     }}
                   />
-                  <div className="absolute bottom-2 right-2 bg-black/70 text-white px-2.5 py-1 rounded-sm text-xs opacity-0 group-hover:opacity-90 transition-opacity duration-200">
-                    View Full Size
+                  {/* Hover caption */}
+                  <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/60 to-transparent p-4 translate-y-full group-hover:translate-y-0 transition-transform duration-300">
+                    <p className="text-white text-sm">{photo.alt}</p>
                   </div>
                 </div>
               </div>
@@ -193,34 +188,36 @@ export default function PhotographyClient({ initialData }: PhotographyClientProp
           </Masonry>
         ) : (
           <div className="flex justify-center items-center min-h-[200px]">
-            <div className="text-gray-500 text-center">
-              <p>No photos available at the moment.</p>
-            </div>
+            <p className="text-(--secondary-text)">No photos available at the moment.</p>
           </div>
         )}
 
-        {/* Loading indicator for infinite scroll */}
+        {/* Loading indicator */}
         {hasMore && (
-          <div id="loading-indicator" className="flex justify-center items-center py-8">
+          <div id="loading-indicator" className="flex justify-center items-center py-12">
             {loading ? (
-              <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-gray-900 dark:border-white"></div>
+              <div className="flex space-x-2">
+                {[0, 1, 2].map((i) => (
+                  <div
+                    key={i}
+                    className="w-2 h-2 rounded-full bg-(--accent) animate-[pulse_1.5s_infinite]"
+                    style={{ animationDelay: `${i * 0.2}s` }}
+                  />
+                ))}
+              </div>
             ) : (
-              <div className="h-8 w-8"></div>
+              <div className="h-8" />
             )}
           </div>
         )}
 
-        {/* Error state */}
         {error && (
-          <div className="flex justify-center items-center min-h-[200px]">
-            <div className="text-red-500 text-center">
-              <p>Error loading photos: {error}</p>
-            </div>
+          <div className="flex justify-center items-center py-8">
+            <p className="text-red-500 text-sm">{error}</p>
           </div>
         )}
       </div>
 
-      {/* Image Modal */}
       <ImageModal
         isOpen={modalOpen}
         photo={selectedPhoto}
@@ -233,5 +230,5 @@ export default function PhotographyClient({ initialData }: PhotographyClientProp
         hasNext={selectedPhotoIndex < photos.length - 1}
       />
     </main>
-  );
+  )
 }

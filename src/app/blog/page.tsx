@@ -31,12 +31,11 @@ export default async function BlogPage() {
   const initialData = await getCachedBlogPosts({ page: 1, limit: 10 })
 
   return (
-    <section className="pt-24 min-h-screen bg-(--background)">
-      <div className="max-w-6xl mx-auto px-6">
+    <section className="pt-24 pb-24 min-h-screen bg-(--background)">
+      <div className="max-w-7xl mx-auto px-6">
         <PageHeader
-          title="Blog"
-          description="Sharing thoughts, insights, and experiences in fullstack development, DevOps, photography and life."
-          showDivider={true}
+          title="Writing"
+          description="Thoughts on development, DevOps, photography, and life."
         />
 
         <BlogClient initialData={initialData} />

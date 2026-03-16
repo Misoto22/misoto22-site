@@ -35,24 +35,20 @@ export default async function Projects() {
   const projects = await getCachedProjects();
 
   return (
-    <section className="pt-24 min-h-screen bg-(--background)">
-      <div className="max-w-6xl mx-auto px-6">
+    <section className="pt-24 pb-24 min-h-screen bg-(--background)">
+      <div className="max-w-7xl mx-auto px-6">
         <PageHeader
           title="Projects"
-          description="Here are some of my recent projects. Each one represents a unique challenge and learning opportunity."
+          description="A selection of recent work, each representing a unique challenge."
         />
 
-        <div className="space-y-16">
+        <div className="space-y-20">
           {projects && projects.length > 0 ? (
             projects.map((project, index) => (
               <ProjectCard key={index} project={project} index={index} />
             ))
           ) : (
-            <div className="flex justify-center items-center min-h-[200px]">
-              <div className="text-gray-500 text-center">
-                <p>No projects available at the moment.</p>
-              </div>
-            </div>
+            <p className="text-(--secondary-text)">No projects available at the moment.</p>
           )}
         </div>
       </div>

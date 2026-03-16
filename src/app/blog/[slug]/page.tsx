@@ -84,7 +84,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
 
   return (
     <section className="pt-24 min-h-screen bg-(--background)">
-      <div className="max-w-6xl mx-auto px-6 pb-12">
+      <div className="max-w-7xl mx-auto px-6 pb-12">
         <BlogPostContent post={post} />
       </div>
     </section>

@@ -2,10 +2,10 @@
 export const SITE_CONFIG = {
   // Personal Information
   FULL_NAME: 'Henry Chen',
-  DISPLAY_NAME: 'HENRY CHEN', // For navigation/logo
+  DISPLAY_NAME: 'Henry Chen', // Serif wordmark in nav
 
   // Contact Information
-  EMAIL: 'cxw8848@hotmail.com',
+  EMAIL: 'henrycxw@gmail.com',
   LOCATION: 'Sydney, New South Wales',
 
   // Social Links
@@ -25,14 +25,9 @@ export const SITE_CONFIG = {
 // Navigation Configuration
 export const NAV_PAGES = [
   { href: '/', text: 'Home' },
-  {
-    text: 'Portfolio',
-    children: [
-      { href: '/projects', text: 'Projects' },
-      { href: '/photography', text: 'Photography' },
-      { href: '/blog', text: 'Blog' }
-    ]
-  },
+  { href: '/projects', text: 'Work' },
+  { href: '/photography', text: 'Photography' },
+  { href: '/blog', text: 'Writing' },
   {
     text: 'About',
     children: [

@@ -1,118 +1,137 @@
 'use client'
 
 import React from 'react'
-import Image from 'next/image'
-import FadeInSlideUp from '@/components/animations/FadeInSlideUp'
+import PageHeader from '@/components/layout/PageHeader'
+import Badge from '@/components/ui/Badge'
+import { motion } from 'framer-motion'
+import { fadeInUp, ANIMATION, viewportConfig, staggerContainer } from '@/lib/animation'
 
-interface Skill {
-  category: string;
-  items: string[];
-}
-
-const skills: Skill[] = [
+const skills = [
   {
-    category: "Programming Languages",
-    items: ["Python", "JavaScript", "TypeScript", "Java", "C++", "SQL"]
+    category: 'Programming Languages',
+    items: ['Python', 'JavaScript', 'TypeScript', 'Java', 'C++', 'SQL']
   },
   {
-    category: "Web Development",
-    items: ["React", "Next.js", "Node.js", "HTML5", "CSS3", "Tailwind CSS"]
+    category: 'Web Development',
+    items: ['React', 'Next.js', 'Node.js', 'HTML5', 'CSS3', 'Tailwind CSS']
   },
   {
-    category: "DevOps & Cloud",
-    items: ["Docker", "Kubernetes", "AWS", "CI/CD", "Terraform", "Linux"]
+    category: 'DevOps & Cloud',
+    items: ['Docker', 'Kubernetes', 'AWS', 'CI/CD', 'Terraform', 'Linux']
   },
   {
-    category: "Tools & Others",
-    items: ["Git", "VS Code", "PostgreSQL", "MongoDB", "Jira", "Agile"]
+    category: 'Tools & Others',
+    items: ['Git', 'VS Code', 'PostgreSQL', 'MongoDB', 'Jira', 'Agile']
   }
-];
+]
+
+const interests = [
+  {
+    title: 'Photography',
+    description: 'Capturing landscapes and street scenes, exploring different perspectives through my lens.'
+  },
+  {
+    title: 'Hiking',
+    description: 'Exploring nature trails and mountains, finding inspiration in the great outdoors.'
+  },
+  {
+    title: 'Technology',
+    description: 'Staying up-to-date with the latest tech trends and experimenting with new tools.'
+  }
+]
 
 export default function AboutPage() {
   return (
-    <section className="pt-24 min-h-screen bg-(--background)">
-      <div className="max-w-6xl mx-auto px-6">
-        <FadeInSlideUp>
-          <h1 className="text-4xl md:text-5xl font-heading mb-4 tracking-wide text-(--foreground) text-center">
-            About Me
-          </h1>
-          <p className="text-(--secondary-text) mb-12 text-center text-lg max-w-2xl mx-auto">
-            A passionate developer with a strong foundation in both software development and DevOps practices.
-          </p>
-        </FadeInSlideUp>
+    <section className="pt-24 pb-24 min-h-screen bg-(--background)">
+      <div className="max-w-7xl mx-auto px-6">
+        <PageHeader
+          title="About"
+          description="A passionate developer with a strong foundation in software development and DevOps practices."
+        />
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-16">
-          <FadeInSlideUp>
-            <div className="bg-(--card-background) rounded-2xl p-8 shadow-lg border border-(--border-color) hover:shadow-xl transition-all duration-300">
-              <h2 className="text-2xl font-heading text-(--foreground) mb-4">Background</h2>
-              <div className="space-y-4 text-(--secondary-text)">
-                <p>
-                  I&apos;m a recent graduate with a Master&apos;s degree in Information Technology from The University of Western Australia,
-                  specializing in Software Engineering and Data Science. My journey in technology began with a strong foundation
-                  in mathematics, which has helped me develop analytical thinking and problem-solving skills.
-                </p>
-                <p>
-                  Currently, I&apos;m seeking opportunities in DevOps and Full-stack web development roles, where I can apply my
-                  technical skills and continue to grow as a developer. I&apos;m particularly interested in cloud technologies
-                  and building scalable applications.
-                </p>
-                <p>
-                  When I&apos;m not coding, you can find me exploring photography, hiking, or experimenting with new technologies
-                  in my personal projects.
-                </p>
-              </div>
+        {/* Two-column: Bio + Skills */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-16 md:gap-24 mb-24">
+          {/* Bio */}
+          <motion.div
+            variants={fadeInUp}
+            initial="hidden"
+            whileInView="visible"
+            viewport={viewportConfig}
+            transition={{ duration: ANIMATION.duration.slow, ease: ANIMATION.ease.out }}
+            className="space-y-6"
+          >
+            <h2 className="font-heading text-2xl md:text-3xl text-(--foreground)">Background</h2>
+            <div className="space-y-4 text-(--secondary-text) leading-relaxed">
+              <p>
+                I&apos;m a recent graduate with a Master&apos;s degree in Information Technology from The University of Western Australia,
+                specializing in Software Engineering and Data Science. My journey in technology began with a strong foundation
+                in mathematics, which has helped me develop analytical thinking and problem-solving skills.
+              </p>
+              <p>
+                Currently, I&apos;m seeking opportunities in DevOps and Full-stack web development roles, where I can apply my
+                technical skills and continue to grow as a developer. I&apos;m particularly interested in cloud technologies
+                and building scalable applications.
+              </p>
+              <p>
+                When I&apos;m not coding, you can find me exploring photography, hiking, or experimenting with new technologies
+                in my personal projects.
+              </p>
             </div>
-          </FadeInSlideUp>
+          </motion.div>
 
-          <FadeInSlideUp>
-            <div className="bg-(--card-background) rounded-2xl p-8 shadow-lg border border-(--border-color) hover:shadow-xl transition-all duration-300">
-              <h2 className="text-2xl font-heading text-(--foreground) mb-4">Skills & Expertise</h2>
-              <div className="space-y-6">
-                {skills.map((skill, index) => (
-                  <div key={index}>
-                    <h3 className="text-lg font-medium text-(--foreground) mb-3">{skill.category}</h3>
-                    <div className="flex flex-wrap gap-2">
-                      {skill.items.map((item, i) => (
-                        <span
-                          key={i}
-                          className="bg-(--card-background) text-(--foreground) px-3 py-1 rounded-full text-sm font-medium border border-(--border-color) hover:bg-(--background) transition-colors duration-200"
-                        >
-                          {item}
-                        </span>
-                      ))}
-                    </div>
-                  </div>
-                ))}
+          {/* Skills */}
+          <motion.div
+            variants={fadeInUp}
+            initial="hidden"
+            whileInView="visible"
+            viewport={viewportConfig}
+            transition={{ duration: ANIMATION.duration.slow, delay: 0.1, ease: ANIMATION.ease.out }}
+            className="space-y-8"
+          >
+            <h2 className="font-heading text-2xl md:text-3xl text-(--foreground)">Skills & Expertise</h2>
+            {skills.map((skill) => (
+              <div key={skill.category}>
+                <h3 className="font-mono text-xs uppercase tracking-widest text-(--secondary-text) mb-3">
+                  {skill.category}
+                </h3>
+                <div className="flex flex-wrap gap-2">
+                  {skill.items.map((item) => (
+                    <Badge key={item}>{item}</Badge>
+                  ))}
+                </div>
               </div>
-            </div>
-          </FadeInSlideUp>
+            ))}
+          </motion.div>
         </div>
 
-        <FadeInSlideUp>
-          <div className="bg-(--card-background) rounded-2xl p-8 shadow-lg border border-(--border-color)">
-            <h2 className="text-2xl font-heading text-(--foreground) mb-4">Interests & Hobbies</h2>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-              <div className="space-y-2">
-                <h3 className="text-lg font-medium text-(--foreground)">Photography</h3>
-                <p className="text-(--secondary-text)">
-                  Capturing landscapes and street scenes, exploring different perspectives through my lens.
-                </p>
-              </div>
-              <div className="space-y-2">
-                <h3 className="text-lg font-medium text-(--foreground)">Hiking</h3>
-                <p className="text-(--secondary-text)">
-                  Exploring nature trails and mountains, finding inspiration in the great outdoors.
-                </p>
-              </div>
-              <div className="space-y-2">
-                <h3 className="text-lg font-medium text-(--foreground)">Technology</h3>
-                <p className="text-(--secondary-text)">
-                  Staying up-to-date with the latest tech trends and experimenting with new tools.
-                </p>
-              </div>
-            </div>
+        {/* Interests */}
+        <motion.div
+          variants={staggerContainer}
+          initial="hidden"
+          whileInView="visible"
+          viewport={viewportConfig}
+          className="mb-24"
+        >
+          <motion.h2
+            variants={fadeInUp}
+            transition={{ duration: ANIMATION.duration.slow, ease: ANIMATION.ease.out }}
+            className="font-heading text-2xl md:text-3xl text-(--foreground) mb-10"
+          >
+            Interests & Hobbies
+          </motion.h2>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
+            {interests.map((interest) => (
+              <motion.div
+                key={interest.title}
+                variants={fadeInUp}
+                transition={{ duration: ANIMATION.duration.slow, ease: ANIMATION.ease.out }}
+              >
+                <h3 className="font-heading text-xl text-(--foreground) mb-2">{interest.title}</h3>
+                <p className="text-(--secondary-text) leading-relaxed">{interest.description}</p>
+              </motion.div>
+            ))}
           </div>
-        </FadeInSlideUp>
+        </motion.div>
       </div>
     </section>
   )

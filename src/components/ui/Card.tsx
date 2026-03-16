@@ -1,5 +1,8 @@
+'use client'
+
 import { ReactNode } from 'react'
-import FadeInSlideUp from '@/components/animations/FadeInSlideUp'
+import { motion } from 'framer-motion'
+import { fadeInUp, ANIMATION, viewportConfig } from '@/lib/animation'
 
 type WidthSize = 'full' | '1/2' | '1/3' | '2/3' | '3/4' | '1/4' | 'auto'
 
@@ -18,11 +21,11 @@ interface CardProps {
   width?: WidthSize | ResponsiveWidth
 }
 
-export default function Card({ 
-  children, 
-  className = '', 
-  delay = 0, 
-  width = 'auto' 
+export default function Card({
+  children,
+  className = '',
+  delay = 0,
+  width = 'auto'
 }: CardProps) {
   const getWidthClasses = (width: WidthSize | ResponsiveWidth): string => {
     if (typeof width === 'string') {
@@ -30,7 +33,7 @@ export default function Card({
     }
 
     const classes: string[] = []
-    
+
     if (width.sm) classes.push(`sm:w-${width.sm === 'auto' ? 'auto' : width.sm}`)
     if (width.md) classes.push(`md:w-${width.md === 'auto' ? 'auto' : width.md}`)
     if (width.lg) classes.push(`lg:w-${width.lg === 'auto' ? 'auto' : width.lg}`)
@@ -41,22 +44,31 @@ export default function Card({
   }
 
   return (
-    <FadeInSlideUp delay={delay}>
-      <div className={`
-        bg-(--card-background) 
-        rounded-2xl 
-        p-8 
-        shadow-lg 
-        border 
-        border-(--border-color) 
-        hover:shadow-xl 
-        transition-all 
+    <motion.div
+      variants={fadeInUp}
+      initial="hidden"
+      whileInView="visible"
+      viewport={viewportConfig}
+      transition={{
+        duration: ANIMATION.duration.slow,
+        delay,
+        ease: ANIMATION.ease.out,
+      }}
+      className={`
+        bg-(--card-background)
+        rounded-xl
+        p-6
+        md:p-8
+        border
+        border-(--border-color)
+        hover:border-(--accent)
+        transition-colors
         duration-300
         ${getWidthClasses(width)}
         ${className}
-      `}>
-        {children}
-      </div>
-    </FadeInSlideUp>
+      `}
+    >
+      {children}
+    </motion.div>
   )
 }

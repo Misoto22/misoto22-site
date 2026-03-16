@@ -1,11 +1,20 @@
 import HomeClient from './HomeClient'
+import { getProjects, getPhotos, getBlogPosts } from '@/lib/data'
 
-// Enable ISR with revalidation every 3600 seconds (1 hour)
-export const revalidate = 3600;
+export const revalidate = 3600
 
 export default async function Home() {
-  // If you need to fetch any data for the home page in the future, do it here
-  // For now, we'll just pass static data
+  const [projects, photosData, blogData] = await Promise.all([
+    getProjects(),
+    getPhotos(1, 8),
+    getBlogPosts({ page: 1, limit: 3 }),
+  ])
 
-  return <HomeClient />
+  return (
+    <HomeClient
+      photos={photosData.photos}
+      projects={projects}
+      blogPosts={blogData.posts}
+    />
+  )
 }
