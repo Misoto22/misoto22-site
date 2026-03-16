@@ -22,7 +22,7 @@ const Footer = () => {
             <h3 className="text-xs font-mono uppercase tracking-widest text-(--secondary-text)">Navigate</h3>
             <nav className="flex flex-col space-y-2">
               {[
-                { href: '/projects', text: 'Work' },
+                { href: '/projects', text: 'Projects' },
                 { href: '/photography', text: 'Photography' },
                 { href: '/blog', text: 'Blog' },
                 { href: '/contact', text: 'Contact' },

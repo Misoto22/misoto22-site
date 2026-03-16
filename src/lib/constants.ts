@@ -25,7 +25,7 @@ export const SITE_CONFIG = {
 // Navigation Configuration
 export const NAV_PAGES = [
   { href: '/', text: 'Home' },
-  { href: '/projects', text: 'Work' },
+  { href: '/projects', text: 'Projects' },
   { href: '/photography', text: 'Photography' },
   { href: '/blog', text: 'Blog' },
   {
