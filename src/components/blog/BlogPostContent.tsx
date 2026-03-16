@@ -24,7 +24,7 @@ const BlogPostContent: React.FC<BlogPostContentProps> = ({ post }) => {
           href="/blog"
           className="inline-flex items-center text-sm text-(--secondary-text) hover:text-(--foreground) transition-colors duration-200 mb-8 gap-2"
         >
-          <span aria-hidden="true">&larr;</span> Back to writing
+          <span aria-hidden="true">&larr;</span> Back to blog
         </Link>
 
         {/* Cover Image — wider than content */}

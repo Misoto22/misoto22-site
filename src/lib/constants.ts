@@ -27,7 +27,7 @@ export const NAV_PAGES = [
   { href: '/', text: 'Home' },
   { href: '/projects', text: 'Work' },
   { href: '/photography', text: 'Photography' },
-  { href: '/blog', text: 'Writing' },
+  { href: '/blog', text: 'Blog' },
   {
     text: 'About',
     children: [

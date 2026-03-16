@@ -34,7 +34,7 @@ export default async function BlogPage() {
     <section className="pt-24 pb-24 min-h-screen bg-(--background)">
       <div className="max-w-7xl mx-auto px-6">
         <PageHeader
-          title="Writing"
+          title="Blog"
           description="Thoughts on development, DevOps, photography, and life."
         />
 

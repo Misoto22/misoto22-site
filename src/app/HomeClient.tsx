@@ -222,7 +222,7 @@ export default function HomeClient({ photos, projects, blogPosts }: HomeClientPr
       {/* ─── Latest Blog Posts ─── */}
       {blogPosts.length > 0 && (
         <section className="py-16 md:py-24 max-w-7xl mx-auto px-6">
-          <SectionHeading title="Writing" subtitle="Thoughts on development, photography, and life" />
+          <SectionHeading title="Blog" subtitle="Thoughts on development, photography, and life" />
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {blogPosts.slice(0, 3).map((post, i) => (

@@ -24,7 +24,7 @@ const Footer = () => {
               {[
                 { href: '/projects', text: 'Work' },
                 { href: '/photography', text: 'Photography' },
-                { href: '/blog', text: 'Writing' },
+                { href: '/blog', text: 'Blog' },
                 { href: '/contact', text: 'Contact' },
               ].map((link) => (
                 <Link
