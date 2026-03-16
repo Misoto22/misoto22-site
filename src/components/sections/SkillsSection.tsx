@@ -38,7 +38,7 @@ export default function SkillsSection() {
               height={36}
               className="opacity-70 group-hover:opacity-100 transition-opacity duration-200"
             />
-            <span className="text-xs text-(--secondary-text) group-hover:text-(--foreground-muted) transition-colors duration-200">
+            <span className="text-xs text-center text-(--secondary-text) group-hover:text-(--foreground-muted) transition-colors duration-200">
               {skill.name}
             </span>
           </div>
