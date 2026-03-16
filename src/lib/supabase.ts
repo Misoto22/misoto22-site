@@ -50,20 +50,6 @@ export interface Project {
   updated_at?: string
 }
 
-export interface Photo {
-  id?: number
-  src: string
-  width: number
-  height: number
-  alt: string
-  order?: number
-  basename?: string
-  type?: string
-  taken_at?: string
-  created_at?: string
-  updated_at?: string
-}
-
 // Blog-related interfaces
 export interface BlogPost {
   id?: string
