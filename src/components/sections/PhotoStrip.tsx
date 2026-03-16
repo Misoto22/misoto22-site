@@ -23,7 +23,7 @@ export default function PhotoStrip({ photos }: PhotoStripProps) {
           {doubledPhotos.map((photo, index) => (
             <div
               key={`${photo.id}-${index}`}
-              className="relative flex-shrink-0 h-64 md:h-80 rounded-lg overflow-hidden"
+              className="relative flex-shrink-0 h-44 sm:h-64 md:h-80 rounded-lg overflow-hidden"
               style={{ aspectRatio: `${photo.width} / ${photo.height}` }}
             >
               <Image

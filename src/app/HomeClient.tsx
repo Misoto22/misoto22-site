@@ -34,14 +34,14 @@ export default function HomeClient({ photos, projects, blogPosts }: HomeClientPr
               </p>
             </FadeInSlideUp>
 
-            <h1 className="font-heading text-5xl md:text-6xl lg:text-7xl text-(--foreground) leading-[1.2] mb-6">
+            <h1 className="font-heading text-3xl sm:text-4xl md:text-5xl lg:text-7xl text-(--foreground) leading-[1.2] mb-6">
               <TextReveal text="Developer." />
               <br />
               <TextReveal text="Photographer." staggerDelay={0.08} />
             </h1>
 
             <FadeInSlideUp delay={0.4}>
-              <p className="text-lg text-(--secondary-text) max-w-md mb-8 leading-relaxed">
+              <p className="text-base md:text-lg text-(--secondary-text) max-w-md mb-8 leading-relaxed">
                 Building thoughtful software & capturing quiet moments. {PROFESSION}.
               </p>
             </FadeInSlideUp>
@@ -191,7 +191,7 @@ export default function HomeClient({ photos, projects, blogPosts }: HomeClientPr
 
       {/* ─── About Excerpt + Skills ─── */}
       <section className="py-16 md:py-24 max-w-7xl mx-auto px-6">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-16">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-16">
           <motion.div
             variants={fadeInUp}
             initial="hidden"

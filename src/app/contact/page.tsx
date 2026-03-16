@@ -111,7 +111,7 @@ export default function Contact() {
           description="Have a project in mind, a role to discuss, or just want to say hello? I'd love to hear from you."
         />
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-16 md:gap-24 mb-24">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-24 mb-24">
           {/* Form — left */}
           <motion.div
             variants={fadeInUp}

@@ -29,7 +29,7 @@ const BlogPostContent: React.FC<BlogPostContentProps> = ({ post }) => {
 
         {/* Cover Image — wider than content */}
         {post.coverImage && (
-          <div className="relative w-full aspect-video md:aspect-[21/9] rounded-xl overflow-hidden mb-10 -mx-4 md:-mx-16 md:w-[calc(100%+8rem)]">
+          <div className="relative w-full aspect-video md:aspect-[21/9] rounded-xl overflow-hidden mb-10 -mx-2 sm:-mx-4 md:-mx-16 sm:w-[calc(100%+2rem)] md:w-[calc(100%+8rem)]">
             <Image
               src={post.coverImage}
               alt={post.title}

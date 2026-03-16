@@ -76,12 +76,9 @@ function FeaturedCard({
       viewport={viewportConfig}
       transition={{ duration: ANIMATION.duration.slow, delay, ease: ANIMATION.ease.out }}
     >
-      <Link href={href} target="_blank" rel="noopener noreferrer" className="group block">
-        <div
-          className={`relative overflow-hidden rounded-xl border border-(--border-color) hover:border-(--accent) transition-colors duration-300 ${
-            large ? 'aspect-[21/9]' : 'aspect-video'
-          }`}
-        >
+      <Link href={href} target="_blank" rel="noopener noreferrer" className="group block rounded-xl border border-(--border-color) hover:border-(--accent) transition-colors duration-300 overflow-hidden">
+        {/* Image */}
+        <div className={`relative overflow-hidden ${large ? 'aspect-video md:aspect-[21/9]' : 'aspect-video'}`}>
           {project.image && (
             <Image
               src={project.image}
@@ -91,20 +88,20 @@ function FeaturedCard({
               sizes={large ? '(max-width: 1280px) 100vw, 1280px' : '(max-width: 768px) 100vw, 50vw'}
             />
           )}
-          <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent" />
-          <div className="absolute bottom-0 left-0 right-0 p-6 md:p-8">
-            <h3 className="font-heading text-xl md:text-2xl text-white mb-2">
-              {project.title}
-            </h3>
-            <p className="text-white/80 text-sm mb-3 line-clamp-2">{project.description}</p>
-            {project.technologies && (
-              <div className="flex flex-wrap gap-2">
-                {project.technologies.slice(0, 4).map((tech) => (
-                  <Tag key={tech} className="bg-white/10 text-white/90 border-0">{tech}</Tag>
-                ))}
-              </div>
-            )}
-          </div>
+        </div>
+        {/* Content below image */}
+        <div className="p-4 sm:p-6 bg-(--card-background)">
+          <h3 className="font-heading text-lg md:text-2xl text-(--foreground) mb-2">
+            {project.title}
+          </h3>
+          <p className="text-(--secondary-text) text-sm mb-3 line-clamp-2">{project.description}</p>
+          {project.technologies && (
+            <div className="flex flex-wrap gap-2">
+              {project.technologies.slice(0, 4).map((tech) => (
+                <Tag key={tech}>{tech}</Tag>
+              ))}
+            </div>
+          )}
         </div>
       </Link>
     </motion.div>

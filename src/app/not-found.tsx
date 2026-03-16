@@ -16,7 +16,7 @@ export default function NotFound() {
         <motion.h1
           variants={fadeInUp}
           transition={{ duration: ANIMATION.duration.slower, ease: ANIMATION.ease.out }}
-          className="font-heading text-8xl md:text-9xl text-(--foreground) mb-4"
+          className="font-heading text-6xl md:text-8xl lg:text-9xl text-(--foreground) mb-4"
         >
           404
         </motion.h1>

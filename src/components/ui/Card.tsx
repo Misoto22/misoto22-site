@@ -57,7 +57,8 @@ export default function Card({
       className={`
         bg-(--card-background)
         rounded-xl
-        p-6
+        p-4
+        sm:p-6
         md:p-8
         border
         border-(--border-color)

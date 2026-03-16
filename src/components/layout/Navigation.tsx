@@ -43,9 +43,11 @@ const Navigation = () => {
   return (
     <nav
       className={`fixed top-0 w-full z-50 transition-all duration-300 ${
-        isScrolled
-          ? 'bg-(--nav-background) backdrop-blur-md border-b border-(--border-color)'
-          : 'bg-transparent border-b border-transparent'
+        isMenuOpen
+          ? 'bg-(--background) border-b border-(--border-color)'
+          : isScrolled
+            ? 'bg-(--nav-background) backdrop-blur-md border-b border-(--border-color)'
+            : 'bg-transparent border-b border-transparent'
       }`}
     >
       <div className="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
@@ -132,7 +134,8 @@ const Navigation = () => {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: ANIMATION.duration.normal }}
-            className="nav:hidden fixed inset-0 top-16 bg-(--background) z-40"
+            className="nav:hidden fixed inset-0 top-0 pt-16 z-40"
+            style={{ backgroundColor: 'var(--background)' }}
           >
             <motion.div
               className="flex flex-col items-center justify-center h-full space-y-8"
@@ -157,7 +160,7 @@ const Navigation = () => {
                     <Link
                       href={item.href}
                       onClick={handleNavigation}
-                      className={`font-heading text-3xl ${
+                      className={`font-heading text-2xl sm:text-3xl ${
                         pathname === item.href
                           ? 'text-(--foreground)'
                           : 'text-(--secondary-text) hover:text-(--foreground)'
@@ -179,7 +182,7 @@ const Navigation = () => {
                       <Link
                         href={child.href}
                         onClick={handleNavigation}
-                        className={`font-heading text-3xl ${
+                        className={`font-heading text-2xl sm:text-3xl ${
                           pathname === child.href
                             ? 'text-(--foreground)'
                             : 'text-(--secondary-text) hover:text-(--foreground)'

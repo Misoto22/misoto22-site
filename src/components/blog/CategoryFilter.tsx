@@ -35,7 +35,7 @@ const CategoryFilter: React.FC<CategoryFilterProps> = ({
 
   if (loading) {
     return (
-      <div className="flex gap-6">
+      <div className="flex gap-3 sm:gap-6">
         {[...Array(4)].map((_, i) => (
           <div
             key={i}
@@ -47,7 +47,7 @@ const CategoryFilter: React.FC<CategoryFilterProps> = ({
   }
 
   return (
-    <div className="flex flex-wrap gap-6">
+    <div className="flex flex-wrap gap-3 sm:gap-6">
       <button
         onClick={() => onCategoryChange(undefined)}
         className={`text-sm transition-colors duration-200 ${

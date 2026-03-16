@@ -28,7 +28,7 @@ export default function SkillsSection() {
       viewport={viewportConfig}
       transition={{ duration: ANIMATION.duration.slow, ease: ANIMATION.ease.out }}
     >
-      <div className="grid grid-cols-4 md:grid-cols-6 gap-6">
+      <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 gap-4 sm:gap-6">
         {allSkills.map((skill) => (
           <div key={skill.name} className="flex flex-col items-center gap-2 group">
             <Image

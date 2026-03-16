@@ -42,7 +42,7 @@ const ExperienceCard: React.FC<ExperienceCardProps> = ({ experience: exp }) => {
                 rel="noopener noreferrer"
                 className="hover:text-(--accent) transition-colors duration-200"
               >
-                {exp.company} &nearr;
+                {exp.company} ↗
               </a>
             ) : (
               exp.company

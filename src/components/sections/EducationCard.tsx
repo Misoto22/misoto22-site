@@ -41,7 +41,7 @@ const EducationCard: React.FC<EducationCardProps> = ({ education: edu }) => {
                 rel="noopener noreferrer"
                 className="hover:text-(--accent) transition-colors duration-200"
               >
-                {edu.school} &nearr;
+                {edu.school} ↗
               </a>
             ) : (
               edu.school
