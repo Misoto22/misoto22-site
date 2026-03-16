@@ -1,231 +1,106 @@
-# Henry Chen's Personal Website
+# Henry Chen
 
 <div align="center">
 
-<img alt="Personal Website Screenshot" src="https://woownigzadvconxswkpv.supabase.co/storage/v1/object/public/project-images/personal-website-readme.jpg" />
+<img alt="misoto22.com" src="https://woownigzadvconxswkpv.supabase.co/storage/v1/object/public/project-images/personal-website-readme.jpg" />
 
-*A modern, responsive personal portfolio website built with Next.js and TypeScript. Showcasing my projects, skills, experiences, and blog posts in an elegant and interactive way.*
+<br />
 
-[![Next.js](https://img.shields.io/badge/Next.js-16-black?style=for-the-badge&logo=next.js)](https://nextjs.org/)
-[![React](https://img.shields.io/badge/React-19-blue?style=for-the-badge&logo=react)](https://react.dev/)
-[![TypeScript](https://img.shields.io/badge/TypeScript-5-blue?style=for-the-badge&logo=typescript)](https://www.typescriptlang.org/)
-[![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-4-38B2AC?style=for-the-badge&logo=tailwind-css)](https://tailwindcss.com/)
-[![Supabase](https://img.shields.io/badge/Supabase-3ECF8E?style=for-the-badge&logo=supabase)](https://supabase.com/)
+**Developer. Photographer.**
 
-</div>
+A personal portfolio and blog — built with Next.js, TypeScript, and Supabase.
 
-## ✨ Features
+<br />
 
-<div align="center">
+[Live Site](https://misoto22.com) · [Report Issue](https://github.com/Misoto22/misoto22-site/issues)
 
-| 🎨 Design | 📱 Responsive | 🌙 Theme | 🖼️ Gallery | 📝 Blog | 🚀 Performance | 📊 Interactive |
-|:---------:|:------------:|:--------:|:----------:|:-------:|:--------------:|:--------------:|
-| Modern UI | Mobile First | Dark/Light | Project Showcase | Markdown Posts | Turbopack | Framer Motion |
+<br />
 
-</div>
-
-## 🛠️ Tech Stack
-
-<div align="center">
-
-| Category | Technologies |
-|:--------:|:------------|
-| **Framework** | Next.js 16 with Turbopack |
-| **Language** | TypeScript 5 |
-| **UI Library** | React 19 |
-| **Styling** | Tailwind CSS 4 |
-| **Animation** | Framer Motion 12 |
-| **Icons** | Lucide React 0.525 & React Icons |
-| **Database** | Supabase PostgreSQL |
-| **Storage** | Supabase Storage |
-| **Linting** | ESLint 9 |
+[![Next.js](https://img.shields.io/badge/Next.js_16-000?logo=next.js&logoColor=fff)](https://nextjs.org/)
+[![React](https://img.shields.io/badge/React_19-61DAFB?logo=react&logoColor=000)](https://react.dev/)
+[![TypeScript](https://img.shields.io/badge/TypeScript_5.9-3178C6?logo=typescript&logoColor=fff)](https://www.typescriptlang.org/)
+[![Tailwind CSS](https://img.shields.io/badge/Tailwind_4.2-06B6D4?logo=tailwindcss&logoColor=fff)](https://tailwindcss.com/)
+[![Supabase](https://img.shields.io/badge/Supabase-3FCF8E?logo=supabase&logoColor=fff)](https://supabase.com/)
+[![Vercel](https://img.shields.io/badge/Vercel-000?logo=vercel&logoColor=fff)](https://vercel.com/)
 
 </div>
 
-## 🏗️ Project Architecture
+---
 
-This is a modern full-stack personal website built with Next.js 16 and TypeScript, featuring a clean architecture that separates concerns between presentation, business logic, and data management. The application follows Next.js App Router conventions with server-side rendering, API routes, and optimized performance through Turbopack.
+### Features
 
-**Key Architectural Principles:**
-- **Component-Based**: Modular React components with clear separation of concerns
-- **Type-Safe**: Full TypeScript implementation for better developer experience
-- **Server-First**: Leveraging Next.js SSR and API routes for optimal performance
-- **Database-Driven**: Dynamic content management through Supabase PostgreSQL
-- **Responsive Design**: Mobile-first approach with Tailwind CSS
+- **Dark / Light theme** with smooth transitions
+- **Photography gallery** with masonry layout and lightbox
+- **Blog** with markdown rendering, categories, and tags
+- **Contact form** via EmailJS
+- **ISR** with on-demand revalidation
+- **Framer Motion** animations throughout
+- **Mobile-first** responsive design
 
-### 📁 File Structure
+---
+
+### Tech Stack
+
+| | |
+|:--|:--|
+| **Framework** | Next.js 16 · Turbopack |
+| **Language** | TypeScript 5.9 |
+| **UI** | React 19.2 · Tailwind CSS 4.2 · Framer Motion 12 |
+| **Data** | Supabase PostgreSQL · Supabase Storage |
+| **Testing** | Jest 30 · Testing Library |
+| **Deploy** | Vercel (auto-deploy on push) |
+
+---
+
+### Project Structure
 
 ```
 src/
-├── app/                    # Next.js app directory
-│   ├── about/             # About page
-│   ├── api/               # API routes
-│   │   ├── blog/          # Blog data endpoints
-│   │   ├── photos/        # Photography data endpoints
-│   │   └── revalidate/    # Cache revalidation endpoint
-│   ├── blog/              # Blog pages
-│   │   ├── category/      # Blog category pages
-│   │   └── [slug]/        # Individual blog post pages
-│   ├── contact/           # Contact page
-│   ├── education/         # Education page
-│   ├── experience/        # Experience page
-│   ├── photography/       # Photography page
-│   └── projects/          # Projects page
-├── components/            # React components
-│   ├── animations/        # Animation components
-│   ├── blog/              # Blog-specific components
-│   ├── common/            # Common utilities (ScrollToTopButton)
-│   ├── layout/            # Layout components (Navigation, Footer)
-│   ├── photography/       # Photo-specific components
-│   ├── sections/          # Content cards (Project, Education)
-│   └── ui/                # UI primitives (Badge, Card)
-├── lib/                  # Shared libraries
-│   ├── constants.ts      # Application constants
-│   ├── data.ts           # Data fetching functions
-│   └── supabase.ts       # Supabase client setup
-└── context/              # React context
+├── app/                 Pages & API routes (App Router)
+├── components/
+│   ├── animations/      FadeInSlideUp, TextReveal
+│   ├── blog/            BlogCard, BlogPostContent, CategoryFilter
+│   ├── layout/          Navigation, Footer, PageHeader
+│   ├── photography/     ImageModal
+│   ├── sections/        ProjectCard, FeaturedWork, PhotoStrip, Timeline
+│   └── ui/              Badge, Card, Tag, ThemeSelector
+├── context/             ThemeContext
+└── lib/                 animation, constants, data, supabase, utils
 ```
 
-### 🗄️ Database Structure
+---
 
-![Database Structure](https://github.com/user-attachments/assets/ab33f824-5d20-4a61-85a6-4a0eac9db7cb)
+### Getting Started
 
-
-The application uses Supabase PostgreSQL with the following main tables:
-
-**Core Tables:**
-- `users` - Blog author information and profile data
-- `blog_posts` - Blog content with metadata (title, slug, content, published_at)
-- `blog_categories` - Blog categorization system
-- `tags` - Tagging system for blog posts and projects
-- `photos` - Photography portfolio with metadata and storage references
-- `projects` - Project showcase with descriptions, technologies, and links
-- `education` - Educational background and achievements
-- `experience` - Professional experience and work history
-
-**Key Features:**
-- **Real-time Updates**: Live data synchronization
-- **Automatic Scaling**: Managed PostgreSQL with auto-scaling
-- **Storage Integration**: Seamless file storage for images and assets
-
-## 🔌 API Endpoints
-
-| Endpoint | Method | Description | Status Codes |
-|:---------|:-------|:------------|:-------------|
-| `/api/photos` | GET | Paginated photo feed | 200, 400, 500 |
-| `/api/blog` | GET | Paginated blog posts | 200, 400, 500 |
-| `/api/blog/[slug]` | GET | Single blog post by slug | 200, 400, 404, 500 |
-| `/api/blog/categories` | GET | Blog categories | 200, 500 |
-| `/api/revalidate` | POST | On-demand ISR cache revalidation (requires `?secret=` query param) | 200, 401, 500 |
-
-### Revalidation API Usage
-
-The `/api/revalidate` endpoint supports on-demand ISR (Incremental Static Regeneration):
-
-**Authentication:** Pass secret via query parameter
 ```bash
-POST /api/revalidate?secret=your_secret_token
+git clone https://github.com/Misoto22/misoto22-site.git
+cd misoto22-site
+cp .env.local.example .env.local   # fill in credentials
+pnpm install
+pnpm dev                           # → http://localhost:3000
 ```
 
-**Optional Parameters:**
-- `path` - Revalidate specific path (e.g., `/blog`, `/projects`)
-- `tag` - Revalidate specific cache tag
+**Prerequisites** — Node.js 22+, pnpm 10+
 
-**Examples:**
-```bash
-# Revalidate a specific path
-curl -X POST "https://misoto22.com/api/revalidate?secret=xxx&path=/blog"
+**Scripts**
 
-# Revalidate by tag
-curl -X POST "https://misoto22.com/api/revalidate?secret=xxx&tag=photos"
-
-# Revalidate all main pages (no path/tag specified)
-curl -X POST "https://misoto22.com/api/revalidate?secret=xxx"
+```
+pnpm dev             Dev server
+pnpm build           Production build
+pnpm test            Run tests
+pnpm test:coverage   Tests with coverage
 ```
 
-**Response:**
-```json
-{
-  "message": "Path /blog revalidated successfully",
-  "revalidated": true,
-  "now": 1706500000000
-}
-```
+---
 
-## 🚀 Development
+### Deployment
 
-### Prerequisites
+Auto-deploys to [misoto22.com](https://misoto22.com) on push to `main`.
 
-- Node.js 18.x or later
-- pnpm 8.x or later
-- Supabase project credentials
-
-### Installation
-
-1. **Clone the repository:**
-   ```bash
-   git clone https://github.com/misoto22/my-website.git
-   cd my-website
-   ```
-
-2. **Install dependencies:**
-   ```bash
-   pnpm install
-   ```
-
-3. **Set up environment variables:**
-   Create `.env.local` with your `Supabase` and `EmailJS` credentials:
-   ```env
-   # Supabase Configuration
-   NEXT_PUBLIC_SUPABASE_URL=your_supabase_url_here
-   NEXT_PUBLIC_SUPABASE_ANON_KEY=your_supabase_anon_key_here
-   
-   # Email.js Configuration (for contact form)
-   NEXT_PUBLIC_EMAILJS_SERVICE_ID=your_emailjs_service_id
-   NEXT_PUBLIC_EMAILJS_TEMPLATE_ID=your_emailjs_template_id
-   NEXT_PUBLIC_EMAILJS_PUBLIC_KEY=your_emailjs_public_key
-   
-   # Revalidation Secret (for on-demand ISR)
-   REVALIDATION_SECRET=your_secret_token_here
-   
-   # Node.js Configuration (for Node v25+ compatibility)
-   # This fixes the localStorage issue in Node.js v25.x
-   NODE_OPTIONS=--localstorage-file=./.node-localstorage/storage.db
-   ```
-
-4. **Run the development server:**
-   ```bash
-   pnpm run dev
-   ```
-
-5. **Open** [http://localhost:3000](http://localhost:3000) in your browser
-
-## 📦 Available Scripts
-
-| Command | Description |
-|:--------|:------------|
-| `pnpm run dev` | Start development server with Turbopack |
-| `pnpm run build` | Build for production |
-| `pnpm run start` | Start production server |
-| `pnpm run lint` | Run ESLint |
-
-## 🌐 Deployment
-
-The application is deployed on Vercel with the following configuration:
-
-- **Production Domain**: [misoto22.com](https://misoto22.com/)
-- **Framework Preset**: Next.js
-- **Build Command**: `pnpm run build`
-- **Install Command**: `pnpm install`
-- **Environment Variables**: All Supabase credentials are configured in Vercel
-- **Deployment Triggers**:
-  - Auto-deploy on main branch updates
-  - Preview deployments for pull requests
+Manual redeploy: `npx vercel --prod`
 
 ---
 
 <div align="center">
-
-Made by Henry Chen
-
+<sub>Built by Henry Chen</sub>
 </div>
