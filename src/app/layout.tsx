@@ -7,6 +7,7 @@ import Footer from '@/components/layout/Footer'
 import ScrollToTopButton from '@/components/common/ScrollToTopButton'
 import KeyboardNavigation from '@/components/layout/KeyboardNavigation'
 import { ThemeProvider } from '@/context/ThemeContext'
+import CommandPalette from '@/components/command-palette/CommandPalette'
 import { SpeedInsights } from "@vercel/speed-insights/next"
 import { Analytics } from "@vercel/analytics/react"
 import { DISPLAY_NAME, SITE_TITLE, SITE_DESCRIPTION } from '@/lib/constants'
@@ -91,6 +92,7 @@ export default function RootLayout({
           </KeyboardNavigation>
           <Footer />
           <ScrollToTopButton />
+          <CommandPalette />
           <SpeedInsights />
           <Analytics />
         </ThemeProvider>
