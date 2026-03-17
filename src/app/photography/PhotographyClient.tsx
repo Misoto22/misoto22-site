@@ -223,6 +223,7 @@ export default function PhotographyClient({ initialData }: PhotographyClientProp
         totalCount={photos.length}
         hasPrevious={selectedPhotoIndex > 0}
         hasNext={selectedPhotoIndex < photos.length - 1}
+        photos={photos}
       />
     </main>
   )

@@ -19,6 +19,8 @@ interface DbProject {
 
 interface DbPhoto {
   id: number; src: string; width: number; height: number; alt: string
+  camera?: string; lens?: string; focal_length?: string
+  aperture?: string; shutter_speed?: string; iso?: string
 }
 
 interface DbBlogPost {
@@ -81,6 +83,12 @@ export interface FrontendPhoto {
   width: number;
   height: number;
   alt: string;
+  camera?: string;
+  lens?: string;
+  focalLength?: string;
+  aperture?: string;
+  shutterSpeed?: string;
+  iso?: string;
 }
 
 function mapPhoto(dbPhoto: DbPhoto): FrontendPhoto {
@@ -89,7 +97,13 @@ function mapPhoto(dbPhoto: DbPhoto): FrontendPhoto {
     src: dbPhoto.src,
     width: dbPhoto.width,
     height: dbPhoto.height,
-    alt: dbPhoto.alt
+    alt: dbPhoto.alt,
+    camera: dbPhoto.camera ?? undefined,
+    lens: dbPhoto.lens ?? undefined,
+    focalLength: dbPhoto.focal_length ?? undefined,
+    aperture: dbPhoto.aperture ?? undefined,
+    shutterSpeed: dbPhoto.shutter_speed ?? undefined,
+    iso: dbPhoto.iso ?? undefined,
   }
 }
 
