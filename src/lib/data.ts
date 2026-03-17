@@ -376,6 +376,46 @@ export async function getBlogPostBySlug(slug: string): Promise<BlogPost | null> 
   }
 }
 
+export async function getRelatedPosts(post: BlogPost, limit: number = 3): Promise<BlogPost[]> {
+  try {
+    const { data, error } = await supabase
+      .from('blog_posts')
+      .select(`
+        *,
+        users (id, name, avatar, bio),
+        blog_categories (id, name),
+        blog_subcategories (id, name, category_id),
+        blog_post_tags (
+          tags (id, name)
+        )
+      `)
+      .eq('is_published', true)
+      .neq('id', post.id)
+      .order('published_at', { ascending: false })
+      .limit(limit * 3)
+
+    if (error || !data) return []
+
+    const candidates = data.map(mapBlogPost)
+    const postTagIds = new Set(post.tags?.map(t => t.id) || [])
+
+    // 按相关度排序：同 category +2, 同 subcategory +1, 每个重叠 tag +1
+    const scored = candidates.map(c => {
+      let score = 0
+      if (c.category?.id === post.category?.id) score += 2
+      if (c.subcategory?.id === post.subcategory?.id) score += 1
+      score += c.tags?.filter(t => postTagIds.has(t.id)).length || 0
+      return { post: c, score }
+    })
+
+    scored.sort((a, b) => b.score - a.score)
+    return scored.slice(0, limit).map(s => s.post)
+  } catch (error) {
+    console.error('Error fetching related posts:', error)
+    return []
+  }
+}
+
 export async function getBlogCategories(): Promise<BlogCategory[]> {
   try {
     const { data, error } = await supabase

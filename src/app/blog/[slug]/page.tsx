@@ -2,7 +2,8 @@ import React from 'react'
 import { Metadata } from 'next'
 import { notFound } from 'next/navigation'
 import BlogPostContent from '@/components/blog/BlogPostContent'
-import { getBlogPostBySlug, getBlogPosts } from '@/lib/data'
+import RelatedPosts from '@/components/blog/RelatedPosts'
+import { getBlogPostBySlug, getBlogPosts, getRelatedPosts } from '@/lib/data'
 import { unstable_cache } from 'next/cache'
 
 interface BlogPostPageProps {
@@ -81,6 +82,8 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
     notFound()
   }
 
+  const relatedPosts = await getRelatedPosts(post, 3)
+
   const jsonLd = {
     '@context': 'https://schema.org',
     '@type': 'Article',
@@ -103,6 +106,9 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
       />
       <div className="max-w-7xl mx-auto px-6 pb-12">
         <BlogPostContent post={post} />
+        <div className="max-w-3xl mx-auto">
+          <RelatedPosts posts={relatedPosts} />
+        </div>
       </div>
     </section>
   )

@@ -3,6 +3,7 @@ import PageHeader from '@/components/layout/PageHeader'
 import ProjectCard from '@/components/sections/ProjectCard'
 import { getProjects } from '@/lib/data'
 import { unstable_cache } from 'next/cache'
+import { FULL_NAME } from '@/lib/constants'
 import type { Metadata } from 'next'
 
 export const metadata: Metadata = {
@@ -29,8 +30,30 @@ const getCachedProjects = unstable_cache(
 export default async function Projects() {
   const projects = await getCachedProjects();
 
+  const jsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'ItemList',
+    name: `${FULL_NAME}'s Projects`,
+    itemListElement: projects.map((project, i) => ({
+      '@type': 'ListItem',
+      position: i + 1,
+      item: {
+        '@type': 'CreativeWork',
+        name: project.title,
+        description: project.description,
+        url: project.deploy || project.link,
+        author: { '@type': 'Person', name: FULL_NAME },
+        keywords: project.technologies.join(', '),
+      },
+    })),
+  }
+
   return (
     <section className="pt-24 pb-24 min-h-screen bg-(--background)">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
       <div className="max-w-7xl mx-auto px-6">
         <PageHeader
           title="Projects"
