@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 
 export default function ScrollToTopButton() {
   const [visible, setVisible] = useState(false);
+  const [modalOpen, setModalOpen] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -10,6 +11,15 @@ export default function ScrollToTopButton() {
     };
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  // 监听 modal 状态
+  useEffect(() => {
+    const observer = new MutationObserver(() => {
+      setModalOpen(document.body.hasAttribute('data-modal-open'));
+    });
+    observer.observe(document.body, { attributes: true, attributeFilter: ['data-modal-open'] });
+    return () => observer.disconnect();
   }, []);
 
   const scrollToTop = () => {
@@ -20,7 +30,7 @@ export default function ScrollToTopButton() {
     <button
       onClick={scrollToTop}
       className={`fixed bottom-8 right-8 z-50 p-3 rounded-full bg-gray-800 dark:bg-white text-white dark:text-gray-800 shadow-lg transition-opacity duration-300 hover:bg-gray-700 dark:hover:bg-gray-100 dark:border dark:border-gray-200 ${
-        visible ? "opacity-100" : "opacity-0 pointer-events-none"
+        visible && !modalOpen ? "opacity-100" : "opacity-0 pointer-events-none"
       }`}
       aria-label="Scroll to top"
     >

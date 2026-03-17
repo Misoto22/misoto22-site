@@ -37,9 +37,10 @@ const KeyboardNavigation = ({ children }: KeyboardNavigationProps) => {
       const pages = flattenedPages()
       if (currentIndex === -1) return
 
-      // Only handle arrow keys when no input is focused
+      // Skip when input is focused or modal is open
       if (document.activeElement?.tagName === 'INPUT' ||
-          document.activeElement?.tagName === 'TEXTAREA') {
+          document.activeElement?.tagName === 'TEXTAREA' ||
+          document.body.hasAttribute('data-modal-open')) {
         return
       }
 

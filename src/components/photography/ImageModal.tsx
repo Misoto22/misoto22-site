@@ -56,17 +56,16 @@ const ImageModal: React.FC<ImageModalProps> = ({
   }, [isOpen, onClose, onPrevious, onNext, hasPrevious, hasNext])
 
   useEffect(() => {
-    const scrollToTopButton = document.querySelector('button[aria-label="Scroll to top"]')
     if (isOpen) {
       document.body.style.overflow = 'hidden'
-      if (scrollToTopButton) (scrollToTopButton as HTMLElement).style.display = 'none'
+      document.body.setAttribute('data-modal-open', 'true')
     } else {
       document.body.style.overflow = ''
-      if (scrollToTopButton) (scrollToTopButton as HTMLElement).style.display = ''
+      document.body.removeAttribute('data-modal-open')
     }
     return () => {
       document.body.style.overflow = ''
-      if (scrollToTopButton) (scrollToTopButton as HTMLElement).style.display = ''
+      document.body.removeAttribute('data-modal-open')
     }
   }, [isOpen])
 

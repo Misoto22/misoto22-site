@@ -118,8 +118,6 @@ export default function PhotographyClient({ initialData }: PhotographyClientProp
     }
   }, [mounted, loading, hasMore, loadMore])
 
-  if (!mounted) return null
-
   return (
     <main className="pt-24 min-h-screen bg-(--background)">
       {/* Hero header — editorial style */}
