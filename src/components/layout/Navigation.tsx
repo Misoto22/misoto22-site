@@ -26,6 +26,13 @@ const Navigation = () => {
     return () => { document.body.style.overflow = '' }
   }, [isMenuOpen])
 
+  // 清理 dropdown timeout 防止 unmount 后触发
+  useEffect(() => {
+    return () => {
+      if (dropdownTimeout.current) clearTimeout(dropdownTimeout.current)
+    }
+  }, [])
+
   const handleNavigation = () => setIsMenuOpen(false)
 
   // 延迟关闭下拉菜单，避免鼠标移动时闪烁

@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect, useCallback } from 'react'
+import { useState, useEffect, useCallback, useRef } from 'react'
 import Image from 'next/image'
 import Masonry from 'react-masonry-css'
 import ImageModal from '@/components/photography/ImageModal'
@@ -64,8 +64,11 @@ export default function PhotographyClient({ initialData }: PhotographyClientProp
     setSelectedPhoto(null)
   }
 
+  const isLoadingRef = useRef(false)
+
   const loadMore = useCallback(async () => {
-    if (loading || !hasMore) return
+    if (isLoadingRef.current || !hasMore) return
+    isLoadingRef.current = true
 
     setLoading(true)
     setError(null)
@@ -83,9 +86,10 @@ export default function PhotographyClient({ initialData }: PhotographyClientProp
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Failed to load more photos')
     } finally {
+      isLoadingRef.current = false
       setLoading(false)
     }
-  }, [loading, hasMore, currentPage])
+  }, [hasMore, currentPage])
 
   useEffect(() => {
     setMounted(true)

@@ -121,6 +121,13 @@ const BlogClient: React.FC<BlogClientProps> = ({ initialData }) => {
         />
       </div>
 
+      {/* Search scope hint */}
+      {searchQuery && hasMore && filteredPosts.length === 0 && (
+        <p className="text-(--secondary-text) text-sm">
+          Search is limited to loaded posts. Try loading more or clearing the search.
+        </p>
+      )}
+
       {/* Posts */}
       {filteredPosts.length > 0 ? (
         <div className="space-y-12">

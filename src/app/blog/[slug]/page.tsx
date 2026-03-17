@@ -11,15 +11,14 @@ interface BlogPostPageProps {
   }>
 }
 
-// Create a cached version of getBlogPostBySlug
-const getCachedBlogPost = unstable_cache(
-  getBlogPostBySlug,
-  ['blog-post'],
-  {
-    revalidate: 3600,
-    tags: ['blog-post']
-  }
-)
+// Create a per-slug cached fetcher
+function getCachedBlogPost(slug: string) {
+  return unstable_cache(
+    () => getBlogPostBySlug(slug),
+    ['blog-post', slug],
+    { revalidate: 3600, tags: [`blog-post-${slug}`] }
+  )()
+}
 
 // Generate metadata for the blog post
 export async function generateMetadata({ params }: BlogPostPageProps): Promise<Metadata> {

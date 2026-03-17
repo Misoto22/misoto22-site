@@ -30,13 +30,17 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project, index }) => {
       {/* Image — 60% */}
       <div className={`md:col-span-3 ${isReversed ? 'md:[direction:ltr]' : ''}`}>
         <div className="relative aspect-video rounded-xl overflow-hidden group">
-          <Image
-            src={project.image}
-            alt={project.title}
-            fill
-            className="object-cover group-hover:scale-[1.02] transition-transform duration-500"
-            sizes="(max-width: 768px) 100vw, 60vw"
-          />
+          {project.image ? (
+            <Image
+              src={project.image}
+              alt={project.title}
+              fill
+              className="object-cover group-hover:scale-[1.02] transition-transform duration-500"
+              sizes="(max-width: 768px) 100vw, 60vw"
+            />
+          ) : (
+            <div className="absolute inset-0 bg-(--border-subtle)" />
+          )}
         </div>
       </div>
 
