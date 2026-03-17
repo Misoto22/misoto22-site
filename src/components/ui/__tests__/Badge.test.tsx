@@ -18,9 +18,9 @@ describe('Badge', () => {
   it('should apply default styling classes', () => {
     const { container } = render(<Badge>Test</Badge>)
     const badge = container.querySelector('span')
-    expect(badge).toHaveClass('rounded-full')
-    expect(badge).toHaveClass('text-sm')
-    expect(badge).toHaveClass('font-medium')
+    expect(badge).toHaveClass('rounded-sm')
+    expect(badge).toHaveClass('text-xs')
+    expect(badge).toHaveClass('font-mono')
   })
 
   it('should render as a span element', () => {

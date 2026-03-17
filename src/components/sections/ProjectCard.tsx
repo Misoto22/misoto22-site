@@ -5,17 +5,7 @@ import Image from 'next/image'
 import Badge from '@/components/ui/Badge'
 import { motion } from 'framer-motion'
 import { fadeInUp, ANIMATION, viewportConfig } from '@/lib/animation'
-
-interface Project {
-  title: string
-  description: string
-  link: string
-  deploy?: string
-  technologies: string[]
-  image: string
-  category: string
-  order?: number
-}
+import type { Project } from '@/lib/supabase'
 
 interface ProjectCardProps {
   project: Project

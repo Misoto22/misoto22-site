@@ -6,14 +6,7 @@ import Masonry from 'react-masonry-css'
 import ImageModal from '@/components/photography/ImageModal'
 import { motion } from 'framer-motion'
 import { fadeInUp, ANIMATION, viewportConfig } from '@/lib/animation'
-
-interface Photo {
-  id: string
-  src: string
-  width: number
-  height: number
-  alt: string
-}
+import type { FrontendPhoto as Photo } from '@/lib/data'
 
 interface PhotosData {
   photos: Photo[]

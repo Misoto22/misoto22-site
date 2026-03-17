@@ -1,18 +1,7 @@
 import React from 'react'
 import Image from 'next/image'
 import Badge from '@/components/ui/Badge'
-
-interface Education {
-  degree: string
-  school: string
-  schoolLink?: string
-  location: string
-  period: string
-  description: string[]
-  courses: string[]
-  logo: string
-  order?: number
-}
+import type { Education } from '@/lib/supabase'
 
 interface EducationCardProps {
   education: Education

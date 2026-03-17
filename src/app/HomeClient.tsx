@@ -13,9 +13,10 @@ import { FULL_NAME, PROFESSION, EMAIL, GITHUB_URL, LINKEDIN_URL, INSTAGRAM_URL }
 import { FaGithub, FaLinkedin, FaInstagram } from 'react-icons/fa'
 import Image from 'next/image'
 import type { Project, BlogPost } from '@/lib/supabase'
+import type { FrontendPhoto } from '@/lib/data'
 
 interface HomeClientProps {
-  photos: { id: string; src: string; width: number; height: number; alt: string }[]
+  photos: FrontendPhoto[]
   projects: Project[]
   blogPosts: BlogPost[]
 }

@@ -11,10 +11,7 @@ export default function ContactForm() {
     const serviceId = process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID
     const templateId = process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID
 
-    if (!publicKey || !serviceId || !templateId) {
-      console.error('EmailJS configuration is missing')
-      return
-    }
+    if (!publicKey || !serviceId || !templateId) return
 
     emailjs.init({
       publicKey,

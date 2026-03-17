@@ -43,8 +43,8 @@ function mapProject(dbProject: any): Project {
   }
 }
 
-// Frontend Photo interface for components (different from Supabase Photo)
-interface FrontendPhoto {
+// Frontend Photo interface for components
+export interface FrontendPhoto {
   id: string;
   src: string;
   width: number;

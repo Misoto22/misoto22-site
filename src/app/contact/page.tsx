@@ -14,7 +14,7 @@ const socialLinks = [
   { href: SITE_CONFIG.GITHUB_URL, label: 'GitHub', icon: FaGithub },
   { href: SITE_CONFIG.LINKEDIN_URL, label: 'LinkedIn', icon: FaLinkedin },
   { href: SITE_CONFIG.INSTAGRAM_URL, label: 'Instagram', icon: FaInstagram },
-  { href: 'https://unsplash.com/@misoto22', label: 'Unsplash', icon: SiUnsplash },
+  { href: SITE_CONFIG.UNSPLASH_URL, label: 'Unsplash', icon: SiUnsplash },
 ]
 
 export default function Contact() {

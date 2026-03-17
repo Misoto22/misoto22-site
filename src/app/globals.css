@@ -107,20 +107,6 @@ body {
   transition: background-color 0.3s ease, color 0.3s ease;
 }
 
-/* ─── Masonry layout for react-masonry-css ─── */
-.my-masonry-grid {
-  display: flex;
-  margin-left: -24px;
-  width: auto;
-}
-.my-masonry-grid_column {
-  padding-left: 24px;
-  background-clip: padding-box;
-}
-.my-masonry-grid_column > div {
-  margin-bottom: 24px;
-}
-
 /* ─── Blog prose styling ─── */
 .prose {
   max-width: none;

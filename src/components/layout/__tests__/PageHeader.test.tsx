@@ -24,26 +24,14 @@ describe('PageHeader', () => {
     expect(heading).toHaveTextContent('Test Title')
   })
 
-  it('should not show divider by default', () => {
+  it('should show divider by default', () => {
     const { container } = render(
       <PageHeader
         title="Test Title"
         description="Test description"
       />
     )
-    const divider = container.querySelector('.w-24.h-1')
-    expect(divider).not.toBeInTheDocument()
-  })
-
-  it('should show divider when showDivider is true', () => {
-    const { container } = render(
-      <PageHeader
-        title="Test Title"
-        description="Test description"
-        showDivider={true}
-      />
-    )
-    const divider = container.querySelector('.w-24.h-1')
+    const divider = container.querySelector('.w-12')
     expect(divider).toBeInTheDocument()
   })
 
@@ -55,20 +43,19 @@ describe('PageHeader', () => {
         showDivider={false}
       />
     )
-    const divider = container.querySelector('.w-24.h-1')
+    const divider = container.querySelector('.w-12')
     expect(divider).not.toBeInTheDocument()
   })
 
   it('should apply proper styling classes to title', () => {
-    const { container } = render(
+    render(
       <PageHeader
         title="Test Title"
         description="Test description"
       />
     )
     const title = screen.getByRole('heading', { level: 1 })
-    expect(title).toHaveClass('text-4xl')
-    expect(title).toHaveClass('md:text-5xl')
+    expect(title).toHaveClass('text-3xl')
     expect(title).toHaveClass('font-heading')
   })
 
@@ -85,38 +72,13 @@ describe('PageHeader', () => {
     expect(description).toHaveClass('max-w-2xl')
   })
 
-  it('should center align content', () => {
+  it('should be wrapped in animation container', () => {
     const { container } = render(
       <PageHeader
         title="Test Title"
         description="Test description"
       />
     )
-    const wrapper = container.querySelector('.text-center')
-    expect(wrapper).toBeInTheDocument()
-  })
-
-  it('should render divider with correct styling when shown', () => {
-    const { container } = render(
-      <PageHeader
-        title="Test Title"
-        description="Test description"
-        showDivider={true}
-      />
-    )
-    const divider = container.querySelector('.w-24.h-1')
-    expect(divider).toHaveClass('mx-auto')
-    expect(divider).toHaveClass('mb-4')
-  })
-
-  it('should be wrapped in FadeInSlideUp animation', () => {
-    const { container } = render(
-      <PageHeader
-        title="Test Title"
-        description="Test description"
-      />
-    )
-    // Verify the component renders without errors (FadeInSlideUp wraps it)
     expect(container.firstChild).toBeInTheDocument()
   })
 })

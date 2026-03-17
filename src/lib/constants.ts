@@ -12,6 +12,7 @@ export const SITE_CONFIG = {
   GITHUB_URL: 'https://github.com/Misoto22',
   LINKEDIN_URL: 'https://linkedin.com/in/henry-misoto22',
   INSTAGRAM_URL: 'https://instagram.com/hry.photography',
+  UNSPLASH_URL: 'https://unsplash.com/@misoto22',
 
   // Site Information
   SITE_TITLE: 'Personal Website',
@@ -47,6 +48,7 @@ export const {
   GITHUB_URL,
   LINKEDIN_URL,
   INSTAGRAM_URL,
+  UNSPLASH_URL,
   SITE_TITLE,
   SITE_DESCRIPTION,
   PROFESSION,

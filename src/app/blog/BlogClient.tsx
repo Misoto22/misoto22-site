@@ -22,6 +22,7 @@ const BlogClient: React.FC<BlogClientProps> = ({ initialData }) => {
   const [selectedCategory, setSelectedCategory] = useState<string | undefined>()
   const [searchQuery, setSearchQuery] = useState('')
   const [mounted, setMounted] = useState(false)
+  const [error, setError] = useState<string | null>(null)
 
   useEffect(() => {
     setMounted(true)
@@ -42,6 +43,7 @@ const BlogClient: React.FC<BlogClientProps> = ({ initialData }) => {
     if (loading || !hasMore) return
 
     setLoading(true)
+    setError(null)
 
     try {
       const nextPage = currentPage + 1
@@ -53,8 +55,8 @@ const BlogClient: React.FC<BlogClientProps> = ({ initialData }) => {
       setPosts(prevPosts => [...prevPosts, ...data.posts])
       setHasMore(data.hasMore)
       setCurrentPage(nextPage)
-    } catch (error) {
-      console.error('Error loading more posts:', error)
+    } catch {
+      setError('Failed to load more posts. Please try again.')
     } finally {
       setLoading(false)
     }
@@ -74,8 +76,8 @@ const BlogClient: React.FC<BlogClientProps> = ({ initialData }) => {
       setPosts(data.posts)
       setHasMore(data.hasMore)
       setCurrentPage(1)
-    } catch (error) {
-      console.error('Error fetching posts by category:', error)
+    } catch {
+      setError('Failed to load posts. Please try again.')
     } finally {
       setLoading(false)
     }
@@ -139,6 +141,11 @@ const BlogClient: React.FC<BlogClientProps> = ({ initialData }) => {
                 <BlogCard key={post.id} post={post} index={index + 1} />
               ))}
             </div>
+          )}
+
+          {/* Error */}
+          {error && (
+            <p className="text-center text-sm text-red-700 dark:text-red-400 py-4">{error}</p>
           )}
 
           {/* Load more */}

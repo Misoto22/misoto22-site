@@ -1,18 +1,7 @@
 import React from 'react'
 import Image from 'next/image'
 import Badge from '@/components/ui/Badge'
-
-interface Experience {
-  title: string
-  company: string
-  companyLink?: string
-  location: string
-  period: string
-  description: string[]
-  technologies: string[]
-  logo: string
-  order?: number
-}
+import type { Experience } from '@/lib/supabase'
 
 interface ExperienceCardProps {
   experience: Experience
