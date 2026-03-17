@@ -3,12 +3,13 @@
 import Badge from '@/components/ui/Badge'
 import { motion } from 'framer-motion'
 import { fadeInUp, ANIMATION, viewportConfig, staggerContainer } from '@/lib/animation'
+import { RESUME_URL } from '@/lib/constants'
 
 const skills = [
   { category: 'Programming Languages', items: ['Python', 'JavaScript', 'TypeScript', 'Java', 'C++', 'SQL'] },
   { category: 'Web Development', items: ['React', 'Next.js', 'Node.js', 'HTML5', 'CSS3', 'Tailwind CSS'] },
-  { category: 'DevOps & Cloud', items: ['Docker', 'Kubernetes', 'AWS', 'CI/CD', 'Terraform', 'Linux'] },
-  { category: 'Tools & Others', items: ['Git', 'VS Code', 'PostgreSQL', 'MongoDB', 'Jira', 'Agile'] },
+  { category: 'DevOps & Cloud', items: ['Docker', 'AWS', 'CI/CD', 'GitHub Actions', 'Linux'] },
+  { category: 'Tools & Others', items: ['Git', 'VS Code', 'PostgreSQL', 'SQL Server', 'Jira', 'Agile'] },
 ]
 
 const interests = [
@@ -47,6 +48,31 @@ export default function AboutClient() {
               in my personal projects.
             </p>
           </div>
+          <a
+            href={RESUME_URL}
+            download
+            className="group inline-flex items-center gap-2 border border-(--border-color) hover:border-(--accent) px-4 py-2 rounded-lg transition-all duration-300 hover:shadow-sm"
+          >
+            <svg
+              width="14"
+              height="14"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="1.5"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              className="text-(--secondary-text) group-hover:text-(--accent) transition-colors duration-300"
+            >
+              <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+              <polyline points="14 2 14 8 20 8" />
+              <line x1="12" y1="18" x2="12" y2="12" />
+              <polyline points="9 15 12 18 15 15" />
+            </svg>
+            <span className="font-mono text-xs tracking-wide text-(--foreground-muted) group-hover:text-(--accent) transition-colors duration-300">
+              Resume
+            </span>
+          </a>
         </motion.div>
 
         <motion.div

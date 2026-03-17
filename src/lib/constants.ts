@@ -14,6 +14,9 @@ export const SITE_CONFIG = {
   INSTAGRAM_URL: 'https://instagram.com/hry.photography',
   UNSPLASH_URL: 'https://unsplash.com/@misoto22',
 
+  // Resume
+  RESUME_URL: '/files/resume.pdf',
+
   // Site Information
   SITE_TITLE: 'Personal Website',
   SITE_DESCRIPTION: "Henry Chen's Personal website",
@@ -30,8 +33,10 @@ export const NAV_PAGES = [
   { href: '/photography', text: 'Photography' },
   { href: '/blog', text: 'Blog' },
   {
+    href: '/about',
     text: 'About',
     children: [
+      { href: '/about', text: 'About' },
       { href: '/education', text: 'Education' },
       { href: '/experience', text: 'Experience' }
     ]
@@ -45,6 +50,7 @@ export const {
   DISPLAY_NAME,
   EMAIL,
   LOCATION,
+  RESUME_URL,
   GITHUB_URL,
   LINKEDIN_URL,
   INSTAGRAM_URL,

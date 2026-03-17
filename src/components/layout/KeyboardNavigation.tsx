@@ -16,10 +16,10 @@ const KeyboardNavigation = ({ children }: KeyboardNavigationProps) => {
   const flattenedPages = useCallback(() => {
     const pages: { href: string; text: string }[] = []
     NAV_PAGES.forEach(page => {
-      if ('href' in page) {
-        pages.push(page)
-      } else if ('children' in page) {
+      if ('children' in page) {
         pages.push(...page.children)
+      } else if ('href' in page) {
+        pages.push(page)
       }
     })
     return pages

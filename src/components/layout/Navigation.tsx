@@ -69,7 +69,7 @@ const Navigation = () => {
         {/* ─── Desktop nav ─── */}
         <div className="hidden nav:flex items-center gap-1">
           {navItems.map((item) =>
-            'href' in item ? (
+            !('children' in item) ? (
               <Link
                 key={item.href}
                 href={item.href}
@@ -96,9 +96,11 @@ const Navigation = () => {
                 onMouseEnter={openDropdown}
                 onMouseLeave={closeDropdown}
               >
-                <button
+                <Link
+                  href={'href' in item ? item.href : '#'}
+                  onClick={handleNavigation}
                   className={`flex items-center gap-1 px-3 py-1.5 text-[13px] uppercase tracking-[0.08em] rounded-md transition-colors duration-200 ${
-                    item.children.some(c => pathname === c.href)
+                    pathname === ('href' in item ? item.href : '') || item.children.some(c => pathname === c.href)
                       ? 'text-(--foreground)'
                       : 'text-(--secondary-text) hover:text-(--foreground) hover:bg-(--accent-muted)'
                   }`}
@@ -115,10 +117,10 @@ const Navigation = () => {
                   >
                     <path d="M2.5 4L5 6.5L7.5 4" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round" />
                   </motion.svg>
-                </button>
+                </Link>
 
                 {/* Active indicator for dropdown parent */}
-                {item.children.some(c => pathname === c.href) && (
+                {(pathname === ('href' in item ? item.href : '') || item.children.some(c => pathname === c.href)) && (
                   <motion.div
                     layoutId="nav-active"
                     className="absolute bottom-0 left-3 right-3 h-px bg-(--accent)"
@@ -217,7 +219,7 @@ const Navigation = () => {
                 }}
               >
                 {navItems.map((item) =>
-                  'href' in item ? (
+                  !('children' in item) ? (
                     <motion.div
                       key={item.href}
                       variants={{

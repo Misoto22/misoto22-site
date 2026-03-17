@@ -9,7 +9,7 @@ import PhotoStrip from '@/components/sections/PhotoStrip'
 import FeaturedWork from '@/components/sections/FeaturedWork'
 import SectionHeading from '@/components/layout/SectionHeading'
 import { fadeInUp, ANIMATION, viewportConfig } from '@/lib/animation'
-import { FULL_NAME, PROFESSION, EMAIL, GITHUB_URL, LINKEDIN_URL, INSTAGRAM_URL } from '@/lib/constants'
+import { FULL_NAME, PROFESSION, EMAIL, RESUME_URL, GITHUB_URL, LINKEDIN_URL, INSTAGRAM_URL } from '@/lib/constants'
 import { FaGithub, FaLinkedin, FaInstagram } from 'react-icons/fa'
 import Image from 'next/image'
 import type { Project, BlogPost } from '@/lib/supabase'
@@ -208,12 +208,39 @@ export default function HomeClient({ photos, projects, blogPosts }: HomeClientPr
             <p className="text-(--foreground-muted) leading-relaxed mb-6">
               Beyond code, my photography captures the interplay between urban landscapes and natural beauty across Australia.
             </p>
-            <Link
-              href="/experience"
-              className="text-sm text-(--accent) hover:text-(--accent-hover) transition-colors duration-200 flex items-center gap-2"
-            >
-              Read more <span aria-hidden="true">&rarr;</span>
-            </Link>
+            <div className="flex flex-wrap items-center gap-6">
+              <Link
+                href="/experience"
+                className="text-sm text-(--accent) hover:text-(--accent-hover) transition-colors duration-200 flex items-center gap-2"
+              >
+                Read more <span aria-hidden="true">&rarr;</span>
+              </Link>
+              <a
+                href={RESUME_URL}
+                download
+                className="group inline-flex items-center gap-2 border border-(--border-color) hover:border-(--accent) px-4 py-2 rounded-lg transition-all duration-300 hover:shadow-sm"
+              >
+                <svg
+                  width="14"
+                  height="14"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="1.5"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  className="text-(--secondary-text) group-hover:text-(--accent) transition-colors duration-300"
+                >
+                  <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+                  <polyline points="14 2 14 8 20 8" />
+                  <line x1="12" y1="18" x2="12" y2="12" />
+                  <polyline points="9 15 12 18 15 15" />
+                </svg>
+                <span className="font-mono text-xs tracking-wide text-(--foreground-muted) group-hover:text-(--accent) transition-colors duration-300">
+                  Resume
+                </span>
+              </a>
+            </div>
           </motion.div>
 
           <SkillsSection />
