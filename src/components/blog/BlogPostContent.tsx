@@ -4,7 +4,7 @@ import Badge from '@/components/ui/Badge'
 import MarkdownRenderer from './MarkdownRenderer'
 import TableOfContents from './TableOfContents'
 import { BlogPost } from '@/lib/supabase'
-import Link from 'next/link'
+import { Link } from 'next-view-transitions'
 import { estimateReadingTime, formatDate } from '@/lib/utils'
 
 interface BlogPostContentProps {

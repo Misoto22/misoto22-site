@@ -1,6 +1,6 @@
 import { FaGithub, FaLinkedin, FaInstagram } from 'react-icons/fa'
 import { FULL_NAME, EMAIL, LOCATION, GITHUB_URL, LINKEDIN_URL, INSTAGRAM_URL } from '@/lib/constants'
-import Link from 'next/link'
+import { Link } from 'next-view-transitions'
 
 const Footer = () => {
   return (

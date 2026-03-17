@@ -7,6 +7,7 @@ import Footer from '@/components/layout/Footer'
 import ScrollToTopButton from '@/components/common/ScrollToTopButton'
 import KeyboardNavigation from '@/components/layout/KeyboardNavigation'
 import { ThemeProvider } from '@/context/ThemeContext'
+import { ViewTransitions } from 'next-view-transitions'
 import CommandPalette from '@/components/command-palette/CommandPalette'
 import { SpeedInsights } from "@vercel/speed-insights/next"
 import { Analytics } from "@vercel/analytics/react"
@@ -79,23 +80,25 @@ export default function RootLayout({
         `}} />
       </head>
       <body className={`${inter.className} ${inter.variable} ${dmSerifDisplay.variable} ${jetbrainsMono.variable}`}>
-        <ThemeProvider>
-          <a
-            href="#main-content"
-            className="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-[100] focus:px-4 focus:py-2 focus:bg-(--background) focus:text-(--foreground) focus:border focus:border-(--accent) focus:rounded"
-          >
-            Skip to main content
-          </a>
-          <Navigation />
-          <KeyboardNavigation>
-            <main id="main-content">{children}</main>
-          </KeyboardNavigation>
-          <Footer />
-          <ScrollToTopButton />
-          <CommandPalette />
-          <SpeedInsights />
-          <Analytics />
-        </ThemeProvider>
+        <ViewTransitions>
+          <ThemeProvider>
+            <a
+              href="#main-content"
+              className="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-[100] focus:px-4 focus:py-2 focus:bg-(--background) focus:text-(--foreground) focus:border focus:border-(--accent) focus:rounded"
+            >
+              Skip to main content
+            </a>
+            <Navigation />
+            <KeyboardNavigation>
+              <main id="main-content">{children}</main>
+            </KeyboardNavigation>
+            <Footer />
+            <ScrollToTopButton />
+            <CommandPalette />
+            <SpeedInsights />
+            <Analytics />
+          </ThemeProvider>
+        </ViewTransitions>
       </body>
     </html>
   )
