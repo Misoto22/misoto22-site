@@ -47,6 +47,16 @@ export default function ContactForm() {
       return
     }
 
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
+      setStatus({
+        submitting: false,
+        submitted: false,
+        error: true,
+        message: 'Please enter a valid email address'
+      })
+      return
+    }
+
     try {
       const serviceId = process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID
       const templateId = process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID

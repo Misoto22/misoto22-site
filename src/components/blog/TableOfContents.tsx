@@ -181,87 +181,7 @@ const TableOfContents: React.FC<TableOfContentsProps> = ({ content }) => {
     }
   }
 
-  if (tocItems.length === 0 || shouldHideToc || hasOverlap) return null
-
-  const TocContent = () => {
-    return (
-      <nav
-        className="space-y-1"
-        onMouseEnter={() => !shouldHideToc && setIsHovered(true)}
-        onMouseLeave={() => setIsHovered(false)}
-      >
-        {tocItems.map(({ id, text, level }, index) => {
-          let shouldShow = false
-
-          if (isHovered) {
-            // Show all items when hovered
-            shouldShow = true
-          } else {
-            // Show only current section and its subsections when not hovered
-            if (activeId) {
-              const activeIndex = tocItems.findIndex(item => item.id === activeId)
-              if (activeIndex !== -1) {
-                const activeItem = tocItems[activeIndex]
-
-                if (id === activeId) {
-                  // Always show the active item
-                  shouldShow = true
-                } else if (index > activeIndex) {
-                  // Show subsections (items with higher level numbers after the active item)
-                  if (level > activeItem.level) {
-                    shouldShow = true
-                  } else {
-                    // Stop when we reach same or higher level
-                    shouldShow = false
-                  }
-                }
-              }
-            } else {
-              // If no active ID, show the first item by default
-              shouldShow = index === 0
-            }
-          }
-
-          return (
-            <motion.div
-              key={id}
-              initial={{ opacity: 0 }}
-              animate={{ opacity: shouldShow ? 1 : 0 }}
-              transition={{ duration: 0.15 }}
-              style={{
-                height: shouldShow ? 'auto' : '0px',
-                overflow: 'hidden',
-                pointerEvents: shouldShow ? 'auto' : 'none'
-              }}
-            >
-              <button
-                onClick={() => scrollToHeading(id)}
-                className={`
-                  block w-full text-left text-sm transition-colors duration-200 py-2 px-3
-                  hover:text-(--foreground)
-                  ${activeId === id
-                    ? 'text-(--foreground) font-medium'
-                    : 'text-(--secondary-text)'
-                  }
-                `}
-                style={{
-                  paddingLeft: `${(level - 1) * 12 + 12}px`,
-                  fontSize: level === 1 ? '0.875rem' : level === 2 ? '0.8125rem' : '0.75rem'
-                }}
-              >
-                {text}
-              </button>
-            </motion.div>
-          )
-        })}
-      </nav>
-    )
-  }
-
-  // Mobile TOC (disabled - return null for mobile or when overlap detected)
-  if (isMobile || hasOverlap) {
-    return null
-  }
+  if (tocItems.length === 0 || shouldHideToc || hasOverlap || isMobile) return null
 
   // Desktop TOC (fixed sidebar with responsive positioning)
   return (
@@ -275,10 +195,95 @@ const TableOfContents: React.FC<TableOfContentsProps> = ({ content }) => {
         className="overflow-y-auto max-h-[60vh]"
         style={{ pointerEvents: shouldHideToc ? 'none' : 'auto' }}
       >
-        <TocContent />
+        <TocNav
+          tocItems={tocItems}
+          activeId={activeId}
+          isHovered={isHovered}
+          shouldHideToc={shouldHideToc}
+          onHoverStart={() => !shouldHideToc && setIsHovered(true)}
+          onHoverEnd={() => setIsHovered(false)}
+          onScrollTo={scrollToHeading}
+        />
       </motion.div>
     </div>
   )
 }
+
+// Extracted to avoid re-creation on every render
+const TocNav = ({
+  tocItems,
+  activeId,
+  isHovered,
+  shouldHideToc,
+  onHoverStart,
+  onHoverEnd,
+  onScrollTo,
+}: {
+  tocItems: TocItem[]
+  activeId: string
+  isHovered: boolean
+  shouldHideToc: boolean
+  onHoverStart: () => void
+  onHoverEnd: () => void
+  onScrollTo: (id: string) => void
+}) => (
+  <nav
+    className="space-y-1"
+    onMouseEnter={onHoverStart}
+    onMouseLeave={onHoverEnd}
+  >
+    {tocItems.map(({ id, text, level }, index) => {
+      let shouldShow = false
+
+      if (isHovered) {
+        shouldShow = true
+      } else if (activeId) {
+        const activeIndex = tocItems.findIndex(item => item.id === activeId)
+        if (activeIndex !== -1) {
+          const activeItem = tocItems[activeIndex]
+          if (id === activeId) {
+            shouldShow = true
+          } else if (index > activeIndex && level > activeItem.level) {
+            shouldShow = true
+          }
+        }
+      } else {
+        shouldShow = index === 0
+      }
+
+      return (
+        <motion.div
+          key={id}
+          initial={{ opacity: 0 }}
+          animate={{ opacity: shouldShow ? 1 : 0 }}
+          transition={{ duration: 0.15 }}
+          style={{
+            height: shouldShow ? 'auto' : '0px',
+            overflow: 'hidden',
+            pointerEvents: shouldShow ? 'auto' : 'none'
+          }}
+        >
+          <button
+            onClick={() => onScrollTo(id)}
+            className={`
+              block w-full text-left text-sm transition-colors duration-200 py-2 px-3
+              hover:text-(--foreground)
+              ${activeId === id
+                ? 'text-(--foreground) font-medium'
+                : 'text-(--secondary-text)'
+              }
+            `}
+            style={{
+              paddingLeft: `${(level - 1) * 12 + 12}px`,
+              fontSize: level === 1 ? '0.875rem' : level === 2 ? '0.8125rem' : '0.75rem'
+            }}
+          >
+            {text}
+          </button>
+        </motion.div>
+      )
+    })}
+  </nav>
+)
 
 export default TableOfContents

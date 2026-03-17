@@ -1,8 +1,39 @@
 // Server-side data fetching functions using Supabase
 import { supabase, type Education, type Experience, type Project, type BlogPost, type BlogCategory, type BlogTag, type BlogAuthor } from './supabase'
 
+// Database row types — match Supabase table schemas
+interface DbEducation {
+  degree: string; school: string; school_link?: string; location: string
+  period: string; description: string[]; courses: string[]; logo: string; order?: number
+}
+
+interface DbExperience {
+  title: string; company: string; company_link?: string; location: string
+  period: string; description: string[]; technologies: string[]; logo: string; order?: number
+}
+
+interface DbProject {
+  title: string; description: string; link: string; deploy?: string
+  technologies: string[]; image_path: string; category: string; order?: number
+}
+
+interface DbPhoto {
+  id: number; src: string; width: number; height: number; alt: string
+}
+
+interface DbBlogPost {
+  id: string; title: string; slug: string; content: string; summary?: string
+  cover_image?: string; published_at?: string; updated_at?: string; is_published: boolean
+  users?: { id: string; name: string; avatar?: string; bio?: string }
+  blog_categories?: { id: string; name: string }
+  blog_subcategories?: { id: string; name: string; category_id?: string }
+  blog_post_tags?: { tags: { id: string; name: string } }[]
+}
+
+interface DbNamedRecord { id: string; name: string }
+
 // Convert database field names to frontend interface
-function mapEducation(dbEducation: any): Education {
+function mapEducation(dbEducation: DbEducation): Education {
   return {
     degree: dbEducation.degree,
     school: dbEducation.school,
@@ -16,7 +47,7 @@ function mapEducation(dbEducation: any): Education {
   }
 }
 
-function mapExperience(dbExperience: any): Experience {
+function mapExperience(dbExperience: DbExperience): Experience {
   return {
     title: dbExperience.title,
     company: dbExperience.company,
@@ -30,14 +61,14 @@ function mapExperience(dbExperience: any): Experience {
   }
 }
 
-function mapProject(dbProject: any): Project {
+function mapProject(dbProject: DbProject): Project {
   return {
     title: dbProject.title,
     description: dbProject.description,
     link: dbProject.link,
     deploy: dbProject.deploy,
     technologies: dbProject.technologies,
-    image: dbProject.image_path, // Updated to match your database field name
+    image: dbProject.image_path,
     category: dbProject.category,
     order: dbProject.order
   }
@@ -52,9 +83,9 @@ export interface FrontendPhoto {
   alt: string;
 }
 
-function mapPhoto(dbPhoto: any): FrontendPhoto {
+function mapPhoto(dbPhoto: DbPhoto): FrontendPhoto {
   return {
-    id: String(dbPhoto.id || ''), // Convert number to string
+    id: String(dbPhoto.id || ''),
     src: dbPhoto.src,
     width: dbPhoto.width,
     height: dbPhoto.height,
@@ -161,7 +192,7 @@ export async function getPhotos(page: number = 1, limit: number = 8): Promise<{
 }
 
 // Blog data mapping functions
-function mapBlogPost(dbPost: any): BlogPost {
+function mapBlogPost(dbPost: DbBlogPost): BlogPost {
   return {
     id: dbPost.id,
     title: dbPost.title,
@@ -187,21 +218,21 @@ function mapBlogPost(dbPost: any): BlogPost {
       name: dbPost.blog_subcategories.name,
       categoryId: dbPost.blog_subcategories.category_id
     } : undefined,
-    tags: dbPost.blog_post_tags?.map((tagRelation: any) => ({
+    tags: dbPost.blog_post_tags?.map((tagRelation) => ({
       id: tagRelation.tags.id,
       name: tagRelation.tags.name
     })) || []
   }
 }
 
-function mapBlogCategory(dbCategory: any): BlogCategory {
+function mapBlogCategory(dbCategory: DbNamedRecord): BlogCategory {
   return {
     id: dbCategory.id,
     name: dbCategory.name
   }
 }
 
-function mapBlogTag(dbTag: any): BlogTag {
+function mapBlogTag(dbTag: DbNamedRecord): BlogTag {
   return {
     id: dbTag.id,
     name: dbTag.name
@@ -249,14 +280,17 @@ export async function getBlogPosts(options: {
       query = query.eq('is_published', true)
     }
 
+    // Resolve category ID once if filtering by category
+    let categoryId: string | undefined
     if (category) {
       const { data: cat } = await supabase
         .from('blog_categories')
         .select('id')
         .eq('name', category)
         .single()
-      if (cat) {
-        query = query.eq('category_id', cat.id)
+      categoryId = cat?.id
+      if (categoryId) {
+        query = query.eq('category_id', categoryId)
       }
     }
 
@@ -269,10 +303,8 @@ export async function getBlogPosts(options: {
       countQuery = countQuery.eq('is_published', true)
     }
 
-    if (category) {
-      countQuery = countQuery.eq('category_id', (
-        await supabase.from('blog_categories').select('id').eq('name', category).single()
-      ).data?.id)
+    if (categoryId) {
+      countQuery = countQuery.eq('category_id', categoryId)
     }
 
     const { count } = await countQuery

@@ -79,9 +79,15 @@ export default function RootLayout({
       </head>
       <body className={`${inter.className} ${inter.variable} ${dmSerifDisplay.variable} ${jetbrainsMono.variable}`}>
         <ThemeProvider>
+          <a
+            href="#main-content"
+            className="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-[100] focus:px-4 focus:py-2 focus:bg-(--background) focus:text-(--foreground) focus:border focus:border-(--accent) focus:rounded"
+          >
+            Skip to main content
+          </a>
           <Navigation />
           <KeyboardNavigation>
-            <main>{children}</main>
+            <main id="main-content">{children}</main>
           </KeyboardNavigation>
           <Footer />
           <ScrollToTopButton />

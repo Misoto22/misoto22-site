@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useRef, useCallback } from 'react'
 import Image from 'next/image'
 import { motion, AnimatePresence } from 'framer-motion'
 import { ANIMATION } from '@/lib/animation'
@@ -35,25 +35,52 @@ const ImageModal: React.FC<ImageModalProps> = ({
   hasNext,
 }) => {
   const [loaded, setLoaded] = useState(false)
+  const closeButtonRef = useRef<HTMLButtonElement>(null)
+  const modalRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
     setLoaded(false)
   }, [photo])
 
-  useEffect(() => {
-    const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.key === 'ArrowLeft' || e.key === 'ArrowRight') {
+  // Focus trap + keyboard handling
+  const handleKeyDown = useCallback((e: KeyboardEvent) => {
+    if (e.key === 'Tab') {
+      // Trap focus within modal
+      const focusable = modalRef.current?.querySelectorAll<HTMLElement>(
+        'button:not([disabled])'
+      )
+      if (!focusable || focusable.length === 0) return
+
+      const first = focusable[0]
+      const last = focusable[focusable.length - 1]
+
+      if (e.shiftKey && document.activeElement === first) {
         e.preventDefault()
-        e.stopPropagation()
+        last.focus()
+      } else if (!e.shiftKey && document.activeElement === last) {
+        e.preventDefault()
+        first.focus()
       }
-      if (e.key === 'Escape') onClose()
-      else if (e.key === 'ArrowLeft' && hasPrevious) onPrevious()
-      else if (e.key === 'ArrowRight' && hasNext) onNext()
+      return
     }
 
-    if (isOpen) window.addEventListener('keydown', handleKeyDown, true)
+    if (e.key === 'ArrowLeft' || e.key === 'ArrowRight') {
+      e.preventDefault()
+      e.stopPropagation()
+    }
+    if (e.key === 'Escape') onClose()
+    else if (e.key === 'ArrowLeft' && hasPrevious) onPrevious()
+    else if (e.key === 'ArrowRight' && hasNext) onNext()
+  }, [onClose, onPrevious, onNext, hasPrevious, hasNext])
+
+  useEffect(() => {
+    if (isOpen) {
+      window.addEventListener('keydown', handleKeyDown, true)
+      // Focus close button on open
+      setTimeout(() => closeButtonRef.current?.focus(), 50)
+    }
     return () => window.removeEventListener('keydown', handleKeyDown, true)
-  }, [isOpen, onClose, onPrevious, onNext, hasPrevious, hasNext])
+  }, [isOpen, handleKeyDown])
 
   useEffect(() => {
     if (isOpen) {
@@ -73,6 +100,10 @@ const ImageModal: React.FC<ImageModalProps> = ({
     <AnimatePresence>
       {isOpen && photo && (
         <motion.div
+          ref={modalRef}
+          role="dialog"
+          aria-modal="true"
+          aria-label={photo.alt}
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
@@ -115,6 +146,7 @@ const ImageModal: React.FC<ImageModalProps> = ({
 
               {/* Close button */}
               <button
+                ref={closeButtonRef}
                 onClick={onClose}
                 className="absolute top-0 right-0 z-30 p-3 text-white/50 hover:text-white transition-colors duration-200"
                 aria-label="Close modal"

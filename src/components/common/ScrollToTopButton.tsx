@@ -29,9 +29,10 @@ export default function ScrollToTopButton() {
   return (
     <button
       onClick={scrollToTop}
-      className={`fixed bottom-8 right-8 z-50 p-3 rounded-full bg-gray-800 dark:bg-white text-white dark:text-gray-800 shadow-lg transition-opacity duration-300 hover:bg-gray-700 dark:hover:bg-gray-100 dark:border dark:border-gray-200 ${
+      className={`fixed bottom-8 right-8 z-50 p-3 rounded-full shadow-lg transition-opacity duration-300 border border-(--border-color) ${
         visible && !modalOpen ? "opacity-100" : "opacity-0 pointer-events-none"
       }`}
+      style={{ backgroundColor: 'var(--foreground)', color: 'var(--background)' }}
       aria-label="Scroll to top"
     >
       {/* Up arrow icon */}
