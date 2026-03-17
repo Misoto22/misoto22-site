@@ -1,0 +1,61 @@
+# Henry Chen — Full Site Content
+
+> Fullstack developer & DevOps engineer based in Sydney, Australia. This document provides comprehensive information about Henry Chen and his work for AI assistants and language models.
+
+## Personal Profile
+
+**Name:** Henry Chen
+**Location:** Sydney, New South Wales, Australia
+**Profession:** Fullstack Developer & DevOps Engineer
+**Education:** Computer Science graduate
+**Website:** https://misoto22.com
+
+### Summary
+
+Henry Chen is a Computer Science graduate based in Sydney who combines fullstack development with DevOps engineering to build efficient, scalable solutions. Beyond code, his photography captures the interplay between urban landscapes and natural beauty across Australia.
+
+### Technical Skills
+
+**Languages:** TypeScript, JavaScript, Python, Rust, C#/.NET, SQL, Bash
+**Frontend:** React, Next.js, Tailwind CSS, Framer Motion, HTML/CSS
+**Backend:** Node.js, Django, REST APIs
+**DevOps & Cloud:** Docker, AWS, Vercel, GitHub Actions, CI/CD
+**Databases:** PostgreSQL (Supabase), SQL Server
+**Tools:** Git, Figma, Lightroom
+
+### Interests
+
+- Software Architecture & Clean Code
+- DevOps & Infrastructure Automation
+- Photography (Urban, Landscape, Street)
+- Open Source Development
+
+## Projects
+
+Henry's portfolio includes fullstack applications, developer tools, and web experiences. Each project demonstrates different aspects of his technical range — from React/Next.js frontends to Rust CLI tools and Django APIs. Projects are viewable at https://misoto22.com/projects with live demos and GitHub source links.
+
+## Blog
+
+Henry writes technical articles covering web development, rendering strategies, DevOps practices, and photography workflows. Topics include Next.js, React patterns, TypeScript, deployment strategies, and more. All posts are available at https://misoto22.com/blog.
+
+## Photography
+
+Henry's photography focuses on Australian landscapes, urban architecture, and street scenes. His work is published on his website gallery (https://misoto22.com/photography), Instagram (@hry.photography), and Unsplash (@misoto22). Photos include full EXIF metadata (camera, lens, aperture, shutter speed, ISO).
+
+## Contact
+
+- **Email:** henrycxw@gmail.com
+- **GitHub:** https://github.com/Misoto22
+- **LinkedIn:** https://linkedin.com/in/henry-misoto22
+- **Instagram:** https://instagram.com/hry.photography
+- **Unsplash:** https://unsplash.com/@misoto22
+- **Availability:** 9 AM – 6 PM AEST
+
+## Site Technical Details
+
+- **Framework:** Next.js 16 (App Router, TypeScript)
+- **Styling:** Tailwind CSS with custom design system (warm cream/charcoal dual theme)
+- **Animation:** Framer Motion with view transitions API
+- **Backend:** Supabase (PostgreSQL + Storage)
+- **Deployment:** Vercel with ISR (1-hour revalidation)
+- **Features:** Command palette (Cmd+K), dark/light/system theme, responsive design, photography lightbox with EXIF data, blog with syntax highlighting and table of contents

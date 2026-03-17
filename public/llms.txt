@@ -1,0 +1,29 @@
+# Henry Chen — Personal Website
+
+> Fullstack developer & DevOps engineer based in Sydney, Australia. Computer Science graduate who combines software development with photography.
+
+## About
+
+Henry Chen is a fullstack developer and DevOps engineer specializing in building efficient, scalable solutions. He works with TypeScript, React, Next.js, Python, Rust, C#/.NET, Docker, and AWS. Beyond code, he captures urban landscapes and natural beauty across Australia through photography.
+
+## Site Sections
+
+- [Home](https://misoto22.com): Landing page with featured projects, photography, and blog posts
+- [Projects](https://misoto22.com/projects): Portfolio of software projects with live demos and source code
+- [Photography](https://misoto22.com/photography): Photo gallery with EXIF metadata
+- [Blog](https://misoto22.com/blog): Technical articles on web development, DevOps, and photography
+- [Experience](https://misoto22.com/experience): Professional work history
+- [Education](https://misoto22.com/education): Academic background
+- [Contact](https://misoto22.com/contact): Contact form and social links
+
+## Contact
+
+- Email: henrycxw@gmail.com
+- GitHub: https://github.com/Misoto22
+- LinkedIn: https://linkedin.com/in/henry-misoto22
+- Instagram: https://instagram.com/hry.photography
+- Unsplash: https://unsplash.com/@misoto22
+
+## Optional
+
+- [Full site content for LLMs](https://misoto22.com/llms-full.txt)
