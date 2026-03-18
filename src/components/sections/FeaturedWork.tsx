@@ -1,7 +1,7 @@
 'use client'
 
 import Image from 'next/image'
-import { Link } from 'next-view-transitions'
+import { Link } from '@/i18n/navigation'
 import { motion } from 'framer-motion'
 import { fadeInUp, ANIMATION, viewportConfig } from '@/lib/animation'
 import Tag from '@/components/ui/Tag'

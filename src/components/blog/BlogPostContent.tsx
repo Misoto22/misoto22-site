@@ -4,7 +4,7 @@ import Badge from '@/components/ui/Badge'
 import MarkdownRenderer from './MarkdownRenderer'
 import TableOfContents from './TableOfContents'
 import type { BlogPost } from '@/lib/data'
-import { Link } from 'next-view-transitions'
+import { Link } from '@/i18n/navigation'
 import { estimateReadingTime, formatDate } from '@/lib/utils'
 import { useTranslations } from 'next-intl'
 

@@ -1,6 +1,6 @@
 'use client'
 
-import { Link } from 'next-view-transitions'
+import { Link } from '@/i18n/navigation'
 import { motion } from 'framer-motion'
 import TextReveal from '@/components/animations/TextReveal'
 import FadeInSlideUp from '@/components/animations/FadeInSlideUp'

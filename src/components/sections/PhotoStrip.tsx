@@ -1,7 +1,7 @@
 'use client'
 
 import Image from 'next/image'
-import { Link } from 'next-view-transitions'
+import { Link } from '@/i18n/navigation'
 
 interface PhotoStripProps {
   photos: { id: string; src: string; width: number; height: number; alt: string }[]

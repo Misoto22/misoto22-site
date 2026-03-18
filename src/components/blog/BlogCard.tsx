@@ -1,5 +1,5 @@
 import React from 'react'
-import { Link } from 'next-view-transitions'
+import { Link } from '@/i18n/navigation'
 import Image from 'next/image'
 import type { BlogPost } from '@/lib/data'
 import { estimateReadingTime, formatDate } from '@/lib/utils'

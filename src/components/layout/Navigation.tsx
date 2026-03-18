@@ -1,7 +1,7 @@
 "use client"
 
-import { Link } from 'next-view-transitions'
-import { usePathname } from 'next/navigation'
+import { Link } from '@/i18n/navigation'
+import { usePathname } from '@/i18n/navigation'
 import { useState, useEffect, useRef } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
 import ThemeSelector from '@/components/ui/ThemeSelector'
@@ -36,8 +36,8 @@ const Navigation = () => {
   const [dropdownOpen, setDropdownOpen] = useState(false)
   const dropdownTimeout = useRef<ReturnType<typeof setTimeout> | null>(null)
 
-  // Strip locale prefix for active-link matching
-  const normalizedPathname = pathname.replace(/^\/zh/, '') || '/'
+  // next-intl's usePathname already strips locale prefix
+  const normalizedPathname = pathname
 
   useEffect(() => {
     const handleScroll = () => setIsScrolled(window.scrollY > 20)

@@ -1,6 +1,6 @@
 'use client'
 
-import { Link } from 'next-view-transitions'
+import { Link } from '@/i18n/navigation'
 import { motion } from 'framer-motion'
 import { fadeInUp, ANIMATION, staggerContainer } from '@/lib/animation'
 import { useTranslations } from 'next-intl'

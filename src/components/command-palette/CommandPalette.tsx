@@ -1,7 +1,7 @@
 'use client'
 
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
-import { useTransitionRouter } from 'next-view-transitions'
+import { useRouter } from '@/i18n/navigation'
 import { motion, AnimatePresence } from 'framer-motion'
 import { ANIMATION } from '@/lib/animation'
 import {
@@ -97,7 +97,7 @@ export default function CommandPalette() {
   const inputRef = useRef<HTMLInputElement>(null)
   const listRef = useRef<HTMLDivElement>(null)
   const previousFocusRef = useRef<HTMLElement | null>(null)
-  const router = useTransitionRouter()
+  const router = useRouter()
   const { theme, cycleTheme } = useTheme()
 
   // Translated page items

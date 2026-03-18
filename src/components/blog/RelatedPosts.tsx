@@ -1,6 +1,6 @@
 import React from 'react'
 import Image from 'next/image'
-import { Link } from 'next-view-transitions'
+import { Link } from '@/i18n/navigation'
 import type { BlogPost } from '@/lib/data'
 import { estimateReadingTime, formatDate } from '@/lib/utils'
 import { useTranslations } from 'next-intl'

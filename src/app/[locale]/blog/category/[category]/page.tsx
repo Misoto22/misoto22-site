@@ -5,7 +5,7 @@ import PageHeader from '@/components/layout/PageHeader'
 import BlogCard from '@/components/blog/BlogCard'
 import { getBlogPosts, getBlogCategories } from '@/lib/data'
 import { unstable_cache } from 'next/cache'
-import { Link } from 'next-view-transitions'
+import { Link } from '@/i18n/navigation'
 import { ArrowLeft } from 'lucide-react'
 import { getTranslations } from 'next-intl/server'
 
