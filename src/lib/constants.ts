@@ -41,7 +41,8 @@ export const NAV_PAGES = [
       { href: '/experience', text: 'Experience' }
     ]
   },
-  { href: '/contact', text: 'Contact' }
+  { href: '/contact', text: 'Contact' },
+  { href: '/stats', text: 'Stats' }
 ] as const
 
 // Export individual constants for convenience

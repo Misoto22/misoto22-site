@@ -11,6 +11,7 @@ import { ViewTransitions } from 'next-view-transitions'
 import CommandPalette from '@/components/command-palette/CommandPalette'
 import { SpeedInsights } from "@vercel/speed-insights/next"
 import { Analytics } from "@vercel/analytics/react"
+import PageTracker from '@/components/analytics/PageTracker'
 import { DISPLAY_NAME, SITE_TITLE, SITE_DESCRIPTION } from '@/lib/constants'
 
 const inter = Inter({
@@ -97,6 +98,7 @@ export default function RootLayout({
             <CommandPalette />
             <SpeedInsights />
             <Analytics />
+            <PageTracker />
           </ThemeProvider>
         </ViewTransitions>
       </body>
