@@ -258,7 +258,6 @@ export async function getBlogPosts(options: {
   page?: number;
   limit?: number;
   category?: string;
-  tag?: string;
   published?: boolean;
 } = {}): Promise<{
   posts: BlogPost[];
@@ -270,7 +269,6 @@ export async function getBlogPosts(options: {
       page = 1,
       limit = 10,
       category,
-      tag,
       published = true
     } = options
 
