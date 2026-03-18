@@ -7,7 +7,7 @@ import { fadeInUp, ANIMATION, viewportConfig } from '@/lib/animation'
 import Tag from '@/components/ui/Tag'
 import SectionHeading from '@/components/layout/SectionHeading'
 import { useTranslations } from 'next-intl'
-import type { Project } from '@/lib/supabase'
+import type { Project } from '@/lib/data'
 
 interface FeaturedWorkProps {
   projects: Project[]

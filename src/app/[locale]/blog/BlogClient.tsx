@@ -3,7 +3,7 @@
 import React, { useState, useCallback, useEffect } from 'react'
 import BlogCard from '@/components/blog/BlogCard'
 import CategoryFilter from '@/components/blog/CategoryFilter'
-import { BlogPost } from '@/lib/supabase'
+import type { BlogPost } from '@/lib/data'
 import { Search, Loader2 } from 'lucide-react'
 import { useTranslations } from 'next-intl'
 

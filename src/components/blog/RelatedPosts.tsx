@@ -1,7 +1,7 @@
 import React from 'react'
 import Image from 'next/image'
 import { Link } from 'next-view-transitions'
-import type { BlogPost } from '@/lib/supabase'
+import type { BlogPost } from '@/lib/data'
 import { estimateReadingTime, formatDate } from '@/lib/utils'
 import { useTranslations } from 'next-intl'
 

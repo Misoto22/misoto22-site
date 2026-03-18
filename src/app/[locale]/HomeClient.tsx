@@ -12,8 +12,7 @@ import { fadeInUp, ANIMATION, viewportConfig } from '@/lib/animation'
 import { FULL_NAME, EMAIL, RESUME_URL, GITHUB_URL, LINKEDIN_URL, INSTAGRAM_URL } from '@/lib/constants'
 import { FaGithub, FaLinkedin, FaInstagram } from 'react-icons/fa'
 import Image from 'next/image'
-import type { Project, BlogPost } from '@/lib/supabase'
-import type { FrontendPhoto } from '@/lib/data'
+import type { Project, BlogPost, FrontendPhoto } from '@/lib/data'
 import { useTranslations } from 'next-intl'
 
 interface HomeClientProps {

@@ -1,7 +1,7 @@
 "use client"
 
 import React, { useState, useEffect } from 'react'
-import { BlogCategory } from '@/lib/supabase'
+import type { BlogCategory } from '@/lib/data'
 import { useTranslations } from 'next-intl'
 
 interface CategoryFilterProps {
