@@ -32,6 +32,7 @@
     "highlight.js": "^11.11.1",
     "lucide-react": "^0.577.0",
     "next": "16.1.6",
+    "next-intl": "^4.8.3",
     "next-view-transitions": "^0.3.5",
     "react": "^19.2.4",
     "react-dom": "^19.2.4",

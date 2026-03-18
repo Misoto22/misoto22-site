@@ -5,7 +5,6 @@ import { useTransitionRouter } from 'next-view-transitions'
 import { motion, AnimatePresence } from 'framer-motion'
 import { ANIMATION } from '@/lib/animation'
 import {
-  NAV_PAGES,
   EMAIL,
   RESUME_URL,
   GITHUB_URL,
@@ -14,6 +13,7 @@ import {
   UNSPLASH_URL,
 } from '@/lib/constants'
 import { useTheme } from '@/context/ThemeContext'
+import { useTranslations } from 'next-intl'
 
 // --- Types ---
 
@@ -35,21 +35,18 @@ interface DynamicData {
   education: PaletteItem[]
 }
 
-// --- Static data ---
+// --- Static nav structure for pages ---
 
-const PAGES: PaletteItem[] = (() => {
-  const items: PaletteItem[] = []
-  NAV_PAGES.forEach((page) => {
-    if ('children' in page) {
-      page.children.forEach((child) =>
-        items.push({ title: child.text, href: child.href })
-      )
-    } else {
-      items.push({ title: page.text, href: page.href })
-    }
-  })
-  return items
-})()
+const PAGE_STRUCTURE = [
+  { href: '/', textKey: 'home' },
+  { href: '/projects', textKey: 'projects' },
+  { href: '/photography', textKey: 'photography' },
+  { href: '/blog', textKey: 'blog' },
+  { href: '/about', textKey: 'about' },
+  { href: '/education', textKey: 'education' },
+  { href: '/experience', textKey: 'experience' },
+  { href: '/contact', textKey: 'contact' },
+] as const
 
 const SOCIAL_LINKS: PaletteItem[] = [
   { title: 'GitHub', href: GITHUB_URL, subtitle: 'github.com/Misoto22', external: true, keywords: 'github code source', icon: 'external' },
@@ -85,6 +82,8 @@ const MAX_PER_GROUP = 8
 // --- Component ---
 
 export default function CommandPalette() {
+  const t = useTranslations('CommandPalette')
+  const tNav = useTranslations('Nav')
   const [open, setOpen] = useState(false)
   const [query, setQuery] = useState('')
   const [dynamicData, setDynamicData] = useState<DynamicData>({
@@ -101,21 +100,26 @@ export default function CommandPalette() {
   const router = useTransitionRouter()
   const { theme, cycleTheme } = useTheme()
 
-  // Actions — 需要在组件内定义因为依赖 hooks
+  // Translated page items
+  const PAGES: PaletteItem[] = useMemo(
+    () => PAGE_STRUCTURE.map((p) => ({ title: tNav(p.textKey), href: p.href })),
+    [tNav]
+  )
+
   const ACTIONS: PaletteItem[] = useMemo(() => [
     {
-      title: 'Toggle Theme',
+      title: t('toggleTheme'),
       href: '#',
-      subtitle: `Currently: ${theme}`,
-      keywords: 'theme dark light mode toggle switch',
+      subtitle: t('currentTheme', { theme }),
+      keywords: 'theme dark light mode toggle switch 主题 切换',
       icon: 'action' as const,
       action: () => cycleTheme(),
     },
     {
-      title: copiedEmail ? 'Copied!' : 'Copy Email',
+      title: copiedEmail ? t('copied') : t('copyEmail'),
       href: '#',
       subtitle: EMAIL,
-      keywords: 'email contact copy clipboard',
+      keywords: 'email contact copy clipboard 邮箱 复制',
       icon: 'action' as const,
       action: () => {
         navigator.clipboard.writeText(EMAIL)
@@ -124,13 +128,13 @@ export default function CommandPalette() {
       },
     },
     {
-      title: 'Download Resume',
+      title: t('downloadResume'),
       href: RESUME_URL,
       subtitle: 'PDF',
-      keywords: 'resume cv download pdf',
+      keywords: 'resume cv download pdf 简历 下载',
       icon: 'action' as const,
     },
-  ], [theme, cycleTheme, copiedEmail])
+  ], [theme, cycleTheme, copiedEmail, t])
 
   // Fetch dynamic data on first open
   useEffect(() => {
@@ -191,9 +195,8 @@ export default function CommandPalette() {
     const result: { label: string; items: PaletteItem[] }[] = []
 
     if (tokens.length === 0) {
-      // 默认视图：页面 + actions
-      result.push({ label: 'Quick Links', items: PAGES })
-      result.push({ label: 'Actions', items: ACTIONS })
+      result.push({ label: t('quickLinks'), items: PAGES })
+      result.push({ label: t('actions'), items: ACTIONS })
     } else {
       const filter = (items: PaletteItem[]) =>
         items.filter((p) => matchesQuery(p, tokens)).slice(0, MAX_PER_GROUP)
@@ -206,17 +209,17 @@ export default function CommandPalette() {
       const postResults = filter(dynamicData.posts)
       const socialResults = filter(SOCIAL_LINKS)
 
-      if (pageResults.length) result.push({ label: 'Pages', items: pageResults })
-      if (actionResults.length) result.push({ label: 'Actions', items: actionResults })
-      if (projectResults.length) result.push({ label: 'Projects', items: projectResults })
-      if (experienceResults.length) result.push({ label: 'Experience', items: experienceResults })
-      if (educationResults.length) result.push({ label: 'Education', items: educationResults })
-      if (postResults.length) result.push({ label: 'Blog', items: postResults })
-      if (socialResults.length) result.push({ label: 'Social', items: socialResults })
+      if (pageResults.length) result.push({ label: t('pages'), items: pageResults })
+      if (actionResults.length) result.push({ label: t('actions'), items: actionResults })
+      if (projectResults.length) result.push({ label: t('projects'), items: projectResults })
+      if (experienceResults.length) result.push({ label: t('experience'), items: experienceResults })
+      if (educationResults.length) result.push({ label: t('education'), items: educationResults })
+      if (postResults.length) result.push({ label: t('blog'), items: postResults })
+      if (socialResults.length) result.push({ label: t('social'), items: socialResults })
     }
 
     return result
-  }, [query, dynamicData, ACTIONS])
+  }, [query, dynamicData, ACTIONS, PAGES, t])
 
   // Flat list of all visible items for keyboard nav
   const flatItems = useMemo(
@@ -330,7 +333,7 @@ export default function CommandPalette() {
                   setActiveIndex(0)
                 }}
                 onKeyDown={handleInputKeyDown}
-                placeholder="Where would you like to go?"
+                placeholder={t('placeholder')}
                 className="flex-1 bg-transparent text-(--foreground) placeholder:text-(--secondary-text) font-heading text-sm outline-none"
                 role="combobox"
                 aria-expanded="true"
@@ -357,7 +360,7 @@ export default function CommandPalette() {
             >
               {flatItems.length === 0 && query.length > 0 && (
                 <div className="px-4 py-8 text-center text-sm text-(--secondary-text)">
-                  No results for &ldquo;{query}&rdquo;
+                  {t('noResults', { query })}
                 </div>
               )}
 
@@ -426,19 +429,19 @@ export default function CommandPalette() {
                 <kbd className="px-1 py-0.5 bg-(--background) border border-(--border-color) rounded text-[10px]">
                   ↑↓
                 </kbd>
-                navigate
+                {t('navigate')}
               </span>
               <span className="flex items-center gap-1.5 font-mono text-[10px] text-(--secondary-text)">
                 <kbd className="px-1 py-0.5 bg-(--background) border border-(--border-color) rounded text-[10px]">
                   ↵
                 </kbd>
-                open
+                {t('open')}
               </span>
               <span className="flex items-center gap-1.5 font-mono text-[10px] text-(--secondary-text)">
                 <kbd className="px-1 py-0.5 bg-(--background) border border-(--border-color) rounded text-[10px]">
                   esc
                 </kbd>
-                close
+                {t('close')}
               </span>
             </div>
           </motion.div>

@@ -3,6 +3,7 @@ import { Link } from 'next-view-transitions'
 import Image from 'next/image'
 import { BlogPost } from '@/lib/supabase'
 import { estimateReadingTime, formatDate } from '@/lib/utils'
+import { useTranslations } from 'next-intl'
 
 interface BlogCardProps {
   post: BlogPost
@@ -11,6 +12,7 @@ interface BlogCardProps {
 }
 
 const BlogCard: React.FC<BlogCardProps> = ({ post, index, featured = false }) => {
+  const t = useTranslations('Blog')
   const readingTime = estimateReadingTime(post.content)
 
   if (featured) {
@@ -45,7 +47,7 @@ const BlogCard: React.FC<BlogCardProps> = ({ post, index, featured = false }) =>
             )}
             <div className="flex items-center gap-4 text-xs font-mono text-(--secondary-text)">
               {post.publishedAt && <span>{formatDate(post.publishedAt)}</span>}
-              <span>{readingTime} min read</span>
+              <span>{t('minRead', { time: readingTime })}</span>
             </div>
           </div>
         </div>

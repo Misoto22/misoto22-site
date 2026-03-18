@@ -1,0 +1,183 @@
+{
+  "Nav": {
+    "home": "Home",
+    "projects": "Projects",
+    "photography": "Photography",
+    "blog": "Blog",
+    "about": "About",
+    "education": "Education",
+    "experience": "Experience",
+    "contact": "Contact",
+    "skipToMain": "Skip to main content"
+  },
+  "Hero": {
+    "title1": "Developer.",
+    "title2": "Photographer.",
+    "subtitle": "I ship fullstack systems that scale and chase golden hour across the Australian coast.",
+    "viewProjects": "View projects",
+    "browsePhotography": "Browse photography"
+  },
+  "Home": {
+    "aboutHeading": "About",
+    "aboutBio1": "CS grad from UWA with a Master's in IT, now based in Sydney. I gravitate toward the full picture — from React front-ends to Docker pipelines, from database schema design to CI/CD automation.",
+    "aboutBio2": "Outside the terminal, I shoot landscapes and street photography across Australia. The same eye for structure that shapes my code drives how I frame a shot — finding patterns in chaos, whether it's a microservice graph or a Sydney sunset.",
+    "aboutBio3": "Currently open to fullstack and DevOps roles where I can build things that matter.",
+    "readMore": "Read more",
+    "resume": "Resume",
+    "blogHeading": "Blog",
+    "blogSubtitle": "Thoughts on development, photography, and life",
+    "readArticle": "Read article",
+    "viewAllPosts": "View all posts",
+    "ctaHeading": "Let's work together.",
+    "selectedWork": "Selected Work",
+    "selectedWorkSubtitle": "Projects I've built recently",
+    "viewAllProjects": "View all projects"
+  },
+  "About": {
+    "title": "About",
+    "description": "A passionate developer with a strong foundation in software development and DevOps practices.",
+    "backgroundHeading": "Background",
+    "bio1": "I'm a recent graduate with a Master's degree in Information Technology from The University of Western Australia, specializing in Software Engineering and Data Science. My journey in technology began with a strong foundation in mathematics, which has helped me develop analytical thinking and problem-solving skills.",
+    "bio2": "Currently, I'm seeking opportunities in DevOps and Full-stack web development roles, where I can apply my technical skills and continue to grow as a developer. I'm particularly interested in cloud technologies and building scalable applications.",
+    "bio3": "When I'm not coding, you can find me exploring photography, hiking, or experimenting with new technologies in my personal projects.",
+    "resume": "Resume",
+    "skillsHeading": "Skills & Expertise",
+    "skillCategories": {
+      "programming": "Programming Languages",
+      "web": "Web Development",
+      "devops": "DevOps & Cloud",
+      "tools": "Tools & Others"
+    },
+    "interestsHeading": "Interests & Hobbies",
+    "interests": {
+      "photography": "Photography",
+      "photographyDesc": "Capturing landscapes and street scenes, exploring different perspectives through my lens.",
+      "hiking": "Hiking",
+      "hikingDesc": "Exploring nature trails and mountains, finding inspiration in the great outdoors.",
+      "technology": "Technology",
+      "technologyDesc": "Staying up-to-date with the latest tech trends and experimenting with new tools."
+    }
+  },
+  "Projects": {
+    "title": "Projects",
+    "description": "A selection of recent work, each representing a unique challenge.",
+    "empty": "No projects available at the moment."
+  },
+  "Education": {
+    "title": "Education",
+    "description": "My academic journey and the knowledge I've gained along the way.",
+    "empty": "No education information available."
+  },
+  "Experience": {
+    "title": "Experience",
+    "description": "My journey through various roles, each contributing to my growth as a professional.",
+    "empty": "No experience information available."
+  },
+  "Contact": {
+    "title": "Let's connect.",
+    "description": "Have a project in mind, a role to discuss, or just want to say hello? I'd love to hear from you.",
+    "email": "Email",
+    "location": "Location",
+    "availability": "Availability",
+    "availabilityValue": "Mon–Fri, 9:00 AM – 6:00 PM AEST",
+    "social": "Social",
+    "form": {
+      "name": "Name",
+      "email": "Email",
+      "subject": "Subject",
+      "message": "Message",
+      "send": "Send Message",
+      "sending": "Sending...",
+      "success": "Message sent successfully!",
+      "errorRequired": "Please fill in all fields",
+      "errorEmail": "Please enter a valid email address",
+      "errorConfig": "EmailJS configuration is missing",
+      "errorGeneric": "Unable to send message at this time. Please try again later."
+    }
+  },
+  "Photography": {
+    "title": "Photography",
+    "description": "Capturing the beauty of urban landscapes and natural wonders across Australia.",
+    "empty": "No photos available at the moment.",
+    "loadError": "Failed to load more photos"
+  },
+  "Blog": {
+    "title": "Blog",
+    "pageTitle": "Blog - Henry Chen",
+    "description": "Thoughts on development, DevOps, photography, and life.",
+    "search": "Search posts...",
+    "searchHint": "Search is limited to loaded posts. Try loading more or clearing the search.",
+    "loadMore": "Load more",
+    "loading": "Loading...",
+    "loadError": "Failed to load more posts. Please try again.",
+    "empty": "No blog posts available yet.",
+    "noResults": "No posts found matching your criteria.",
+    "backToBlog": "Back to Blog",
+    "categoryPosts": "{category} Posts",
+    "categoryDescription": "Browse all blog posts in the {category} category ({count} post{count, plural, one {} other {s}}).",
+    "categoryEmpty": "No posts found in the {category} category yet.",
+    "postNotFound": "Post Not Found - Henry Chen",
+    "postNotFoundDesc": "The requested blog post could not be found.",
+    "backToBlogShort": "Back to blog",
+    "minRead": "{time} min read",
+    "all": "All",
+    "relatedArticles": "Related Articles"
+  },
+  "Stats": {
+    "title": "Stats",
+    "description": "Anonymous visitor analytics. No cookies, no tracking scripts, no personal data collected.",
+    "pageViews": "Page Views",
+    "uniqueVisitors": "Unique Visitors",
+    "pagesPerVisit": "Pages / Visit",
+    "countries": "Countries",
+    "traffic": "Traffic — Last {days} days",
+    "noData": "No data yet for this period.",
+    "topPages": "Top Pages",
+    "referrers": "Referrers",
+    "devices": "Devices",
+    "browsers": "Browsers",
+    "privacy": "No cookies · No IP addresses · No personal data · Aggregate only"
+  },
+  "NotFound": {
+    "title": "404",
+    "heading": "Page not found",
+    "message": "The page you're looking for doesn't exist or has been moved.",
+    "back": "← Return home",
+    "metaTitle": "404 – Page Not Found",
+    "metaDescription": "The page you're looking for doesn't exist or has been moved."
+  },
+  "CommandPalette": {
+    "placeholder": "Where would you like to go?",
+    "noResults": "No results for \"{query}\"",
+    "quickLinks": "Quick Links",
+    "actions": "Actions",
+    "pages": "Pages",
+    "projects": "Projects",
+    "experience": "Experience",
+    "education": "Education",
+    "blog": "Blog",
+    "social": "Social",
+    "toggleTheme": "Toggle Theme",
+    "currentTheme": "Currently: {theme}",
+    "copyEmail": "Copy Email",
+    "copied": "Copied!",
+    "downloadResume": "Download Resume",
+    "navigate": "navigate",
+    "open": "open",
+    "close": "close"
+  },
+  "Footer": {
+    "tagline": "Fullstack developer & photographer based in Sydney, building thoughtful software and capturing quiet moments.",
+    "navigate": "Navigate",
+    "connect": "Connect"
+  },
+  "LocaleSwitcher": {
+    "en": "EN",
+    "zh": "中文",
+    "switchTo": "Switch to {locale}"
+  },
+  "Metadata": {
+    "siteTitle": "Personal Website",
+    "siteDescription": "Henry Chen's Personal website"
+  }
+}

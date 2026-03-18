@@ -1,0 +1,183 @@
+{
+  "Nav": {
+    "home": "首页",
+    "projects": "项目",
+    "photography": "摄影",
+    "blog": "博客",
+    "about": "关于",
+    "education": "教育",
+    "experience": "经历",
+    "contact": "联系",
+    "skipToMain": "跳到正文"
+  },
+  "Hero": {
+    "title1": "开发者。",
+    "title2": "摄影师。",
+    "subtitle": "写全栈、搞 DevOps，闲了就带着相机去海边拍日落。",
+    "viewProjects": "看看项目",
+    "browsePhotography": "看看照片"
+  },
+  "Home": {
+    "aboutHeading": "关于我",
+    "aboutBio1": "西澳大学 IT 硕士，现在住悉尼。前端后端运维都干——React、Docker、数据库设计、CI/CD，哪里需要就补哪里。",
+    "aboutBio2": "不写代码的时候我喜欢扛着相机到处跑，拍风景、拍街头。写代码讲结构，拍照也一样——都是在乱中找秩序。",
+    "aboutBio3": "目前在找全栈或 DevOps 方向的工作，想做点有意思的东西。",
+    "readMore": "了解更多",
+    "resume": "简历",
+    "blogHeading": "博客",
+    "blogSubtitle": "写写开发、摄影、还有生活",
+    "readArticle": "阅读全文",
+    "viewAllPosts": "查看全部文章",
+    "ctaHeading": "聊聊？",
+    "selectedWork": "精选项目",
+    "selectedWorkSubtitle": "最近做的一些东西",
+    "viewAllProjects": "查看全部项目"
+  },
+  "About": {
+    "title": "关于",
+    "description": "全栈开发 + DevOps，对技术有热情。",
+    "backgroundHeading": "背景",
+    "bio1": "西澳大学 IT 硕士毕业，主攻软件工程和数据科学。数学底子不错，所以分析问题、解决问题还算顺手。",
+    "bio2": "现在想找 DevOps 或全栈开发的工作，对云技术和做能跑起来的产品比较感兴趣。",
+    "bio3": "不写代码的时候，要么在拍照，要么在爬山，要么在折腾新技术。",
+    "resume": "简历",
+    "skillsHeading": "技能",
+    "skillCategories": {
+      "programming": "编程语言",
+      "web": "Web 开发",
+      "devops": "DevOps & 云",
+      "tools": "工具 & 其他"
+    },
+    "interestsHeading": "兴趣",
+    "interests": {
+      "photography": "摄影",
+      "photographyDesc": "拍风景、拍街头，换个角度看世界。",
+      "hiking": "徒步",
+      "hikingDesc": "走走山路，看看风景，换换脑子。",
+      "technology": "折腾技术",
+      "technologyDesc": "看到新东西就想试试，停不下来。"
+    }
+  },
+  "Projects": {
+    "title": "项目",
+    "description": "最近做的一些项目，各有各的挑战。",
+    "empty": "暂时还没有项目。"
+  },
+  "Education": {
+    "title": "教育",
+    "description": "读书这些年学到的东西。",
+    "empty": "暂无教育信息。"
+  },
+  "Experience": {
+    "title": "经历",
+    "description": "工作中踩过的坑、学到的东西。",
+    "empty": "暂无经历信息。"
+  },
+  "Contact": {
+    "title": "聊聊？",
+    "description": "有项目合作、工作机会，或者就想打个招呼，都欢迎。",
+    "email": "邮箱",
+    "location": "坐标",
+    "availability": "在线时间",
+    "availabilityValue": "周一到周五 9:00–18:00（悉尼时间）",
+    "social": "社交",
+    "form": {
+      "name": "姓名",
+      "email": "邮箱",
+      "subject": "主题",
+      "message": "内容",
+      "send": "发送",
+      "sending": "发送中...",
+      "success": "发送成功！",
+      "errorRequired": "请把信息填完整",
+      "errorEmail": "邮箱格式不太对",
+      "errorConfig": "邮件服务配置有问题",
+      "errorGeneric": "发送失败了，过会儿再试试？"
+    }
+  },
+  "Photography": {
+    "title": "摄影",
+    "description": "用镜头记录澳洲的城市和自然。",
+    "empty": "还没有照片。",
+    "loadError": "加载失败了"
+  },
+  "Blog": {
+    "title": "博客",
+    "pageTitle": "博客 - Henry Chen",
+    "description": "写写开发、DevOps、摄影、还有日常。",
+    "search": "搜索文章...",
+    "searchHint": "只能搜已经加载的文章，试试加载更多？",
+    "loadMore": "加载更多",
+    "loading": "加载中...",
+    "loadError": "加载失败了，再试一次？",
+    "empty": "还没写文章。",
+    "noResults": "没找到相关文章。",
+    "backToBlog": "返回博客",
+    "categoryPosts": "{category}",
+    "categoryDescription": "{category} 分类下共 {count} 篇文章。",
+    "categoryEmpty": "这个分类下还没有文章。",
+    "postNotFound": "文章不存在 - Henry Chen",
+    "postNotFoundDesc": "找不到这篇文章。",
+    "backToBlogShort": "返回博客",
+    "minRead": "{time} 分钟",
+    "all": "全部",
+    "relatedArticles": "相关文章"
+  },
+  "Stats": {
+    "title": "统计",
+    "description": "匿名访客数据，不用 Cookie，不追踪，不收集隐私。",
+    "pageViews": "浏览量",
+    "uniqueVisitors": "访客数",
+    "pagesPerVisit": "页面/访问",
+    "countries": "国家/地区",
+    "traffic": "流量 · 近 {days} 天",
+    "noData": "这段时间还没有数据。",
+    "topPages": "热门页面",
+    "referrers": "来源",
+    "devices": "设备",
+    "browsers": "浏览器",
+    "privacy": "无 Cookie · 不记录 IP · 不收集隐私 · 只统计汇总数据"
+  },
+  "NotFound": {
+    "title": "404",
+    "heading": "页面不存在",
+    "message": "你要找的页面不在这里，可能搬走了。",
+    "back": "← 回首页",
+    "metaTitle": "404 – 页面不存在",
+    "metaDescription": "你要找的页面不在这里。"
+  },
+  "CommandPalette": {
+    "placeholder": "想去哪？",
+    "noResults": "找不到「{query}」",
+    "quickLinks": "快捷入口",
+    "actions": "操作",
+    "pages": "页面",
+    "projects": "项目",
+    "experience": "经历",
+    "education": "教育",
+    "blog": "博客",
+    "social": "社交",
+    "toggleTheme": "切换主题",
+    "currentTheme": "当前：{theme}",
+    "copyEmail": "复制邮箱",
+    "copied": "已复制！",
+    "downloadResume": "下载简历",
+    "navigate": "导航",
+    "open": "打开",
+    "close": "关闭"
+  },
+  "Footer": {
+    "tagline": "全栈开发 + 摄影，悉尼。写代码，拍照片。",
+    "navigate": "导航",
+    "connect": "联系"
+  },
+  "LocaleSwitcher": {
+    "en": "EN",
+    "zh": "中文",
+    "switchTo": "切换到{locale}"
+  },
+  "Metadata": {
+    "siteTitle": "个人网站",
+    "siteDescription": "Henry Chen 的个人网站"
+  }
+}

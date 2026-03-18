@@ -5,15 +5,39 @@ import { usePathname } from 'next/navigation'
 import { useState, useEffect, useRef } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
 import ThemeSelector from '@/components/ui/ThemeSelector'
-import { DISPLAY_NAME, NAV_PAGES } from '@/lib/constants'
+import LocaleSwitcher from '@/components/layout/LocaleSwitcher'
+import { DISPLAY_NAME } from '@/lib/constants'
 import { ANIMATION } from '@/lib/animation'
+import { useTranslations } from 'next-intl'
+
+// Nav structure — text keys map to Nav namespace
+const NAV_STRUCTURE = [
+  { href: '/', textKey: 'home' },
+  { href: '/projects', textKey: 'projects' },
+  { href: '/photography', textKey: 'photography' },
+  { href: '/blog', textKey: 'blog' },
+  {
+    href: '/about',
+    textKey: 'about',
+    children: [
+      { href: '/about', textKey: 'about' },
+      { href: '/education', textKey: 'education' },
+      { href: '/experience', textKey: 'experience' },
+    ],
+  },
+  { href: '/contact', textKey: 'contact' },
+] as const
 
 const Navigation = () => {
+  const t = useTranslations('Nav')
   const pathname = usePathname()
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const [isScrolled, setIsScrolled] = useState(false)
   const [dropdownOpen, setDropdownOpen] = useState(false)
   const dropdownTimeout = useRef<ReturnType<typeof setTimeout> | null>(null)
+
+  // Strip locale prefix for active-link matching
+  const normalizedPathname = pathname.replace(/^\/zh/, '') || '/'
 
   useEffect(() => {
     const handleScroll = () => setIsScrolled(window.scrollY > 20)
@@ -26,7 +50,6 @@ const Navigation = () => {
     return () => { document.body.style.overflow = '' }
   }, [isMenuOpen])
 
-  // 清理 dropdown timeout 防止 unmount 后触发
   useEffect(() => {
     return () => {
       if (dropdownTimeout.current) clearTimeout(dropdownTimeout.current)
@@ -35,7 +58,6 @@ const Navigation = () => {
 
   const handleNavigation = () => setIsMenuOpen(false)
 
-  // 延迟关闭下拉菜单，避免鼠标移动时闪烁
   const openDropdown = () => {
     if (dropdownTimeout.current) clearTimeout(dropdownTimeout.current)
     setDropdownOpen(true)
@@ -43,8 +65,6 @@ const Navigation = () => {
   const closeDropdown = () => {
     dropdownTimeout.current = setTimeout(() => setDropdownOpen(false), 150)
   }
-
-  const navItems = NAV_PAGES
 
   return (
     <nav
@@ -68,20 +88,20 @@ const Navigation = () => {
 
         {/* ─── Desktop nav ─── */}
         <div className="hidden nav:flex items-center gap-1">
-          {navItems.map((item) =>
+          {NAV_STRUCTURE.map((item) =>
             !('children' in item) ? (
               <Link
                 key={item.href}
                 href={item.href}
                 onClick={handleNavigation}
-                className={`relative px-3 py-1.5 text-[13px] uppercase tracking-[0.08em] rounded-md transition-colors duration-200 ${
-                  pathname === item.href
+                className={`relative px-3 py-1.5 text-[13px] uppercase tracking-[0.08em] rounded-md transition-colors duration-200 text-center min-w-[4rem] ${
+                  normalizedPathname === item.href
                     ? 'text-(--foreground)'
                     : 'text-(--secondary-text) hover:text-(--foreground) hover:bg-(--accent-muted)'
                 }`}
               >
-                {item.text}
-                {pathname === item.href && (
+                {t(item.textKey)}
+                {normalizedPathname === item.href && (
                   <motion.div
                     layoutId="nav-active"
                     className="absolute bottom-0 left-3 right-3 h-px bg-(--accent)"
@@ -91,21 +111,21 @@ const Navigation = () => {
               </Link>
             ) : (
               <div
-                key={item.text}
+                key={item.textKey}
                 className="relative"
                 onMouseEnter={openDropdown}
                 onMouseLeave={closeDropdown}
               >
                 <Link
-                  href={'href' in item ? item.href : '#'}
+                  href={item.href}
                   onClick={handleNavigation}
-                  className={`flex items-center gap-1 px-3 py-1.5 text-[13px] uppercase tracking-[0.08em] rounded-md transition-colors duration-200 ${
-                    pathname === ('href' in item ? item.href : '') || item.children.some(c => pathname === c.href)
+                  className={`flex items-center justify-center gap-1 px-3 py-1.5 text-[13px] uppercase tracking-[0.08em] rounded-md transition-colors duration-200 min-w-[4rem] ${
+                    normalizedPathname === item.href || item.children.some(c => normalizedPathname === c.href)
                       ? 'text-(--foreground)'
                       : 'text-(--secondary-text) hover:text-(--foreground) hover:bg-(--accent-muted)'
                   }`}
                 >
-                  {item.text}
+                  {t(item.textKey)}
                   <motion.svg
                     width="10"
                     height="10"
@@ -120,7 +140,7 @@ const Navigation = () => {
                 </Link>
 
                 {/* Active indicator for dropdown parent */}
-                {(pathname === ('href' in item ? item.href : '') || item.children.some(c => pathname === c.href)) && (
+                {(normalizedPathname === item.href || item.children.some(c => normalizedPathname === c.href)) && (
                   <motion.div
                     layoutId="nav-active"
                     className="absolute bottom-0 left-3 right-3 h-px bg-(--accent)"
@@ -151,12 +171,12 @@ const Navigation = () => {
                               href={child.href}
                               onClick={handleNavigation}
                               className={`block px-3 py-2 rounded-md text-sm transition-all duration-150 ${
-                                pathname === child.href
+                                normalizedPathname === child.href
                                   ? 'text-(--foreground) bg-(--accent-muted) font-medium'
                                   : 'text-(--foreground-muted) hover:text-(--foreground) hover:bg-(--accent-muted)'
                               }`}
                             >
-                              {child.text}
+                              {t(child.textKey)}
                             </Link>
                           ))}
                         </div>
@@ -168,13 +188,15 @@ const Navigation = () => {
             )
           )}
 
-          <div className="ml-2 pl-2 border-l border-(--border-subtle)">
+          <div className="ml-2 pl-2 border-l border-(--border-subtle) flex items-center gap-1">
+            <LocaleSwitcher />
             <ThemeSelector />
           </div>
         </div>
 
-        {/* ─── Mobile: theme + hamburger ─── */}
+        {/* ─── Mobile: locale + theme + hamburger ─── */}
         <div className="flex items-center gap-1 nav:hidden">
+          <LocaleSwitcher />
           <ThemeSelector />
           <button
             onClick={() => setIsMenuOpen(!isMenuOpen)}
@@ -207,7 +229,6 @@ const Navigation = () => {
             style={{ backgroundColor: 'var(--background)' }}
           >
             <div className="flex flex-col h-full">
-              {/* 导航链接 */}
               <motion.div
                 className="flex-1 flex flex-col justify-center px-8 sm:px-12"
                 initial="closed"
@@ -218,7 +239,7 @@ const Navigation = () => {
                   closed: { transition: { staggerChildren: 0.03, staggerDirection: -1 } },
                 }}
               >
-                {navItems.map((item) =>
+                {NAV_STRUCTURE.map((item) =>
                   !('children' in item) ? (
                     <motion.div
                       key={item.href}
@@ -233,17 +254,17 @@ const Navigation = () => {
                         href={item.href}
                         onClick={handleNavigation}
                         className={`font-heading text-2xl sm:text-3xl transition-colors duration-200 ${
-                          pathname === item.href
+                          normalizedPathname === item.href
                             ? 'text-(--foreground)'
                             : 'text-(--secondary-text) hover:text-(--foreground)'
                         }`}
                       >
-                        {item.text}
+                        {t(item.textKey)}
                       </Link>
                     </motion.div>
                   ) : (
                     <motion.div
-                      key={item.text}
+                      key={item.textKey}
                       variants={{
                         open: { opacity: 1, x: 0 },
                         closed: { opacity: 0, x: -16 },
@@ -252,7 +273,7 @@ const Navigation = () => {
                       className="py-3 border-b border-(--border-subtle)"
                     >
                       <p className="font-mono text-[10px] uppercase tracking-[0.15em] text-(--secondary-text) mb-3">
-                        {item.text}
+                        {t(item.textKey)}
                       </p>
                       <div className="flex flex-col gap-2 pl-1">
                         {item.children.map((child) => (
@@ -261,12 +282,12 @@ const Navigation = () => {
                             href={child.href}
                             onClick={handleNavigation}
                             className={`font-heading text-2xl sm:text-3xl transition-colors duration-200 ${
-                              pathname === child.href
+                              normalizedPathname === child.href
                                 ? 'text-(--foreground)'
                                 : 'text-(--secondary-text) hover:text-(--foreground)'
                             }`}
                           >
-                            {child.text}
+                            {t(child.textKey)}
                           </Link>
                         ))}
                       </div>

@@ -6,6 +6,7 @@ import { motion } from 'framer-motion'
 import { fadeInUp, ANIMATION, viewportConfig } from '@/lib/animation'
 import Tag from '@/components/ui/Tag'
 import SectionHeading from '@/components/layout/SectionHeading'
+import { useTranslations } from 'next-intl'
 import type { Project } from '@/lib/supabase'
 
 interface FeaturedWorkProps {
@@ -13,6 +14,7 @@ interface FeaturedWorkProps {
 }
 
 export default function FeaturedWork({ projects }: FeaturedWorkProps) {
+  const t = useTranslations('Home')
   if (projects.length === 0) return null
 
   const featured = projects.slice(0, 3)
@@ -20,7 +22,7 @@ export default function FeaturedWork({ projects }: FeaturedWorkProps) {
 
   return (
     <section className="py-16 md:py-24 max-w-7xl mx-auto px-6">
-      <SectionHeading title="Selected Work" subtitle="Projects I've built recently" />
+      <SectionHeading title={t('selectedWork')} subtitle={t('selectedWorkSubtitle')} />
 
       <div className="space-y-8">
         {/* 首个项目 — 全宽 */}
@@ -50,7 +52,7 @@ export default function FeaturedWork({ projects }: FeaturedWorkProps) {
           href="/projects"
           className="text-sm text-(--accent) hover:text-(--accent-hover) transition-colors duration-200 flex items-center gap-2"
         >
-          View all projects <span aria-hidden="true">&rarr;</span>
+          {t('viewAllProjects')} <span aria-hidden="true">&rarr;</span>
         </Link>
       </motion.div>
     </section>
