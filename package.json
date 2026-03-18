@@ -10,7 +10,11 @@
       "protobufjs",
       "sharp",
       "unrs-resolver"
-    ]
+    ],
+    "overrides": {
+      "minimatch@<3.1.5": "3.1.5",
+      "flatted@<3.4.2": "3.4.2"
+    }
   },
   "scripts": {
     "dev": "NODE_OPTIONS='--localstorage-file=./.node-localstorage/storage.db' next dev",
