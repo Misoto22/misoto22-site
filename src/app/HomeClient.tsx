@@ -43,7 +43,7 @@ export default function HomeClient({ photos, projects, blogPosts }: HomeClientPr
 
             <FadeInSlideUp delay={0.4}>
               <p className="text-base md:text-lg text-(--secondary-text) max-w-md mb-8 leading-relaxed">
-                Building thoughtful software & capturing quiet moments. {PROFESSION}.
+                I ship fullstack systems that scale and chase golden hour across the Australian coast.
               </p>
             </FadeInSlideUp>
 
@@ -203,10 +203,13 @@ export default function HomeClient({ photos, projects, blogPosts }: HomeClientPr
             <h2 className="font-heading text-3xl md:text-4xl text-(--foreground) mb-4">About</h2>
             <div className="w-12 h-px bg-(--accent) mb-6" />
             <p className="text-(--foreground-muted) leading-relaxed mb-4">
-              A Computer Science graduate based in Sydney, I combine fullstack development with DevOps engineering to build efficient, scalable solutions.
+              CS grad from UWA with a Master&apos;s in IT, now based in Sydney. I gravitate toward the full picture — from React front-ends to Docker pipelines, from database schema design to CI/CD automation.
+            </p>
+            <p className="text-(--foreground-muted) leading-relaxed mb-4">
+              Outside the terminal, I shoot landscapes and street photography across Australia. The same eye for structure that shapes my code drives how I frame a shot — finding patterns in chaos, whether it&apos;s a microservice graph or a Sydney sunset.
             </p>
             <p className="text-(--foreground-muted) leading-relaxed mb-6">
-              Beyond code, my photography captures the interplay between urban landscapes and natural beauty across Australia.
+              Currently open to fullstack and DevOps roles where I can build things that matter.
             </p>
             <div className="flex flex-wrap items-center gap-6">
               <Link
@@ -252,45 +255,95 @@ export default function HomeClient({ photos, projects, blogPosts }: HomeClientPr
         <section className="py-16 md:py-24 max-w-7xl mx-auto px-6">
           <SectionHeading title="Blog" subtitle="Thoughts on development, photography, and life" />
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {blogPosts.slice(0, 3).map((post, i) => (
-              <motion.div
-                key={post.slug}
-                variants={fadeInUp}
-                initial="hidden"
-                whileInView="visible"
-                viewport={viewportConfig}
-                transition={{ duration: ANIMATION.duration.slow, delay: i * 0.1, ease: ANIMATION.ease.out }}
-              >
-                <Link href={`/blog/${post.slug}`} className="group block">
-                  {post.coverImage && (
-                    <div className="aspect-video relative rounded-lg overflow-hidden mb-4">
-                      <Image
-                        src={post.coverImage}
-                        alt={post.title}
-                        fill
-                        className="object-cover group-hover:scale-[1.02] transition-transform duration-500"
-                        sizes="(max-width: 768px) 100vw, 33vw"
-                      />
+          {/* 1-2 篇时用 featured 布局，3+ 篇用 grid */}
+          {blogPosts.length <= 2 ? (
+            <div className="space-y-8">
+              {blogPosts.map((post, i) => (
+                <motion.div
+                  key={post.slug}
+                  variants={fadeInUp}
+                  initial="hidden"
+                  whileInView="visible"
+                  viewport={viewportConfig}
+                  transition={{ duration: ANIMATION.duration.slow, delay: i * 0.1, ease: ANIMATION.ease.out }}
+                >
+                  <Link href={`/blog/${post.slug}`} className="group block">
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-10 items-center">
+                      {post.coverImage && (
+                        <div className="aspect-video relative rounded-lg overflow-hidden">
+                          <Image
+                            src={post.coverImage}
+                            alt={post.title}
+                            fill
+                            className="object-cover group-hover:scale-[1.02] transition-transform duration-500"
+                            sizes="(max-width: 768px) 100vw, 50vw"
+                          />
+                        </div>
+                      )}
+                      <div>
+                        <p className="font-mono text-xs text-(--secondary-text) mb-3">
+                          {post.publishedAt ? new Date(post.publishedAt).toLocaleDateString('en-US', {
+                            year: 'numeric',
+                            month: 'short',
+                            day: 'numeric',
+                          }) : ''}
+                        </p>
+                        <h3 className="font-heading text-2xl md:text-3xl text-(--foreground) group-hover:text-(--accent) transition-colors duration-200 mb-3">
+                          {post.title}
+                        </h3>
+                        {post.summary && (
+                          <p className="text-(--secondary-text) leading-relaxed mb-4">{post.summary}</p>
+                        )}
+                        <span className="text-sm text-(--accent) flex items-center gap-2">
+                          Read article <span aria-hidden="true">&rarr;</span>
+                        </span>
+                      </div>
                     </div>
-                  )}
-                  <p className="font-mono text-xs text-(--secondary-text) mb-2">
-                    {post.publishedAt ? new Date(post.publishedAt).toLocaleDateString('en-US', {
-                      year: 'numeric',
-                      month: 'short',
-                      day: 'numeric',
-                    }) : ''}
-                  </p>
-                  <h3 className="font-heading text-xl text-(--foreground) group-hover:text-(--accent) transition-colors duration-200 mb-2">
-                    {post.title}
-                  </h3>
-                  {post.summary && (
-                    <p className="text-sm text-(--secondary-text) line-clamp-2">{post.summary}</p>
-                  )}
-                </Link>
-              </motion.div>
-            ))}
-          </div>
+                  </Link>
+                </motion.div>
+              ))}
+            </div>
+          ) : (
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+              {blogPosts.slice(0, 3).map((post, i) => (
+                <motion.div
+                  key={post.slug}
+                  variants={fadeInUp}
+                  initial="hidden"
+                  whileInView="visible"
+                  viewport={viewportConfig}
+                  transition={{ duration: ANIMATION.duration.slow, delay: i * 0.1, ease: ANIMATION.ease.out }}
+                >
+                  <Link href={`/blog/${post.slug}`} className="group block">
+                    {post.coverImage && (
+                      <div className="aspect-video relative rounded-lg overflow-hidden mb-4">
+                        <Image
+                          src={post.coverImage}
+                          alt={post.title}
+                          fill
+                          className="object-cover group-hover:scale-[1.02] transition-transform duration-500"
+                          sizes="(max-width: 768px) 100vw, 33vw"
+                        />
+                      </div>
+                    )}
+                    <p className="font-mono text-xs text-(--secondary-text) mb-2">
+                      {post.publishedAt ? new Date(post.publishedAt).toLocaleDateString('en-US', {
+                        year: 'numeric',
+                        month: 'short',
+                        day: 'numeric',
+                      }) : ''}
+                    </p>
+                    <h3 className="font-heading text-xl text-(--foreground) group-hover:text-(--accent) transition-colors duration-200 mb-2">
+                      {post.title}
+                    </h3>
+                    {post.summary && (
+                      <p className="text-sm text-(--secondary-text) line-clamp-2">{post.summary}</p>
+                    )}
+                  </Link>
+                </motion.div>
+              ))}
+            </div>
+          )}
 
           <motion.div
             variants={fadeInUp}
