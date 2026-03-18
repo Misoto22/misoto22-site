@@ -1,33 +1,9 @@
-// Server-side data fetching functions using Supabase
-import { supabase, type Education, type Experience, type Project, type BlogPost, type BlogCategory, type BlogTag } from './supabase'
+// Blog data fetching: posts, categories, tags
+import { supabase, type BlogPost, type BlogCategory, type BlogTag } from '../supabase'
+import { type Locale, zh } from './shared'
 
 // Database row types — match Supabase table schemas
-interface DbEducation {
-  degree: string; school: string; school_link?: string; location: string
-  period: string; description: string[]; courses: string[]; logo: string; order?: number
-  degree_zh?: string; description_zh?: string[]; courses_zh?: string[]
-}
-
-interface DbExperience {
-  title: string; company: string; company_link?: string; location: string
-  period: string; description: string[]; technologies: string[]; logo: string; order?: number
-  title_zh?: string; description_zh?: string[]
-}
-
-interface DbProject {
-  title: string; description: string; link: string; deploy?: string
-  technologies: string[]; image_path: string; category: string; order?: number
-  title_zh?: string; description_zh?: string
-}
-
-interface DbPhoto {
-  id: number; src: string; width: number; height: number; alt: string
-  camera?: string; lens?: string; focal_length?: string
-  aperture?: string; shutter_speed?: string; iso?: string
-  alt_zh?: string
-}
-
-interface DbBlogPost {
+export interface DbBlogPost {
   id: string; title: string; slug: string; content: string; summary?: string
   cover_image?: string; published_at?: string; updated_at?: string; is_published: boolean
   title_zh?: string; summary_zh?: string
@@ -37,188 +13,10 @@ interface DbBlogPost {
   blog_post_tags?: { tags: { id: string; name: string } }[]
 }
 
-interface DbNamedRecord { id: string; name: string }
-
-type Locale = 'en' | 'zh'
-
-// 选择对应语言字段，没有中文翻译时 fallback 到英文
-function zh<T>(zhVal: T | undefined | null, enVal: T, locale: Locale): T {
-  return locale === 'zh' && zhVal != null ? zhVal : enVal
-}
-
-// Convert database field names to frontend interface
-function mapEducation(db: DbEducation, locale: Locale = 'en'): Education {
-  return {
-    degree: zh(db.degree_zh, db.degree, locale),
-    school: db.school,
-    schoolLink: db.school_link,
-    location: db.location,
-    period: db.period,
-    description: zh(db.description_zh, db.description, locale),
-    courses: zh(db.courses_zh, db.courses, locale),
-    logo: db.logo,
-    order: db.order
-  }
-}
-
-function mapExperience(db: DbExperience, locale: Locale = 'en'): Experience {
-  return {
-    title: zh(db.title_zh, db.title, locale),
-    company: db.company,
-    companyLink: db.company_link,
-    location: db.location,
-    period: db.period,
-    description: zh(db.description_zh, db.description, locale),
-    technologies: db.technologies,
-    logo: db.logo,
-    order: db.order
-  }
-}
-
-function mapProject(db: DbProject, locale: Locale = 'en'): Project {
-  return {
-    title: zh(db.title_zh, db.title, locale),
-    description: zh(db.description_zh, db.description, locale),
-    link: db.link,
-    deploy: db.deploy,
-    technologies: db.technologies,
-    image: db.image_path,
-    category: db.category,
-    order: db.order
-  }
-}
-
-// Frontend Photo interface for components
-export interface FrontendPhoto {
-  id: string;
-  src: string;
-  width: number;
-  height: number;
-  alt: string;
-  camera?: string;
-  lens?: string;
-  focalLength?: string;
-  aperture?: string;
-  shutterSpeed?: string;
-  iso?: string;
-}
-
-function mapPhoto(db: DbPhoto, locale: Locale = 'en'): FrontendPhoto {
-  return {
-    id: String(db.id || ''),
-    src: db.src,
-    width: db.width,
-    height: db.height,
-    alt: zh(db.alt_zh, db.alt, locale),
-    camera: db.camera ?? undefined,
-    lens: db.lens ?? undefined,
-    focalLength: db.focal_length ?? undefined,
-    aperture: db.aperture ?? undefined,
-    shutterSpeed: db.shutter_speed ?? undefined,
-    iso: db.iso ?? undefined,
-  }
-}
-
-export async function getProjects(locale: Locale = 'en'): Promise<Project[]> {
-  try {
-    const { data, error } = await supabase
-      .from('projects')
-      .select('*')
-      .order('order', { ascending: true })
-
-    if (error) {
-      console.error('Error fetching projects:', error)
-      return []
-    }
-
-    return data?.map(d => mapProject(d, locale)) || []
-  } catch (error) {
-    console.error('Unexpected error fetching projects:', error)
-    return []
-  }
-}
-
-export async function getEducation(locale: Locale = 'en'): Promise<Education[]> {
-  try {
-    const { data, error } = await supabase
-      .from('education')
-      .select('*')
-      .order('order', { ascending: true })
-
-    if (error) {
-      console.error('Error fetching education:', error)
-      return []
-    }
-
-    return data?.map(d => mapEducation(d, locale)) || []
-  } catch (error) {
-    console.error('Unexpected error fetching education:', error)
-    return []
-  }
-}
-
-export async function getExperience(locale: Locale = 'en'): Promise<Experience[]> {
-  try {
-    const { data, error } = await supabase
-      .from('experience')
-      .select('*')
-      .order('order', { ascending: true })
-
-    if (error) {
-      console.error('Error fetching experience:', error)
-      return []
-    }
-
-    return data?.map(d => mapExperience(d, locale)) || []
-  } catch (error) {
-    console.error('Unexpected error fetching experience:', error)
-    return []
-  }
-}
-
-export async function getPhotos(page: number = 1, limit: number = 8, locale: Locale = 'en'): Promise<{
-  photos: FrontendPhoto[];
-  hasMore: boolean;
-  totalCount: number;
-}> {
-  try {
-    const offset = (page - 1) * limit
-
-    // Get total count for main photos only
-    const { count } = await supabase
-      .from('photos')
-      .select('*', { count: 'exact', head: true })
-      .eq('type', 'main')
-
-    // Get paginated photos, sorted by taken_at descending (newest first)
-    const { data, error } = await supabase
-      .from('photos')
-      .select('*')
-      .eq('type', 'main')
-      .order('taken_at', { ascending: false })
-      .range(offset, offset + limit - 1)
-
-    if (error) {
-      console.error('Error fetching photos:', error)
-      return { photos: [], hasMore: false, totalCount: 0 }
-    }
-
-    const totalCount = count || 0
-    const hasMore = offset + limit < totalCount
-
-    return {
-      photos: data?.map(d => mapPhoto(d, locale)) || [],
-      hasMore,
-      totalCount
-    }
-  } catch (error) {
-    console.error('Unexpected error fetching photos:', error)
-    return { photos: [], hasMore: false, totalCount: 0 }
-  }
-}
+export interface DbNamedRecord { id: string; name: string }
 
 // Blog data mapping functions
-function mapBlogPost(dbPost: DbBlogPost, locale: Locale = 'en'): BlogPost {
+export function mapBlogPost(dbPost: DbBlogPost, locale: Locale = 'en'): BlogPost {
   return {
     id: dbPost.id,
     title: zh(dbPost.title_zh, dbPost.title, locale),
@@ -251,14 +49,14 @@ function mapBlogPost(dbPost: DbBlogPost, locale: Locale = 'en'): BlogPost {
   }
 }
 
-function mapBlogCategory(dbCategory: DbNamedRecord): BlogCategory {
+export function mapBlogCategory(dbCategory: DbNamedRecord): BlogCategory {
   return {
     id: dbCategory.id,
     name: dbCategory.name
   }
 }
 
-function mapBlogTag(dbTag: DbNamedRecord): BlogTag {
+export function mapBlogTag(dbTag: DbNamedRecord): BlogTag {
   return {
     id: dbTag.id,
     name: dbTag.name
