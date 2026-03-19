@@ -55,6 +55,7 @@ src/
     animation.ts       # Framer Motion variants
     utils.ts           # estimateReadingTime, formatDate
   test-utils/          # Jest render helper with ThemeProvider
+e2e/                   # Playwright E2E tests (87 tests across 18 spec files)
 messages/              # i18n JSON files (en.json, zh.json) for UI strings
 docs/                  # Architecture, decisions, DB schema
 scripts/               # Agent bootstrap (init.sh)

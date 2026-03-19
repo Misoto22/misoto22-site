@@ -6,8 +6,7 @@ test.describe('Command Palette', () => {
   })
 
   test('Cmd+K opens palette with focused search input', async ({ page }) => {
-    const modifier = process.platform === 'darwin' ? 'Meta' : 'Control'
-    await page.keyboard.press(`${modifier}+k`)
+    await page.keyboard.press('ControlOrMeta+k')
 
     const dialog = page.locator('[role="dialog"]')
     await expect(dialog).toBeVisible()
@@ -19,7 +18,7 @@ test.describe('Command Palette', () => {
   })
 
   test('shows Quick Links by default', async ({ page }) => {
-    await page.keyboard.press('Meta+k')
+    await page.keyboard.press('ControlOrMeta+k')
 
     const dialog = page.locator('[role="dialog"]')
     await expect(dialog).toBeVisible()
@@ -34,7 +33,7 @@ test.describe('Command Palette', () => {
   })
 
   test('typing filters results', async ({ page }) => {
-    await page.keyboard.press('Meta+k')
+    await page.keyboard.press('ControlOrMeta+k')
 
     const dialog = page.locator('[role="dialog"]')
     const input = dialog.locator('input[role="combobox"]')
@@ -48,7 +47,7 @@ test.describe('Command Palette', () => {
   })
 
   test('arrow keys navigate and Enter selects', async ({ page }) => {
-    await page.keyboard.press('Meta+k')
+    await page.keyboard.press('ControlOrMeta+k')
 
     const dialog = page.locator('[role="dialog"]')
     await expect(dialog).toBeVisible()
@@ -76,7 +75,7 @@ test.describe('Command Palette', () => {
   })
 
   test('shows Actions group by default', async ({ page }) => {
-    await page.keyboard.press('Meta+k')
+    await page.keyboard.press('ControlOrMeta+k')
 
     const dialog = page.locator('[role="dialog"]')
     await expect(dialog).toBeVisible()
@@ -91,7 +90,7 @@ test.describe('Command Palette', () => {
   })
 
   test('toggle theme action does not close palette', async ({ page }) => {
-    await page.keyboard.press('Meta+k')
+    await page.keyboard.press('ControlOrMeta+k')
 
     const dialog = page.locator('[role="dialog"]')
     await expect(dialog).toBeVisible()
@@ -104,7 +103,7 @@ test.describe('Command Palette', () => {
   })
 
   test('search returns dynamic content from API', async ({ page }) => {
-    await page.keyboard.press('Meta+k')
+    await page.keyboard.press('ControlOrMeta+k')
 
     const dialog = page.locator('[role="dialog"]')
     const input = dialog.locator('input[role="combobox"]')
@@ -123,7 +122,7 @@ test.describe('Command Palette', () => {
   })
 
   test('Escape closes palette', async ({ page }) => {
-    await page.keyboard.press('Meta+k')
+    await page.keyboard.press('ControlOrMeta+k')
 
     const dialog = page.locator('[role="dialog"]')
     await expect(dialog).toBeVisible()
