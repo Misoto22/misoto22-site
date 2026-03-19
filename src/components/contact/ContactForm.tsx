@@ -4,8 +4,11 @@ import { useState, useEffect } from 'react'
 import emailjs from '@emailjs/browser'
 import { motion } from 'framer-motion'
 import { fadeInUp, ANIMATION, viewportConfig } from '@/lib/animation'
+import { useTranslations } from 'next-intl'
 
 export default function ContactForm() {
+  const t = useTranslations('Contact.form')
+
   useEffect(() => {
     const publicKey = process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY
     const serviceId = process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID
@@ -42,7 +45,7 @@ export default function ContactForm() {
         submitting: false,
         submitted: false,
         error: true,
-        message: 'Please fill in all fields'
+        message: t('errorRequired')
       })
       return
     }
@@ -52,7 +55,7 @@ export default function ContactForm() {
         submitting: false,
         submitted: false,
         error: true,
-        message: 'Please enter a valid email address'
+        message: t('errorEmail')
       })
       return
     }
@@ -62,7 +65,7 @@ export default function ContactForm() {
       const templateId = process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID
 
       if (!serviceId || !templateId) {
-        throw new Error('EmailJS configuration is missing')
+        throw new Error(t('errorConfig'))
       }
 
       const templateParams = {
@@ -81,7 +84,7 @@ export default function ContactForm() {
           submitting: false,
           submitted: true,
           error: false,
-          message: 'Message sent successfully!'
+          message: t('success')
         })
         setFormData({ name: '', email: '', subject: '', message: '' })
       } else {
@@ -92,13 +95,19 @@ export default function ContactForm() {
         submitting: false,
         submitted: false,
         error: true,
-        message: 'Unable to send message at this time. Please try again later.'
+        message: t('errorGeneric')
       })
     }
   }
 
   const inputClass = "peer w-full bg-transparent border-b border-(--border-color) pb-2 pt-5 text-(--foreground) focus:outline-none focus:border-(--accent) transition-colors duration-300"
   const labelClass = "absolute left-0 top-5 text-(--secondary-text) text-sm transition-all duration-200 peer-placeholder-shown:top-5 peer-placeholder-shown:text-base peer-focus:top-0 peer-focus:text-xs peer-focus:text-(--accent) peer-[:not(:placeholder-shown)]:top-0 peer-[:not(:placeholder-shown)]:text-xs"
+
+  const fields = [
+    { id: 'name', type: 'text', label: t('name') },
+    { id: 'email', type: 'email', label: t('email') },
+    { id: 'subject', type: 'text', label: t('subject') },
+  ]
 
   return (
     <motion.div
@@ -116,11 +125,7 @@ export default function ContactForm() {
           <p className="text-sm text-red-700 dark:text-red-400">{status.message}</p>
         )}
 
-        {[
-          { id: 'name', type: 'text', label: 'Name' },
-          { id: 'email', type: 'email', label: 'Email' },
-          { id: 'subject', type: 'text', label: 'Subject' },
-        ].map(({ id, type, label }) => (
+        {fields.map(({ id, type, label }) => (
           <div key={id} className="relative">
             <input
               type={type}
@@ -145,7 +150,7 @@ export default function ContactForm() {
             required
             className={`${inputClass} resize-none`}
           />
-          <label htmlFor="message" className={labelClass}>Message</label>
+          <label htmlFor="message" className={labelClass}>{t('message')}</label>
         </div>
 
         <button
@@ -153,7 +158,7 @@ export default function ContactForm() {
           disabled={status.submitting}
           className="bg-(--accent) text-white px-8 py-3 rounded-lg font-medium text-sm tracking-wide hover:bg-(--accent-hover) transition-colors duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
         >
-          {status.submitting ? 'Sending...' : 'Send Message'}
+          {status.submitting ? t('sending') : t('send')}
         </button>
       </form>
     </motion.div>

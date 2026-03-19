@@ -10,13 +10,18 @@
       "protobufjs",
       "sharp",
       "unrs-resolver"
-    ]
+    ],
+    "overrides": {
+      "minimatch@<3.1.5": "3.1.5",
+      "flatted@<3.4.2": "3.4.2"
+    }
   },
   "scripts": {
     "dev": "NODE_OPTIONS='--localstorage-file=./.node-localstorage/storage.db' next dev",
     "build": "next build",
     "start": "PORT=3000 HOST=0.0.0.0 next start",
-    "lint": "next lint",
+    "lint": "eslint src/",
+    "typecheck": "tsc --noEmit",
     "test": "jest",
     "test:watch": "jest --watch",
     "test:coverage": "jest --coverage",
@@ -32,6 +37,7 @@
     "highlight.js": "^11.11.1",
     "lucide-react": "^0.577.0",
     "next": "16.1.6",
+    "next-intl": "^4.8.3",
     "next-view-transitions": "^0.3.5",
     "react": "^19.2.4",
     "react-dom": "^19.2.4",
@@ -55,7 +61,7 @@
     "@typescript-eslint/eslint-plugin": "^8.57.1",
     "@typescript-eslint/parser": "^8.57.1",
     "dotenv": "^17.3.1",
-    "eslint": "^10.0.3",
+    "eslint": "^9.39.4",
     "eslint-config-next": "16.1.6",
     "jest": "^30.3.0",
     "jest-environment-jsdom": "^30.3.0",

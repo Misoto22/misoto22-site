@@ -1,7 +1,8 @@
 "use client"
 
 import React, { useState, useEffect } from 'react'
-import { BlogCategory } from '@/lib/supabase'
+import type { BlogCategory } from '@/lib/data'
+import { useTranslations } from 'next-intl'
 
 interface CategoryFilterProps {
   selectedCategory?: string
@@ -12,6 +13,7 @@ const CategoryFilter: React.FC<CategoryFilterProps> = ({
   selectedCategory,
   onCategoryChange
 }) => {
+  const t = useTranslations('Blog')
   const [categories, setCategories] = useState<BlogCategory[]>([])
   const [loading, setLoading] = useState(true)
 
@@ -56,7 +58,7 @@ const CategoryFilter: React.FC<CategoryFilterProps> = ({
             : 'text-(--secondary-text) hover:text-(--foreground)'
         }`}
       >
-        All
+        {t('all')}
       </button>
 
       {categories.map((category) => (

@@ -6,7 +6,7 @@ import remarkGfm from 'remark-gfm'
 import rehypeHighlight from 'rehype-highlight'
 import rehypeSlug from 'rehype-slug'
 import Image from 'next/image'
-import { Link } from 'next-view-transitions'
+import { Link } from '@/i18n/navigation'
 
 // 从 pre > code 子节点中提取纯文本
 function extractText(node: React.ReactNode): string {

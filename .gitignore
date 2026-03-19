@@ -2,7 +2,6 @@
 
 # Personal Notes
 /notes
-/docs
 
 # dependencies
 /node_modules
@@ -41,7 +40,6 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
-scripts/
 
 # Cursor
 .cursor

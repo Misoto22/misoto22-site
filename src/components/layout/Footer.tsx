@@ -1,8 +1,19 @@
 import { FaGithub, FaLinkedin, FaInstagram } from 'react-icons/fa'
 import { FULL_NAME, EMAIL, LOCATION, GITHUB_URL, LINKEDIN_URL, INSTAGRAM_URL } from '@/lib/constants'
-import { Link } from 'next-view-transitions'
+import { Link } from '@/i18n/navigation'
+import { useTranslations } from 'next-intl'
 
 const Footer = () => {
+  const t = useTranslations()
+
+  const footerLinks = [
+    { href: '/projects', textKey: 'Nav.projects' as const },
+    { href: '/photography', textKey: 'Nav.photography' as const },
+    { href: '/blog', textKey: 'Nav.blog' as const },
+    { href: '/contact', textKey: 'Nav.contact' as const },
+    { href: '/stats', textKey: 'Nav.stats' as const },
+  ]
+
   return (
     <footer className="border-t border-(--border-color) bg-(--background)">
       <div className="max-w-7xl mx-auto px-6 py-16 md:py-20">
@@ -13,27 +24,21 @@ const Footer = () => {
               {FULL_NAME}
             </Link>
             <p className="text-(--secondary-text) text-sm leading-relaxed max-w-xs">
-              Fullstack developer & photographer based in Sydney, building thoughtful software and capturing quiet moments.
+              {t('Footer.tagline')}
             </p>
           </div>
 
           {/* Navigation */}
           <div className="space-y-4">
-            <h3 className="text-xs font-mono uppercase tracking-widest text-(--secondary-text)">Navigate</h3>
+            <h3 className="text-xs font-mono uppercase tracking-widest text-(--secondary-text)">{t('Footer.navigate')}</h3>
             <nav className="flex flex-col space-y-2">
-              {[
-                { href: '/projects', text: 'Projects' },
-                { href: '/photography', text: 'Photography' },
-                { href: '/blog', text: 'Blog' },
-                { href: '/contact', text: 'Contact' },
-                { href: '/stats', text: 'Stats' },
-              ].map((link) => (
+              {footerLinks.map((link) => (
                 <Link
                   key={link.href}
                   href={link.href}
                   className="text-sm text-(--foreground-muted) hover:text-(--foreground) transition-colors duration-200 w-fit"
                 >
-                  {link.text}
+                  {t(link.textKey)}
                 </Link>
               ))}
             </nav>
@@ -41,7 +46,7 @@ const Footer = () => {
 
           {/* Contact */}
           <div className="space-y-4">
-            <h3 className="text-xs font-mono uppercase tracking-widest text-(--secondary-text)">Connect</h3>
+            <h3 className="text-xs font-mono uppercase tracking-widest text-(--secondary-text)">{t('Footer.connect')}</h3>
             <div className="space-y-2">
               <a
                 href={`mailto:${EMAIL}`}

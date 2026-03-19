@@ -3,15 +3,17 @@ import Image from 'next/image'
 import Badge from '@/components/ui/Badge'
 import MarkdownRenderer from './MarkdownRenderer'
 import TableOfContents from './TableOfContents'
-import { BlogPost } from '@/lib/supabase'
-import { Link } from 'next-view-transitions'
+import type { BlogPost } from '@/lib/data'
+import { Link } from '@/i18n/navigation'
 import { estimateReadingTime, formatDate } from '@/lib/utils'
+import { useTranslations } from 'next-intl'
 
 interface BlogPostContentProps {
   post: BlogPost
 }
 
 const BlogPostContent: React.FC<BlogPostContentProps> = ({ post }) => {
+  const t = useTranslations('Blog')
   const readingTime = estimateReadingTime(post.content)
 
   return (
@@ -24,7 +26,7 @@ const BlogPostContent: React.FC<BlogPostContentProps> = ({ post }) => {
           href="/blog"
           className="inline-flex items-center text-sm text-(--secondary-text) hover:text-(--foreground) transition-colors duration-200 mb-8 gap-2"
         >
-          <span aria-hidden="true">&larr;</span> Back to blog
+          <span aria-hidden="true">&larr;</span> {t('backToBlogShort')}
         </Link>
 
         {/* Cover Image — wider than content */}
@@ -63,7 +65,7 @@ const BlogPostContent: React.FC<BlogPostContentProps> = ({ post }) => {
           <div className="flex flex-wrap items-center gap-4 text-xs font-mono text-(--secondary-text) pt-2">
             {post.author && <span>{post.author.name}</span>}
             {post.publishedAt && <span>{formatDate(post.publishedAt)}</span>}
-            <span>{readingTime} min read</span>
+            <span>{t('minRead', { time: readingTime })}</span>
           </div>
 
           {/* Tags */}

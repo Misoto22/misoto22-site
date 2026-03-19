@@ -1,7 +1,6 @@
 'use client'
 
-import { useTransitionRouter } from 'next-view-transitions'
-import { usePathname } from 'next/navigation'
+import { useRouter, usePathname } from '@/i18n/navigation'
 import { ReactNode, useCallback, useEffect } from 'react'
 import { NAV_PAGES } from '@/lib/constants'
 
@@ -10,7 +9,7 @@ interface KeyboardNavigationProps {
 }
 
 const KeyboardNavigation = ({ children }: KeyboardNavigationProps) => {
-  const router = useTransitionRouter()
+  const router = useRouter()
   const pathname = usePathname()
 
   // Create a flattened list of all navigable pages

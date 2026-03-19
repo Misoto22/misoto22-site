@@ -1,20 +1,23 @@
 import React from 'react'
 import Image from 'next/image'
-import { Link } from 'next-view-transitions'
-import type { BlogPost } from '@/lib/supabase'
+import { Link } from '@/i18n/navigation'
+import type { BlogPost } from '@/lib/data'
 import { estimateReadingTime, formatDate } from '@/lib/utils'
+import { useTranslations } from 'next-intl'
 
 interface RelatedPostsProps {
   posts: BlogPost[]
 }
 
 const RelatedPosts: React.FC<RelatedPostsProps> = ({ posts }) => {
+  const t = useTranslations('Blog')
+
   if (posts.length === 0) return null
 
   return (
     <div className="mt-16 pt-10 border-t border-(--border-color)">
       <h2 className="font-heading text-2xl text-(--foreground) mb-8">
-        Related Articles
+        {t('relatedArticles')}
       </h2>
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
@@ -38,7 +41,7 @@ const RelatedPosts: React.FC<RelatedPostsProps> = ({ posts }) => {
             <p className="font-mono text-[11px] text-(--secondary-text) mb-1.5">
               {post.publishedAt && formatDate(post.publishedAt)}
               {' · '}
-              {estimateReadingTime(post.content)} min read
+              {t('minRead', { time: estimateReadingTime(post.content) })}
             </p>
             <h3 className="font-heading text-lg text-(--foreground) group-hover:text-(--accent) transition-colors duration-200 leading-snug">
               {post.title}
