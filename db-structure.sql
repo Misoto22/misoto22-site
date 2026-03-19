@@ -1,5 +1,6 @@
 -- WARNING: This schema is for context only and is not meant to be run.
 -- Table order and constraints may not be valid for execution.
+-- Bilingual columns (_zh suffix) fall back to English when NULL.
 
 CREATE TABLE public.blog_categories (
   id uuid NOT NULL DEFAULT gen_random_uuid(),
@@ -26,6 +27,8 @@ CREATE TABLE public.blog_posts (
   author_id uuid,
   category_id uuid,
   subcategory_id uuid,
+  title_zh text,
+  summary_zh text,
   CONSTRAINT blog_posts_pkey PRIMARY KEY (id),
   CONSTRAINT posts_author_id_fkey FOREIGN KEY (author_id) REFERENCES public.users(id),
   CONSTRAINT posts_subcategory_id_fkey FOREIGN KEY (subcategory_id) REFERENCES public.blog_subcategories(id),
@@ -45,12 +48,15 @@ CREATE TABLE public.education (
   school_link text,
   location text NOT NULL,
   period text NOT NULL,
-  description ARRAY NOT NULL,
-  courses ARRAY NOT NULL,
+  description text[] NOT NULL,
+  courses text[] NOT NULL,
   logo text NOT NULL,
-  order integer DEFAULT 0,
+  "order" integer DEFAULT 0,
   created_at timestamp with time zone DEFAULT now(),
   updated_at timestamp with time zone DEFAULT now(),
+  degree_zh text,
+  description_zh text[],
+  courses_zh text[],
   CONSTRAINT education_pkey PRIMARY KEY (id)
 );
 CREATE TABLE public.experience (
@@ -60,12 +66,14 @@ CREATE TABLE public.experience (
   company_link text,
   location text NOT NULL,
   period text NOT NULL,
-  description ARRAY NOT NULL,
-  technologies ARRAY NOT NULL,
+  description text[] NOT NULL,
+  technologies text[] NOT NULL,
   logo text NOT NULL,
-  order integer DEFAULT 0,
+  "order" integer DEFAULT 0,
   created_at timestamp with time zone DEFAULT now(),
   updated_at timestamp with time zone DEFAULT now(),
+  title_zh text,
+  description_zh text[],
   CONSTRAINT experience_pkey PRIMARY KEY (id)
 );
 CREATE TABLE public.photos (
@@ -74,12 +82,19 @@ CREATE TABLE public.photos (
   width integer NOT NULL,
   height integer NOT NULL,
   alt text NOT NULL,
-  order integer DEFAULT 0,
+  "order" integer DEFAULT 0,
   created_at timestamp with time zone DEFAULT now(),
   updated_at timestamp with time zone DEFAULT now(),
   basename text NOT NULL,
   type text NOT NULL,
   taken_at timestamp with time zone,
+  camera text,
+  lens text,
+  focal_length text,
+  aperture text,
+  shutter_speed text,
+  iso text,
+  alt_zh text,
   CONSTRAINT photos_pkey PRIMARY KEY (id)
 );
 CREATE TABLE public.projects (
@@ -88,12 +103,14 @@ CREATE TABLE public.projects (
   description text NOT NULL,
   link text NOT NULL,
   deploy text,
-  technologies ARRAY NOT NULL,
+  technologies text[] NOT NULL,
   image_path text NOT NULL,
   category text NOT NULL,
-  order integer DEFAULT 0,
+  "order" integer DEFAULT 0,
   created_at timestamp with time zone DEFAULT now(),
   updated_at timestamp with time zone DEFAULT now(),
+  title_zh text,
+  description_zh text,
   CONSTRAINT projects_pkey PRIMARY KEY (id)
 );
 CREATE TABLE public.tags (
