@@ -53,8 +53,7 @@ test.describe('Accessibility', () => {
     // Theme toggle
     await expect(page.getByRole('button', { name: 'Toggle theme' }).first()).toBeVisible()
 
-    // Locale buttons
-    await expect(page.getByRole('button', { name: 'English' }).first()).toBeVisible()
-    await expect(page.getByRole('button', { name: '中文' }).first()).toBeVisible()
+    // Locale toggle (unified toolbar shows one button to switch to the other language)
+    await expect(page.getByRole('button', { name: '切换到中文' }).first()).toBeVisible()
   })
 })

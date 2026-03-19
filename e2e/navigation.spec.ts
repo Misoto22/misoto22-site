@@ -82,13 +82,14 @@ test.describe('Navigation', () => {
       localStorage.setItem('theme', 'light')
     })
     await page.reload()
+    await page.waitForTimeout(500)
 
     const htmlEl = page.locator('html')
     await expect(htmlEl).not.toHaveClass(/dark/)
 
     // cycleTheme: light(0) → dark(1). One click should add 'dark' class
-    // getByRole finds only the visible button (accessibility tree excludes display:none)
     await page.getByRole('button', { name: 'Toggle theme' }).first().click()
+    await page.waitForTimeout(300)
 
     await expect(htmlEl).toHaveClass(/dark/)
 
@@ -98,19 +99,19 @@ test.describe('Navigation', () => {
   })
 
   test('locale switch to Chinese adds /zh prefix', async ({ page }) => {
-    // getByRole already filters hidden elements, so .first() gets the visible one
-    await page.getByRole('button', { name: '中文' }).first().click()
+    // Unified toolbar shows a single locale toggle button
+    await page.getByRole('button', { name: '切换到中文' }).first().click()
 
     await expect(page).toHaveURL(/\/zh/)
 
-    // Verify Chinese content is present (use page title or main content, not hidden nav)
+    // Verify Chinese content is present
     await expect(page.locator('main, #main-content').getByText(/开发者|摄影师|首页/).first()).toBeVisible({ timeout: 10000 })
   })
 
   test('locale switch back to English removes /zh prefix', async ({ page }) => {
     await page.goto('/zh')
 
-    await page.getByRole('button', { name: 'English' }).first().click()
+    await page.getByRole('button', { name: 'Switch to English' }).first().click()
 
     await expect(page).not.toHaveURL(/\/zh/)
 
