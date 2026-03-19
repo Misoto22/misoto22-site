@@ -7,12 +7,12 @@ const Footer = () => {
   const t = useTranslations()
 
   const footerLinks = [
-    { href: '/projects', textKey: 'Nav.projects' },
-    { href: '/photography', textKey: 'Nav.photography' },
-    { href: '/blog', textKey: 'Nav.blog' },
-    { href: '/contact', textKey: 'Nav.contact' },
-    { href: '/stats', text: 'Stats' },
-  ] as const
+    { href: '/projects', textKey: 'Nav.projects' as const },
+    { href: '/photography', textKey: 'Nav.photography' as const },
+    { href: '/blog', textKey: 'Nav.blog' as const },
+    { href: '/contact', textKey: 'Nav.contact' as const },
+    { href: '/stats', textKey: 'Nav.stats' as const },
+  ]
 
   return (
     <footer className="border-t border-(--border-color) bg-(--background)">
@@ -38,7 +38,7 @@ const Footer = () => {
                   href={link.href}
                   className="text-sm text-(--foreground-muted) hover:text-(--foreground) transition-colors duration-200 w-fit"
                 >
-                  {'textKey' in link ? t(link.textKey) : link.text}
+                  {t(link.textKey)}
                 </Link>
               ))}
             </nav>

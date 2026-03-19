@@ -2,12 +2,14 @@
 
 import Image from 'next/image'
 import { Link } from '@/i18n/navigation'
+import { useTranslations } from 'next-intl'
 
 interface PhotoStripProps {
   photos: { id: string; src: string; width: number; height: number; alt: string }[]
 }
 
 export default function PhotoStrip({ photos }: PhotoStripProps) {
+  const t = useTranslations('Nav')
   if (photos.length === 0) return null
 
   // 双倍照片实现无缝循环
@@ -43,7 +45,7 @@ export default function PhotoStrip({ photos }: PhotoStripProps) {
           href="/photography"
           className="text-sm text-(--secondary-text) hover:text-(--foreground) transition-colors duration-200 flex items-center gap-2"
         >
-          <span className="font-mono text-xs uppercase tracking-widest">Photography</span>
+          <span className="font-mono text-xs uppercase tracking-widest">{t('photography')}</span>
           <span aria-hidden="true">&rarr;</span>
         </Link>
       </div>
