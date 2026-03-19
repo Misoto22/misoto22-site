@@ -2,15 +2,15 @@ import { NextRequest, NextResponse } from 'next/server'
 import { supabase } from '@/lib/supabase'
 
 // Bot 检测：常见爬虫关键词
-const BOT_PATTERNS = /bot|crawler|spider|crawling|facebookexternalhit|linkedinbot|twitterbot|slackbot|whatsapp|preview|headless|phantom|selenium/i
+export const BOT_PATTERNS = /bot|crawler|spider|crawling|facebookexternalhit|linkedinbot|twitterbot|slackbot|whatsapp|preview|headless|phantom|selenium/i
 
-function parseDevice(ua: string): string {
+export function parseDevice(ua: string): string {
   if (/tablet|ipad/i.test(ua)) return 'tablet'
   if (/mobile|iphone|android.*mobile/i.test(ua)) return 'mobile'
   return 'desktop'
 }
 
-function parseBrowser(ua: string): string {
+export function parseBrowser(ua: string): string {
   if (/edg/i.test(ua)) return 'Edge'
   if (/chrome|crios/i.test(ua)) return 'Chrome'
   if (/firefox|fxios/i.test(ua)) return 'Firefox'
@@ -19,7 +19,7 @@ function parseBrowser(ua: string): string {
   return 'Other'
 }
 
-function extractDomain(referrer: string): string | null {
+export function extractDomain(referrer: string): string | null {
   if (!referrer) return null
   try {
     const url = new URL(referrer)
@@ -33,7 +33,7 @@ function extractDomain(referrer: string): string | null {
 }
 
 // 简单的 session hash：基于日期 + path + UA 片段，不存 IP
-function createSessionHash(date: string, path: string, ua: string): string {
+export function createSessionHash(date: string, path: string, ua: string): string {
   const raw = `${date}:${path}:${ua.slice(0, 50)}`
   let hash = 0
   for (let i = 0; i < raw.length; i++) {
