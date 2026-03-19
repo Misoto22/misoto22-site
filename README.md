@@ -38,7 +38,7 @@ A personal portfolio and blog — built with Next.js, TypeScript, and Supabase.
 - **ISR** with on-demand revalidation
 - **Framer Motion** animations throughout
 - **Mobile-first** responsive design
-- **CI pipeline** — lint, typecheck, build, test on every PR
+- **CI pipeline** — lint, typecheck, build, unit tests, E2E tests on every PR
 
 ---
 
@@ -51,7 +51,7 @@ A personal portfolio and blog — built with Next.js, TypeScript, and Supabase.
 | **UI** | React 19 · Tailwind CSS 4.2 · Framer Motion 12 |
 | **i18n** | next-intl (en/zh) |
 | **Data** | Supabase PostgreSQL · Supabase Storage |
-| **Testing** | Jest 30 · Testing Library |
+| **Testing** | Jest 30 · Testing Library · Playwright (E2E) |
 | **Deploy** | Vercel (auto-deploy on push) |
 
 ---
@@ -102,8 +102,10 @@ pnpm dev             Dev server
 pnpm build           Production build
 pnpm lint            ESLint
 pnpm typecheck       TypeScript check
-pnpm test            Run tests
-pnpm test:coverage   Tests with coverage
+pnpm test            Unit tests (Jest)
+pnpm test:coverage   Unit tests with coverage
+pnpm test:e2e        E2E tests (Playwright)
+pnpm test:e2e:ui     E2E tests with interactive UI
 ```
 
 ---
