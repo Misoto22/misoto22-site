@@ -1,12 +1,18 @@
 "use client"
 
 import { useTheme } from '@/context/ThemeContext'
-import { Sun, Moon } from 'lucide-react'
+import { Sun, Moon, Monitor } from 'lucide-react'
 import { motion, AnimatePresence } from 'framer-motion'
 
+const THEME_ICONS = {
+  light: { icon: Sun, rotate: 90 },
+  dark: { icon: Moon, rotate: -90 },
+  system: { icon: Monitor, rotate: 0 },
+} as const
+
 export default function ThemeSelector() {
-  const { resolvedTheme, cycleTheme } = useTheme()
-  const isDark = resolvedTheme === 'dark'
+  const { theme, cycleTheme } = useTheme()
+  const { icon: Icon, rotate } = THEME_ICONS[theme]
 
   return (
     <button
@@ -16,13 +22,13 @@ export default function ThemeSelector() {
     >
       <AnimatePresence mode="wait">
         <motion.div
-          key={isDark ? 'dark' : 'light'}
-          initial={{ scale: 0, rotate: isDark ? -90 : 90 }}
+          key={theme}
+          initial={{ scale: 0, rotate }}
           animate={{ scale: 1, rotate: 0 }}
-          exit={{ scale: 0, rotate: isDark ? 90 : -90 }}
+          exit={{ scale: 0, rotate: -rotate }}
           transition={{ duration: 0.2, ease: 'easeInOut' }}
         >
-          {isDark ? <Moon className="w-5 h-5" /> : <Sun className="w-5 h-5" />}
+          <Icon className="w-5 h-5" />
         </motion.div>
       </AnimatePresence>
     </button>
