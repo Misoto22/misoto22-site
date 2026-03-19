@@ -1,36 +1,7 @@
 {
   "functions": {
-    "app/projects/page.tsx": {
+    "app/[locale]/projects/page.tsx": {
       "maxDuration": 30
     }
-  },
-  "headers": [
-    {
-      "source": "/projects",
-      "headers": [
-        {
-          "key": "Cache-Control",
-          "value": "public, max-age=3600, s-maxage=3600, stale-while-revalidate=86400"
-        }
-      ]
-    },
-    {
-      "source": "/photography",
-      "headers": [
-        {
-          "key": "Cache-Control",
-          "value": "public, max-age=3600, s-maxage=3600, stale-while-revalidate=86400"
-        }
-      ]
-    },
-    {
-      "source": "/((?!api/).*)",
-      "headers": [
-        {
-          "key": "Cache-Control",
-          "value": "public, max-age=3600, s-maxage=3600, stale-while-revalidate=86400"
-        }
-      ]
-    }
-  ]
+  }
 }
