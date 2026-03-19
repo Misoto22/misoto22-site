@@ -38,7 +38,7 @@ test.describe('Keyboard navigation', () => {
     await page.goto('/projects')
     await expect(page.getByRole('heading', { level: 1 })).toBeVisible({ timeout: 10000 })
 
-    await page.keyboard.press('Meta+k')
+    await page.keyboard.press('ControlOrMeta+k')
     await expect(page.locator('[role="dialog"]')).toBeVisible()
 
     await page.keyboard.press('ArrowRight')

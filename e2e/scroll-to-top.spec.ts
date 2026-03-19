@@ -45,7 +45,7 @@ test.describe('Scroll to top button', () => {
     await expect(button).toHaveClass(/opacity-100/, { timeout: 5000 })
 
     // Open command palette
-    await page.keyboard.press('Meta+k')
+    await page.keyboard.press('ControlOrMeta+k')
     await expect(page.locator('[role="dialog"]')).toBeVisible()
 
     // Button should hide (opacity-0)
