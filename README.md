@@ -29,13 +29,16 @@ A personal portfolio and blog — built with Next.js, TypeScript, and Supabase.
 
 ### Features
 
+- **Bilingual** — Chinese / English with next-intl (locale-prefix `as-needed`)
 - **Dark / Light theme** with smooth transitions
 - **Photography gallery** with masonry layout and lightbox
 - **Blog** with markdown rendering, categories, and tags
+- **Command palette** (Cmd+K) for quick navigation
 - **Contact form** via EmailJS
 - **ISR** with on-demand revalidation
 - **Framer Motion** animations throughout
 - **Mobile-first** responsive design
+- **CI pipeline** — lint, typecheck, build, test on every PR
 
 ---
 
@@ -45,7 +48,8 @@ A personal portfolio and blog — built with Next.js, TypeScript, and Supabase.
 |:--|:--|
 | **Framework** | Next.js 16 · Turbopack |
 | **Language** | TypeScript 5.9 |
-| **UI** | React 19.2 · Tailwind CSS 4.2 · Framer Motion 12 |
+| **UI** | React 19 · Tailwind CSS 4.2 · Framer Motion 12 |
+| **i18n** | next-intl (en/zh) |
 | **Data** | Supabase PostgreSQL · Supabase Storage |
 | **Testing** | Jest 30 · Testing Library |
 | **Deploy** | Vercel (auto-deploy on push) |
@@ -56,16 +60,25 @@ A personal portfolio and blog — built with Next.js, TypeScript, and Supabase.
 
 ```
 src/
-├── app/                 Pages & API routes (App Router)
+├── app/
+│   ├── [locale]/           Locale-aware pages (en default, /zh for Chinese)
+│   └── api/                REST API routes (photos, blog, command-palette)
 ├── components/
-│   ├── animations/      FadeInSlideUp, TextReveal
-│   ├── blog/            BlogCard, BlogPostContent, CategoryFilter
-│   ├── layout/          Navigation, Footer, PageHeader
-│   ├── photography/     ImageModal
-│   ├── sections/        ProjectCard, FeaturedWork, PhotoStrip, Timeline
-│   └── ui/              Badge, Card, Tag, ThemeSelector
-├── context/             ThemeContext
-└── lib/                 animation, constants, data, supabase, utils
+│   ├── animations/         FadeInSlideUp, TextReveal
+│   ├── blog/               BlogCard, BlogPostContent, CategoryFilter
+│   ├── command-palette/    Cmd+K search
+│   ├── contact/            Contact form
+│   ├── layout/             Navigation, Footer, PageHeader, LocaleSwitcher
+│   ├── photography/        ImageModal
+│   ├── sections/           ProjectCard, FeaturedWork, PhotoStrip
+│   └── ui/                 Badge, Card, Tag, ThemeSelector
+├── context/                ThemeContext
+├── i18n/                   next-intl routing, navigation, request config
+└── lib/
+    ├── data/               Domain-split fetchers + Db→Frontend mappers
+    └── ...                 animation, constants, supabase, utils
+messages/                   i18n strings (en.json, zh.json)
+docs/                       Architecture & decision records
 ```
 
 ---
@@ -87,6 +100,8 @@ pnpm dev                           # → http://localhost:3000
 ```
 pnpm dev             Dev server
 pnpm build           Production build
+pnpm lint            ESLint
+pnpm typecheck       TypeScript check
 pnpm test            Run tests
 pnpm test:coverage   Tests with coverage
 ```
