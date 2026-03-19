@@ -185,6 +185,13 @@ export default function CommandPalette() {
     return () => window.removeEventListener('keydown', handleKeyDown)
   }, [open, openPalette, closePalette])
 
+  // 允许其他组件通过 custom event 打开面板
+  useEffect(() => {
+    const handleOpen = () => openPalette()
+    window.addEventListener('open-command-palette', handleOpen)
+    return () => window.removeEventListener('open-command-palette', handleOpen)
+  }, [openPalette])
+
   // Filtered + grouped results
   const groups = useMemo(() => {
     const tokens = query

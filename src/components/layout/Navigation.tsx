@@ -4,8 +4,7 @@ import { Link } from '@/i18n/navigation'
 import { usePathname } from '@/i18n/navigation'
 import { useState, useEffect, useRef } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
-import ThemeSelector from '@/components/ui/ThemeSelector'
-import LocaleSwitcher from '@/components/layout/LocaleSwitcher'
+import NavToolbar from '@/components/layout/NavToolbar'
 import { DISPLAY_NAME } from '@/lib/constants'
 import { ANIMATION } from '@/lib/animation'
 import { useTranslations } from 'next-intl'
@@ -188,16 +187,14 @@ const Navigation = () => {
             )
           )}
 
-          <div className="ml-2 pl-2 border-l border-(--border-subtle) flex items-center gap-1">
-            <LocaleSwitcher />
-            <ThemeSelector />
+          <div className="ml-2 pl-2 border-l border-(--border-subtle) flex items-center">
+            <NavToolbar />
           </div>
         </div>
 
         {/* ─── Mobile: locale + theme + hamburger ─── */}
-        <div className="flex items-center gap-1 nav:hidden">
-          <LocaleSwitcher />
-          <ThemeSelector />
+        <div className="flex items-center gap-1.5 nav:hidden">
+          <NavToolbar />
           <button
             onClick={() => setIsMenuOpen(!isMenuOpen)}
             className="p-2 text-(--foreground) rounded-md hover:bg-(--accent-muted) transition-colors"
